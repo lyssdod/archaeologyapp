@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>New site</title>
+<meta charset="UTF-8">
+</head>
+<body>
+    <div>
+        <h1>Редагувати пам'ятку </h1>
+        <h2>Крок 1</h2>
+    </div>
+    <div>
+        <img src="http://lorempixel.com/400/200" alt="Upload image">
+    </div>
+    <div>
+        <form action="#" method="post">
+            <div>
+                <table>
+                    <tr>
+                        <td>Назва: </td>
+                        <td><input type="text" name="name"></td>
+                    </tr>
+                    <tr>
+                        <td>Топонiм:</td>
+                        <td><input type="text" name="type_site"></td>
+                    </tr>
+                    <tr>
+                        <td>Тип пам'ятки:</td>
+                        <td>
+                            <select name="toponim" size="1">
+                                <option value="horod">Городище</option>
+                                <option value="poselenna">Поселення</option>
+                                <option value="mohylnyk">Могильник</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td>Область:</td>
+                        <td>
+                            <select name="oblast" size="1">
+                                <option value="vinobl">Вiнницька</option>
+                                <option value="sumobl">Сумська</option>
+                                <option value="kyivobl">Київська</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Район:</td>
+                        <td>
+                            <select name="rajon" size="1">
+                                <option value="irpin">Iрпiнський</option>
+                                <option value="ladyzyn">Ладижинський</option>
+                                <option value="zadrypanks">Київський</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Населений пункт:</td>
+                        <td>
+                            <select name="punkt" size="1">
+                                <option value="dubky">Дубки</option>
+                                <option value="volnovaha">Волноваха</option>
+                                <option value="pisky">Пiски</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Примiтки: </td>
+                        <td><input type="text" name="prymitky"></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div>
+                <table>
+                    <tr>
+                        <td>Культурна належнiсть:</td>
+                        <td>
+                            <select name="kultnal" size="1">
+                                <option value="skif">Скiфська</option>
+                                <option value="juhnivska">Юхнiвська</option>
+                                <option value="dvoshar">Двошарова</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Вузька хронологiя: </td>
+                        <td><input type="text" name="crhon"></td>
+                    </tr>
+                    <tr>
+                        <td>Надiйнiсть датування: </td>
+                        <td><input type="text" name="nadijnist"></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div>
+                <table>
+                    <tr>
+                        <td>Розкопки: </td>
+                        <td><input type="text" name="rozkop"></td>
+                    </tr>
+                    <tr>
+                        <td>Звiти: </td>
+                        <td><input type="text" name="zvit"></td>
+                    </tr>
+                    <tr>
+                        <td>Публiкацiї: </td>
+                        <td><input type="text" name="publicacii"></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div>
+                <table>
+                    <tr>
+                        <td>Картографована:</td>
+                        <td>
+                            <select name="kartograph" size="1">
+                                <option value="yes">Так</option>
+                                <option value="no">Нi</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Координати: </td>
+                        <td><input type="text" name="coord"></td>
+                    </tr>
+                    <tr>
+                        <td>Точнiсть картографування:</td>
+                        <td>
+                            <select name="tochkart" size="1">
+                                <option value="tochno">Точно</option>
+                                <option value="zapryv">За прив'язкою</option>
+                                <option value="hipothet">Гiпотетично</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div>
+                 <table>
+                    <tr>
+                        <td>Тип топографiчного положення:</td>
+                        <td>
+                            <select name="toppoltype" size="1">
+                                <option value="duna">Дюна</option>
+                                <option value="terasa">Тераса</option>
+                                <option value="2terasa">2-га тераса</option>
+                                <option value="korinber">Корiнний берег</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Геоморфологiчна форма: </td>
+                        <td><input type="text" name="geomorform"></td>
+                    </tr>
+                    <tr>
+                        <td>Висота над рiвнем моря: </td>
+                        <td><input type="text" name="vysotnadrm"></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div>
+                <table>
+                    <tr>
+                        <td>Площа пам'ятки (га): </td>
+                        <td><input type="text" name="ploshch"></td>
+                    </tr>
+                    <tr>
+                        <td>Довжина: </td>
+                        <td><input type="text" name="dovz"></td>
+                    </tr>
+                    <tr>
+                        <td>Ширина: </td>
+                        <td><input type="text" name="shyr"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <input type="submit" value="Edit">
+                <a href = "#">Скасувати</a>
+            </div>
+        </form>
+        
+    </div>
+        
+</body>
+</html>
