@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome page</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div>
+        <h1>Archeology store of sites</h1>
+    </div>
+    <div>
+        <a href ="{{url_for('newSite')}}"> Add New Site </a>
+        <br>
+        <br>
+    </div>
+    <div>
+        <a href = "{{url_for('allSites')}}"> Show all Sites </a>
+        <br>
+        <br>
+    </div>
+    <div>
+        <form>Find the Site:
+            <input type="text" name="name_of_site">
+            <br>
+            <br>
+        </form>
+    <div>
+        Results of "Find the Site" funtion
+    </div>
+</body>
+</html>
+

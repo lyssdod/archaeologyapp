@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Видалення пам'ятки</title>
+<meta charset="UTF-8">
+</head>
+<body>
+    <div>
+        <h1>Видалити {{site.name}}?</h1>
+    <div>
+        <form action="#" method = 'post'>
+            <input type="submit", value="Delete">
+        </form>
+    </div>
+    <div>
+        <a href = "{{url_for('sitePage', site_id=site.id)}}"> Скасувати </a>
+    </div>
+</body>
+
+</html>
+

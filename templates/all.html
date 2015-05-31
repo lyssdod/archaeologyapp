@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome page</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div>
+        <h1>Усi пам'ятки</h1>
+    </div>
+    <div>
+        <a href ='#'> Add New Site </a>
+        <br>
+        <br>
+    </div>
+    </div>
+    <div>
+        <form>Find the Site:
+            <input type="text" name="name_of_site">
+            <br>
+            <br>
+        </form>
+    <div>
+        {% for site in sites %}
+        <a href = "{{url_for('sitePage', site_id = site.id)}}"> <p>{{site.name}}</p></a>
+        {% endfor %}
+
+    </div>
+</body>
+</html>
+
