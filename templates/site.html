@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>The site</title>
-<meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The site</title>
+    <link href="{{url_for('static', filename='bootstrap.min.css')}}" type="text/css" rel="stylesheet">
 </head>
 <body>
-    <div>
-        <h1> Пам'ятка {{name}} </h1>
-    </div>
-        <div>
-            <form action="#" method="post">
-            <input type="submit", value="Delete">
-        </form>
-    </div>
-    </br>
-    <div>
-        <img src="http://lorempixel.com/400/200" alt="Upload image">
-        <div>
-            <form action="#" method="post">
-                <input type="submit", value="Edit">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6"><h2>Arhaeology stuff</h2></div>
+        <div class="col-md-2">
+            <form>Пошук:
+                <input type="text" name="name_of_site">
             </form>
         </div>
-        </br>
+        <div class="col-md-1"><a href ="{{url_for('newSite')}}">Нова</a>
+        </div>
+        <div class="col-md-1"><a href = "{{url_for('allSites')}}">Усi</a>
+        </div>
+        <div class="col-md-1"><a href = "#">Увiйти</a></div>
+        <div class="col-md-1"><a href = "#">Зареєструватися</a></div>
     </div>
-    <div>
-        <form>
-            <div>
-                <table>
+    <div class = "row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h1>{{name}} </h1>
+        </div>
+        <div class="col-md-1">
+            <a href = "{{url_for('siteDelete', site_id=site.id)}}">Видалити</a>
+        </div>
+        <div class="col-md-1">
+            <a href = "{{url_for('siteEdit', site_id=site.id)}}">Редагувати</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="http://lorempixel.com/250/200" alt="Upload image">
+        </div>
+        <div class=col-md-4>
+                <table class="table">
                     <tr>
                         <td>Назва: </td>
                         <td>{{name}}</td>
                     </tr>
+                    <!--якась хуйня з цим тегом <dl> Якщо його прибрати, то чомусь зсувається елемент на сторiнцi -->
                     <tr>
                         <td>Топонiм:</td>
                         <td>{{toponim}}</td>
@@ -39,27 +54,27 @@
                         <td>Тип пам'ятки:</td>
                         <td>{{type_of_site}}</td>
                     </tr>
+                    <tr>
+                        <td>None</td>
+                        <td>None</td>
+                    </tr>
                 </table>
                 <div>
-                    <form action="#" method="post">
-                        <input type="submit", value="Edit">
-                    </form>
+                    <a href = "{{url_for('siteEdit', site_id=site.id)}}">Редагувати</a>
                 </div>
-                </br>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <td>Область:</td>
-                        <td>{{oblast}}</td>
-                    </tr>
-                    <tr>
-                        <td>Район:</td>
+        </div>
+        <div class="col-md-4">
+            <table class="table">
+                <tr>
+                    <td>Область:</td>
+                    <td>{{oblast}}</td>
+                </tr>
+                <tr>
+                    <td>Район:</td>
                         <td>{{rajon}}</td>
                     </tr>
-                    <br>
                     <tr>
-                        <td>Населений пункт:</td>
+                        <td>Населений пункт: </td>
                         <td>{{punkt}}</td>
                     </tr>
                     <tr>
@@ -68,15 +83,13 @@
                     </tr>
                 </table>
                 <div>
-                    <form action="#" method="post">
-                        <input type="submit", value="Edit">
-                    </form>
+                    <a href = "{{url_for('siteEditAd', site_id=site.id)}}">Редагувати</a>
                 </div>
-                </br>
-            </div>
-            <br>
-            <div>
-                <table>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <table class="table">
                     <tr>
                         <td>Культурна належнiсть:</td>
                         <td>{{kultnal}}</td>
@@ -91,15 +104,12 @@
                     </tr>
                 </table>
                 <div>
-                    <form action="#" method="post">
-                        <input type="submit", value="Edit">
-                    </form>
+                    <a href = "{{url_for('siteEditChron', site_id=site.id)}}">Редагувати</a>
                 </div>
 
             </div>
-            <br>
-            <div>
-                <table>
+            <div class="col-md-4">
+                <table class="table">
                     <tr>
                         <td>Розкопки: </td>
                         <td>{{rozkop}}</td>
@@ -114,15 +124,12 @@
                     </tr>
                 </table>
                 <div>
-                    <form action="#" method="post">
-                        <input type="submit", value="Edit">
-                    </form>
+                    <a href = "{{url_for('siteEditRozk', site_id=site.id)}}">Редагувати</a>
                 </div>
-
             </div>
-            <br>
-            <div>
-                <table>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table">
                     <tr>
                         <td>Картографована:</td>
                         <td>{{kartograph}}</td>
@@ -137,15 +144,11 @@
                     </tr>
                 </table>
                 <div>
-                    <form action="#" method="post">
-                        <input type="submit", value="Edit">
-                    </form>
+                    <a href = "{{url_for('siteEditMap', site_id=site.id)}}">Редагувати</a>
                 </div>
-
             </div>
-            <br>
-            <div>
-                 <table>
+            <div class="col-md-4">
+                 <table class="table">
                     <tr>
                         <td>Тип топографiчного положення:</td>
                         <td>{{toppoltype}}</td>
@@ -160,15 +163,11 @@
                     </tr>
                 </table>
                 <div>
-                    <form action="#" method="post">
-                        <input type="submit", value="Edit">
-                    </form>
+                    <a href = "{{url_for('siteEditTop', site_id=site.id)}}">Редагувати</a>
                 </div>
-
             </div>
-            <br>
-            <div>
-                <table>
+            <div class="col-md-4">
+                <table class="table">
                     <tr>
                         <td>Площа пам'ятки (га): </td>
                         <td>{{ploshch}}</td>
@@ -183,15 +182,14 @@
                     </tr> 
                 </table>
                 <div>
-                    <form action="#" method="post">
-                        <input type="submit", value="Edit">
-                    </form>
+                    <a href = "{{url_for('siteEditSpace', site_id=site.id)}}">Редагувати</a>
                 </div>
-
             </div>
-        </form>
+        </div>
+    <div class="row">
+        <div class="col-md-12">Written by BB</div>
     </div>
-        
+</div> 
 </body>
 </html>
 
