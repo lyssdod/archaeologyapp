@@ -95,34 +95,62 @@ def sitePage(site_id):
         if request.method == 'POST':
             return None
 
-@app.route('/<int:site_id>/edit/')
-@app.route('/<int:site_id>/edit/base')
+@app.route('/<int:site_id>/edit/', methods = ['GET', 'POST'])
+@app.route('/<int:site_id>/edit/base', methods = ['GET', 'POST'])
 def siteEdit(site_id):
-    return render_template('edit.html')
+    siteToEdit = session.query(Site).filter_by(id=site_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            siteToEdit.name = request.form['name']
+        if request.form['toponim']:
+            siteToEdit.toponim = request.form['toponim']
+        if request.form['type_of_site']:
+            siteToEdit.type_of_site = request.form['type_of_site']
+        if request.form['oblast']:
+            siteToEdit.oblast = request.form['oblast']
+        if request.form['rajon']:
+            siteToEdit.rajon = request.form['rajon']
+        if request.form['punkt']:
+            siteToEdit.punkt = request.form['punkt']
+        if request.form['prymitky']:
+            siteToEdit.prymitky = request.form['prymitky']
+        if request.form['kultnal']:
+            siteToEdit.kultnal = request.form['kultnal']
+        if request.form['chron']:
+            siteToEdit.chron = request.form['chron']
+        if request.form['nadijnist']:
+            siteToEdit.nadijnist = request.form['nadijnist']
+        if request.form['rozkop']:
+            siteToEdit.rozkop = request.form['rozkop']
+        if request.form['zvit']:
+            siteToEdit.zvit = request.form['zvit']
+        if request.form['publicacii']:
+            siteToEdit.publicacii = request.form['publicacii']
+        if request.form['kartograph']:
+            siteToEdit.kartograph = request.form['kartograph']
+        if request.form['coord']:
+            siteToEdit.coord = request.form['coord']
+        if request.form['tochkart']:
+            siteToEdit.tochkart = request.form['tochkart']
+        if request.form['toppoltype']:
+            siteToEdit.toppoltype = request.form['toppoltype']
+        if request.form['geomorform']:
+            siteToEdit.geomorform = request.form['geomorform']
+        if request.form['vysotnadrm']:
+            siteToEdit.vysotnadrm = request.form['vysotnadrm']
+        if request.form['ploshch']:
+            siteToEdit.ploshch = request.form['ploshch']
+        if request.form['dovz']:
+            siteToEdit.dovz = request.form['dovz']
+        if request.form['shyr']:
+            siteToEdit.shyr = request.form['shyr']
 
-@app.route('/<int:site_id>/edit/ad')
-def siteEditAd(site_id):
-    return render_template('editAd.html')
+        session.add(siteToEdit)
+        session.commit()
+        return redirect(url_for('sitePage', site_id=site_id))
 
-@app.route('/<int:site_id>/edit/chron')
-def siteEditCron(site_id):
-    return render_template('editChron.html')
-
-@app.route('/<int:site_id>/edit/rozk')
-def siteEditRozk(site_id):
-    return render_template('editRoz.html')
-
-@app.route('/<int:site_id>/edit/map')
-def siteEditMap(site_id):
-    return render_template('editMap.html')
-
-@app.route('/<int:site_id>/edit/top')
-def siteEditTop(site_id):
-    return render_template('editTop.html')
-
-@app.route('/<int:site_id>/edit/space')
-def siteEditSpace(site_id):
-    return render_template('editSpace.html')
+    else:
+        return render_template('edit.html', site=siteToEdit)
 
 @app.route('/<int:site_id>/delete/', methods=['GET', 'POST'])
 def siteDelete(site_id):
