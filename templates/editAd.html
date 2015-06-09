@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The site</title>
+<link href="{{url_for('static', filename='bootstrap.css')}}" type="text/css" rel="stylesheet">
+<link href="{{url_for('static', filename='my.css')}}" type="text/css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='bootstrap.min.js')}}"></script>
+</head>
+<body>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Collapsible Group Item #1
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Collapsible Group Item #2
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Collapsible Group Item #3
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+</div>
+    <div>
+        <h1>Редагувати пам'ятку {{site.name}}</h1>
+        <h2>Крок 2</h2>
+    </div>
+
+    <div>
+        <form action="#" method="post">
+            <div>
+                <table>
+                    <tr>
+                        <td>Область:</td>
+                        <td>
+                            <select name="oblast" size="1">
+                                <option value="Вiнницька">Вiнницька</option>
+                                <option value="Сумська">Сумська</option>
+                                <option value="Київська">Київська</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Район:</td>
+                        <td>
+                            <select name="rajon" size="1">
+                                <option value="Iрпiнський">Iрпiнський</option>
+                                <option value="Ладижинський">Ладижинський</option>
+                                <option value="Київський">Київський</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Населений пункт:</td>
+                        <td>
+                            <select name="punkt" size="1">
+                                <option value="Дубки">Дубки</option>
+                                <option value="Волноваха">Волноваха</option>
+                                <option value="Пiски">Пiски</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Примiтки: </td>
+                        <td><input type="text" name="prymitky"></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Зберегти">
+                <a href = "{{url_for('sitePage', site_id=site.id)}}">Повернутися</a>
+            </div>
+            <div>
+                <a href = "{{url_for('siteEdit', site_id=site.id)}}">Попереднiй крок</a>
+
+                <a href = "{{url_for('siteEditChron', site_id=site.id)}}">Наступний крок</a>
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome page</title>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The site</title>
+    <link href="{{url_for('static', filename='bootstrap.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{url_for('static', filename='my.css')}}" type="text/css" rel="stylesheet">
+
 </head>
-<body>
-    <div>
-        <h1>Archeology store of sites</h1>
+<body class="background">
+<div class="container container-config textcol">
+    <div class="row header">
+    <div class="col-md-5"><a href = "{{url_for('welcomePage')}}" class="btn btn-sm"><h2 class="logo">Skiff stuff</h2></a></div>
+        <div class="col-md-2 padding">
+            <form class="form-inline box-shadow">
+                <label class="sr-only">Пошук:</label>
+                <input class="form-control" type="text" name="name_of_site" placeholder="Пошук пам'яток">
+            </form>
+        </div>
+        <div class="col-md-1 text-center padding"><a href ="{{url_for('newSite')}}" class="btn btn-color btn-sm">Нова</a>
+        </div>
+        <div class="col-md-1 text-center padding"><a href = "{{url_for('allSites')}}" class="btn btn-color btn-sm">Усi</a>
+        </div>
+        <div class="col-md-1 text-center padding"><a href = "#" class="btn btn-color btn-sm">Увiйти</a></div>
+        <div class="col-md-2 text-center padding"><a href = "#" class="btn btn-color btn-sm">Зареєструватися</a></div>
     </div>
-    <div>
-        <a href ="{{url_for('newSite')}}"> Add New Site </a>
-        <br>
-        <br>
+    <div class="row">
+        <h1 class="text-center">Вiтаємо у базi данних археологiчних пам'яток!</h1>
     </div>
-    <div>
-        <a href = "{{url_for('allSites')}}"> Show all Sites </a>
-        <br>
-        <br>
-    </div>
-    <div>
-        <form>Find the Site:
-            <input type="text" name="name_of_site">
-            <br>
-            <br>
-        </form>
-    <div>
-        Results of "Find the Site" funtion
-    </div>
+<footer class="footer">
+<div class="container">
+        <div class="header text-right"><strong class="signature">Written by BB</strong></div>
+</div>
+</footer>
+</div>
 </body>
 </html>
 

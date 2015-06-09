@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>New site</title>
+<meta charset="UTF-8">
+</head>
+<body>
+    <div>
+        <h1>Редагувати пам'ятку {{site.name}}</h1>
+        <h2>Крок 5</h2>
+    </div>
+    <div>
+        <form action="#" method="post">
+            <div>
+                <table>
+                    <tr>
+                        <td>Картографована:</td>
+                        <td>
+                            <select name="kartograph" size="1">
+                                <option value="Так">Так</option>
+                                <option value="Нi">Нi</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Координати: </td>
+                        <td><input type="text" name="coord"></td>
+                    </tr>
+                    <tr>
+                        <td>Точнiсть картографування:</td>
+                        <td>
+                            <select name="tochkart" size="1">
+                                <option value="Точно">Точно</option>
+                                <option value="За прив'язкою">За прив'язкою</option>
+                                <option value="Гiпотетично">Гiпотетично</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Зберегти">
+                <a href = "{{url_for('sitePage', site_id=site.id)}}">Повернутися</a>
+            </div>
+            <div>
+                <a href = "{{url_for('siteEditRozk', site_id=site.id)}}">Попереднiй крок</a>
+                <a href = "{{url_for('siteEditTop', site_id=site.id)}}">Наступний крок</a>
+            </div>
+        </form>
+    </body>
+</html>

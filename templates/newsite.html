@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>New site</title>
-<meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The site</title>
+    <link href="{{url_for('static', filename='bootstrap.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{url_for('static', filename='my.css')}}" type="text/css" rel="stylesheet">
+
 </head>
-<body>
-    <div>
-        <h1> Нова Пам'ятка </h1>
-    </div
-    <div>
-        <img src="http://lorempixel.com/400/200" alt="Upload image">
+<body class="background">
+<div class="container conteiner-config textcol">
+    <div class="row header">
+    <div class="col-md-5"><a href = "{{url_for('welcomePage')}}" class="btn btn-sm"><h2 class="logo">Skiff stuff</h2></a></div>
+        <div class="col-md-2 padding">
+            <form class="form-inline box-shadow">
+                <label class="sr-only">Пошук:</label>
+                <input class="form-control" type="text" name="name_of_site" placeholder="Пошук пам'яток">
+            </form>
+        </div>
+        <div class="col-md-1 text-center padding"><a href ="{{url_for('newSite')}}" class="btn btn-color btn-sm">Нова</a>
+        </div>
+        <div class="col-md-1 text-center padding"><a href = "{{url_for('allSites')}}" class="btn btn-color btn-sm">Усi</a>
+        </div>
+        <div class="col-md-1 text-center padding"><a href = "#" class="btn btn-color btn-sm">Увiйти</a></div>
+        <div class="col-md-2 text-center padding"><a href = "#" class="btn btn-color btn-sm">Зареєструватися</a></div>
     </div>
-    <div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h2 class="site_name">Створити нову пам'ятку</h2>
+        </div>
+    </div>
+    <hr class="hrr"> 
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img src="http://lorempixel.com/400/200" alt="Upload image">
+        </div>
+    </div>
         <form action="#" method="post">
-            <div>
-                <table>
+            <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <table class="table">
                     <tr>
                         <td>Назва: </td>
-                        <td><input type="text" name="name"></td>
+                        <td><input type="text" name="name" autofocus></td>
                     </tr>
                     <tr>
                         <td>Топонiм:</td>
@@ -35,8 +61,10 @@
                     </tr>
                 </table>
             </div>
-            <div>
-                <table>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                <table class="table">
                     <tr>
                         <td>Область:</td>
                         <td>
@@ -57,7 +85,6 @@
                             </select>
                         </td>
                     </tr>
-                    <br>
                     <tr>
                         <td>Населений пункт:</td>
                         <td>
@@ -74,9 +101,10 @@
                     </tr>
                 </table>
             </div>
-            <br>
-            <div>
-                <table>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                <table class="table">
                     <tr>
                         <td>Культурна належнiсть:</td>
                         <td>
@@ -97,9 +125,10 @@
                     </tr>
                 </table>
             </div>
-            <br>
-            <div>
-                <table>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                <table class="table">
                     <tr>
                         <td>Розкопки: </td>
                         <td><input type="text" name="rozkop"></td>
@@ -114,9 +143,10 @@
                     </tr>
                 </table>
             </div>
-            <br>
-            <div>
-                <table>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                <table class="table">
                     <tr>
                         <td>Картографована:</td>
                         <td>
@@ -142,9 +172,10 @@
                     </tr>
                 </table>
             </div>
-            <br>
-            <div>
-                 <table>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                 <table class="table">
                     <tr>
                         <td>Тип топографiчного положення:</td>
                         <td>
@@ -166,9 +197,10 @@
                     </tr>
                 </table>
             </div>
-            <br>
-            <div>
-                <table>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                <table class="table">
                     <tr>
                         <td>Площа пам'ятки (га): </td>
                         <td><input type="text" name="ploshch"></td>
@@ -183,12 +215,21 @@
                     </tr> 
                 </table>
             </div>
-            <div>
-                <input type="submit" value="Створити">
-                <a href = "#">Скасувати</a>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <input type="submit" value="Створити" class="btn btn-border-color textcol btn-sm background">
+                    <a href = "{{url_for('welcomePage')}}" class="btn btn-border-color textcol btn-sm background">Скасувати</a>
+                </div>
             </div> 
         </form>
+<footer class="footer">
+    <div class="container">
+        <div class="header text-right"><strong class="signature">Written by BB</strong>
+        </div>
     </div>
-        
+</footer>
+</div>
+
 </body>
 </html>
