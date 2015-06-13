@@ -167,11 +167,21 @@ def allSites():
     sites = session.query(Site).all()
     return render_template('all.html', sites=sites)
 
+def search():
+    if request.form["sname"]:
+        sname= request.form["sname"]
+        sSite = session.query(Site).filter_by(name=sname)
+        return render_template('sitePage', site=sSite) 
+
 #sites = session.query(Site).all()
 #for site in sites:
  #   print site.name
 #thesite = session.query(Site).filter_by(id=1).one()
 #print thesite.name
+
+def findName(find_input):
+    nameOfItem = session.query(Site).filter_by(name).one()
+    
 
 
 if __name__ == '__main__':
