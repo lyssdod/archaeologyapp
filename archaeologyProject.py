@@ -6,23 +6,50 @@ from database_setup import Base, Site
 
 app=Flask(__name__)
 
+
 engine = create_engine('sqlite:///thesite.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-#myFirstSite = Site(name = "Dark Lake")
-#session.add(myFirstSite)
-#session.commit()
-#firstResult = session.query(Site).first()
-#print firstResult.name
+from flask.ext.sqlalchemy import SQLAlchemy
+import flask.ext.whooshalchemy
 
-#thesite = {'name': 'Death Cemetary', 'id': '1'}
+# set the location for the whoosh index
+app.config['WHOOSH_BASE'] = 'thesite.db'
 
-@app.route('/')
+db = SQLAlchemy(app)
+class BlogPost(db.Model):
+    __tablename__ = 'blogpost'
+    __searchable__ = ['name', 'toponim']  # these fields will be indexed by whoosh
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250))
+    toponim = db.Column(db.String(250))
+
+    def __repr__(self):
+        return '<BlogPost %r>' % (self.name)
+
+db.session.add(BlogPost(name='hey', toponim='bye'))
+db.session.commit()
+results = BlogPost.query.whoosh_search('hey')
+print results
+
+@app.route('/', methods=['GET', 'POST'])
 def welcomePage():
-    return render_template('welcome.html')
+    if request.method == 'POST':
+        if request.form["name_of_site"]:
+            search_input = request.form["name_of_site"]
+            results = BlogPost.query.whoosh_search('%s' % search_input)
+            print results
+
+            #sSite = session.query(Site).filter_by(name=sname)
+#            site_id=sSite.id 
+#            return redirect(url_for('sitePage', site_id=site_id)) 
+#            print site_id
+    else:
+        return render_template('welcome.html')
 
 @app.route('/new', methods=['GET', 'POST'])
 def newSite():
@@ -61,37 +88,8 @@ def newSite():
 def sitePage(site_id):
     if request.method == 'GET':
         onesite = session.query(Site).filter_by(id=site_id).one()
-        name = onesite.name
-        toponim = onesite.toponim
-        type_of_site = onesite.type_of_site
-        oblast = onesite.oblast
-        rajon = onesite.rajon
-        punkt = onesite.punkt
-        prymitky = onesite.prymitky
-        kultnal = onesite.kultnal
-        chron = onesite.chron
-        nadijnist = onesite.nadijnist
-        rozkop = onesite.rozkop
-        zvit = onesite.zvit
-        publicacii = onesite.publicacii
-        kartograph = onesite.kartograph
-        coord = onesite.coord
-        tochkart = onesite.tochkart
-        toppoltype = onesite.toppoltype
-        geomorform = onesite.geomorform
-        vysotnadrm = onesite.vysotnadrm
-        ploshch = onesite.ploshch
-        dovz = onesite.dovz
-        shyr = onesite.shyr
 
-        return render_template('site.html', name=name, toponim = toponim,
-            type_of_site = type_of_site, oblast=oblast, rajon=rajon, 
-            punkt=punkt, prymitky=prymitky, kultnal=kultnal, chron=chron, 
-            nadijnist=nadijnist, rozkop=rozkop, zvit=zvit, 
-            publicacii=publicacii, kartograph=kartograph, coord=coord,
-            tochkart=tochkart, toppoltype=toppoltype, geomorform=geomorform,
-            vysotnadrm=vysotnadrm, ploshch=ploshch, dovz=dovz, 
-            shyr=shyr, site=onesite) 
+        return render_template('site.html', site=onesite) 
         if request.method == 'POST':
             return None
 
@@ -167,20 +165,14 @@ def allSites():
     sites = session.query(Site).all()
     return render_template('all.html', sites=sites)
 
-def search():
-    if request.form["sname"]:
-        sname= request.form["sname"]
-        sSite = session.query(Site).filter_by(name=sname)
-        return render_template('sitePage', site=sSite) 
-
 #sites = session.query(Site).all()
 #for site in sites:
  #   print site.name
 #thesite = session.query(Site).filter_by(id=1).one()
 #print thesite.name
 
-def findName(find_input):
-    nameOfItem = session.query(Site).filter_by(name).one()
+#def findName(find_input):
+#    nameOfItem = session.query(Site).filter_by(name).one()
     
 
 
