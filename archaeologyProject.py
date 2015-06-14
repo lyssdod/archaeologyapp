@@ -13,28 +13,10 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-from flask.ext.sqlalchemy import SQLAlchemy
-import flask.ext.whooshalchemy
 
-# set the location for the whoosh index
 app.config['WHOOSH_BASE'] = 'thesite.db'
-
-db = SQLAlchemy(app)
-class BlogPost(db.Model):
-    __tablename__ = 'blogpost'
-    __searchable__ = ['name', 'toponim']  # these fields will be indexed by whoosh
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(250))
-    toponim = db.Column(db.String(250))
-
-    def __repr__(self):
-        return '<BlogPost %r>' % (self.name)
-
-#session.add(BlogPost(name='hey', toponim='bye'))
-#session.commit()
-#results = BlogPost.query.whoosh_search('hey')
-print results
+#index_service= IndexService(config=config, session=session)
+#index_service.register_class(Site)
 
 @app.route('/', methods=['GET', 'POST'])
 def welcomePage():
@@ -164,16 +146,6 @@ def siteDelete(site_id):
 def allSites():
     sites = session.query(Site).all()
     return render_template('all.html', sites=sites)
-
-#sites = session.query(Site).all()
-#for site in sites:
- #   print site.name
-#thesite = session.query(Site).filter_by(id=1).one()
-#print thesite.name
-
-#def findName(find_input):
-#    nameOfItem = session.query(Site).filter_by(name).one()
-    
 
 
 if __name__ == '__main__':
