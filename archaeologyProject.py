@@ -31,9 +31,9 @@ class BlogPost(db.Model):
     def __repr__(self):
         return '<BlogPost %r>' % (self.name)
 
-db.session.add(BlogPost(name='hey', toponim='bye'))
-db.session.commit()
-results = BlogPost.query.whoosh_search('hey')
+#session.add(BlogPost(name='hey', toponim='bye'))
+#session.commit()
+#results = BlogPost.query.whoosh_search('hey')
 print results
 
 @app.route('/', methods=['GET', 'POST'])
