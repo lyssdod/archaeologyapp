@@ -1,11 +1,13 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Site
 
-app=Flask(__name__)
+#import flask.ext.whooshalchemy 
 
+app=Flask(__name__)
 
 engine = create_engine('sqlite:///thesite.db')
 Base.metadata.bind = engine
@@ -13,18 +15,30 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+path = os.path.join('thesite.db')
+config = {'WHOOSH_BASE': path}
 
-app.config['WHOOSH_BASE'] = 'thesite.db'
+
+#with app.app_context():
+#    flask.ext.whooshalchemy.whoosh_index(app, Site)
+
 #index_service= IndexService(config=config, session=session)
 #index_service.register_class(Site)
-
+#searchResult=Site(id='20', name='Day')
+#session.add(searchResult)
+#session.commit()
+q = session.query(Site)
+results = q.whoosh_search('Day')
+print results
+#print q
 @app.route('/', methods=['GET', 'POST'])
 def welcomePage():
     if request.method == 'POST':
         if request.form["name_of_site"]:
-            search_input = request.form["name_of_site"]
-            results = BlogPost.query.whoosh_search('%s' % search_input)
-            print results
+            #search_input = request.form["name_of_site"]
+            #results = BlogPost.query.whoosh_search('%s' % search_input)
+            #print results
+            return None
 
             #sSite = session.query(Site).filter_by(name=sname)
 #            site_id=sSite.id 

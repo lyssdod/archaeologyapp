@@ -5,10 +5,14 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 
+#import flask.ext.whooshalchemy 
+from whooshalchemy import IndexService
+
 Base = declarative_base()
 
 class Site(Base):
     __tablename__ = 'site'
+    __searchable__= ['name', 'toponim']
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
@@ -34,7 +38,7 @@ class Site(Base):
     dovz = Column(String(50), nullable=False)
     shyr = Column(String(50), nullable=False)
 
-    
+
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
@@ -63,7 +67,10 @@ class Site(Base):
                 'dovz': self.dovz,
                 'shyr': self.shyr
                 }
-
+    def __repr__(self):
+        return '{0}(name={1})'.format(self.__class__.__name__, self.name)
+    
 engine = create_engine('sqlite:///thesite.db')
-
+#with app.app_context():
+#    flask.ext.whooshalchemy.whoosh_index(app, Site)
 Base.metadata.create_all(engine)
