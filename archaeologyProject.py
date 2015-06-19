@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Site
 
-#import flask.ext.whooshalchemy 
+#import flask.ext.whooshalchemy as whooshalchemy
 
 app=Flask(__name__)
 
@@ -14,10 +14,9 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-
-path = os.path.join('thesite.db')
-config = {'WHOOSH_BASE': path}
-
+#app.config['WHOOSH_BASE'] = '/whoosh/base'
+#path = os.path.join('thesite.db')
+#config = {'WHOOSH_BASE': path}
 
 #with app.app_context():
 #    flask.ext.whooshalchemy.whoosh_index(app, Site)
@@ -27,9 +26,9 @@ config = {'WHOOSH_BASE': path}
 #searchResult=Site(id='20', name='Day')
 #session.add(searchResult)
 #session.commit()
-q = session.query(Site)
-results = q.whoosh_search('Day')
-print results
+#q = session.query(Site)
+#results = q.whoosh_search('Day')
+#print results
 #print q
 @app.route('/', methods=['GET', 'POST'])
 def welcomePage():
