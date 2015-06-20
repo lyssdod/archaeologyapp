@@ -1,43 +1,114 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Site
-
-#import flask.ext.whooshalchemy as whooshalchemy
+from flask.ext.sqlalchemy import SQLAlchemy
+import flask.ext.whooshalchemy as whooshalchemy
 
 app=Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
-engine = create_engine('sqlite:///thesite.db')
-Base.metadata.bind = engine
+db = SQLAlchemy(app)
 
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
-#app.config['WHOOSH_BASE'] = '/whoosh/base'
-#path = os.path.join('thesite.db')
-#config = {'WHOOSH_BASE': path}
+class Site(db.Model):
+    __tablename__ = 'site'
+    __searchable__= ['name', 'toponim']
 
-#with app.app_context():
-#    flask.ext.whooshalchemy.whoosh_index(app, Site)
+    id = db.Column(db.Integer, primary_key=True, autoincrement = True)
+    name = db.Column(db.String(250))
+    toponim = db.Column(db.String(250))
+    type_of_site= db.Column(db.String(250), nullable=False)
+#    oblast = db.Column(db.String(250), nullable=False)
+#    rajon = db.Column(db.String(250), nullable=False)
+#    punkt = db.Column(db.String(250), nullable=False)
+#    prymitky = db.Column(db.String(3000))
+##    kultnal = db.Column(db.String(250), nullable=False)
+#    chron = db.Column(db.String(250), nullable=False)
+#    nadijnist = db.Column(db.String(250), nullable=False)
+#    rozkop = db.Column(db.String(1000), nullable=False)
+#    zvit = db.Column(db.String(1000), nullable=False)
+#    publicacii = db.Column(db.String(1500), nullable=False)
+#    kartograph = db.Column(db.String(20), nullable=False)
+#    coord = db.Column(db.String(50), nullable=False)
+#    tochkart = db.Column(db.String(20), nullable=False)
+#    toppotype = db.Column(db.String(30), nullable=False)
+#    geomorform = db.Column(db.String(250), nullable=False)
+#    vysotnadrm = db.Column(db.String(250), nullable=False)
+#    ploshch = db.Column(db.String(50), nullable=False)
+#    dovz = db.Column(db.String(50), nullable=False)
+#    shyr = db.Column(db.String(50), nullable=False)
+    
+    def __init__(self, name, toponim, type_of_site):
 
-#index_service= IndexService(config=config, session=session)
-#index_service.register_class(Site)
-#searchResult=Site(id='20', name='Day')
-#session.add(searchResult)
-#session.commit()
-#q = session.query(Site)
-#results = q.whoosh_search('Day')
-#print results
-#print q
+           #  oblast, rajon, punkt, prymitky, kultnal, chron, nadijnist, rozkop, zvit, publicacii, kartograph, coord, tochkart, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr): 
+        self.name = name
+        self.toponim = toponim
+        self.type_of_site = type_of_site
+#        self.oblast = oblast
+#        self.rajon = rajon
+#        self.punkt = punkt
+#        self.prymitky = prymitky
+#        self.kultnal = kultnal
+#        self.chron = chron
+#        self.nadijnist = nadijnist
+#        self.rozkop = rozkop
+#        self.zvit = zvit
+#        self.publicacii = publicacii
+#        self.kartograph = kartograph
+#        self.coord = coord
+#        self.tochkart = tochkart
+#        self.toppotype = toppotype
+#        self.geomorform = geomorform
+#        self.vysotnadrm = vysotnadrm
+#        self.ploshch = ploshch
+#        self.dovz = dovz
+#        self.shyr= shyr
+
+#    @property #i might have to change this to __init__
+#    def serialize(self):
+#        """Return object data in easily serializeable format"""
+#        return {
+#                'name': self.name,
+#                'id': self.id,
+#                'toponim': self.toponim,
+#                'type_of_site': self.type_of_site,
+#                'oblast': self.oblast,
+#                'rajon': self.rajon,
+#                'punkt': self.punkt,
+#                'prymitky': self.prymitky,
+#                'kultnal': self.kultnal,
+#                'chron': self.chron,
+#                'nadijnist': self.nadijnist,
+#                'rozkop': self.rozkop,
+#                'zvit': self.zvit,
+#                'publicacii': self.publicacii,
+#                'kartograph': self.kartograph,
+#                'coord': self.coord,
+#                'tochkart': self.tochkart, 
+#                'toppotype': self.toppotype,
+#                'geomorform': self.geomorform,
+#                'vysotnadrm': self.vysotnadrm,
+#                'ploshch': self.ploshch,
+#                'dovz': self.dovz,
+#                'shyr': self.shyr
+#                }
+    def __repr__(self):
+        return '<Site %r>' % self.name
+
+whooshalchemy.whoosh_index(app, Site)
+@app.route('/search')
+def search():
+    results = Site.query.whoosh_search('bad').all()
+    s =''
+    for e in results:
+        s = s + e.toponim
+        return '%s' % s
+
 @app.route('/', methods=['GET', 'POST'])
 def welcomePage():
     if request.method == 'POST':
         if request.form["name_of_site"]:
-            #search_input = request.form["name_of_site"]
-            #results = BlogPost.query.whoosh_search('%s' % search_input)
-            #print results
-            return None
+            search = request.form["name_of_site"]
+            results = BlogPost.query.whoosh_search('%s' % search).one()
+            return redirect(url_for(search))
 
             #sSite = session.query(Site).filter_by(name=sname)
 #            site_id=sSite.id 
@@ -51,29 +122,29 @@ def newSite():
     if request.method == 'POST':
         TheNewSite = Site(name=request.form['name'], 
                 toponim=request.form['toponim'],
-                type_of_site = request.form['type_of_site'],
-                oblast=request.form['oblast'],
-                rajon=request.form['rajon'],
-                punkt=request.form['punkt'],
-                prymitky=request.form['prymitky'],
-                kultnal=request.form['kultnal'],
-                chron=request.form['chron'],
-                nadijnist=request.form['nadijnist'],
-                rozkop=request.form['rozkop'],
-                zvit=request.form['zvit'],
-                publicacii = request.form['publicacii'],
-                kartograph = request.form['kartograph'],
-                coord = request.form['coord'],
-                tochkart = request.form['tochkart'],
-                toppoltype = request.form['toppoltype'],
-                geomorform = request.form['geomorform'],
-                vysotnadrm = request.form['vysotnadrm'], 
-                ploshch = request.form['ploshch'],
-                dovz = request.form['dovz'],
-                shyr = request.form['shyr'])
-                
-        session.add(TheNewSite)
-        session.commit()
+                type_of_site = request.form['type_of_site'])
+#                oblast=request.form['oblast'],
+#                rajon=request.form['rajon'],
+#                punkt=request.form['punkt'],
+#                prymitky=request.form['prymitky'],
+#                kultnal=request.form['kultnal'],
+#                chron=request.form['chron'],
+#                nadijnist=request.form['nadijnist'],
+#                rozkop=request.form['rozkop'],
+#                zvit=request.form['zvit'],
+#                publicacii = request.form['publicacii'],
+#                kartograph = request.form['kartograph'],
+#                coord = request.form['coord'],
+#                tochkart = request.form['tochkart'],
+#                toppotype = request.form['toppotype'],
+#                geomorform = request.form['geomorform'],
+#                vysotnadrm = request.form['vysotnadrm'], 
+#                ploshch = request.form['ploshch'],
+#                dovz = request.form['dovz'],
+#                shyr = request.form['shyr'])
+#                
+        db.session.add(TheNewSite)
+        db.session.commit()
         return redirect(url_for('welcomePage')) 
     else:
         return render_template('newsite.html')
@@ -82,7 +153,7 @@ def newSite():
 @app.route('/<int:site_id>/', methods = ['GET', 'POST'])
 def sitePage(site_id):
     if request.method == 'GET':
-        onesite = session.query(Site).filter_by(id=site_id).one()
+        onesite = db.session.query(Site).filter_by(id=site_id).one()
 
         return render_template('site.html', site=onesite) 
         if request.method == 'POST':
@@ -91,7 +162,7 @@ def sitePage(site_id):
 @app.route('/<int:site_id>/edit/', methods = ['GET', 'POST'])
 @app.route('/<int:site_id>/edit/base', methods = ['GET', 'POST'])
 def siteEdit(site_id):
-    siteToEdit = session.query(Site).filter_by(id=site_id).one()
+    siteToEdit = db.session.query(Site).filter_by(id=site_id).one()
     if request.method == 'POST':
         if request.form['name']:
             siteToEdit.name = request.form['name']
@@ -125,8 +196,8 @@ def siteEdit(site_id):
             siteToEdit.coord = request.form['coord']
         if request.form['tochkart']:
             siteToEdit.tochkart = request.form['tochkart']
-        if request.form['toppoltype']:
-            siteToEdit.toppoltype = request.form['toppoltype']
+        if request.form['toppotype']:
+            siteToEdit.toppotype = request.form['toppotype']
         if request.form['geomorform']:
             siteToEdit.geomorform = request.form['geomorform']
         if request.form['vysotnadrm']:
@@ -138,8 +209,8 @@ def siteEdit(site_id):
         if request.form['shyr']:
             siteToEdit.shyr = request.form['shyr']
 
-        session.add(siteToEdit)
-        session.commit()
+        db.session.add(siteToEdit)
+        db.session.commit()
         return redirect(url_for('sitePage', site_id=site_id))
 
     else:
@@ -147,17 +218,17 @@ def siteEdit(site_id):
 
 @app.route('/<int:site_id>/delete/', methods=['GET', 'POST'])
 def siteDelete(site_id):
-    siteToDelete = session.query(Site).filter_by(id=site_id).one()
+    siteToDelete = db.session.query(Site).filter_by(id=site_id).one()
     if request.method == 'POST':
-        session.delete(siteToDelete)
-        session.commit
+        db.session.delete(siteToDelete)
+        db.session.commit
         return redirect(url_for('welcomePage'))
     else:
         return render_template('delete.html', site=siteToDelete)
 
 @app.route('/all/')
 def allSites():
-    sites = session.query(Site).all()
+    sites = db.session.query(Site).all()
     return render_template('all.html', sites=sites)
 
 
