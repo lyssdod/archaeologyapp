@@ -94,21 +94,19 @@ class Site(db.Model):
         return '<Site %r>' % self.name
 
 whooshalchemy.whoosh_index(app, Site)
-@app.route('/search')
-def search():
-    results = Site.query.whoosh_search('bad').all()
-    s =''
-    for e in results:
-        s = s + e.toponim
-        return '%s' % s
+@app.route('/search/<query>')
+def search(query):
+    #return "hello, world"
+    results = Site.query.whoosh_search(query).all()
+    return render_template('search.html', results=results)
 
 @app.route('/', methods=['GET', 'POST'])
 def welcomePage():
     if request.method == 'POST':
         if request.form["name_of_site"]:
-            search = request.form["name_of_site"]
-            results = BlogPost.query.whoosh_search('%s' % search).one()
-            return redirect(url_for(search))
+            results = request.form["name_of_site"]
+            #results = BlogPost.query.whoosh_search('%s' % search).one()
+            return redirect(url_for('search', query=results)) #, query = search))
 
             #sSite = session.query(Site).filter_by(name=sname)
 #            site_id=sSite.id 
