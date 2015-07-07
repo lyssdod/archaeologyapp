@@ -1,45 +1,47 @@
-import os
-import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
+#import os
+#import sys
+#from sqlalchemy import Column, ForeignKey, Integer, String
+#from sqlalchemy.ext.declarative import declarative_base
+#from sqlalchemy.orm import relationship
+#from sqlalchemy import create_engine
+from flask.ext.sqlalchemy import SQLAlchemy
+import flask.ext.whooshalchemy as whooshalchemy
+#from archaeologyProject import app
 
-import flask.ext.whooshalchemy 
 #from whooshalchemy import IndexService
+db = SQLAlchemy(app)
+#Base = declarative_base()
 
-Base = declarative_base()
-
-class Site(Base):
+class Site(db.Model):
     __tablename__ = 'site'
     __searchable__= ['name', 'toponim']
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    toponim = Column(String(250))
-    type_of_site= Column(String(250), nullable=False)
-    oblast = Column(String(250), nullable=False)
-    rajon = Column(String(250), nullable=False)
-    punkt = Column(String(250), nullable=False)
-    prymitky = Column(String(3000))
-    kultnal = Column(String(250), nullable=False)
-    chron = Column(String(250), nullable=False)
-    nadijnist = Column(String(250), nullable=False)
-    rozkop = Column(String(1000), nullable=False)
-    zvit = Column(String(1000), nullable=False)
-    publicacii = Column(String(1500), nullable=False)
-    kartograph = Column(String(20), nullable=False)
-    coord = Column(String(50), nullable=False)
-    tochkart = Column(String(20), nullable=False)
-    toppoltype = Column(String(30), nullable=False)
-    geomorform = Column(String(250), nullable=False)
-    vysotnadrm = Column(String(250), nullable=False)
-    ploshch = Column(String(50), nullable=False)
-    dovz = Column(String(50), nullable=False)
-    shyr = Column(String(50), nullable=False)
+    id = db.Column(Integer, primary_key=True)
+    name = db.Column(String(250), nullable=False)
+    toponim = db.Column(String(250))
+    type_of_site= db.Column(String(250), nullable=False)
+    oblast = db.Column(String(250), nullable=False)
+    rajon = db.Column(String(250), nullable=False)
+    punkt = db.Column(String(250), nullable=False)
+    prymitky = db.Column(String(3000))
+    kultnal = db.Column(String(250), nullable=False)
+    chron = db.Column(String(250), nullable=False)
+    nadijnist = db.Column(String(250), nullable=False)
+    rozkop = db.Column(String(1000), nullable=False)
+    zvit = db.Column(String(1000), nullable=False)
+    publicacii = db.Column(String(1500), nullable=False)
+    kartograph = db.Column(String(20), nullable=False)
+    coord = db.Column(String(50), nullable=False)
+    tochkart = db.Column(String(20), nullable=False)
+    toppoltype = db.Column(String(30), nullable=False)
+    geomorform = db.Column(String(250), nullable=False)
+    vysotnadrm = db.Column(String(250), nullable=False)
+    ploshch = db.Column(String(50), nullable=False)
+    dovz = db.Column(String(50), nullable=False)
+    shyr = db.Column(String(50), nullable=False)
 
 
-    @property
+    @property #i might have to change this to __init__
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
@@ -70,7 +72,7 @@ class Site(Base):
     def __repr__(self):
         return '{0}(name={1})'.format(self.__class__.__name__, self.name)
     
-engine = create_engine('sqlite:///thesite.db')
+#engine = create_engine('sqlite:///thesite.db')
 #with app.app_context():
 #    flask.ext.whooshalchemy.whoosh_index(app, Site)
-Base.metadata.create_all(engine)
+#Base.metadata.create_all(engine)

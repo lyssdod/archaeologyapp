@@ -2,9 +2,12 @@ import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 import flask.ext.whooshalchemy as whooshalchemy
+from forms import LoginForm
+import views
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config.from_object('config')
 
 db = SQLAlchemy(app)
 
@@ -15,9 +18,9 @@ class Site(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
     name = db.Column(db.String(250))
     toponim = db.Column(db.String(250))
-    type_of_site= db.Column(db.String(250), nullable=False)
-    oblast = db.Column(db.String(250), nullable=False)
-    rajon = db.Column(db.String(250), nullable=False)
+#    type_of_site= db.Column(db.String(250), nullable=False)
+#    oblast = db.Column(db.String(250), nullable=False)
+#    rajon = db.Column(db.String(250), nullable=False)
 #    punkt = db.Column(db.String(250), nullable=False)
 #    pryvjazka = db.Column(db.String(250), nullable=False)
 #    kultnal = db.Column(db.String(250), nullable=False)
@@ -39,12 +42,12 @@ class Site(db.Model):
 #    shyr = db.Column(db.String(50), nullable=False)
 #    prymitky = db.Column(db.String(3000))
 #
-    def __init__(self, name, toponim, type_of_site, oblast, rajon): #, punkt, pryvjazka, prymitky, kultnal, localgr, chron, nadijnist, rozkop, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr): 
+    def __init__(self, name, toponim): #, type_of_site, oblast, rajon): #, punkt, pryvjazka, prymitky, kultnal, localgr, chron, nadijnist, rozkop, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr): 
         self.name = name
         self.toponim = toponim
-        self.type_of_site = type_of_site
-        self.oblast = oblast
-        self.rajon = rajon
+#        self.type_of_site = type_of_site
+#        self.oblast = oblast
+#        self.rajon = rajon
 #        self.punkt = punkt
 #        self.prymitky = prymitky
 #        self.kultnal = kultnal
@@ -125,8 +128,8 @@ def newSite():
             return redirect(url_for('search', query=results)) 
 
         TheNewSite = Site(name=request.form['name'], 
-                toponim=request.form['toponim'],
-                type_of_site = request.form['type_of_site'])
+                toponim=request.form['toponim'])
+#                type_of_site = request.form['type_of_site'])
 #                oblast=request.form['oblast'],
 #                rajon=request.form['rajon'],
 #                punkt=request.form['punkt'],
