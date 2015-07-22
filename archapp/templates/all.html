@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class = "row">
+  <div class="col-md-4 col-md-offset-4 text-center">
+    <h2 class="site_name">Усi пам'ятки</h2>
+  </div>
+</div>
+<hr class="hrr"> 
+<div>
+  {% for site in sites %}
+  <a href = "{{url_for('sitePage', site_id = site.id)}}"> <p>{{site.name}}</p></a>
+  {% endfor %}
+</div>
+{% endblock %}

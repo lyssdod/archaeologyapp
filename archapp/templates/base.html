@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{%if title %}
+<title> {{title}}</title>
+{% else %}
+<title> Археологiчна база даних </title>
+{% endif %}
+<link href="{{url_for('static', filename='bootstrap.css')}}" type="text/css" rel="stylesheet">
+<link href="{{url_for('static', filename='my.css')}}" type="text/css" rel="stylesheet">
+
+</head>
+<body class="background">
+<div class="container container-config textcol">
+  <div class="row header">
+    <div class="col-md-5"><a href = "{{url_for('welcomePage')}}" class="btn btn-sm"><h2 class="logo">Skiff stuff</h2></a></div>
+    <div class="col-md-2 padding">
+      <form class="form-inline box-shadow" method="post">
+        <label class="sr-only">Пошук:</label>
+        <input class="form-control" type="text" name="name_of_site" placeholder="Пошук пам'яток">
+
+    </form>
+    </div>
+    <div class="col-md-1 text-center padding"><a href ="{{url_for('newSite')}}" class="btn btn-color btn-sm">Нова</a>
+    </div>
+    <div class="col-md-1 text-center padding"><a href = "{{url_for('allSites')}}" class="btn btn-color btn-sm">Усi</a>
+    </div>
+    <div class="col-md-1 text-center padding"><a href = "{{url_for('login')}}" class="btn btn-color btn-sm">Увiйти</a></div>
+    <div class="col-md-2 text-center padding"><a href = "#" class="btn btn-color btn-sm">Зареєструватися</a></div>
+  </div>
+  {% block content %} {% endblock %}
+  <footer class="footer">
+    <div class="container">
+      <div class="header text-right"><strong class="signature">Written by BB</strong></div>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
+

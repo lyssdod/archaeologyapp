@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <h2 class="site_name">Створити нову пам'ятку</h2>
+  </div>
+</div>
+<hr class="hrr"> 
+<div class="row">
+  <div class="col-md-12 text-center">
+    <img src="http://lorempixel.com/400/200" alt="Upload image">
+  </div>
+</div>
+<form action="#" method="post">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <table class="table">
+        <tr>
+          <td>Назва: </td>
+          <td><input type="text" name="name" autofocus></td>
+        </tr>
+        <tr>
+          <td>Топонiм:</td>
+          <td><input type="text" name="toponim"></td>
+        </tr>
+        <tr>
+          <!--           <td>Тип пам'ятки:</td>
+            <td>
+              <select name="type_of_site" size="1">
+                <option value="Городище">Городище</option>
+                <option value="Поселення">Поселення</option>
+                <option value="Могильник">Могильник</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <table class="table">
+          <tr>
+            <td>Область:</td>
+            <td>
+              <select name="oblast" size="1">
+                <option value="Вiнницька">Вiнницька</option>
+                <option value="Сумська">Сумська</option>
+                <option value="Київська">Київська</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Район:</td>
+            <td>
+              <select name="rajon" size="1">
+                <option value="Iрпiнський">Iрпiнський</option>
+                <option value="Ладижинський">Ладижинський</option>
+                <option value="Київський">Київський</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Населений пункт:</td>
+            <td>
+              <select name="punkt" size="1">
+                <option value="Дубки">Дубки</option>
+                <option value="Волноваха">Волноваха</option>
+                <option value="Пiски">Пiски</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Прив'язка: </td>
+            <td><input type="text" name="pryvjazka"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <table class="table">
+          <tr>
+            <td>Культурна належнiсть:</td>
+            <td>
+              <select name="kultnal" size="1">
+                <option value="Скiфська">Скiфська</option>
+                <option value="Юхнiвська">Юхнiвська</option>
+                <option value="Пiзньоюхнiвська">Пiзньоюхнiвська</option>
+                <option value="Верхньоокська">Верхньоокська</option>
+                <option value="Двошарова">Двошарова</option>
+                <option value="Невстановлена">Невстановлена</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Належнiсть до локальної групи:</td>
+            <td>
+              <select name="localgr" size="1">
+                <option value="Захiдне Посем'я">Захiдне Посем'я</option>
+                <option value="Схiдне Посем'я">Схiдне Посем'я</option>
+                <option value="Посулля">Посулля</option>
+                <option value="Середньопсiльська">Середньопсiльська</option>
+                <option value="Верхньопсiльська">Верхньопсiльська</option>
+                <option value="Скiфське Подесення">Скiфське Подесення</option>
+                <option value="Новгород-Сiверське Подесення">Новгород-Сiверське Подесення</option>
+                <option value="Брянське Подесення">Брянське Подесення</option>
+                <option value="Верхня Ока">Верхня Ока</option>
+                <option value="Пiзньоюхнiвська">Пiзньоюхнiвська</option>
+                <option value="Невстановлено">Невстановлено</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Вузька хронологiя: </td>
+            <td><input type="text" name="chron"></td>
+          </tr>
+          <tr>
+            <td>Надiйнiсть датування: </td>
+            <td><input type="text" name="nadijnist"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <table class="table">
+          <tr>
+            <td>Розкопки: </td>
+             <td>
+              <select name="kartograph" size="1">
+                <option value="Так">Так</option>
+                <option value="Нi">Нi</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Звiти: </td>
+            <td><input type="text" name="zvit"></td>
+          </tr>
+          <tr>
+            <td>Публiкацiї: </td>
+            <td><input type="text" name="publicacii"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <table class="table">
+          <tr>
+            <td>Картографована:</td>
+            <td>
+              <select name="kartograph" size="1">
+                <option value="Так">Так</option>
+                <option value="Нi">Нi</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Координати: </td>
+            <td><input type="text" name="coord"></td>
+          </tr>
+          <tr>
+            <td>Точнiсть картографування:</td>
+            <td>
+              <select name="tochkart" size="1">
+                <option value="Точно">Точно</option>
+                <option value="За прив'язкою">За прив'язкою</option>
+                <option value="Гiпотетично">Гiпотетично</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <table class="table">
+          <tr>
+            <td>Рiчковий басейн:</td>
+            <td>
+              <select name="basejn" size="1">
+                <option value="Сейм">Сейм</option>
+                <option value="Десна">Десна</option>
+                <option value="Дон">Дон</option>
+                <option value="Псел">Псел</option>
+                <option value="Ока">Ока</option>
+                <option value="Сула">Сула</option>
+                <option value="Ворскла">Ворскла</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Тип топографiчного положення:</td>
+            <td>
+              <select name="toppotype" size="1">
+                <option value="Дюна">Пойменне</option>
+                <option value="Тераса">1-а тераса</option>
+                <option value="2-га тераса">2-га тераса</option>
+                <option value="Висока тераса">Висока тераса</option>
+                <option value="Корiнний берег">Плато</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Геоморфологiчна форма: </td>
+            <td><input type="text" name="geomorform"></td>
+          </tr>
+          <tr>
+            <td>Висота над рiвнем моря: </td>
+            <td><input type="text" name="vysotnadrm"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <table class="table">
+          <tr>
+            <td>Точна площа пам'ятки (га): </td>
+            <td><input type="text" name="ploshch"></td>
+          </tr>
+          <tr>
+            <td>Довжина: </td>
+            <td><input type="text" name="dovz"></td>
+          </tr>
+          <tr>
+            <td>Ширина: </td>
+            <td><input type="text" name="shyr"></td>
+          </tr> 
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <table class="table">
+          <tr>
+            <td>Додатки: </td>
+            <td>
+              <input type="checkbox" name="foto">Фото
+              <input type="checkbox" name="plans">Плани
+              <input type="checkbox" name="znahidky">Знахiдки
+            </td>
+          </tr>
+          <tr>
+            <td>Матерiальна культура: </td>
+            <td>
+              <input type="checkbox" name="kistka">Вироби з кiстки
+              <input type="checkbox" name="zalizo">Вироби з залiза
+              <br>
+              <input type="checkbox" name="kamin">Вироби з каменю
+              <input type="checkbox" name="glyna">Вироби з глини
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-4 col-md-offset-4">
+        <table class="table">
+          <tr>
+            <td>Примiтки: </td>
+            <td><input type="textarea" rows = "4" cols = "50" name="prymitky"></td>
+          </tr>
+-->
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 text-center">
+        <input type="submit" value="Створити" class="btn btn-border-color textcol btn-sm background">
+        <a href = "{{url_for('welcomePage')}}" class="btn btn-border-color textcol btn-sm background">Скасувати</a>
+      </div>
+    </div> 
+  </form>
+{% endblock %}

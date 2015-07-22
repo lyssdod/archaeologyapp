@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class = "row">
+  <div class="col-md-6 col-md-offset-3 text-center">
+    <h2 class="site_name">Видалити пам'ятку {{site.name}}? </h2>
+  </div>
+</div>
+<hr class="hrr"> 
+<div class="row">
+  <div class="col-md-1 col-md-offset-5">
+    <form action="#" method = 'post'>
+      <input type="submit", value="Delete" class="btn btn-border-color textcol btn-sm background">
+    </form>
+  </div>
+  <div class="col-md-1">
+    <a href = "{{url_for('sitePage', site_id=site.id)}}"  class="btn btn-border-color textcol btn-sm"> Скасувати </a>
+  </div>
+</div>
+{% endblock %}
