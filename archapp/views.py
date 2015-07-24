@@ -63,12 +63,12 @@ def welcomePage():
 @app.route('/new', methods=['GET', 'POST'])
 def newSite():
     if request.method == 'POST':
-        #if request.form["name_of_site"]:
-        #    results = request.form["name_of_site"]
-        #    return redirect(url_for('search', query=results)) 
-        #    TheNewSite=Site(name=request.form['name'])
-        TheNewSite = Site(name=request.form['name'],
-                    toponim=request.form['toponim'])
+        if request.form.get('name_of_site', None):
+            results = request.form['name_of_site']
+            return redirect(url_for('search', query=results)) 
+        else: 
+            TheNewSite = Site(name=request.form['name'], 
+                toponim=request.form['toponim'])
 #                type_of_site = request.form['type_of_site'])
 #                oblast=request.form['oblast'],
 #                rajon=request.form['rajon'],
@@ -90,9 +90,13 @@ def newSite():
 #                dovz = request.form['dovz'],
 #                shyr = request.form['shyr'])
 #                
-        db.session.add(TheNewSite)
-        db.session.commit()
-        return redirect(url_for('allSites')) 
+            db.session.add(TheNewSite)
+            db.session.commit()
+            return redirect(url_for('allSites')) 
+       # if request.form["name_of_site"]:
+       #     results = request.form["name_of_site"]
+       #     return redirect(url_for('search', query=results)) 
+
     else:
         return render_template('newsite.html')
 
