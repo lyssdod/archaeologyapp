@@ -4,7 +4,7 @@ from myapp import app, db
 #from flask import session as login_session
 from flask.ext.login import LoginManager, UserMixin, login_user, logout_user, current_user
 from oauth import OAuthSignIn
-from models import User
+from models import Site, User
 #import random, string
 #from models import Site, OAuthSignIn, FacebookSignIn
 
@@ -63,12 +63,12 @@ def welcomePage():
 @app.route('/new', methods=['GET', 'POST'])
 def newSite():
     if request.method == 'POST':
-        if request.form["name_of_site"]:
-            results = request.form["name_of_site"]
-            return redirect(url_for('search', query=results)) 
-
-        TheNewSite = Site(name=request.form['name'], 
-                toponim=request.form['toponim'])
+        #if request.form["name_of_site"]:
+        #    results = request.form["name_of_site"]
+        #    return redirect(url_for('search', query=results)) 
+        #    TheNewSite=Site(name=request.form['name'])
+        TheNewSite = Site(name=request.form['name'],
+                    toponim=request.form['toponim'])
 #                type_of_site = request.form['type_of_site'])
 #                oblast=request.form['oblast'],
 #                rajon=request.form['rajon'],
@@ -92,7 +92,7 @@ def newSite():
 #                
         db.session.add(TheNewSite)
         db.session.commit()
-        return redirect(url_for('welcomePage')) 
+        return redirect(url_for('allSites')) 
     else:
         return render_template('newsite.html')
 
