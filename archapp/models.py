@@ -1,6 +1,8 @@
 from myapp import db, app
 
 from flask.ext.login import LoginManager, UserMixin
+import flask.ext.whooshalchemy as whooshalchemy
+
 
 lm = LoginManager(app)
 
@@ -22,7 +24,14 @@ class Site(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
     name = db.Column(db.String(250))
     toponim = db.Column(db.String(250))
+    def __init__(self, name, toponim): #, type_of_site, oblast, rajon): #, punkt, pryvjazka, prymitky, kultnal, localgr, chron, nadijnist, rozkop, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr): 
+        self.name = name
+        self.toponim = toponim
+
+
 
     def __repr__(self):
         return '<Site %r>' % self.name
+
+whooshalchemy.whoosh_index(app, Site)
 

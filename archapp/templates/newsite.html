@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container container-config">
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
     <h2 class="site_name">Створити нову пам'ятку</h2>
@@ -25,7 +26,7 @@
           <td><input type="text" name="toponim"></td>
         </tr>
         <tr>
-          <!--           <td>Тип пам'ятки:</td>
+            <td>Тип пам'ятки:</td>
             <td>
               <select name="type_of_site" size="1">
                 <option value="Городище">Городище</option>
@@ -262,7 +263,7 @@
             <td>Примiтки: </td>
             <td><input type="textarea" rows = "4" cols = "50" name="prymitky"></td>
           </tr>
--->
+
         </table>
       </div>
     </div>
@@ -274,4 +275,5 @@
       </div>
     </div> 
   </form>
+</div>
 {% endblock %}
