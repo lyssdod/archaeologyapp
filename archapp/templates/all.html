@@ -12,4 +12,19 @@
   <a href = "{{url_for('sitePage', site_id = site.id)}}"> <p>{{site.name}}</p></a>
   {% endfor %}
 </div>
+<form method="post">
+<div>
+  <input type="checkbox" name="by_alphabet">Впорядкувати за абеткою
+  <input type="submit">
+</div>
+<div>
+  <select name="sort_oblast">
+    <option value="Вiнницька">Вiнницька</option>
+    <option value="Сумська">Сумська</option>
+    <option value="Київська">Київська</option>
+  </select>
+  <input type="submit">
+</div>
+</form>
+
 {% endblock %}

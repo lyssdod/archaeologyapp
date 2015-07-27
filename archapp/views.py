@@ -198,9 +198,18 @@ def siteDelete(site_id):
 @app.route('/all/', methods=['GET', 'POST'])
 def allSites():
     if request.method == 'POST':
-        if request.form["name_of_site"]:
+        if request.form.get("name_of_site", None):
             results = request.form["name_of_site"]
             return redirect(url_for('search', query=results)) 
+        
+        if request.form.get("by_alphabet"):
+            sorted_sites = Site.query.order_by(Site.name)
+            return render_template('all.html', sites=sorted_sites)
+        if request.form['sort_oblast']:
+            sort = request.form['sort_oblast']
+            sorted_obl_sites = Site.query.filter_by(oblast=sort).all()
+            return render_template('all.html', sites=sorted_obl_sites)
+ 
     else:
         sites = db.session.query(Site).all()
         return render_template('all.html', sites=sites)
