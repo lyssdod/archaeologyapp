@@ -68,28 +68,38 @@ def newSite():
             return redirect(url_for('search', query=results)) 
         else: 
             TheNewSite = Site(name=request.form['name'], 
-                toponim=request.form['toponim'])
-#                type_of_site = request.form['type_of_site'])
-#                oblast=request.form['oblast'],
-#                rajon=request.form['rajon'],
-#                punkt=request.form['punkt'],
-#                prymitky=request.form['prymitky'],
-#                kultnal=request.form['kultnal'],
-#                chron=request.form['chron'],
-#                nadijnist=request.form['nadijnist'],
-#                rozkop=request.form['rozkop'],
-#                zvit=request.form['zvit'],
-#                publicacii = request.form['publicacii'],
-#                kartograph = request.form['kartograph'],
-#                coord = request.form['coord'],
-#                tochkart = request.form['tochkart'],
-#                toppotype = request.form['toppotype'],
-#                geomorform = request.form['geomorform'],
-#                vysotnadrm = request.form['vysotnadrm'], 
-#                ploshch = request.form['ploshch'],
-#                dovz = request.form['dovz'],
-#                shyr = request.form['shyr'])
-#                
+                toponim=request.form['toponim'],
+                type_of_site = request.form['type_of_site'],
+                oblast=request.form['oblast'],
+                rajon=request.form['rajon'],
+                punkt=request.form['punkt'],
+                pryvjazka=request.form['pryvjazka'],
+                kultnal=request.form['kultnal'],
+                localgr=request.form['localgr'],
+                chron=request.form['chron'],
+                nadijnist=request.form['nadijnist'],
+                rozkop=request.form['rozkop'],
+                zvit=request.form['zvit'],
+                publicacii = request.form['publicacii'],
+                kartograph = request.form['kartograph'],
+                coord = request.form['coord'],
+                tochkart = request.form['tochkart'],
+                basejn = request.form['basejn'],
+                toppotype = request.form['toppotype'],
+                geomorform = request.form['geomorform'],
+                vysotnadrm = request.form['vysotnadrm'], 
+                ploshch = request.form['ploshch'],
+                dovz = request.form['dovz'],
+                shyr = request.form['shyr'],
+                foto = request.form.get('foto'),
+                plans = request.form.get('plans'), 
+                znahidky = request.form.get('znahidky'),
+                kistka = request.form.get('kistka'),
+                zalizo= request.form.get('zalizo'),
+                kamin = request.form.get('kamin'),
+                glyna= request.form.get('glyna'),
+                prymitky=request.form.get('prymitky'))
+                
             db.session.add(TheNewSite)
             db.session.commit()
             return redirect(url_for('allSites')) 
