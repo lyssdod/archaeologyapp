@@ -206,33 +206,19 @@ def allSites():
             sorted_sites = Site.query.order_by(Site.name)
             return render_template('all.html', sites=sorted_sites)
         sites = db.session.query(Site).all()
-        if request.form['sort_oblast']:
-            oblast = request.form['sort_oblast']
-            sort_obl = Site.query.filter_by(oblast=oblast).all()
-            sites = [x for x in sites if x in sort_obl]
-        #    for e in sites:
-        #        if not e in sort_obl:
-        #            try: 
-        #                sites.remove(e)
-        #            except ValueError:
-        #                pass
-        #if request.form['rozkop']:
-        #    rozkop = request.form['rozkop']
-        #    sort_rozkop = Site.query.filter_by(rozkop=rozkop)
-        #    for e in sort_rozkop:
-        #        print e.name
-        #    return render_template('all.html', sites=sort_rozkop)
-                #if not e in sort_rozkop:
-                #    print e.name
-                #    sites.remove(e)
-                    
+        #if request.form['sort_oblast']:
+        #    oblast = request.form['sort_oblast']
+        #    sort_obl = Site.query.filter_by(oblast=oblast).all()
+        #    sites = [x for x in sites if x in sort_obl]
+        if request.form.get('rozkop'):
+            rozkop = request.form.get('rozkop')
+            sort_rozkop = Site.query.filter_by(rozkop=rozkop).all()
+            sites = [x for x in sites if x in sort_rozkop]
+        if request.form.get('glyna'):
+            glyna = request.form.get('glyna')
+            sort_glyna = Site.query.filter_by(glyna = glyna).all()
+            sites = [x for x in sites if x in sort_glyna]
 
-        #if request.form.get('glyna', None):
-        #    glyna = request.form['glyna']
-        #    sort_glyna = Site.query.filter_by(glyna = glyna)
-        #    for e in sites:
-        #        if not e in sort_glyna:
-        #            sites.remove(e)
         return render_template('all.html', sites=sites)
     
     else:
