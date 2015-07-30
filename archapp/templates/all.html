@@ -8,38 +8,90 @@
 </div>
 <hr class="hrr"> 
 <div>
-  
+
   {% for site in sites %}
   <a href = "{{url_for('sitePage', site_id = site.id)}}"> <p>{{site.name}}</p></a>
   {% endfor %}
 </div>
 <form method="post">
-<div>
-  <input type="checkbox" name="by_alphabet">Впорядкувати за абеткою
-  <input type="submit">
-</div>
-<div>
-  <select name="sort_oblast" placeholder="Область">
-    <option value="" selected>Оберiть область</option>
-    <option value="Вiнницька">Вiнницька</option>
-    <option value="Сумська">Сумська</option>
-    <option value="Київська">Київська</option>
-  </select>
-</div>
-
-<div> 
-  <input type="checkbox" name="rozkop" value="Так"> Розкопки
-</div>
-
-<div> 
-  <input type="checkbox" name="glyna" value="Є">Керамiка
-</div>
-<div>
-<input type="checkbox" name="dodatky"> Додатки
-</div>
-<div>
-  <input type="submit">
-</div>
+  <div>
+    <input type="checkbox" name="by_alphabet">Впорядкувати за абеткою
+    <input type="submit">
+  </div>
+  <div>
+    <select name="sort_oblast">
+      <option value="" selected>Область</option>
+      <option value="Вiнницька">Вiнницька</option>
+      <option value="Сумська">Сумська</option>
+      <option value="Київська">Київська</option>
+    </select>
+  </div>
+  <div>
+    <td>Рiчковий басейн:</td>
+    <td>
+      <select name="basejn" size="1">
+        <option value="" selected>Рiчковий басейн</option>
+        <option value="Сейм">Сейм</option>
+        <option value="Десна">Десна</option>
+        <option value="Дон">Дон</option>
+        <option value="Псел">Псел</option>
+        <option value="Ока">Ока</option>
+        <option value="Сула">Сула</option>
+        <option value="Ворскла">Ворскла</option>
+      </select>
+    </div>
+    <div>
+      <tr>
+        <td>Тип топографiчного положення:</td>
+        <td>
+          <select name="toppotype" size="1">
+            <option value="" selected>Топографiчне положення</option>
+            <option value="Дюна">Пойменне</option>
+            <option value="Тераса">1-а тераса</option>
+            <option value="2-га тераса">2-га тераса</option>
+            <option value="Висока тераса">Висока тераса</option>
+            <option value="Корiнний берег">Плато</option>
+          </select>
+        </td>
+      </tr>
+    </div>
+    <div>
+      <tr>
+        <td>Культурна належнiсть:</td>
+        <td>
+          <select name="kultnal" size="1">
+            <option value="" selected>Культурна належнiсть</option>
+            <option value="Скiфська">Скiфська</option>
+            <option value="Юхнiвська">Юхнiвська</option>
+            <option value="Пiзньоюхнiвська">Пiзньоюхнiвська</option>
+            <option value="Верхньоокська">Верхньоокська</option>
+            <option value="Двошарова">Двошарова</option>
+            <option value="Невстановлена">Невстановлена</option>
+          </select>
+        </td>
+      </tr>
+    </div>
+    <div> 
+      <input type="checkbox" name="rozkop" value="Так"> Розкопки
+    </div>
+    <div>
+    <input type="checkbox" name="dodatky"> Додатки
+  </div>
+  <div>
+    <input type="checkbox" name="kistka" value="Є">Вироби з кiстки
+  </div>
+  <div>
+    <input type="checkbox" name="zalizo" value="Є">Вироби iз залiза
+  </div>
+  <div>
+    <input type="checkbox" name="kamin" value="Є">Вироби з каменю
+  </div>
+  <div> 
+    <input type="checkbox" name="glyna" value="Є">Керамiка
+  </div>
+  <div>
+    <input type="submit">
+  </div>
 </form>
 
 {% endblock %}
