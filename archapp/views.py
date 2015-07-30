@@ -206,10 +206,10 @@ def allSites():
             sorted_sites = Site.query.order_by(Site.name)
             return render_template('all.html', sites=sorted_sites)
         sites = db.session.query(Site).all()
-        #if request.form['sort_oblast']:
-        #    oblast = request.form['sort_oblast']
-        #    sort_obl = Site.query.filter_by(oblast=oblast).all()
-        #    sites = [x for x in sites if x in sort_obl]
+        if request.form['sort_oblast']:
+            oblast = request.form['sort_oblast']
+            sort_obl = Site.query.filter_by(oblast=oblast).all()
+            sites = [x for x in sites if x in sort_obl]
         if request.form.get('rozkop'):
             rozkop = request.form.get('rozkop')
             sort_rozkop = Site.query.filter_by(rozkop=rozkop).all()
