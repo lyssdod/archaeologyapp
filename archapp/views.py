@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template, request, url_for, flash, redirect
 from myapp import app, db 
 #from forms import LoginForm
@@ -210,10 +211,14 @@ def allSites():
             oblast = request.form['sort_oblast']
             sort_obl = Site.query.filter_by(oblast=oblast).all()
             sites = [x for x in sites if x in sort_obl]
-        if request.form.get('rozkop'):
-            rozkop = request.form.get('rozkop')
-            sort_rozkop = Site.query.filter_by(rozkop=rozkop).all()
-            sites = [x for x in sites if x in sort_rozkop]
+        if request.form.get('dodatky'):
+            sort_dodatky=[]
+            for e in db.session.query(Site).all():
+                value = u'Є'
+                if e.foto==value or e.plans==value or e.znahidky==value:
+                    sort_dodatky.append(e)
+            sites = [x for x in sites if x in sort_dodatky]
+
         if request.form.get('glyna'):
             glyna = request.form.get('glyna')
             sort_glyna = Site.query.filter_by(glyna = glyna).all()
