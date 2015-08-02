@@ -92,6 +92,10 @@
   <div>
     <input type="submit">
   </div>
+  <div>
+    <input type="range" min="0" max="300" id="trackbar" onchange="onChangeTrackBar()" />
+        Value: <span id="trackBarValue">50</span>
+      </div>
 </form>
 
 {% endblock %}
