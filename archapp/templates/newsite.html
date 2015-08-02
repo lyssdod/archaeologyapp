@@ -44,20 +44,21 @@
           <tr>
             <td>Область:</td>
             <td>
-              <select name="oblast" size="1">
-                <option value="Вiнницька">Вiнницька</option>
-                <option value="Сумська">Сумська</option>
-                <option value="Київська">Київська</option>
+              </select>
+              <select id="ddl" onchange="configureDropDownLists(this,document.getElementById('ddl2'))">
+                <option value=""></option>
+                <option value="poltavska">Полтавська</option>
+                <option value="chernigivska">Чернiгiвська</option>
+                <option value="kurska">Курська</option>
+                <option value="branska">Брянська</option>
+                <option value="orlovska">Орловська</option>
               </select>
             </td>
           </tr>
           <tr>
             <td>Район:</td>
             <td>
-              <select name="rajon" size="1">
-                <option value="Iрпiнський">Iрпiнський</option>
-                <option value="Ладижинський">Ладижинський</option>
-                <option value="Київський">Київський</option>
+              <select id="ddl2" name="rajon">
               </select>
             </td>
           </tr>
@@ -179,6 +180,7 @@
       <div class="col-md-4 col-md-offset-4">
         <table class="table">
           <tr>
+            <div>
             <td>Рiчковий басейн:</td>
             <td>
               <select name="basejn" size="1">

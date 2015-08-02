@@ -203,9 +203,6 @@ def allSites():
             results = request.form["name_of_site"]
             return redirect(url_for('search', query=results)) 
         
-        if request.form.get("by_alphabet"):
-            sorted_sites = Site.query.order_by(Site.name)
-            return render_template('all.html', sites=sorted_sites)
         sites = db.session.query(Site).all()
         if request.form['sort_oblast']:
             oblast = request.form['sort_oblast']
@@ -248,6 +245,11 @@ def allSites():
             glyna = request.form.get('glyna')
             sort_glyna = Site.query.filter_by(glyna = glyna).all()
             sites = [x for x in sites if x in sort_glyna]
+
+        if request.form.get("by_alphabet"):
+            sorted_sites = sites.order_by(Site.name)
+            return render_template('all.html', sites=sorted_sites)
+
 
         return render_template('all.html', sites=sites)
     
