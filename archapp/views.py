@@ -187,11 +187,13 @@ def siteEdit(site_id):
 def siteDelete(site_id):
     siteToDelete = db.session.query(Site).filter_by(id=site_id).one()
     if request.method == 'POST':
-        if request.form["name_of_site"]:
-            results = request.form["name_of_site"]
+        if request.form.get("name_of_site"):
+            results = request.form.get("name_of_site")
             return redirect(url_for('search', query=results)) 
-        db.session.delete(siteToDelete)
-        db.session.commit
+        if request.form.get('Delete'):
+            db.session.delete(siteToDelete)
+            db.session.commit()
+            print "site has been deleted"
         return redirect(url_for('welcomePage'))
     else:
         return render_template('delete.html', site=siteToDelete)
