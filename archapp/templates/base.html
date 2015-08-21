@@ -9,10 +9,16 @@
 {% else %}
 <title> Археологiчна база даних </title>
 {% endif %}
-<link href="{{url_for('static', filename='bootstrap.css')}}" type="text/css" rel="stylesheet">
-<link href="{{url_for('static', filename='my.css')}}" type="text/css" rel="stylesheet">
+<link href="{{url_for('static', filename='css/bootstrap.css')}}" type="text/css" rel="stylesheet">
+<link href="{{url_for('static', filename='css/my.css')}}" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/toggle.js')}}"></script>
+
+<!--slider-->
+<script src="{{url_for('static', filename='theslider/js/bootstrap-slider.js')}}"></script>
+<link href="{{url_for('static', filename='theslider/css/bootstrap-slider.css')}}" type="text/css" rel="stylesheet">
+
 </head>
 <body class="background">
 <div class="container container-config textcol">
