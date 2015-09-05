@@ -257,7 +257,7 @@ def allSites():
     
     else:
         sites = db.session.query(Site).all()
-        return render_template('all.html', sites=sites)
+        return render_template('all.html', sites=sites, slidebar = True)
 
 
 @app.route('/login', methods = ['GET', 'POST'])

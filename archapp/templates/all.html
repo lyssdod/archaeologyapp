@@ -13,22 +13,58 @@
   <a href = "{{url_for('sitePage', site_id = site.id)}}"> <p>{{site.name}}</p></a>
   {% endfor %}
 </div>
-<div class="sidebar-nav">
-<div class="row panel">
 <form method="post">
   <div>
-    <input type="checkbox" name="by_alphabet">Впорядкувати за абеткою
-    <input type="submit">
-  </div>
-  <div>
-    <select name="sort_oblast">
-      <option value="" selected>Область</option>
-      <option value="Вiнницька">Вiнницька</option>
-      <option value="Сумська">Сумська</option>
-      <option value="Київська">Київська</option>
+    Тип пам'ятки
+    <select name="by_type" size="1">
+      <option value=""></option>
+      <option value="Городище">Городище</option>
+      <option value="Поселення">Поселення</option>
+      <option value="Могильник">Могильник</option>
     </select>
   </div>
   <div>
+    <table class="table">
+      <tr> 
+        <td>Область:</td> 
+        <td> <select name="oblast" id="ddl" onchange="configureDropDownLists(this,document.getElementById('ddl2'))"> 
+            <option value="" selected>Область</option> 
+            <option value="Брянська">Брянська</option> 
+            <option value="Курська">Курська</option> 
+            <option value="Орловська">Орловська</option> 
+            <option value="Полтавська">Полтавська</option> 
+            <option value="Сумська">Сумська</option> 
+            <option value="Чернiгiвська">Чернiгiвська</option> 
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Район:</td>
+        <td>
+          <select id="ddl2" name="rajon">
+            <option value="" selected>Rajon</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <tr>
+      <td>Культурна належнiсть:</td>
+      <td>
+        <select name="kultnal" size="1">
+          <option value="" selected>Культурна належнiсть</option>
+          <option value="Скiфська">Скiфська</option>
+          <option value="Юхнiвська">Юхнiвська</option>
+          <option value="Пiзньоюхнiвська">Пiзньоюхнiвська</option>
+          <option value="Верхньоокська">Верхньоокська</option>
+          <option value="Двошарова">Двошарова</option>
+          <option value="Невстановлена">Невстановлена</option>
+        </select>
+      </td>
+    </tr>
+  </div>
+ <div>
     <td>Рiчковий басейн:</td>
     <td>
       <select name="basejn" size="1">
@@ -42,43 +78,6 @@
         <option value="Ворскла">Ворскла</option>
       </select>
     </div>
-    <div>
-      <tr>
-        <td>Тип топографiчного положення:</td>
-        <td>
-          <select name="toppotype" size="1">
-            <option value="" selected>Топографiчне положення</option>
-            <option value="Дюна">Пойменне</option>
-            <option value="Тераса">1-а тераса</option>
-            <option value="2-га тераса">2-га тераса</option>
-            <option value="Висока тераса">Висока тераса</option>
-            <option value="Корiнний берег">Плато</option>
-          </select>
-        </td>
-      </tr>
-    </div>
-    <div>
-      <tr>
-        <td>Культурна належнiсть:</td>
-        <td>
-          <select name="kultnal" size="1">
-            <option value="" selected>Культурна належнiсть</option>
-            <option value="Скiфська">Скiфська</option>
-            <option value="Юхнiвська">Юхнiвська</option>
-            <option value="Пiзньоюхнiвська">Пiзньоюхнiвська</option>
-            <option value="Верхньоокська">Верхньоокська</option>
-            <option value="Двошарова">Двошарова</option>
-            <option value="Невстановлена">Невстановлена</option>
-          </select>
-        </td>
-      </tr>
-    </div>
-    <div> 
-      <input type="checkbox" name="rozkop" value="Так"> Розкопки
-    </div>
-    <div>
-    <input type="checkbox" name="dodatky"> Додатки
-  </div>
   <div>
     <input type="checkbox" name="kistka" value="Є">Вироби з кiстки
   </div>
@@ -94,9 +93,44 @@
   <div>
     <input type="submit">
   </div>
-  <div>Вiдфiльтрувати за площею: <b> 10</b> <input id="slider" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b> 1000</b></div>
-    </form>
+</form>
+
+  <!---->
+<!--
+  <div class="sidebar-nav">
+    <div class="row panel">
+        <p class="slide"><div class="pull-me">Slide Up/Down</div></p>
+  </div>
 </div>
-<p class="slide"><div class="pull-me">Slide Up/Down</div></p>
-</div>
+-->
+  <!--<div>
+    <input type="checkbox" name="by_alphabet">Впорядкувати за абеткою
+    <input type="submit">
+  </div>
+    -->
+              <!--
+      </div>
+      <div>
+      <tr>
+        <td>Тип топографiчного положення:</td>
+        <td>
+          <select name="toppotype" size="1">
+            <option value="" selected>Топографiчне положення</option>
+            <option value="Дюна">Пойменне</option>
+            <option value="Тераса">1-а тераса</option>
+            <option value="2-га тераса">2-га тераса</option>
+            <option value="Висока тераса">Висока тераса</option>
+            <option value="Корiнний берег">Плато</option>
+          </select>
+        </td>
+      </tr>
+    </div>
+        <div> 
+      <input type="checkbox" name="rozkop" value="Так"> Розкопки
+    </div>
+    <div>
+    <input type="checkbox" name="dodatky"> Додатки
+    <div>За висотою над рiвнем моря: <b> 5 м</b> <input id="slider" type="text" class="span2" value="" data-slider-min="5" data-slider-max="1500" data-slider-step="5" data-slider-value="[250,1000]"/> <b> 1500 м</b></div>
+  <div>За площею: <b> 10</b> <input id="slider" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b> 1000</b></div>
+-->
 {% endblock %}
