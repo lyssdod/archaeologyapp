@@ -204,57 +204,65 @@ def allSites():
         if request.form.get("name_of_site", None):
             results = request.form["name_of_site"]
             return redirect(url_for('search', query=results)) 
-        
-        sites = db.session.query(Site).all()
-        if request.form['sort_oblast']:
-            oblast = request.form['sort_oblast']
-            sort_obl = Site.query.filter_by(oblast=oblast).all()
-            sites = [x for x in sites if x in sort_obl]
-        if request.form['basejn']:
-            basejn = request.form['basejn']
-            sort_basejn = Site.query.filter_by(basejn=basejn).all()
-            sites = [x for x in sites if x in sort_basejn]
-        if request.form['toppotype']:
-            toppotype = request.form['toppotype']
-            sort_toppotype = Site.query.filter_by(toppotype=toppotype).all()
-            sites = [x for x in sites if x in sort_toppotype]
-        if request.form['kultnal']:
-            kultnal = request.form['kultnal']
-            sort_kultnal = Site.query.filter_by(kultnal=kultnal).all()
-            sites = [x for x in sites if x in sort_kultnal]
+        else:
+            sites = db.session.query(Site).all()
+            if request.form.get('kistka'):
+                kistka = request.form.get('kistka')
+                sort_kistka = Site.query.filter_by(kistka = kistka).all()
+                sites = [x for x in sites if x in sort_kistka]
+            if request.form.get('zalizo'):
+                zalizo = request.form.get('zalizo')
+                sort_zalizo = Site.query.filter_by(zalizo = zalizo).all()
+                sites = [x for x in sites if x in sort_zalizo]
+            if request.form.get('kamin'):
+                kamin = request.form.get('kamin')
+                sort_kamin = Site.query.filter_by(kamin = kamin).all()
+                sites = [x for x in sites if x in sort_kamin]
+            if request.form.get('glyna'):
+                glyna = request.form.get('glyna')
+                sort_glyna = Site.query.filter_by(glyna = glyna).all()
+                sites = [x for x in sites if x in sort_glyna]
+            if request.form['by_type']:
+                type_of_site = request.form.get('by_type')
+                sort_type = Site.query.filter_by(type_of_site=type_of_site).all()
+                sites = [x for x in sites if x in sort_type]
+            if request.form['oblast']:
+                oblast = request.form['oblast']
+                sort_obl = Site.query.filter_by(oblast=oblast).all()
+                sites = [x for x in sites if x in sort_obl]
+            if request.form['rajon']:
+                rajon = request.form['rajon']
+                sort_rajon = Site.query.filter_by(rajon=rajon).all()
+                sites = [x for x in sites if x in sort_rajon]
+            if request.form['basejn']:
+                basejn = request.form['basejn']
+                sort_basejn = Site.query.filter_by(basejn=basejn).all()
+                sites = [x for x in sites if x in sort_basejn]
+            if request.form['kultnal']:
+                kultnal = request.form['kultnal']
+                sort_kultnal = Site.query.filter_by(kultnal=kultnal).all()
+                sites = [x for x in sites if x in sort_kultnal]
+            if request.form['toppotype']:
+                toppotype= request.form.get('toppotype')
+                sort_toppotype = Site.query.filter_by(toppotype=toppotype).all()
+                sites = [x for x in sites if x in sort_toppotype]
+            if request.form.get('rozkop'):
+                rozkop = request.form.get('rozkop')
+                sort_rozkop = Site.query.filter_by(rozkop=rozkop).all()
+                sites = [x for x in sites if x in sort_rozkop]
 
-        if request.form.get('dodatky'):
-            sort_dodatky=[]
-            for e in db.session.query(Site).all():
-                value = u'Є'
-                if e.foto==value or e.plans==value or e.znahidky==value:
-                    sort_dodatky.append(e)
-            sites = [x for x in sites if x in sort_dodatky]
 
-        if request.form.get('kistka'):
-            kistka = request.form.get('kistka')
-            sort_kistka = Site.query.filter_by(kistka = kistka).all()
-            sites = [x for x in sites if x in sort_kistka]
-        if request.form.get('zalizo'):
-            zalizo = request.form.get('zalizo')
-            sort_zalizo = Site.query.filter_by(zalizo = zalizo).all()
-            sites = [x for x in sites if x in sort_zalizo]
-        if request.form.get('kamin'):
-            kamin = request.form.get('kamin')
-            sort_kamin = Site.query.filter_by(kamin = kamin).all()
-            sites = [x for x in sites if x in sort_kamin]
-        if request.form.get('glyna'):
-            glyna = request.form.get('glyna')
-            sort_glyna = Site.query.filter_by(glyna = glyna).all()
-            sites = [x for x in sites if x in sort_glyna]
-
-        if request.form.get("by_alphabet"):
-            sorted_sites = sites.order_by(Site.name)
-            return render_template('all.html', sites=sorted_sites)
-
-
-        return render_template('all.html', sites=sites)
-    
+            if request.form.get('dodatky'):
+                sort_dodatky=[]
+                for e in db.session.query(Site).all():
+                    value = u'Є'
+                    if e.foto==value or e.plans==value or e.znahidky==value:
+                        sort_dodatky.append(e)
+                sites = [x for x in sites if x in sort_dodatky]
+            if request.form.get("by_alphabet"):
+                print sites
+                sorted_sites = sites.sort(key=lambda x: x.name)
+            return render_template('all.html', sites=sites)
     else:
         sites = db.session.query(Site).all()
         return render_template('all.html', sites=sites, slidebar = True)

@@ -15,6 +15,9 @@
 </div>
 <form method="post">
   <div>
+    <input type="checkbox" name="by_alphabet">Впорядкувати за абеткою
+  </div>
+  <div>
     Тип пам'ятки
     <select name="by_type" size="1">
       <option value=""></option>
@@ -42,7 +45,7 @@
         <td>Район:</td>
         <td>
           <select id="ddl2" name="rajon">
-            <option value="" selected>Rajon</option>
+            <option value="" selected>Район</option>
           </select>
         </td>
       </tr>
@@ -78,39 +81,7 @@
         <option value="Ворскла">Ворскла</option>
       </select>
     </div>
-  <div>
-    <input type="checkbox" name="kistka" value="Є">Вироби з кiстки
-  </div>
-  <div>
-    <input type="checkbox" name="zalizo" value="Є">Вироби iз залiза
-  </div>
-  <div>
-    <input type="checkbox" name="kamin" value="Є">Вироби з каменю
-  </div>
-  <div> 
-    <input type="checkbox" name="glyna" value="Є">Керамiка
-  </div>
-  <div>
-    <input type="submit">
-  </div>
-</form>
-
-  <!---->
-<!--
-  <div class="sidebar-nav">
-    <div class="row panel">
-        <p class="slide"><div class="pull-me">Slide Up/Down</div></p>
-  </div>
-</div>
--->
-  <!--<div>
-    <input type="checkbox" name="by_alphabet">Впорядкувати за абеткою
-    <input type="submit">
-  </div>
-    -->
-              <!--
-      </div>
-      <div>
+    <div>
       <tr>
         <td>Тип топографiчного положення:</td>
         <td>
@@ -125,12 +96,42 @@
         </td>
       </tr>
     </div>
-        <div> 
+    <div> 
       <input type="checkbox" name="rozkop" value="Так"> Розкопки
     </div>
     <div>
-    <input type="checkbox" name="dodatky"> Додатки
-    <div>За висотою над рiвнем моря: <b> 5 м</b> <input id="slider" type="text" class="span2" value="" data-slider-min="5" data-slider-max="1500" data-slider-step="5" data-slider-value="[250,1000]"/> <b> 1500 м</b></div>
-  <div>За площею: <b> 10</b> <input id="slider" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b> 1000</b></div>
+      <input type="checkbox" name="dodatky"> Додатки
+    </div>
+    <div>
+      <input type="checkbox" name="kistka" value="Є">Вироби з кiстки
+    </div>
+    <div>
+    <input type="checkbox" name="zalizo" value="Є">Вироби iз залiза
+  </div>
+  <div>
+    <input type="checkbox" name="kamin" value="Є">Вироби з каменю
+  </div>
+  <div> 
+    <input type="checkbox" name="glyna" value="Є">Керамiка
+  </div>
+  <div>
+    <input type="submit">
+  </div>
+  <div>За висотою над рiвнем моря: <b> 5 м</b> <input id="slider" type="text" class="span2" value="" data-slider-min="5" data-slider-max="1500" data-slider-step="5" data-slider-value="[250,1000]"/> <b> 1500 м</b></div>
+  <!--<div>За площею: <b> 10</b> <input id="slider2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b> 1000</b></div>
 -->
+</form>
+
+  <!---->
+<!--
+  <div class="sidebar-nav">
+    <div class="row panel">
+        <p class="slide"><div class="pull-me">Slide Up/Down</div></p>
+  </div>
+</div>
+-->
+  <!--    -->
+              <!--
+      </div>
+                -->
 {% endblock %}
