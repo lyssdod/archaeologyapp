@@ -266,6 +266,16 @@ def allSites():
                 vysotmax = Site.query.filter(Site.vysotnadrm <= maxval).all()
                 sites = [x for x in sites if x in vysotmin]
                 sites = [x for x in sites if x in vysotmax]
+            if request.form.get('ploshcha'):
+                ploshcha = request.form.get('ploshcha')
+                val = ploshcha.split(',', 1)
+                minval = int(val[0])
+                maxval = int(val[1])
+                plmin = Site.query.filter(Site.ploshch >= minval).all()
+                plmax = Site.query.filter(Site.ploshch <= maxval).all()
+                sites = [x for x in sites if x in plmin]
+                sites = [x for x in sites if x in plmax]
+
             if request.form.get("by_alphabet"):
                 sorted_sites = sites.sort(key=lambda x: x.name)
             return render_template('all.html', sites=sites)
