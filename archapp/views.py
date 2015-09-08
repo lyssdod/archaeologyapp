@@ -250,8 +250,6 @@ def allSites():
                 rozkop = request.form.get('rozkop')
                 sort_rozkop = Site.query.filter_by(rozkop=rozkop).all()
                 sites = [x for x in sites if x in sort_rozkop]
-
-
             if request.form.get('dodatky'):
                 sort_dodatky=[]
                 for e in db.session.query(Site).all():
@@ -259,8 +257,16 @@ def allSites():
                     if e.foto==value or e.plans==value or e.znahidky==value:
                         sort_dodatky.append(e)
                 sites = [x for x in sites if x in sort_dodatky]
+            if request.form.get('vysota'):
+                vysotnadrm = request.form.get('vysota')
+                val = vysotnadrm.split(',', 1)
+                minval = int(val[0])
+                maxval = int(val[1])
+                vysotmin = Site.query.filter(Site.vysotnadrm >= minval).all()
+                vysotmax = Site.query.filter(Site.vysotnadrm <= maxval).all()
+                sites = [x for x in sites if x in vysotmin]
+                sites = [x for x in sites if x in vysotmax]
             if request.form.get("by_alphabet"):
-                print sites
                 sorted_sites = sites.sort(key=lambda x: x.name)
             return render_template('all.html', sites=sites)
     else:
