@@ -80,6 +80,7 @@ def newSite():
                 chron=request.form['chron'],
                 nadijnist=request.form['nadijnist'],
                 rozkop=request.form['rozkop'],
+                dospl=request.form['dospl'],
                 zvit=request.form['zvit'],
                 publicacii = request.form['publicacii'],
                 kartograph = request.form['kartograph'],

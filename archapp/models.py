@@ -34,6 +34,7 @@ class Site(db.Model):
     chron = db.Column(db.String(250), nullable=False)
     nadijnist = db.Column(db.String(250), nullable=False)
     rozkop = db.Column(db.String(1000), nullable=False)
+    dospl = db.Column(db.String(50), nullable=False)
     zvit = db.Column(db.String(1000), nullable=False)
     publicacii = db.Column(db.String(1500), nullable=False)
     kartograph = db.Column(db.String(20), nullable=False)
@@ -55,7 +56,7 @@ class Site(db.Model):
     glyna = db.Column(db.String(50), nullable=False)
     prymitky = db.Column(db.String(3000))
 
-    def __init__(self, name, toponim, type_of_site, oblast, rajon, punkt, pryvjazka, kultnal, localgr, chron, nadijnist, rozkop, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky): 
+    def __init__(self, name, toponim, type_of_site, oblast, rajon, punkt, pryvjazka, kultnal, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky): 
         self.name = name
         self.toponim = toponim
         self.type_of_site = type_of_site
@@ -68,6 +69,7 @@ class Site(db.Model):
         self.chron = chron
         self.nadijnist = nadijnist
         self.rozkop = rozkop
+        self.dospl = dospl
         self.zvit = zvit
         self.publicacii = publicacii
         self.kartograph = kartograph
