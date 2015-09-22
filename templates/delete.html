@@ -1,53 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The site</title>
-    <link href="{{url_for('static', filename='bootstrap.css')}}" type="text/css" rel="stylesheet">
-    <link href="{{url_for('static', filename='my.css')}}" type="text/css" rel="stylesheet">
+{% extends "base.html" %}
 
-</head>
-<body class="background">
-<div class="container container-config textcol">
-    <div class="row header">
-        <div class="col-md-5"><a href = "{{url_for('welcomePage')}}" class="btn btn-sm"><h2 class="logo">Skiff stuff</h2></a></div>
-        <div class="col-md-2 padding">
-            <form class="form-inline box-shadow" method="post">
-                <label class="sr-only">Пошук:</label>
-                <input class="form-control" type="text" name="name_of_site" placeholder="Пошук пам'яток">
-            </form>
-        </div>
-        <div class="col-md-1 text-center padding"><a href ="{{url_for('newSite')}}" class="btn btn-color btn-sm">Нова</a>
-        </div>
-        <div class="col-md-1 text-center padding"><a href = "{{url_for('allSites')}}" class="btn btn-color btn-sm">Усi</a>
-        </div>
-        <div class="col-md-1 text-center padding"><a href = "#" class="btn btn-color btn-sm">Увiйти</a></div>
-        <div class="col-md-2 text-center padding"><a href = "#" class="btn btn-color btn-sm">Зареєструватися</a></div>
-    </div>
-    <div class = "row">
-        <div class="col-md-6 col-md-offset-3 text-center">
-            <h2 class="site_name">Видалити пам'ятку {{site.name}}? </h2>
-        </div>
-    </div>
-    <hr class="hrr"> 
-    <div class="row">
-    <div class="col-md-1 col-md-offset-5">
-        <form action="#" method = 'post'>
-            <input type="submit", value="Delete" class="btn btn-border-color textcol btn-sm background">
-        </form>
-    </div>
-    <div class="col-md-1">
-        <a href = "{{url_for('sitePage', site_id=site.id)}}"  class="btn btn-border-color textcol btn-sm"> Скасувати </a>
-    </div>
-    </div>
-<footer class="footer">
-<div class="container">
-        <div class="header text-right"><strong class="signature">Written by BB</strong></div>
+{% block content %}
+<div class = "row">
+  <div class="col-md-6 col-md-offset-3 text-center">
+    <h2 class="site_name">Видалити пам'ятку {{site.name}}? </h2>
+  </div>
 </div>
-</footer>
+<hr class="hrr"> 
+<div class="row">
+  <div class="col-md-1 col-md-offset-5">
+    <form action="#" method = 'post'>
+      <input type="submit" name="Delete" value="Видалити" class="btn btn-border-color textcol btn-sm background">
+    </form>
+  </div>
+  <div class="col-md-1">
+    <a href = "{{url_for('sitePage', site_id=site.id)}}"  class="btn btn-border-color textcol btn-sm"> Скасувати </a>
+  </div>
 </div>
-</body>
-</html>
-
+{% endblock %}

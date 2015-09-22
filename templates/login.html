@@ -6,9 +6,21 @@
     <p>
       Please enter you OpenID:<br>
       {{ form.openid(size=80) }}<br>
+      {% for error in form.openid.errors %}
+        <span style="color: red;"> [{{error}}]</span>
+      {% endfor %}<br>
     </p>
     <p>{{ form.remember_me }} Remember Me</p>
     <p><input type="submit" value="Sign In"></p>
   </form>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }} </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
 {% endblock %}
 

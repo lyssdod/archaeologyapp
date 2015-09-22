@@ -1,61 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The site</title>
-<link href="{{url_for('static', filename='bootstrap.css')}}" type="text/css" rel="stylesheet">
-<link href="{{url_for('static', filename='my.css')}}" type="text/css" rel="stylesheet">
+{% extends "base.html" %}
 
-</head>
-<body class="background">
-<div class="container conteiner-config textcol">
-  <div class="row header">
-    <div class="col-md-5"><a href = "{{url_for('welcomePage')}}" class="btn btn-sm"><h2 class="logo">Skiff stuff</h2></a></div>
-    <div class="col-md-2 padding">
-      <form class="form-inline box-shadow" method="post">
-        <label class="sr-only">Пошук:</label>
-        <input class="form-control" type="text" name="name_of_site" placeholder="Пошук пам'яток">
-      </form>
-    </div>
-    <div class="col-md-1 text-center padding"><a href ="{{url_for('newSite')}}" class="btn btn-color btn-sm">Нова</a>
-    </div>
-    <div class="col-md-1 text-center padding"><a href = "{{url_for('allSites')}}" class="btn btn-color btn-sm">Усi</a>
-    </div>
-    <div class="col-md-1 text-center padding"><a href = "#" class="btn btn-color btn-sm">Увiйти</a></div>
-    <div class="col-md-2 text-center padding"><a href = "#" class="btn btn-color btn-sm">Зареєструватися</a></div>
+{% block content %}
+<div class="container container-config">
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <h2 class="site_name">Створити нову пам'ятку</h2>
   </div>
+</div>
+<hr class="hrr"> 
+<div class="row">
+  <div class="col-md-12 text-center">
+    <img src="http://lorempixel.com/400/200" alt="Upload image">
+  </div>
+</div>
+<form action="#" method="post">
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
-      <h2 class="site_name">Створити нову пам'ятку</h2>
-    </div>
-  </div>
-  <hr class="hrr"> 
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <img src="http://lorempixel.com/400/200" alt="Upload image">
-    </div>
-  </div>
-  <form action="#" method="post">
-    <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        <table class="table">
-          <tr>
-            <td>Назва: </td>
-            <td><input type="text" name="name" autofocus></td>
-          </tr>
-          <tr>
-            <td>Топонiм:</td>
-            <td><input type="text" name="toponim"></td>
-          </tr>
-          <tr>
- <!--           <td>Тип пам'ятки:</td>
+      <table class="table">
+        <tr>
+          <td>Назва: </td>
+          <td><input type="text" name="name" autofocus></td>
+        </tr>
+        <tr>
+          <td>Топонiм:</td>
+          <td><input type="text" name="toponim"></td>
+        </tr>
+        <tr>
+            <td>Тип пам'ятки:</td>
             <td>
               <select name="type_of_site" size="1">
                 <option value="Городище">Городище</option>
                 <option value="Поселення">Поселення</option>
-                <option value="Могильник">Могильник</option>
+                <option value="Поховання">Поховання</option>
               </select>
             </td>
           </tr>
@@ -68,31 +44,29 @@
           <tr>
             <td>Область:</td>
             <td>
-              <select name="oblast" size="1">
-                <option value="Вiнницька">Вiнницька</option>
+              <select name="oblast" id="ddl" onchange="configureDropDownLists(this,document.getElementById('ddl2'))">
+                <option value="" selected>Область</option>
+                <option value="Брянська">Брянська</option>
+                <option value="Курська">Курська</option>
+                <option value="Орловська">Орловська</option>
+                <option value="Полтавська">Полтавська</option>
                 <option value="Сумська">Сумська</option>
-                <option value="Київська">Київська</option>
+                <option value="Чернiгiвська">Чернiгiвська</option>
               </select>
             </td>
           </tr>
           <tr>
             <td>Район:</td>
             <td>
-              <select name="rajon" size="1">
-                <option value="Iрпiнський">Iрпiнський</option>
-                <option value="Ладижинський">Ладижинський</option>
-                <option value="Київський">Київський</option>
+              <select id="ddl2" name="rajon">
+                <option value="" selected>Район</option>
               </select>
             </td>
           </tr>
           <tr>
             <td>Населений пункт:</td>
             <td>
-              <select name="punkt" size="1">
-                <option value="Дубки">Дубки</option>
-                <option value="Волноваха">Волноваха</option>
-                <option value="Пiски">Пiски</option>
-              </select>
+              <input type="text" name="punkt">
             </td>
           </tr>
           <tr>
@@ -108,6 +82,18 @@
           <tr>
             <td>Культурна належнiсть:</td>
             <td>
+              <input type="checkbox" name="skiph" value="Скiфська">Скiфська 
+              <input type="checkbox" name="juhn" value="Юхнiвська">Юхнiвська
+              <input type="checkbox" name="pjuhn" value="Пiзньоюхнiвська">Пiзньоюхнiвська
+              <input type="checkbox" name="verok" value="Верхньоокська">Верхньоокська
+              <input type="checkbox" name="dvosh" value="Двошарова">Двошарова
+              <input type="checkbox" name="drz" value="Д.Р.З.">Д.Р.З.
+
+
+            </td>
+          </tr>
+          <!--<tr>
+            <td>
               <select name="kultnal" size="1">
                 <option value="Скiфська">Скiфська</option>
                 <option value="Юхнiвська">Юхнiвська</option>
@@ -118,6 +104,7 @@
               </select>
             </td>
           </tr>
+-->
           <tr>
             <td>Належнiсть до локальної групи:</td>
             <td>
@@ -142,7 +129,14 @@
           </tr>
           <tr>
             <td>Надiйнiсть датування: </td>
-            <td><input type="text" name="nadijnist"></td>
+            <td>
+            <select name="nadijnist" size="1">
+              <option value="Ненадiйне">Ненадiйне</option>
+              <option value="Розвiдки">Розвiдки</option>
+              <option value="Професiйнi розвiдки">Професiйнi розвiдки</option>
+              <option value="Розкопки">Розкопки</option>
+            </select>
+          </td>
           </tr>
         </table>
       </div>
@@ -153,11 +147,15 @@
           <tr>
             <td>Розкопки: </td>
              <td>
-              <select name="kartograph" size="1">
+              <select name="rozkop" size="1">
                 <option value="Так">Так</option>
                 <option value="Нi">Нi</option>
               </select>
             </td>
+          </tr>
+          <tr>
+            <td>Дослiдженна площа (м2):</td>
+            <td><input type="text" name="dospl"></td>
           </tr>
           <tr>
             <td>Звiти: </td>
@@ -203,6 +201,7 @@
       <div class="col-md-4 col-md-offset-4">
         <table class="table">
           <tr>
+            <div>
             <td>Рiчковий басейн:</td>
             <td>
               <select name="basejn" size="1">
@@ -234,8 +233,8 @@
             <td><input type="text" name="geomorform"></td>
           </tr>
           <tr>
-            <td>Висота над рiвнем моря: </td>
-            <td><input type="text" name="vysotnadrm"></td>
+            <td>Висота над рiвнем води: </td>
+            <td><input type="number" name="vysotnadrm"></td>
           </tr>
         </table>
       </div>
@@ -245,15 +244,15 @@
         <table class="table">
           <tr>
             <td>Точна площа пам'ятки (га): </td>
-            <td><input type="text" name="ploshch"></td>
+            <td><input type="number" name="ploshch"></td>
           </tr>
           <tr>
             <td>Довжина: </td>
-            <td><input type="text" name="dovz"></td>
+            <td><input type="number" value="0" name="dovz"></td>
           </tr>
           <tr>
             <td>Ширина: </td>
-            <td><input type="text" name="shyr"></td>
+            <td><input type="number" value="0" name="shyr"></td>
           </tr> 
         </table>
       </div>
@@ -264,19 +263,26 @@
           <tr>
             <td>Додатки: </td>
             <td>
-              <input type="checkbox" name="foto">Фото
-              <input type="checkbox" name="plans">Плани
-              <input type="checkbox" name="znahidky">Знахiдки
+              <input type="checkbox" name="foto" value="Є">Фото
+              <input type="hidden" name="foto" value="Немає">
+              <input type="checkbox" name="plans" value="Є">Плани
+              <input type="hidden" name="plans" value="Немає">
+              <input type="checkbox" name="znahidky" value="Є">Знахiдки
+              <input type="hidden" name="znahidky" value="Немає">
             </td>
           </tr>
           <tr>
             <td>Матерiальна культура: </td>
             <td>
-              <input type="checkbox" name="kistka">Вироби з кiстки
-              <input type="checkbox" name="zalizo">Вироби з залiза
+              <input type="checkbox" name="kistka" value="Є">Вироби з кiстки
+              <input type="hidden" name="kistka" value="Немає">
+              <input type="checkbox" name="zalizo" value="Є">Вироби iз залiза
+              <input type="hidden" name="zalizo" value="Немає">
               <br>
-              <input type="checkbox" name="kamin">Вироби з каменю
-              <input type="checkbox" name="glyna">Вироби з глини
+              <input type="checkbox" name="kamin" value="Є">Вироби з каменю
+              <input type="hidden" name="kamin" value="Немає">
+              <input type="checkbox" name="glyna" value="Є">Вироби з глини
+              <input type="hidden" name="glyna" value="Немає">
             </td>
           </tr>
         </table>
@@ -287,7 +293,7 @@
             <td>Примiтки: </td>
             <td><input type="textarea" rows = "4" cols = "50" name="prymitky"></td>
           </tr>
--->
+
         </table>
       </div>
     </div>
@@ -299,13 +305,5 @@
       </div>
     </div> 
   </form>
-  <footer class="footer">
-    <div class="container">
-      <div class="header text-right"><strong class="signature">Written by BB</strong>
-      </div>
-    </div>
-  </footer>
 </div>
-
-</body>
-</html>
+{% endblock %}

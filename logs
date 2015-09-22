@@ -1,0 +1,30 @@
+Downloading/unpacking psycopg2
+  Running setup.py (path:/home/vagrant/appAr/venv/build/psycopg2/setup.py) egg_info for package psycopg2
+    
+    Error: You need to install postgresql-server-dev-X.Y for building a server-side extension or libpq-dev for building a client-side application.
+    
+    Complete output from command python setup.py egg_info:
+    running egg_info
+
+creating pip-egg-info/psycopg2.egg-info
+
+writing dependency_links to pip-egg-info/psycopg2.egg-info/dependency_links.txt
+
+writing pip-egg-info/psycopg2.egg-info/PKG-INFO
+
+writing top-level names to pip-egg-info/psycopg2.egg-info/top_level.txt
+
+writing manifest file 'pip-egg-info/psycopg2.egg-info/SOURCES.txt'
+
+warning: manifest_maker: standard file '-c' not found
+
+
+
+Error: You need to install postgresql-server-dev-X.Y for building a server-side extension or libpq-dev for building a client-side application.
+
+
+
+----------------------------------------
+Cleaning up...
+Command python setup.py egg_info failed with error code 1 in /home/vagrant/appAr/venv/build/psycopg2
+Storing debug log for failure in /home/vagrant/.pip/pip.log
