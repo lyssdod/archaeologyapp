@@ -3,9 +3,9 @@ from flask import render_template, request, url_for, flash, redirect
 from myapp import app, db 
 #from forms import LoginForm
 #from flask import session as login_session
-from flask.ext.login import LoginManager, UserMixin, login_user, logout_user, current_user
-from oauth import OAuthSignIn
-from models import Site, User
+#from flask.ext.login import LoginManager, UserMixin, login_user, logout_user, current_user
+#from oauth import OAuthSignIn
+from models import Site#, User
 #import random, string
 #from models import Site, OAuthSignIn, FacebookSignIn
 

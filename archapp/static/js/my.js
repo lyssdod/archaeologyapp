@@ -62,7 +62,17 @@ function createOption(ddl, text, value) {
 
 //Slider
 $(document).ready(function(){
-  var mySlider = $('#slider').slider({});
-  var value = mySlider.slider('getValue');
+  $('#slider').slider({});
+  $('#slider').change(function(){
+    var value = $('#slider').attr('value');
+    $("#slider_v").attr("value", value);
+  })
+});
+$(document).ready(function(){
+  $('#slider2').slider({});
+  $('#slider2').change(function(){
+    var value = $('#slider2').attr('value');
+    $("#slider_v2").attr("value", value);
+  })
 });
 
