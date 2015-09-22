@@ -81,7 +81,7 @@ def newSite():
                 pjuhn=request.form.get('pjuhn'),
                 verok=request.form.get('verok'),
                 dvosh=request.form.get('dvosh'),
-                drz=request.form.get('dvosh'),
+                drz=request.form.get('drz'),
                 #
                 localgr=request.form['localgr'],
                 chron=request.form['chron'],
