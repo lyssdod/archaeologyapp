@@ -1,1 +1,1 @@
-web: gunicorn archapp/myapp:app --log-file=-
+web: gunicorn myapp:app --log-file=-
