@@ -14,17 +14,24 @@
   </div>
 </div>
 <form action="#" method="post">
+  {{form.hidden_tag()}}
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
-      <table class="table">
-        <tr>
-          <td>Назва: </td>
-          <td><input type="text" name="name" autofocus></td>
-        </tr>
-        <tr>
-          <td>Топонiм:</td>
-          <td><input type="text" name="toponim"></td>
-        </tr>
+      <div>
+      <label class="col-xs-4" for="name">Назва </label>
+      {{form.name}}
+      {%for error in form.name.errors %}
+        {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-xs-4" for="toponim">Топонiм </label>
+      {{form.toponim}}
+      {%for error in form.toponim.errors %}
+        {{error}}
+      {%endfor%}
+    </div>
+      <!--
         <tr>
             <td>Тип пам'ятки:</td>
             <td>
@@ -92,6 +99,7 @@
 
             </td>
           </tr>
+          -->
           <!--<tr>
             <td>
               <select name="kultnal" size="1">
@@ -105,6 +113,7 @@
             </td>
           </tr>
 -->
+          <!--
           <tr>
             <td>Належнiсть до локальної групи:</td>
             <td>
@@ -293,8 +302,7 @@
             <td>Примiтки: </td>
             <td><input type="textarea" rows = "4" cols = "50" name="prymitky"></td>
           </tr>
-
-        </table>
+-->
       </div>
     </div>
 

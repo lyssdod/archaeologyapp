@@ -41,6 +41,15 @@
     <div class="col-md-1 text-center padding"><a href = "{{url_for('login')}}" class="btn btn-color btn-sm">Увiйти</a></div>
     <div class="col-md-2 text-center padding"><a href = "#" class="btn btn-color btn-sm">Зареєструватися</a></div>
   </div>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }} </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
   {% block content %} {% endblock %}
   <footer class="footer">
     <div class="container">

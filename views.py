@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, request, url_for, flash, redirect
 from myapp import app, db 
+from forms import newSiteForm
 #from forms import LoginForm
 #from flask import session as login_session
 #from flask.ext.login import LoginManager, UserMixin, login_user, logout_user, current_user
@@ -63,61 +64,76 @@ def welcomePage():
 
 @app.route('/new', methods=['GET', 'POST'])
 def newSite():
+    form= newSiteForm()
+    if form.validate_on_submit():
+        flash('Added the new Site "%s"' % 
+                (form.name.data))
+
+        TheNewSite = Site(name=request.form['name'], 
+                toponim=request.form['toponim'],
+                )
+        db.session.add(TheNewSite)
+        db.session.commit()
+        return redirect(url_for('allSites')) 
+    else:
+        return render_template('newsite.html', title="New Site", form=form)
+
     if request.method == 'POST':
         if request.form.get('name_of_site', None):
             results = request.form['name_of_site']
             return redirect(url_for('search', query=results)) 
-        else: 
-            TheNewSite = Site(name=request.form['name'], 
-                toponim=request.form['toponim'],
-                type_of_site = request.form['type_of_site'],
-                oblast=request.form['oblast'],
-                rajon=request.form['rajon'],
-                punkt=request.form['punkt'],
-                pryvjazka=request.form['pryvjazka'],
-             #   kultnal=request.form['kultnal'],
-                skiph=request.form.get('skiph'),
-                juhn=request.form.get('juhn'),
-                pjuhn=request.form.get('pjuhn'),
-                verok=request.form.get('verok'),
-                dvosh=request.form.get('dvosh'),
-                drz=request.form.get('drz'),
-                #
-                localgr=request.form['localgr'],
-                chron=request.form['chron'],
-                nadijnist=request.form['nadijnist'],
-                rozkop=request.form['rozkop'],
-                dospl=request.form['dospl'],
-                zvit=request.form['zvit'],
-                publicacii = request.form['publicacii'],
-                kartograph = request.form['kartograph'],
-                coord = request.form['coord'],
-                tochkart = request.form['tochkart'],
-                basejn = request.form['basejn'],
-                toppotype = request.form['toppotype'],
-                geomorform = request.form['geomorform'],
-                vysotnadrm = request.form['vysotnadrm'], 
-                ploshch = request.form['ploshch'],
-                dovz = request.form['dovz'],
-                shyr = request.form['shyr'],
-                foto = request.form.get('foto'),
-                plans = request.form.get('plans'), 
-                znahidky = request.form.get('znahidky'),
-                kistka = request.form.get('kistka'),
-                zalizo= request.form.get('zalizo'),
-                kamin = request.form.get('kamin'),
-                glyna= request.form.get('glyna'),
-                prymitky=request.form.get('prymitky'))
-                
-            db.session.add(TheNewSite)
-            db.session.commit()
+      #  else: 
+      #      TheNewSite = Site(name=request.form['name'], 
+      #          toponim=request.form['toponim'],
+              #  type_of_site = request.form['type_of_site'],
+              #  oblast=request.form['oblast'],
+              #  rajon=request.form['rajon'],
+              #  punkt=request.form['punkt'],
+              #  pryvjazka=request.form['pryvjazka'],
+             ##   kultnal=request.form['kultnal'],
+              #  skiph=request.form.get('skiph'),
+              #  juhn=request.form.get('juhn'),
+              #  pjuhn=request.form.get('pjuhn'),
+              #  verok=request.form.get('verok'),
+              #  dvosh=request.form.get('dvosh'),
+              #  drz=request.form.get('drz'),
+              #  #
+              #  localgr=request.form['localgr'],
+              #  chron=request.form['chron'],
+              #  nadijnist=request.form['nadijnist'],
+              #  rozkop=request.form['rozkop'],
+              #  dospl=request.form['dospl'],
+              #  zvit=request.form['zvit'],
+              #  publicacii = request.form['publicacii'],
+              #  kartograph = request.form['kartograph'],
+              #  coord = request.form['coord'],
+              #  tochkart = request.form['tochkart'],
+              #  basejn = request.form['basejn'],
+              #  toppotype = request.form['toppotype'],
+              #  geomorform = request.form['geomorform'],
+              #  vysotnadrm = request.form['vysotnadrm'], 
+              #  ploshch = request.form['ploshch'],
+              #  dovz = request.form['dovz'],
+              #  shyr = request.form['shyr'],
+              #  foto = request.form.get('foto'),
+              #  plans = request.form.get('plans'), 
+              #  znahidky = request.form.get('znahidky'),
+              #  kistka = request.form.get('kistka'),
+              #  zalizo= request.form.get('zalizo'),
+              #  kamin = request.form.get('kamin'),
+              #  glyna= request.form.get('glyna'),
+              #  prymitky=request.form.get('prymitky')
+      #        )
+
+      #      db.session.add(TheNewSite)
+      #      db.session.commit()
             return redirect(url_for('allSites')) 
        # if request.form["name_of_site"]:
        #     results = request.form["name_of_site"]
        #     return redirect(url_for('search', query=results)) 
 
     else:
-        return render_template('newsite.html')
+        return render_template('newsite.html', title="New Site", form=form)
 
 
 @app.route('/<int:site_id>/', methods = ['GET', 'POST'])
