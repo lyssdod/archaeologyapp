@@ -223,3 +223,19 @@
       margin-right: 0;
     }
   }
+
+/*Geolocation*/
+#map {
+  height: 500px;
+}
+#floating-panel {
+  position: relative;
+  top: 10px;
+  z-index: 5;
+  padding: 5px;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+

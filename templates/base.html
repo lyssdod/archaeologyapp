@@ -16,12 +16,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/sidebar-bootstrap.js')}}"></script>
+<script src="{{url_for('static', filename='js/gm.js')}}"></script>
 
 
 <!--slider-->
 <script src="{{url_for('static', filename='theslider/js/bootstrap-slider.js')}}"></script>
 <link href="{{url_for('static', filename='theslider/css/bootstrap-slider.css')}}" type="text/css" rel="stylesheet">
-
+<!--google maps-->
 </head>
 <body class="background">
 <div class="container container-config textcol">
@@ -58,6 +59,10 @@
   </footer>
 </div>
 <script src="{{url_for('static', filename='js/my.js')}}"></script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&language=uk">
+</script>
+
 </body>
 </html>
 

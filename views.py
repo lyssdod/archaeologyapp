@@ -61,6 +61,11 @@ def welcomePage():
             return redirect(url_for('search', query=results)) 
     else:
         return render_template('welcome.html')
+@app.route('/gmap', methods=['GET' ])
+def gmap():
+    if request.method == 'GET':
+        return render_template('gmap.html')
+
 
 @app.route('/new', methods=['GET', 'POST'])
 def newSite():
