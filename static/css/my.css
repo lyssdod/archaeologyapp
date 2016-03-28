@@ -224,18 +224,23 @@
     }
   }
 
-/*Geolocation*/
-#map {
-  height: 500px;
-}
-#floating-panel {
-  position: relative;
-  top: 10px;
-  z-index: 5;
-  padding: 5px;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
-}
+  /*Geolocation*/
+  #map {
+    height: 500px;
+  }
+
+  #floating-panel {
+    border: 2px solid #C3D7DF;
+    left: 500px;
+    width: 45%;
+    background: white;
+    position: relative;
+    bottom: 480px;
+    z-index: 5;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+  }
 
