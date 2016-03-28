@@ -24,7 +24,7 @@ class Site(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
     name = db.Column(db.String(250))
     toponim = db.Column(db.String(250))
-#    type_of_site= db.Column(db.String(250), nullable=False)
+    type_of_site= db.Column(db.String(250), nullable=False)
 #    oblast = db.Column(db.String(250), nullable=False)
 #    rajon = db.Column(db.String(250), nullable=False)
 #    punkt = db.Column(db.String(250), nullable=False)
@@ -64,11 +64,11 @@ class Site(db.Model):
 #    prymitky = db.Column(db.String(3000))
 #
     def __init__(self, name, toponim, 
-            #type_of_site, oblast, rajon, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
+            type_of_site, #oblast, rajon, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
             ): 
         self.name = name
         self.toponim = toponim
-        #self.type_of_site = type_of_site
+        self.type_of_site = type_of_site
         #self.oblast = oblast
         #self.rajon = rajon
         #self.punkt = punkt

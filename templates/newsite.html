@@ -31,6 +31,14 @@
         {{error}}
       {%endfor%}
     </div>
+    <div>
+      <label class="col-xs-4" for="type_of_site">Топонiм </label>
+      {{form.type_of_site}}
+      {%for error in form.type_of_site.errors %}
+        {{error}}
+      {%endfor%}
+    </div>
+
     <!--
         <tr>
             <td>Тип пам'ятки:</td>
