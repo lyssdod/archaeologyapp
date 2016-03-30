@@ -32,12 +32,27 @@
       {%endfor%}
     </div>
     <div>
-      <label class="col-xs-4" for="type_of_site">Топонiм </label>
+      <label class="col-xs-4" for="type_of_site">Тип пам'ятки </label>
       {{form.type_of_site}}
       {%for error in form.type_of_site.errors %}
         {{error}}
       {%endfor%}
     </div>
+    <div>
+      <label class="col-xs-4" for="oblast">Область</label>
+      {{form.oblast}}
+      {%for error in form.oblast.errors %}
+        {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-xs-4" for="rajon">Район </label>
+      {{form.rajon}}
+      {%for error in form.rajon.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div id="theresult"></div>
 
     <!--
         <tr>

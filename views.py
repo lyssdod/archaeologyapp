@@ -77,6 +77,8 @@ def newSite():
         TheNewSite = Site(name=request.form['name'], 
                 toponim=request.form['toponim'],
                 type_of_site = request.form['type_of_site'],
+                oblast=request.form['oblast'],
+                rajon=request.form['rajon'],
                 )
         db.session.add(TheNewSite)
         db.session.commit()

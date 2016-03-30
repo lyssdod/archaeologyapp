@@ -69,7 +69,9 @@ map: map
 });
       infowindow.setContent(results[1].formatted_address + "<br>" +location.lat() +"<br>"+ location.lng());
       infowindow.open(map, marker);
-      var div = document.getElementById('dataadress').value=results[1].formatted_address;
+      var oblast = document.getElementById('oblast').value=results[1].formatted_address;
+      var rajon = document.getElementById('rajon').value=results[1].formatted_address;
+      var krajina = document.getElementById('krajina').value=results[1].formatted_address;
       } else {
       window.alert('No results found');
       }
