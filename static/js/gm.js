@@ -62,6 +62,7 @@ function geocodeLatLng(geocoder, map, infowindow, location) {
   geocoder.geocode({'location': latlng}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
       if (results[1]) {
+      map.setCenter(results[1].geometry.location);
       map.setZoom(9);
       var marker = new google.maps.Marker({
 position: latlng,
@@ -69,15 +70,41 @@ map: map
 });
       infowindow.setContent(results[1].formatted_address + "<br>" +location.lat() +"<br>"+ location.lng());
       infowindow.open(map, marker);
-      var oblast = document.getElementById('oblast').value=results[1].formatted_address;
-      var rajon = document.getElementById('rajon').value=results[1].formatted_address;
-      var krajina = document.getElementById('krajina').value=results[1].formatted_address;
-      } else {
-      window.alert('No results found');
+      var x;
+      var rajon;
+      for (x in results[0].address_components) {
+        if (results[0].address_components[x].types[0] == "administrative_area_level_2") {
+
+          rajon = results[0].address_components[x].long_name;
+        }
       }
-      } else {
-      window.alert('Geocoder failed due to: ' + status);
+      if (rajon == undefined){
+        for (x in results[0].address_components) {
+          if (results[0].address_components[x].types[0] == "administrative_area_level_3") {
+            rajon = results[0].address_components[x].long_name;
+          }
+        }
       }
-      });
+
+document.getElementById('rajon').value= rajon;
+var x;
+var oblast;
+for (x in results[0].address_components) {
+  if (results[0].address_components[x].types[0] == "administrative_area_level_1") {
+
+    oblast = results[0].address_components[x].long_name;
+  } 
+} 
+document.getElementById('oblast').value= oblast;
+
+var obj = JSON.stringify(results[0].address_components[3])
+  document.getElementById('obj').innerHTML = obj;
+  } else {
+    window.alert('No results found');
+  }
+} else {
+  window.alert('Geocoder failed due to: ' + status);
+}
+});
 }
 
