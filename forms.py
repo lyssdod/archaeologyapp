@@ -14,4 +14,6 @@ class newSiteForm(Form):
     type_of_site= SelectField("Тип пам'ятки", choices=[("Городище", "Городище"), ("Поселення", "Послення"), ("Поховання", "Поховання")]) 
     oblast=StringField('oblast', [Length(min=3,max=50)])
     rajon=StringField('rajon', [Length(min=3,max=50)])
+    punkt=StringField('punkt', [Length(min=3,max=50)])
+    pryvjazka=StringField('pryvjazka', [Length(min=3,max=50)])
 

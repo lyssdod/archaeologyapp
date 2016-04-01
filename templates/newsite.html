@@ -52,49 +52,22 @@
       {{error}}
       {%endfor%}
     </div>
-    <div id="theresult"></div>
-    <p id="obj"> </p>
+    <div>
+      <label class="col-xs-4" for="punkt">Населений пункт</label>
+      {{form.punkt}}
+      {%for error in form.punkt.errors %}
+        {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-xs-4" for="pryvjazka">Прив'язка </label>
+      {{form.pryvjazka}}
+      {%for error in form.pryvjazka.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
 
     <!--
-        <tr>
-            <td>Тип пам'ятки:</td>
-            <td>
-              <select name="type_of_site" size="1">
-                <option value="Городище">Городище</option>
-                <option value="Поселення">Поселення</option>
-                <option value="Поховання">Поховання</option>
-              </select>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        <table class="table">
-          <tr>
-            <td>Область:</td>
-            <td>
-              <select name="oblast" id="ddl" onchange="configureDropDownLists(this,document.getElementById('ddl2'))">
-                <option value="" selected>Область</option>
-                <option value="Брянська">Брянська</option>
-                <option value="Курська">Курська</option>
-                <option value="Орловська">Орловська</option>
-                <option value="Полтавська">Полтавська</option>
-                <option value="Сумська">Сумська</option>
-                <option value="Чернiгiвська">Чернiгiвська</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Район:</td>
-            <td>
-              <select id="ddl2" name="rajon">
-                <option value="" selected>Район</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
             <td>Населений пункт:</td>
             <td>
               <input type="text" name="punkt">
@@ -102,7 +75,7 @@
           </tr>
           <tr>
             <td>Прив'язка: </td>
-            <td><input type="text" name="pryvjazka"></td>
+            <td><input type="text" name=""></td>
           </tr>
         </table>
       </div>
@@ -346,5 +319,9 @@
     <input id="reset" type="button" value="reset">
   </div>
 </div>
+<div id="theresult"></div>
+<p id="obj"> </p>
+
+
 
 {% endblock %}
