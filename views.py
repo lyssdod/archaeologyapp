@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
+
+
 from flask import render_template, request, url_for, flash, redirect
 from myapp import app, db 
 from forms import newSiteForm
@@ -77,10 +83,17 @@ def newSite():
         TheNewSite = Site(name=request.form['name'], 
                 toponim=request.form['toponim'],
                 type_of_site = request.form['type_of_site'],
+                #krajina=request.form['krajina'],
                 oblast=request.form['oblast'],
                 rajon=request.form['rajon'],
                 punkt=request.form['punkt'],
                 pryvjazka=request.form['pryvjazka'],
+                skiph=request.form.get('skiph'),
+                juhn=request.form.get('juhn'),
+                pjuhn=request.form.get('pjuhn'),
+                verok=request.form.get('verok'),
+                dvosh=request.form.get('dvosh'),
+                drz=request.form.get('drz'),
                 )
         db.session.add(TheNewSite)
         db.session.commit()

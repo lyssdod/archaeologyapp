@@ -29,13 +29,14 @@ class Site(db.Model):
     rajon = db.Column(db.String(250), nullable=False)
     punkt = db.Column(db.String(250), nullable=False)
     pryvjazka = db.Column(db.String(250), nullable=False)
+#    krajina = db.Column(db.String(250), nullable=False)
 ##    kultnal = db.Column(db.String(250), nullable=False)
-#    skiph = db.Column(db.String(250), nullable=True)
-#    juhn = db.Column(db.String(250), nullable=True)
-#    pjuhn = db.Column(db.String(250), nullable=True)
-#    verok = db.Column(db.String(250), nullable=True)
-#    dvosh = db.Column(db.String(250), nullable=True)
-#    drz = db.Column(db.String(250), nullable=True)
+    skiph = db.Column(db.String(250), nullable=True)
+    juhn = db.Column(db.String(250), nullable=True)
+    pjuhn = db.Column(db.String(250), nullable=True)
+    verok = db.Column(db.String(250), nullable=True)
+    dvosh = db.Column(db.String(250), nullable=True)
+    drz = db.Column(db.String(250), nullable=True)
 #    #
 #    localgr = db.Column(db.String(250), nullable=False)
 #    chron = db.Column(db.String(250), nullable=False)
@@ -64,7 +65,7 @@ class Site(db.Model):
 #    prymitky = db.Column(db.String(3000))
 #
     def __init__(self, name, toponim, 
-            type_of_site, oblast, rajon, punkt, pryvjazka, #skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
+            type_of_site, oblast, rajon, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, #localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
             ): 
         self.name = name
         self.toponim = toponim
@@ -74,12 +75,12 @@ class Site(db.Model):
         self.punkt = punkt
         self.pryvjazka = pryvjazka
         ##self.kultnal = kultnal
-        #self.skiph = skiph
-        #self.juhn = juhn
-        #self.pjuhn = pjuhn
-        #self.verok = verok
-        #self.dvosh = dvosh
-        #self.drz = drz
+        self.skiph = skiph
+        self.juhn = juhn
+        self.pjuhn = pjuhn
+        self.verok = verok
+        self.dvosh = dvosh
+        self.drz = drz
         ##
         #self.localgr = localgr
         #self.chron = chron

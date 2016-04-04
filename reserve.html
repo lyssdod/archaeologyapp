@@ -1,0 +1,49 @@
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <h3>Культурна належність</h3>
+      <div>
+        <label class="col-md-10" for="skiph">Скіфська</label>
+        {{form.skiph(value="Скіфська")}}
+        {%for error in form.skiph.errors %}
+        {{error}}
+        {%endfor%}
+      </div>
+      <div>
+        <label class="col-md-10" for="juhn">Юхнівська</label>
+        {{form.juhn(value="Юхнівська")}}
+        {%for error in form.juhn.errors %}
+        {{error}}
+        {%endfor%}
+      </div>
+      <div>
+        <label class="col-md-10" for="pjuhn">Пізньоюхнівська</label>
+        {{form.pjuhn(value="Пізноюхнівська")}}
+        {%for error in form.pjuhn.errors %}
+        {{error}}
+        {%endfor%}
+      </div>
+      <div>
+        <label class="col-md-10" for="verok">Верхньокська</label>
+        {{form.verok(value="Верхньоокська")}}
+        {%for error in form.verok.errors %}
+        {{error}}
+        {%endfor%}
+      </div>
+      <div>
+        <label class="col-md-10" for="dvosh">Двошарова</label>
+        {{form.dvosh(value="Двошарова")}}
+        {%for error in form.dvosh.errors %}
+        {{error}}
+        {%endfor%}
+      </div>
+      <div>
+        <label class="col-md-10" for="drz">Д.Р.З.</label>
+        {{form.drz(value="Д.Р.З.")}}
+        {%for error in form.drz.errors %}
+        {{error}}
+        {%endfor%}
+      </div>
+    </div>
+  </div>
+
+
