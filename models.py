@@ -38,7 +38,7 @@ class Site(db.Model):
     dvosh = db.Column(db.String(250), nullable=True)
     drz = db.Column(db.String(250), nullable=True)
 #    #
-#    localgr = db.Column(db.String(250), nullable=False)
+    localgr = db.Column(db.String(250), nullable=False)
 #    chron = db.Column(db.String(250), nullable=False)
 #    nadijnist = db.Column(db.String(250), nullable=False)
 #    rozkop = db.Column(db.String(1000), nullable=False)
@@ -65,7 +65,8 @@ class Site(db.Model):
 #    prymitky = db.Column(db.String(3000))
 #
     def __init__(self, name, toponim, 
-            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, #localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
+            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, 
+            #chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
             ): 
         self.name = name
         self.toponim = toponim
@@ -83,7 +84,7 @@ class Site(db.Model):
         self.dvosh = dvosh
         self.drz = drz
         ##
-        #self.localgr = localgr
+        self.localgr = localgr
         #self.chron = chron
         #self.nadijnist = nadijnist
         #self.rozkop = rozkop

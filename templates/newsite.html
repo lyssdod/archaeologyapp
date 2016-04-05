@@ -118,6 +118,14 @@
           {{error}}
           {%endfor%}
         </div>
+        <div>
+          <label class="col-md-2 col-md-offset-4" for="localgr">Локальна група</label>
+          {{form.localgr}}
+          {%for error in form.localgr.errors %}
+          {{error}}
+          {%endfor%}
+        </div>
+
 
       </div>
     </div>

@@ -94,6 +94,7 @@ def newSite():
                 verok=request.form.get('verok'),
                 dvosh=request.form.get('dvosh'),
                 drz=request.form.get('drz'),
+                localgr=request.form['localgr'],
                 )
         db.session.add(TheNewSite)
         db.session.commit()
