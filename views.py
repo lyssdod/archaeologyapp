@@ -95,6 +95,11 @@ def newSite():
                 dvosh=request.form.get('dvosh'),
                 drz=request.form.get('drz'),
                 localgr=request.form['localgr'],
+                chron=request.form['chron'],
+                nadijnist=request.form['nadijnist'],
+                rozkop=request.form.get('rozkop'),
+                dospl=request.form['dospl'],
+                zvit=request.form['zvit'],
                 )
         db.session.add(TheNewSite)
         db.session.commit()

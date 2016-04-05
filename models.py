@@ -39,11 +39,11 @@ class Site(db.Model):
     drz = db.Column(db.String(250), nullable=True)
 #    #
     localgr = db.Column(db.String(250), nullable=False)
-#    chron = db.Column(db.String(250), nullable=False)
-#    nadijnist = db.Column(db.String(250), nullable=False)
-#    rozkop = db.Column(db.String(1000), nullable=False)
-#    dospl = db.Column(db.String(50), nullable=False)
-#    zvit = db.Column(db.String(1000), nullable=False)
+    chron = db.Column(db.String(250), nullable=False)
+    nadijnist = db.Column(db.String(250), nullable=False)
+    rozkop = db.Column(db.String(1000), nullable=False)
+    dospl = db.Column(db.Integer, nullable=False)
+    zvit = db.Column(db.String(1000), nullable=False)
 #    publicacii = db.Column(db.String(1500), nullable=False)
 #    kartograph = db.Column(db.String(20), nullable=False)
 #    coord = db.Column(db.String(50), nullable=False)
@@ -65,8 +65,7 @@ class Site(db.Model):
 #    prymitky = db.Column(db.String(3000))
 #
     def __init__(self, name, toponim, 
-            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, 
-            #chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
+            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, #publicacii, kartograph, coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
             ): 
         self.name = name
         self.toponim = toponim
@@ -85,11 +84,11 @@ class Site(db.Model):
         self.drz = drz
         ##
         self.localgr = localgr
-        #self.chron = chron
-        #self.nadijnist = nadijnist
-        #self.rozkop = rozkop
-        #self.dospl = dospl
-        #self.zvit = zvit
+        self.chron = chron
+        self.nadijnist = nadijnist
+        self.rozkop = rozkop
+        self.dospl = dospl
+        self.zvit = zvit
         #self.publicacii = publicacii
         #self.kartograph = kartograph
         #self.coord = coord

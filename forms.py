@@ -5,8 +5,8 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 from flask.ext.wtf import Form
-from wtforms import StringField, SelectField, BooleanField
-from wtforms.validators import Length, DataRequired
+from wtforms import StringField, IntegerField, SelectField, BooleanField
+from wtforms.validators import Length, NumberRange, DataRequired
 
 class newSiteForm(Form):
     name = StringField('name', [Length(min=3,max=30)])
@@ -24,5 +24,8 @@ class newSiteForm(Form):
     dvosh = BooleanField('dvosh')
     drz = BooleanField('drz')
     localgr = SelectField("Локальна група", choices=[("Західне посем'я", "Західне Посем'я"), ("Східне посем'я", "Східне посем'я"), ("Посулля", "Посулля"), ("Середньопсілська", "Середньопсілська"), ("Верхньопсілська", "Верхньопсілська"), ("Скіфське Подесення", "Скіфське Подесення"), ("Новгород-Сіверське Подесення", "Новгород-Сіверське Подесення"), ("Брянське Подесення", "Брянське Подесення"), ("Верхня Ока", "Верхня Ока"), ("Пізньоюхнівська", "Пізньоюхнівська"), ("Невстановлено", "Невстановлено")]) 
-
-
+    chron = StringField('chron', [Length(min=3,max=50)])
+    nadijnist = SelectField("Датування", choices=[("Ненадійне", "Ненадійне"), ("Розвідки", "Розвідки"), ("Професійні розвідки", "Професійні розвідки"), ("Розкопки", "Розкопки")]) 
+    rozkop = BooleanField('rozkop')
+    dospl = IntegerField('dospl', [NumberRange(min=0, max=10000)])
+    zvit = StringField('zvit', [Length(min=3,max=50)])

@@ -118,17 +118,53 @@
           {{error}}
           {%endfor%}
         </div>
-        <div>
-          <label class="col-md-2 col-md-offset-4" for="localgr">Локальна група</label>
-          {{form.localgr}}
-          {%for error in form.localgr.errors %}
-          {{error}}
-          {%endfor%}
-        </div>
-
-
       </div>
     </div>
+
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="localgr">Локальна група</label>
+      {{form.localgr}}
+      {%for error in form.localgr.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="chron">Вузька хронологія</label>
+      {{form.chron}}
+      {%for error in form.chron.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="nadijnist">Надійність датування</label>
+      {{form.nadijnist}}
+      {%for error in form.nadijnist.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="rozkop">Розкопки</label>
+      {{form.rozkop}}
+      {%for error in form.rozkop.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="dospl">Досліджена площа (м2)</label>
+      {{form.dospl}}
+      {%for error in form.dospl.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="zvit">Звіти</label>
+      {{form.zvit}}
+      {%for error in form.zvit.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+
+
 
 
 
