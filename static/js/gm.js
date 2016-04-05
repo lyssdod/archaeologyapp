@@ -70,7 +70,6 @@ map: map
 });
       infowindow.setContent(results[1].formatted_address + "<br>" +location.lat() +"<br>"+ location.lng());
       infowindow.open(map, marker);
-      var x;
       var rajon;
       for (x in results[0].address_components) {
         if (results[0].address_components[x].types[0] == "administrative_area_level_2") {
@@ -87,7 +86,6 @@ map: map
       }
 
 document.getElementById('rajon').value= rajon;
-var x;
 var oblast;
 for (x in results[0].address_components) {
   if (results[0].address_components[x].types[0] == "administrative_area_level_1") {
@@ -96,6 +94,16 @@ for (x in results[0].address_components) {
   } 
 } 
 document.getElementById('oblast').value= oblast;
+var krajina;
+for (x in results[0].address_components) {
+  if (results[0].address_components[x].types[0] == "country") {
+
+    krajina = results[0].address_components[x].long_name;
+  } 
+} 
+document.getElementById('krajina').value= krajina;
+
+
 
 var obj = JSON.stringify(results[0].address_components[3])
   document.getElementById('obj').innerHTML = obj;

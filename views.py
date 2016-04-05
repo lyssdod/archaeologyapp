@@ -83,7 +83,7 @@ def newSite():
         TheNewSite = Site(name=request.form['name'], 
                 toponim=request.form['toponim'],
                 type_of_site = request.form['type_of_site'],
-                #krajina=request.form['krajina'],
+                krajina=request.form['krajina'],
                 oblast=request.form['oblast'],
                 rajon=request.form['rajon'],
                 punkt=request.form['punkt'],
