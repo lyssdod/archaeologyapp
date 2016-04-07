@@ -5,7 +5,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 from flask.ext.wtf import Form
-from wtforms import StringField, IntegerField, SelectField, BooleanField
+from wtforms import StringField, IntegerField, FloatField, DecimalField, SelectField, BooleanField
 from wtforms.validators import Length, NumberRange, DataRequired
 
 class newSiteForm(Form):
@@ -29,3 +29,7 @@ class newSiteForm(Form):
     rozkop = BooleanField('rozkop')
     dospl = IntegerField('dospl', [NumberRange(min=0, max=10000)])
     zvit = StringField('zvit', [Length(min=3,max=50)])
+    publicacii = StringField('publicacii', [Length(min=3,max=350)])
+    kartograph = BooleanField('kartograph')
+    latd = FloatField('latd')
+    longt = FloatField('longt')

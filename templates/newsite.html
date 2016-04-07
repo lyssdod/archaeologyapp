@@ -163,8 +163,34 @@
       {{error}}
       {%endfor%}
     </div>
-
-
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="publicacii">Публікації</label>
+      {{form.publicacii}}
+      {%for error in form.publicacii.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="kartograph">Картографована</label>
+      {{form.kartograph}}
+      {%for error in form.kartograph.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="latd">Довгота</label>
+      {{form.latd}}
+      {%for error in form.latd.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div>
+      <label class="col-md-2 col-md-offset-4" for="longt">Широта</label>
+      {{form.longt}}
+      {%for error in form.longt.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
 
 
 

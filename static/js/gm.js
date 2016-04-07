@@ -102,6 +102,12 @@ for (x in results[0].address_components) {
   } 
 } 
 document.getElementById('krajina').value= krajina;
+var latd;
+latd = location.lat();
+document.getElementById('latd').value= latd;
+var longt;
+longt = location.lng();
+document.getElementById('longt').value= longt;
 
 
 

@@ -100,12 +100,16 @@ def newSite():
                 rozkop=request.form.get('rozkop'),
                 dospl=request.form['dospl'],
                 zvit=request.form['zvit'],
-                )
+                publicacii = request.form['publicacii'],
+                kartograph = request.form.get('kartograph'),
+                latd = request.form['latd'],
+                longt = request.form['longt'],
+               )
         db.session.add(TheNewSite)
         db.session.commit()
         return redirect(url_for('allSites')) 
     else:
-        return render_template('newsite.html', title="New Site", form=form)
+        return render_template('newsite.html', title="Нова пам'ятка", form=form)
 
     if request.method == 'POST':
         if request.form.get('name_of_site', None):
