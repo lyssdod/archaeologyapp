@@ -16,56 +16,71 @@
   <form action="#" method="post">
     {{form.hidden_tag()}}
     <div class="row">
-      <div>
+      <div class="row">
         <label class="col-md-2 col-md-offset-4" for="name">Назва </label>
         {{form.name}}
         {%for error in form.name.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div>
+      <div class="row">
         <label class="col-md-2 col-md-offset-4" for="toponim">Топонiм </label>
         {{form.toponim}}
         {%for error in form.toponim.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div>
+      <div class="row">
         <label class="col-md-2 col-md-offset-4" for="type_of_site">Тип пам'ятки </label>
         {{form.type_of_site}}
         {%for error in form.type_of_site.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div>
+      <div class="row">
         <label class="col-md-2 col-md-offset-4" for="krajina">Країна</label>
         {{form.krajina}}
         {%for error in form.krajina.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div>
+      <div class="row">
         <label class="col-md-2 col-md-offset-4" for="oblast">Область</label>
         {{form.oblast}}
         {%for error in form.oblast.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div>
+      <div class="row">
         <label class="col-md-2 col-md-offset-4" for="rajon">Район </label>
         {{form.rajon}}
         {%for error in form.rajon.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div>
+      <div class="row">
+        <label class="col-md-2 col-md-offset-4" for="latd">Довгота</label>
+        {{form.latd}}
+        {%for error in form.latd.errors %}
+        {{error}}
+        {%endfor%}
+      </div>
+      <div class="row">
+        <label class="col-md-2 col-md-offset-4" for="longt">Широта</label>
+        {{form.longt}}
+        {%for error in form.longt.errors %}
+        {{error}}
+        {%endfor%}
+      </div>
+
+      <div class="row">
         <label class="col-md-2 col-md-offset-4" for="punkt">Населений пункт</label>
         {{form.punkt}}
         {%for error in form.punkt.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div>
+      <div class="row">
         <label class="col-md-2 col-md-offset-4" for="pryvjazka">Прив'язка </label>
         {{form.pryvjazka}}
         {%for error in form.pryvjazka.errors %}
@@ -76,7 +91,7 @@
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
         <h3>Культурна належність</h3>
-        <div>
+        <div> 
           <label class="col-md-10" for="skiph">Скіфська</label>
           {{form.skiph(value="Скіфська")}}
           {%for error in form.skiph.errors %}
@@ -121,77 +136,63 @@
       </div>
     </div>
 
-    <div>
+    <div class="row">
       <label class="col-md-2 col-md-offset-4" for="localgr">Локальна група</label>
       {{form.localgr}}
       {%for error in form.localgr.errors %}
       {{error}}
       {%endfor%}
     </div>
-    <div>
+    <div class="row">
       <label class="col-md-2 col-md-offset-4" for="chron">Вузька хронологія</label>
       {{form.chron}}
       {%for error in form.chron.errors %}
       {{error}}
       {%endfor%}
     </div>
-    <div>
+    <div class="row">
       <label class="col-md-2 col-md-offset-4" for="nadijnist">Надійність датування</label>
       {{form.nadijnist}}
       {%for error in form.nadijnist.errors %}
       {{error}}
       {%endfor%}
     </div>
-    <div>
+    <div class="row">
       <label class="col-md-2 col-md-offset-4" for="rozkop">Розкопки</label>
       {{form.rozkop}}
       {%for error in form.rozkop.errors %}
       {{error}}
       {%endfor%}
     </div>
-    <div>
+    <div class="row">
       <label class="col-md-2 col-md-offset-4" for="dospl">Досліджена площа (м2)</label>
       {{form.dospl}}
       {%for error in form.dospl.errors %}
       {{error}}
       {%endfor%}
     </div>
-    <div>
+    <div class="row">
       <label class="col-md-2 col-md-offset-4" for="zvit">Звіти</label>
       {{form.zvit}}
       {%for error in form.zvit.errors %}
       {{error}}
       {%endfor%}
     </div>
-    <div>
+    <div class="row">
       <label class="col-md-2 col-md-offset-4" for="publicacii">Публікації</label>
       {{form.publicacii}}
       {%for error in form.publicacii.errors %}
       {{error}}
       {%endfor%}
     </div>
-    <div>
+    <div class="row">
       <label class="col-md-2 col-md-offset-4" for="kartograph">Картографована</label>
       {{form.kartograph}}
       {%for error in form.kartograph.errors %}
       {{error}}
       {%endfor%}
     </div>
-    <div>
-      <label class="col-md-2 col-md-offset-4" for="latd">Довгота</label>
-      {{form.latd}}
-      {%for error in form.latd.errors %}
-      {{error}}
-      {%endfor%}
-    </div>
-    <div>
-      <label class="col-md-2 col-md-offset-4" for="longt">Широта</label>
-      {{form.longt}}
-      {%for error in form.longt.errors %}
-      {{error}}
-      {%endfor%}
-    </div>
-
+    
 
 
     <!--
@@ -334,7 +335,7 @@
       <div class="col-md-4 col-md-offset-4">
         <table class="table">
           <tr>
-            <div>
+            <div class="row">
             <td>Рiчковий басейн:</td>
             <td>
               <select name="basejn" size="1">
