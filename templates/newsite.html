@@ -192,7 +192,28 @@
       {{error}}
       {%endfor%}
     </div>
-    
+    <div class="row">
+      <label class="col-md-2 col-md-offset-4" for="tochkart">Точність картографування</label>
+      {{form.tochkart}}
+      {%for error in form.tochkart.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div class="row">
+      <label class="col-md-2 col-md-offset-4" for="basejn">Річковий басейн</label>
+      {{form.basejn}}
+      {%for error in form.basejn.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div class="row">
+      <label class="col-md-2 col-md-offset-4" for="toppotype">Тип топографічного положення</label>
+      {{form.toppotype}}
+      {%for error in form.toppotype.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+
 
 
     <!--

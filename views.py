@@ -104,6 +104,10 @@ def newSite():
                 kartograph = request.form.get('kartograph'),
                 latd = request.form['latd'],
                 longt = request.form['longt'],
+                tochkart = request.form['tochkart'],
+                basejn = request.form['basejn'],
+                toppotype = request.form['toppotype'],
+
                )
         db.session.add(TheNewSite)
         db.session.commit()

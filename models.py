@@ -48,10 +48,9 @@ class Site(db.Model):
     kartograph = db.Column(db.String(20), nullable=True)
     latd = db.Column(db.Float, nullable=False)
     longt = db.Column(db.Float, nullable=False)
-    #coord = db.Column(db.String(50), nullable=False)
-    #tochkart = db.Column(db.String(20), nullable=False)
-#    basejn = db.Column(db.String(50), nullable=False)
-#    toppotype = db.Column(db.String(30), nullable=False)
+    tochkart = db.Column(db.String(20), nullable=False)
+    basejn = db.Column(db.String(50), nullable=False)
+    toppotype = db.Column(db.String(30), nullable=False)
 #    geomorform = db.Column(db.String(250), nullable=False)
 #    vysotnadrm = db.Column(db.Integer, nullable=False)
 #    ploshch = db.Column(db.Integer, nullable=False)
@@ -67,7 +66,7 @@ class Site(db.Model):
 #    prymitky = db.Column(db.String(3000))
 #
     def __init__(self, name, toponim, 
-            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, latd, longt, #coord, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
+            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, latd, longt, tochkart, basejn, toppotype, #geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
             ): 
         self.name = name
         self.toponim = toponim
@@ -93,10 +92,9 @@ class Site(db.Model):
         self.kartograph = kartograph
         self.latd = latd
         self.longt = longt
-        #self.coord = coord
-        #self.tochkart = tochkart
-        #self.basejn = basejn
-        #self.toppotype = toppotype
+        self.tochkart = tochkart
+        self.basejn = basejn
+        self.toppotype = toppotype
         #self.geomorform = geomorform
         #self.vysotnadrm = vysotnadrm
         #self.ploshch = ploshch
