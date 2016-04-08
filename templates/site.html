@@ -127,7 +127,6 @@
         <td>Тип топографiчного положення:</td>
         <td>{{site.toppotype}}</td>
       </tr>
-      <!--
       <tr>
         <td>Геоморфологiчна форма: </td>
         <td>{{site.geomorform}}</td>
@@ -153,11 +152,12 @@
         <td>{{site.shyr}}</td>
       </tr> 
       <tr>
-        <td>Розрахункова площа</td>
-        <td>{{site.dovz, site.shyr}}</td>
+        <td>Розрахункова площа (д*ш)</td>
+        <td>{{site.dovz * site.shyr}}</td>
     </table>
   </div>
 </div>
+<!--
 <div class="row">
   <div class="col-md-4">
     <table class="table">

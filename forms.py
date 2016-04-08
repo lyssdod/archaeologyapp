@@ -36,4 +36,10 @@ class newSiteForm(Form):
     tochkart = SelectField("Точність", choices=[("Точно", "Точно"), ("За прив'язкою", "За прив'язкою"), ("Гіпотетично", "Гіпотетично")]) 
     basejn = SelectField("Річки", choices=[("Сейм", "Сейм"), ("Десна", "Десна"), ("Дон", "Дон"), ("Псел", "Псел"), ("Ока", "Ока"), ("Сула", "Сула"), ("Ворскла", "Ворскла")]) 
     toppotype = SelectField("Тип", choices=[("Дюна", "Дюна"), ("Тераса", "Тераса"), ("2-га тераса", "2-га тераса"), ("Висока тераса", "Висока тераса"), ("Корінний берег", "Корінний берег")]) 
+    geomorform = StringField('geomorform', [Length(min=3,max=350)])
+    vysotnadrm = IntegerField('vysotnadrm', [NumberRange(min=0, max=10000)])
+    ploshch = IntegerField('ploshch', [NumberRange(min=0, max=10000)])
+    dovz = IntegerField('dovz', [NumberRange(min=0, max=10000)])
+    shyr = IntegerField('shyr', [NumberRange(min=0, max=10000)])
+
 

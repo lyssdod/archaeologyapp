@@ -213,6 +213,41 @@
       {{error}}
       {%endfor%}
     </div>
+    <div class="row">
+      <label class="col-md-2 col-md-offset-4" for="geomorform">Геоморфологічна форма</label>
+      {{form.geomorform}}
+      {%for error in form.geomorform.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div class="row">
+      <label class="col-md-2 col-md-offset-4" for="vysotnadrm">Висота над рівнем води</label>
+      {{form.vysotnadrm}}
+      {%for error in form.vysotnadrm.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div class="row">
+      <label class="col-md-2 col-md-offset-4" for="ploshch">Точна площа пам'ятки</label>
+      {{form.ploshch}}
+      {%for error in form.ploshch.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div class="row">
+      <label class="col-md-2 col-md-offset-4" for="dovz">Довжина</label>
+      {{form.dovz}}
+      {%for error in form.dovz.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
+    <div class="row">
+      <label class="col-md-2 col-md-offset-4" for="shyr">Ширина</label>
+      {{form.shyr}}
+      {%for error in form.shyr.errors %}
+      {{error}}
+      {%endfor%}
+    </div>
 
 
 

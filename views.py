@@ -107,7 +107,11 @@ def newSite():
                 tochkart = request.form['tochkart'],
                 basejn = request.form['basejn'],
                 toppotype = request.form['toppotype'],
-
+                geomorform = request.form['geomorform'],
+                vysotnadrm = request.form['vysotnadrm'], 
+                ploshch = request.form['ploshch'],
+                dovz = request.form['dovz'],
+                shyr = request.form['shyr'],
                )
         db.session.add(TheNewSite)
         db.session.commit()
