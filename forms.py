@@ -41,5 +41,11 @@ class newSiteForm(Form):
     ploshch = IntegerField('ploshch', [NumberRange(min=0, max=10000)])
     dovz = IntegerField('dovz', [NumberRange(min=0, max=10000)])
     shyr = IntegerField('shyr', [NumberRange(min=0, max=10000)])
-
-
+    foto = BooleanField('foto')
+    plans = BooleanField('plans')
+    znahidky = BooleanField('znahidky')
+    kistka = BooleanField('kistka')
+    zalizo = BooleanField('zalizo')
+    kamin = BooleanField('kamin')
+    glyna = BooleanField('glyna')
+    prymitky = StringField('prymitky')

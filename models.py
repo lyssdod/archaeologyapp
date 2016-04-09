@@ -56,17 +56,17 @@ class Site(db.Model):
     ploshch = db.Column(db.Integer, nullable=False)
     dovz = db.Column(db.Integer, nullable=False)
     shyr = db.Column(db.Integer, nullable=False)
-#    foto = db.Column(db.String(50))
-#    plans = db.Column(db.String(50), nullable=False)
-#    znahidky = db.Column(db.String(50), nullable=False)
-#    kistka = db.Column(db.String(50), nullable=False)
-#    zalizo = db.Column(db.String(50), nullable=False)
-#    kamin = db.Column(db.String(50), nullable=False)
-#    glyna = db.Column(db.String(50), nullable=False)
-#    prymitky = db.Column(db.String(3000))
-#
+    foto = db.Column(db.String(50), nullable=True)
+    plans = db.Column(db.String(50), nullable=True)
+    znahidky = db.Column(db.String(50), nullable=True)
+    kistka = db.Column(db.String(50), nullable=True)
+    zalizo = db.Column(db.String(50), nullable=True)
+    kamin = db.Column(db.String(50), nullable=True)
+    glyna = db.Column(db.String(50), nullable=True)
+    prymitky = db.Column(db.String(3000))
+
     def __init__(self, name, toponim, 
-            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, latd, longt, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, #foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
+            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, latd, longt, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
             ): 
         self.name = name
         self.toponim = toponim
@@ -100,15 +100,15 @@ class Site(db.Model):
         self.ploshch = ploshch
         self.dovz = dovz
         self.shyr= shyr
-        #self.foto = foto
-        #self.plans = plans
-        #self.znahidky = znahidky
-        #self.kistka = kistka
-        #self.zalizo = zalizo
-        #self.kamin = kamin
-        #self.glyna = glyna
-        #self.prymitky = prymitky
-#
+        self.foto = foto
+        self.plans = plans
+        self.znahidky = znahidky
+        self.kistka = kistka
+        self.zalizo = zalizo
+        self.kamin = kamin
+        self.glyna = glyna
+        self.prymitky = prymitky
+
     def __repr__(self):
         return '<Site %r>' % self.name
 

@@ -112,6 +112,14 @@ def newSite():
                 ploshch = request.form['ploshch'],
                 dovz = request.form['dovz'],
                 shyr = request.form['shyr'],
+                foto = request.form.get('foto'),
+                plans = request.form.get('plans'), 
+                znahidky = request.form.get('znahidky'),
+                kistka = request.form.get('kistka'),
+                zalizo= request.form.get('zalizo'),
+                kamin = request.form.get('kamin'),
+                glyna= request.form.get('glyna'),
+                prymitky=request.form.get('prymitky')
                )
         db.session.add(TheNewSite)
         db.session.commit()
