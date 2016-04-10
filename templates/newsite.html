@@ -37,35 +37,35 @@
         {{error}}
         {%endfor%}
       </div>
-      <div class="row">
+      <div class="row" hidden>
         <label class="col-md-2 col-md-offset-4" for="krajina">Країна</label>
         {{form.krajina}}
         {%for error in form.krajina.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div class="row">
+      <div class="row" hidden>
         <label class="col-md-2 col-md-offset-4" for="oblast">Область</label>
         {{form.oblast}}
         {%for error in form.oblast.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div class="row">
+      <div class="row" hidden>
         <label class="col-md-2 col-md-offset-4" for="rajon">Район </label>
         {{form.rajon}}
         {%for error in form.rajon.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div class="row">
+      <div class="row" hidden>
         <label class="col-md-2 col-md-offset-4" for="latd">Довгота</label>
         {{form.latd}}
         {%for error in form.latd.errors %}
         {{error}}
         {%endfor%}
       </div>
-      <div class="row">
+      <div class="row" hidden>
         <label class="col-md-2 col-md-offset-4" for="longt">Широта</label>
         {{form.longt}}
         {%for error in form.longt.errors %}
@@ -325,6 +325,11 @@
   </form>
 </div>
 <div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h3>Клікніть на мапі, щоб встановити локацію</h3>
+    </div>
+  </div>
   <div id="map"></div>
   <div id="floating-panel">
     <input id="address" type="textbox" value="Київ, Київська область">
