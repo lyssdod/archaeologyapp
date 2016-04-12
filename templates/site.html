@@ -153,7 +153,11 @@
         </tr> 
         <tr>
           <td>Розрахункова площа (д*ш)</td>
-          <td>{{site.dovz * site.shyr}}</td>
+          <td>
+            {%if site.dovz and site.shyr is number%}
+            {{site.dovz * site.shyr}}
+            {%endif%}
+          </td>
         </table>
       </div>
     </div>
