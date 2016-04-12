@@ -61,16 +61,6 @@
   box-shadow: 0 0 8px #FFD700;
   cursor:pointer;
 }
-.panel {
-  background: #ffffbd;
-  background-size:90% 90%;
-  height:400px;
-  display:none;
-  font-family:garamond,times-new-roman,serif;
-}
-.panel p{
-  text-align:center;
-}
 .slide {
   margin:0;
   padding:0;
