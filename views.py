@@ -5,14 +5,16 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 
-from flask import render_template, request, url_for, flash, redirect
+from flask import render_template, request, url_for, flash, redirect, g
 from myapp import app, db 
 from forms import newSiteForm
+from flask.ext.login import login_user, logout_user, current_user, login_required
+from auth import OAuthSignIn, GoogleSignIn
 #from forms import LoginForm
 #from flask import session as login_session
 #from flask.ext.login import LoginManager, UserMixin, login_user, logout_user, current_user
 #from oauth import OAuthSignIn
-from models import Site#, User
+from models import Site, User
 #import random, string
 #from models import Site, OAuthSignIn, FacebookSignIn
 
@@ -24,39 +26,100 @@ from models import Site#, User
 #from flask import make_response
 #import requests
 
-
-
+#def get_google_auth(state=None, token=None):
+#    if token:
+#        return OAuth2Session(Auth.CLIENT_ID, token=token)
+#    if state:
+#        return OAuth2Session(Auth.CLIENT_ID, state=state, 
+#                redirect_uri=Auth.REDIRECT_URI)
+#    oauth = OAuth2Session(Auth.CLIENT_ID, redirect_uri=Auth.REDIRECT_URI, 
+#            scope=Auth.SCOPE)
+#    return oauth
+#
 #CLIENT_ID = json.loads(
 #    open('client_secrets.json', 'r').read())['web']['client_id']
 #APPLICATION_NAME = "archaeology app"
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('welcomePage'))
+#@app.route('/login')
+#def login():
+#    if current_user.is_authenticated:
+#        return redirect(url_for('welcom'))
+#    google = get_google_auth()
+#    auth_url, state = google.authorization_url(Auth.AUTH_URI, 
+#            access_type='offline')
+#    session['oauth_state'] = state
+#    return render_template('login.html', auth_url=auth_url)
 
+#@app.route('/logout')
+#def logout():
+#    logout_user()
+#    return redirect(url_for('welcomePage'))
+#@app.route('/gCallback')
+#def callback():
+#    # Redirect user to home page if already logged in.
+#    if current_user is not None and current_user.is_authenticated:
+#        return redirect(url_for('welcome'))
+#    if 'error' in request.args:
+#        if request.args.get('error') == 'access_denied':
+#            return 'You denied access.'
+#        return 'Error encountered.'
+#    if 'code' not in request.args and 'state' not in request.args:
+#        return redirect(url_for('login'))
+#
+#    else:
+        # Execution reaches here when user has
+        # successfully authenticated our app.
+#        google = get_google_auth(state=session['oauth_state'])
+#        try:
+#            token = google.fetch_token(Auth.TOKEN_URI,
+#                                                                                                 client_secret=Auth.CLIENT_SECRET,
+#                                                                                                 authorization_response=request.url)
+#        except HTTPError:
+#            return 'HTTPError occurred.'
+#        google = get_google_auth(token=token)
+#        resp = google.get(Auth.USER_INFO)
+#        if resp.status_code == 200:
+#            user_data = resp.json()
+#            email = user_data['email']
+#            user = User.query.filter_by(email=email).first()
+#            if user is None:
+#                user = User()
+#                user.email = email
+#            user.name = user_data['name']
+#            print(token)
+#            user.tokens = json.dumps(token)
+#            user.avatar = user_data['picture']
+#            db.session.add(user)
+#            db.session.commit()
+#            login_user(user)
+#            return redirect(url_for('welcome'))
+#        return 'Could not fetch your information.'
+#
 @app.route('/authorize/<provider>')
 def oauth_authorize(provider):
-    if not current_user.is_anonymous():
+    if not current_user.is_anonymous:
         return redirect(url_for('welcomePage'))
     oauth = OAuthSignIn.get_provider(provider)
     return oauth.authorize()
 
 @app.route('/callback/<provider>')
 def oauth_callback(provider):
-    if not current_user.is_anonymous():
+    if not current_user.is_anonymous:
         return redirect(url_for('welcomePage'))
     oauth = OAuthSignIn.get_provider(provider)
-    social_id, username, email = oauth.callback()
-    if social_id is None:
+    username, email = oauth.callback()
+    if email is None:
         flash('Authentication failed.')
         return redirect(url_for('welcomePage'))
-    user = User.query.filter_by(social_id=social_id).first()
+    user = User.query.filter_by(email=email).first()
     if not user:
-        user = User(social_id=social_id, nickname=username, email=email)
+        nickname = username
+        if nickname is None or nickname == "":
+            nickname = email.split('@')[0]
+        user=User(nickname=nickname, email=email)
         db.session.add(user)
         db.session.commit()
-    login_user(user, True)
+    login_user(user, remember=True)
     return redirect(url_for('welcomePage'))
 
 @app.route('/', methods=['GET', 'POST'])
@@ -74,6 +137,7 @@ def gmap():
 
 
 @app.route('/new', methods=['GET', 'POST'])
+@login_required
 def newSite():
     form= newSiteForm()
     if form.validate_on_submit():
@@ -189,8 +253,8 @@ def newSite():
 def sitePage(site_id):
     if request.method == 'GET':
         onesite = db.session.query(Site).filter_by(id=site_id).one()
-
-        return render_template('site.html', site=onesite) 
+        usr = db.session.query(User).filter_by(id=1).one()
+        return render_template('site.html', site=onesite, user=usr) 
     if request.method == 'POST':
         if request.form["name_of_site"]:
             results = request.form["name_of_site"]
@@ -356,15 +420,21 @@ def allSites():
         sites = db.session.query(Site).all()
         return render_template('all.html', sites=sites, slidebar = True)
 
-
+@app.before_request
+def before_request():
+    g.user = current_user
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for OpenID="%s", remember_me=%s' % 
-                (form.openid.data, str(form.remember_me.data)))
-        return redirect(url_for('welcome'))
-    return render_template('login.html', title="Sign in", form=form)
+    if g.user is not None and g.user.is_authenticated:
+        return redirect(url_for('WelcomePage'))
+    return render_template('login.html', title='Sign In')
+
+#    form = LoginForm()
+#    if form.validate_on_submit():
+#        flash('Login requested for OpenID="%s", remember_me=%s' % 
+#                (form.openid.data, str(form.remember_me.data)))
+#        return redirect(url_for('welcome'))
+#    return render_template('login.html', title="Sign in", form=form)
 
 @app.route('/search/<query>', methods=['GET', 'POST'])
 def search(query):
