@@ -224,12 +224,14 @@ def siteDelete(site_id):
 @app.route('/all/', methods=['GET', 'POST'])
 @login_required
 def allSites():
+    u = User.query.filter(User.email == g.user.email).first()
     if request.method == 'POST':
         if request.form.get("name_of_site", None):
             results = request.form["name_of_site"]
             return redirect(url_for('search', query=results)) 
         else:
-            sites = db.session.query(Site).all()
+
+            sites = u.users.all()
             if request.form.get('kistka'):
                 kistka = request.form.get('kistka')
                 sort_kistka = Site.query.filter_by(kistka = kistka).all()
@@ -304,7 +306,6 @@ def allSites():
                 sorted_sites = sites.sort(key=lambda x: x.name)
             return render_template('all.html', sites=sites)
     else:
-        u = User.query.filter(User.email == g.user.email).first()
         #sites = Site.query.filter(Site.user_id == 2).all()
         #sites = db.session.query(Site).all()
         sites = u.users.all()
