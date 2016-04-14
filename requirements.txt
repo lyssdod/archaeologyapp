@@ -13,7 +13,7 @@ Whoosh==2.7.0
 argparse==1.2.1
 blinker==1.4
 cffi==1.5.2
-chardet==2.0.1
+chardet
 colorama==0.2.5
 cryptography==1.3.1
 decorator==4.0.2
