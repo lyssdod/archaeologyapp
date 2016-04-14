@@ -27,7 +27,7 @@
 <body class="background">
 <div class="container container-config textcol">
   <div class="row header">
-    <div class="col-md-5"><a href = "{{url_for('welcomePage')}}" class="btn btn-sm"><h2 class="logo">Skiff stuff</h2></a></div>
+    <div class="col-md-6"><a href = "{{url_for('welcomePage')}}" class="btn btn-sm"><h2 class="logo">Skiff stuff</h2></a></div>
     <div class="col-md-2 padding">
       <form action="" class="form-inline box-shadow" method="post">
         <label class="sr-only">Пошук:</label>
@@ -40,7 +40,11 @@
     <div class="col-md-1 text-center padding"><a href = "{{url_for('allSites')}}" class="btn btn-color btn-sm">Усi</a>
     </div>
     <div class="col-md-1 text-center padding"><a href = "{{url_for('login')}}" class="btn btn-color btn-sm">Увiйти</a></div>
-    <div class="col-md-2 text-center padding"><a href = "#" class="btn btn-color btn-sm">Зареєструватися</a></div>
+    <div class="col-md-1 text-center padding">
+      {% if g.user.is_authenticated %} 
+      <a href = "{{url_for('logout')}}" class="btn btn-color btn-sm">Вийти</a>
+      {% endif %} 
+    </div>
   </div>
   {% with messages = get_flashed_messages() %}
   {% if messages %}

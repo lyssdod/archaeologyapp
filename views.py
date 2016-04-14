@@ -4,97 +4,40 @@ import sys
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
-
 from flask import render_template, request, url_for, flash, redirect, g
 from myapp import app, db 
 from forms import newSiteForm
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from auth import OAuthSignIn, GoogleSignIn
-#from forms import LoginForm
-#from flask import session as login_session
-#from flask.ext.login import LoginManager, UserMixin, login_user, logout_user, current_user
-#from oauth import OAuthSignIn
 from models import Site, User
-#import random, string
-#from models import Site, OAuthSignIn, FacebookSignIn
+from functools import wraps
 
-#from oauth2client.client import flow_from_clientsecrets
-#from oauth2client.client import FlowExchangeError
-#from oauth2client.client import AccessTokenCredentials
-#import httplib2
-#import json
-#from flask import make_response
-#import requests
+@app.before_request
+def before_request():
+    g.user = current_user
 
-#def get_google_auth(state=None, token=None):
-#    if token:
-#        return OAuth2Session(Auth.CLIENT_ID, token=token)
-#    if state:
-#        return OAuth2Session(Auth.CLIENT_ID, state=state, 
-#                redirect_uri=Auth.REDIRECT_URI)
-#    oauth = OAuth2Session(Auth.CLIENT_ID, redirect_uri=Auth.REDIRECT_URI, 
-#            scope=Auth.SCOPE)
-#    return oauth
-#
-#CLIENT_ID = json.loads(
-#    open('client_secrets.json', 'r').read())['web']['client_id']
-#APPLICATION_NAME = "archaeology app"
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if g.user is None:
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
-#@app.route('/login')
-#def login():
-#    if current_user.is_authenticated:
-#        return redirect(url_for('welcom'))
-#    google = get_google_auth()
-#    auth_url, state = google.authorization_url(Auth.AUTH_URI, 
-#            access_type='offline')
-#    session['oauth_state'] = state
-#    return render_template('login.html', auth_url=auth_url)
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    if g.user is not None and g.user.is_authenticated:
+        flash('Ви вже увійшли')
+        return redirect(url_for('welcomePage'))
+    return render_template('login.html', title='Sign In')
 
-#@app.route('/logout')
-#def logout():
-#    logout_user()
-#    return redirect(url_for('welcomePage'))
-#@app.route('/gCallback')
-#def callback():
-#    # Redirect user to home page if already logged in.
-#    if current_user is not None and current_user.is_authenticated:
-#        return redirect(url_for('welcome'))
-#    if 'error' in request.args:
-#        if request.args.get('error') == 'access_denied':
-#            return 'You denied access.'
-#        return 'Error encountered.'
-#    if 'code' not in request.args and 'state' not in request.args:
-#        return redirect(url_for('login'))
-#
-#    else:
-        # Execution reaches here when user has
-        # successfully authenticated our app.
-#        google = get_google_auth(state=session['oauth_state'])
-#        try:
-#            token = google.fetch_token(Auth.TOKEN_URI,
-#                                                                                                 client_secret=Auth.CLIENT_SECRET,
-#                                                                                                 authorization_response=request.url)
-#        except HTTPError:
-#            return 'HTTPError occurred.'
-#        google = get_google_auth(token=token)
-#        resp = google.get(Auth.USER_INFO)
-#        if resp.status_code == 200:
-#            user_data = resp.json()
-#            email = user_data['email']
-#            user = User.query.filter_by(email=email).first()
-#            if user is None:
-#                user = User()
-#                user.email = email
-#            user.name = user_data['name']
-#            print(token)
-#            user.tokens = json.dumps(token)
-#            user.avatar = user_data['picture']
-#            db.session.add(user)
-#            db.session.commit()
-#            login_user(user)
-#            return redirect(url_for('welcome'))
-#        return 'Could not fetch your information.'
-#
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('Користувач вийшов')
+    return redirect(url_for('welcomePage'))
+
 @app.route('/authorize/<provider>')
 def oauth_authorize(provider):
     if not current_user.is_anonymous:
@@ -109,7 +52,7 @@ def oauth_callback(provider):
     oauth = OAuthSignIn.get_provider(provider)
     username, email = oauth.callback()
     if email is None:
-        flash('Authentication failed.')
+        flash('Помилка автентифікації')
         return redirect(url_for('welcomePage'))
     user = User.query.filter_by(email=email).first()
     if not user:
@@ -120,6 +63,7 @@ def oauth_callback(provider):
         db.session.add(user)
         db.session.commit()
     login_user(user, remember=True)
+    flash('Увійшли як %s'% user.nickname)
     return redirect(url_for('welcomePage'))
 
 @app.route('/', methods=['GET', 'POST'])
@@ -195,58 +139,8 @@ def newSite():
         if request.form.get('name_of_site', None):
             results = request.form['name_of_site']
             return redirect(url_for('search', query=results)) 
-      #  else: 
-      #      TheNewSite = Site(name=request.form['name'], 
-      #          toponim=request.form['toponim'],
-              #  type_of_site = request.form['type_of_site'],
-              #  oblast=request.form['oblast'],
-              #  rajon=request.form['rajon'],
-              #  punkt=request.form['punkt'],
-              #  pryvjazka=request.form['pryvjazka'],
-             ##   kultnal=request.form['kultnal'],
-              #  skiph=request.form.get('skiph'),
-              #  juhn=request.form.get('juhn'),
-              #  pjuhn=request.form.get('pjuhn'),
-              #  verok=request.form.get('verok'),
-              #  dvosh=request.form.get('dvosh'),
-              #  drz=request.form.get('drz'),
-              #  #
-              #  localgr=request.form['localgr'],
-              #  chron=request.form['chron'],
-              #  nadijnist=request.form['nadijnist'],
-              #  rozkop=request.form['rozkop'],
-              #  dospl=request.form['dospl'],
-              #  zvit=request.form['zvit'],
-              #  publicacii = request.form['publicacii'],
-              #  kartograph = request.form['kartograph'],
-              #  coord = request.form['coord'],
-              #  tochkart = request.form['tochkart'],
-              #  basejn = request.form['basejn'],
-              #  toppotype = request.form['toppotype'],
-              #  geomorform = request.form['geomorform'],
-              #  vysotnadrm = request.form['vysotnadrm'], 
-              #  ploshch = request.form['ploshch'],
-              #  dovz = request.form['dovz'],
-              #  shyr = request.form['shyr'],
-              #  foto = request.form.get('foto'),
-              #  plans = request.form.get('plans'), 
-              #  znahidky = request.form.get('znahidky'),
-              #  kistka = request.form.get('kistka'),
-              #  zalizo= request.form.get('zalizo'),
-              #  kamin = request.form.get('kamin'),
-              #  glyna= request.form.get('glyna'),
-              #  prymitky=request.form.get('prymitky')
-      #        )
-
-      #      db.session.add(TheNewSite)
-      #      db.session.commit()
-            return redirect(url_for('allSites')) 
-       # if request.form["name_of_site"]:
-       #     results = request.form["name_of_site"]
-       #     return redirect(url_for('search', query=results)) 
-
-    else:
-        return render_template('newsite.html', title="New Site", form=form)
+        else:
+            return render_template('newsite.html', title="New Site", form=form)
 
 
 @app.route('/<int:site_id>/', methods = ['GET', 'POST'])
@@ -419,22 +313,6 @@ def allSites():
     else:
         sites = db.session.query(Site).all()
         return render_template('all.html', sites=sites, slidebar = True)
-
-@app.before_request
-def before_request():
-    g.user = current_user
-@app.route('/login', methods = ['GET', 'POST'])
-def login():
-    if g.user is not None and g.user.is_authenticated:
-        return redirect(url_for('WelcomePage'))
-    return render_template('login.html', title='Sign In')
-
-#    form = LoginForm()
-#    if form.validate_on_submit():
-#        flash('Login requested for OpenID="%s", remember_me=%s' % 
-#                (form.openid.data, str(form.remember_me.data)))
-#        return redirect(url_for('welcome'))
-#    return render_template('login.html', title="Sign in", form=form)
 
 @app.route('/search/<query>', methods=['GET', 'POST'])
 def search(query):
