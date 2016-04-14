@@ -15,15 +15,6 @@ from functools import wraps
 @app.before_request
 def before_request():
     g.user = current_user
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if g.user is None:
-            return redirect(url_for('login', next=request.url))
-        return f(*args, **kwargs)
-    return decorated_function
-
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if g.user is not None and g.user.is_authenticated:
@@ -230,6 +221,7 @@ def siteDelete(site_id):
         return render_template('delete.html', site=siteToDelete)
 
 @app.route('/all/', methods=['GET', 'POST'])
+@login_required
 def allSites():
     if request.method == 'POST':
         if request.form.get("name_of_site", None):
