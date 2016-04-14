@@ -4,16 +4,16 @@
 change views, models, newsite, site, forms
 a.improve lables
 b. validate html
-c. validate views
-d. validate forms
+c. validate views -done
+d. validate forms -done
 
 3) fix unicode bug in views - fixed
 4) add files upload
 
-5) fix oauth authorization
+5) fix oauth authorization - done
 
 6) check the migration of dbs
 
 7) slider chrashed
 
-8) Location: should I change form into automatic googlemap geolocation? 
+8) Location: should I change form into automatic googlemap geolocation? - no 
