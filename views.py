@@ -18,7 +18,7 @@ def before_request():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if g.user is not None and g.user.is_authenticated:
-        flash('Ви вже увійшли')
+        flash('Наміть вийти, щоб увійти як інший користувач')
         return redirect(url_for('welcomePage'))
     return render_template('login.html', title='Sign In')
 
@@ -75,10 +75,10 @@ def gmap():
 @login_required
 def newSite():
     form= newSiteForm()
+    u = User.query.filter(User.email == g.user.email).first()
     if form.validate_on_submit():
         flash('Added the new Site "%s"' % 
                 (form.name.data))
-
         TheNewSite = Site(name=request.form['name'], 
                 toponim=request.form['toponim'],
                 type_of_site = request.form['type_of_site'],
@@ -118,7 +118,8 @@ def newSite():
                 zalizo= request.form.get('zalizo'),
                 kamin = request.form.get('kamin'),
                 glyna= request.form.get('glyna'),
-                prymitky=request.form.get('prymitky')
+                prymitky=request.form.get('prymitky'),
+                user = u
                )
         db.session.add(TheNewSite)
         db.session.commit()
@@ -303,7 +304,10 @@ def allSites():
                 sorted_sites = sites.sort(key=lambda x: x.name)
             return render_template('all.html', sites=sites)
     else:
-        sites = db.session.query(Site).all()
+        u = User.query.filter(User.email == g.user.email).first()
+        #sites = Site.query.filter(Site.user_id == 2).all()
+        #sites = db.session.query(Site).all()
+        sites = u.users.all()
         return render_template('all.html', sites=sites, slidebar = True)
 
 @app.route('/search/<query>', methods=['GET', 'POST'])

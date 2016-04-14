@@ -1,5 +1,4 @@
 from myapp import app 
-from werkzeug.serving import run_simple 
 if __name__ == '__main__':
     app.debug = True
     context = ('ssl.crt', 'ssl.key')

@@ -9,28 +9,29 @@ def get_user(ident):
     return User.query.get(int(ident))
 
 class User(db.Model, UserMixin):
-    __tablename__ = "users"
+    __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
     nickname = db.Column(db.String(100), nullable=True)
-    avatar = db.Column(db.String(200))
-    active = db.Column(db.Boolean, default=False)
-    tokens = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
+#    avatar = db.Column(db.String(200))
+#    active = db.Column(db.Boolean, default=False)
+#    tokens = db.Column(db.Text)
+#    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
 
-#lm = LoginManager(app)
-
-#class User(UserMixin, db.Model):
-#    __tablename__ = 'users'
-#    id = db.Column(db.Integer, primary_key=True)
-#    social_id = db.Column(db.String(64), nullable=False, unique=True)
-#    nickname = db.Column(db.String(64), nullable=False)
-#    email = db.Column(db.String(64), nullable=True)
-
-#@lm.user_loader
-#def load_user(id):
-#    return User.query.get(int(id))
+    def __init__(self, email, nickname, 
+           # avatar, tokens, created_at
+           ):
+        self.email = email 
+        self.nickname = nickname
+#        self.avatar = avatar
+#        self.tokens = tokens
+#        self.created_at = created_at
 #
+    def __repr__(self):
+        return '<User  %r>' % self.email
+
+
+
 class Site(db.Model):
     __tablename__ = 'site'
     __searchable__= ['name', 'toponim']
@@ -78,9 +79,11 @@ class Site(db.Model):
     kamin = db.Column(db.String(50), nullable=True)
     glyna = db.Column(db.String(50), nullable=True)
     prymitky = db.Column(db.String(3000))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship('User', backref=db.backref('users', lazy='dynamic'))
 
     def __init__(self, name, toponim, 
-            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, latd, longt, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky
+            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, latd, longt, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky, user
             ): 
         self.name = name
         self.toponim = toponim
@@ -122,6 +125,7 @@ class Site(db.Model):
         self.kamin = kamin
         self.glyna = glyna
         self.prymitky = prymitky
+        self.user = user
 
     def __repr__(self):
         return '<Site %r>' % self.name
