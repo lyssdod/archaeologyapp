@@ -18,7 +18,7 @@ def before_request():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if g.user is not None and g.user.is_authenticated:
-        flash('Наміть вийти, щоб увійти як інший користувач')
+        flash('Нажміть Вийти, щоб увійти як інший користувач')
         return redirect(url_for('welcomePage'))
     return render_template('login.html', title='Sign In')
 
