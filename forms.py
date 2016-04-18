@@ -5,8 +5,12 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 from flask.ext.wtf import Form
-from wtforms import StringField, IntegerField, FloatField, DecimalField, SelectField, BooleanField
+from wtforms import StringField, IntegerField, FloatField, DecimalField, SelectField, BooleanField, FileField
+#from flask_wtf.file import FileField, FileAllowed
+#from flask.ext.uploads import UploadSet 
 from wtforms.validators import Length, Optional, NumberRange, DataRequired
+from flask.ext.wtf.file import FileField, FileRequired, FileAllowed
+#images = UploadSet('images', IMAGES)
 
 class newSiteForm(Form):
     name = StringField('name', [Length(min=3,max=30)])
@@ -49,3 +53,5 @@ class newSiteForm(Form):
     zalizo = BooleanField('zalizo')
     kamin = BooleanField('kamin')
     glyna = BooleanField('glyna')
+    photo = FileField('photo_up', [FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
+

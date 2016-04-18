@@ -3,14 +3,17 @@ import sys
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
-
+import os
 from flask import render_template, request, url_for, flash, redirect, g
-from myapp import app, db 
+from myapp import app, db, config 
 from forms import newSiteForm
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from auth import OAuthSignIn, GoogleSignIn
 from models import Site, User
 from functools import wraps
+
+from werkzeug import secure_filename
+from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER
 
 @app.before_request
 def before_request():
@@ -65,11 +68,11 @@ def welcomePage():
             return redirect(url_for('search', query=results)) 
     else:
         return render_template('welcome.html')
+#example function of google maps
 @app.route('/gmap', methods=['GET' ])
 def gmap():
     if request.method == 'GET':
         return render_template('gmap.html')
-
 
 @app.route('/new', methods=['GET', 'POST'])
 @login_required
@@ -79,6 +82,9 @@ def newSite():
     if form.validate_on_submit():
         flash('Added the new Site "%s"' % 
                 (form.name.data))
+        filename = secure_filename(form.photo.data.filename)
+        form.photo.data.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
         TheNewSite = Site(name=request.form['name'], 
                 toponim=request.form['toponim'],
                 type_of_site = request.form['type_of_site'],

@@ -10,10 +10,9 @@
   <hr class="hrr"> 
   <div class="row">
     <div class="col-md-12 text-center">
-      <img src="http://lorempixel.com/400/200" alt="Upload image">
     </div>
   </div>
-  <form action="#" method="post">
+  <form action="#" method="post" enctype="multipart/form-data">
     {{form.hidden_tag()}}
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
@@ -143,6 +142,13 @@
                   {%endfor%}
                 </div>
               </div>
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="name">Завантажити фото</label>
+              {{form.photo}}
+              {%for error in form.photo.errors %}
+              {{error}}
+              {%endfor%}
             </div>
             <div class="row">
               <label class="col-md-2 col-md-offset-4" for="prymitky">Примітки</label>
