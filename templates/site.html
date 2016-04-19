@@ -15,7 +15,7 @@
 <hr class="hrr"> 
 <div class="row">
   <div class="col-md-4">
-    <img src="http://lorempixel.com/250/200" alt="Upload image">
+    <img src="{{url_for('static', filename='%s' % site.avatar)}}" class="avatar" alt="Upload image">
   </div>
   <div class=col-md-4>
     <table class="table">

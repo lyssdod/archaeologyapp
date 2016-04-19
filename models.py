@@ -79,11 +79,12 @@ class Site(db.Model):
     kamin = db.Column(db.String(50), nullable=True)
     glyna = db.Column(db.String(50), nullable=True)
     prymitky = db.Column(db.String(3000))
+    avatar = db.Column(db.String(300), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref=db.backref('users', lazy='dynamic'))
 
     def __init__(self, name, toponim, 
-            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, latd, longt, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky, user
+            type_of_site, oblast, rajon, krajina, punkt, pryvjazka, skiph, juhn, pjuhn, verok, dvosh, drz, localgr, chron, nadijnist, rozkop, dospl, zvit, publicacii, kartograph, latd, longt, tochkart, basejn, toppotype, geomorform, vysotnadrm, ploshch, dovz, shyr, foto, plans, znahidky, kistka, zalizo, kamin, glyna, prymitky, avatar, user
             ): 
         self.name = name
         self.toponim = toponim
@@ -125,6 +126,7 @@ class Site(db.Model):
         self.kamin = kamin
         self.glyna = glyna
         self.prymitky = prymitky
+        self.avatar = avatar
         self.user = user
 
     def __repr__(self):
