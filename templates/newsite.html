@@ -14,8 +14,144 @@
   </div>
   <form action="#" method="post" enctype="multipart/form-data">
     {{form.hidden_tag()}}
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#maindata" aria-controls="home" role="tab" data-toggle="tab">Базові дані</a></li>
+      <li role="presentation"><a href="#description" aria-controls="profile" role="tab" data-toggle="tab">Опис</a></li>
+      <li role="presentation"><a href="#typology" aria-controls="messages" role="tab" data-toggle="tab">Типологія</a></li>
+      <li role="presentation"><a href="#attachments" aria-controls="settings" role="tab" data-toggle="tab">Додатки</a></li>
+      <li role="presentation"><a href="#literature" aria-controls="settings" role="tab" data-toggle="tab">Література</a></li>
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="maindata">
+        <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="name">Назва </label>
+          {{form.name}}
+          {%for error in form.name.errors %}
+          {{error}}
+          {%endfor%}
+        </div>
+      <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="krajina">Країна</label>
+              {{form.krajina}}
+              {%for error in form.krajina.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="oblast">Область</label>
+              {{form.oblast}}
+              {%for error in form.oblast.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="rajon">Район </label>
+              {{form.rajon}}
+              {%for error in form.rajon.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="punkt">Населений пункт</label>
+              {{form.punkt}}
+              {%for error in form.punkt.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <h3>Клікніть на мапі, щоб встановити локацію</h3>
+                </div>
+              </div>
+              <div id="map"></div>
+              <div id="floating-panel">
+                <input id="address" type="textbox" value="Київ, Київська область">
+                <input id="submit" type="button" value="Geocode">
+                <input id="reset" type="button" value="reset">
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="description">
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="ploshch">Точна площа пам'ятки</label>
+              {{form.ploshch}}
+              {%for error in form.ploshch.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="dovz">Довжина</label>
+              {{form.dovz}}
+              {%for error in form.dovz.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="shyr">Ширина</label>
+              {{form.shyr}}
+              {%for error in form.shyr.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <p>Розрахункова площа</p>
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="toppotype">Топографія</label>
+              {{form.toppotype}}
+              {%for error in form.toppotype.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="geomorform">Геоморфологічна форма</label>
+              {{form.geomorform}}
+              {%for error in form.geomorform.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="vysotnadrm">Висота над рівнем моря</label>
+              {{form.vysotnadrm}}
+              {%for error in form.vysotnadrm.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <p>Висота над долиною</p>
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="chron">Вузька хронологія</label>
+              {{form.chron}}
+              {%for error in form.chron.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="nadijnist">Надійність датування</label>
+              {{form.nadijnist}}
+              {%for error in form.nadijnist.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="typology">...</div>
+          <div role="tabpanel" class="tab-pane" id="attachments">...</div>
+          <div role="tabpanel" class="tab-pane" id="literature">
+            <div class="row">
+              <label class="col-md-2 col-md-offset-4" for="publicacii">Публікації</label>
+              {{form.publicacii}}
+              {%for error in form.publicacii.errors %}
+              {{error}}
+              {%endfor%}
+            </div>
+           </div>
+        </div>
+        <!--
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
           <h4 class="panel-title">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -375,6 +511,8 @@
         </div>
       </div>
     </div>
+-->
+<!--
     <div class="container">
       <div class="row">
         <div class="col-md-12 text-center">
@@ -394,6 +532,14 @@
         </div>
       </div> 
     </div>
+-->
+<div class="row">
+  <div class="col-md-4 col-md-offset-4 text-center">
+    <input type="submit" value="Створити" class="btn btn-border-color textcol btn-sm background">
+    <a href = "{{url_for('welcomePage')}}" class="btn btn-border-color textcol btn-sm background">Скасувати</a>
+  </div>
+</div> 
+
     </form>
   </div>
 
