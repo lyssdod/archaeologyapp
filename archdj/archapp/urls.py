@@ -2,14 +2,15 @@ from django.conf.urls import url
 
 from . import views
 
+app_name='archapp'
 urlpatterns = [
-        url(r'^$', views.welcomePage, name='Welcome'),
-        url(r'^new/$', views.newSite, name='New Site'),
-        url(r'^(?P<site_id>[0-9]+)/$', views.sitePage, name='Site Page'),
-        url(r'^(?P<site_id>[0-9]+)/edit/$', views.siteEdit, name='Edit Page'),
-        url(r'^(?P<site_id>[0-9]+)/delete/$', views.siteDelete, name='Delete Page'),
-        url(r'^all/$', views.allSites, name='All Sites'),
-        url(r'^sites/p/$', views.publicQueries, name='Public Queries'),
-        url(r'^search/$', views.search, name='Search Results'),
-
+        url(r'^$', views.welcomePage, name='welcome'),
+        url(r'^new/$', views.newSite, name='newsite'),
+#        url(r'^(?P<pk>[0-9]+)/$', views.sitePage.as_view(), name='sitepage'),
+        url(r'^(?P<site_id>[0-9]+)/edit/$', views.siteEdit, name='edit'),
+        url(r'^(?P<site_id>[0-9]+)/delete/$', views.siteDelete, name='delete'),
+        url(r'^all/$', views.allSites, name='all'),
+        url(r'^sites/p/$', views.publicQueries, name='publq'),
+        url(r'^search/$', views.search, name='sresults'),
+        url(r'^login/$', views.login, name='login'),
         ]

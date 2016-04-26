@@ -1,0 +1,143 @@
+{% extends "archapp/base.html" %}
+
+{% block content %}
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+      <a href="#">
+        Фiльтри
+      </a>
+      </li>
+      <form method="post">
+        <li>
+        <input type="checkbox" name="by_alphabet">Впорядкувати за абеткою
+        </li>
+        <li>
+        <select name="by_type" size="1">
+          <option value="" selected>Тип пам'ятки</option>   
+          <option value=""></option>
+          <option value="Городище">Городище</option>
+          <option value="Поселення">Поселення</option>
+          <option value="Могильник">Могильник</option>
+        </select>
+        </li>
+        <li>
+        <select name="oblast" id="ddl" onchange="configureDropDownLists(this,document.getElementById('ddl2'))"> 
+          <option value="" selected>Область</option> 
+          <option value="Брянська">Брянська</option> 
+          <option value="Курська">Курська</option> 
+          <option value="Орловська">Орловська</option> 
+          <option value="Полтавська">Полтавська</option> 
+          <option value="Сумська">Сумська</option> 
+          <option value="Чернiгiвська">Чернiгiвська</option> 
+        </select>
+        </li>
+        <li>
+        <select id="ddl2" name="rajon">
+          <option value="" selected>Район</option>
+        </select>
+        </li>
+        <li>
+        <select name="kultnal" size="1">
+              <option value="" selected>Культурна належнiсть</option>
+              <option value="Скiфська">Скiфська</option>
+              <option value="Юхнiвська">Юхнiвська</option>
+              <option value="Пiзньоюхнiвська">Пiзньоюхнiвська</option>
+              <option value="Верхньоокська">Верхньоокська</option>
+              <option value="Двошарова">Двошарова</option>
+              <option value="Невстановлена">Невстановлена</option>
+            </select>
+        </li>
+        <li>
+          <select name="basejn" size="1">
+            <option value="" selected>Рiчковий басейн</option>
+            <option value="Сейм">Сейм</option>
+            <option value="Десна">Десна</option>
+            <option value="Дон">Дон</option>
+            <option value="Псел">Псел</option>
+            <option value="Ока">Ока</option>
+            <option value="Сула">Сула</option>
+            <option value="Ворскла">Ворскла</option>
+          </select>
+          </li>
+          <li>
+              <select name="toppotype" size="1">
+                <option value="" selected>Топографiчне положення</option>
+                <option value="Дюна">Пойменне</option>
+                <option value="Тераса">1-а тераса</option>
+                <option value="2-га тераса">2-га тераса</option>
+                <option value="Висока тераса">Висока тераса</option>
+                <option value="Корiнний берег">Плато</option>
+              </select>
+          </li>
+          <li> 
+          <input type="checkbox" name="rozkop" value="Так"> Розкопки
+          </li>
+          <li>
+          <input type="checkbox" name="dodatky"> Додатки
+          </li>
+          <li>
+          <input type="checkbox" name="kistka" value="Є">Вироби з кiстки
+          </li>
+          <li>
+          <input type="checkbox" name="zalizo" value="Є">Вироби iз залiза
+          </li>
+          <li>
+          <input type="checkbox" name="kamin" value="Є">Вироби з каменю
+          </li>
+          <li> 
+          <input type="checkbox" name="glyna" value="Є">Керамiка
+          </li>
+          <li >
+          <input type='text' id="slider_v" name='vysota' value="">
+          </li>
+          <li>За висотою над водою: <b> 1 м</b> <input id="slider" type="number"  class="span2" value="" data-slider-min="1" data-slider-max="100" data-slider-step="5" data-slider-value="[10,70]"/> <b> 100 м</b></li>
+          <li>
+          <input type='text' id="slider_v2" name='ploshcha' value="">
+          </li>
+          <li>За площею: <b> 1</b> <input id="slider2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b> 1000</b></li>
+          <li>
+          <input type="submit">
+          </li>
+        </form>
+      </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Фiльтри</a>
+          </div>
+        </div>
+        <div class = "row">
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <h2 class="site_name">Усi пам'ятки</h2>
+          </div>
+        </div>
+        <hr class="hrr"> 
+        <div>
+
+          {% for site in allsites %}
+          <a href = "{% url 'archapp:sitepage' site.id %}"> <p>{{site.name}}</p></a>
+          {% endfor %}
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
+{% endblock %}
