@@ -1,29 +1,66 @@
 from django.db import models
+from djchoices import DjangoChoices, ChoiceItem
 
-class User(models.Model):
-    email = models.CharField(max_length=100)
-    nickname = models.CharField(max_length=100)
-    def __str__(self):
-        return self.email
+# generic Filter model with many FilterValues
+class Filter(models.Model):
+    class Type(DjangoChoices):
+        integer = ChoiceItem(0)
+        boolean = ChoiceItem(1)
+        double = ChoiceItem(2)
+        string = ChoiceItem(3)
 
-class Site(models.Model):
-    name = models.CharField(max_length=200)
-    krajina = models.CharField(max_length=250)
-    oblast = models.CharField(max_length=250)
-    rajon = models.CharField(max_length=250)
+    name = models.CharField(max_length = 64)
+    data = models.ForeignKey('FilterValue', on_delete = models.CASCADE, null = True)
+    group = models.ForeignKey('FilterGroup', on_delete = models.DO_NOTHING, null = True) # preserve entire group from deletion
+    oftype = models.IntegerField(default = 0)
 
-    rozpl = models.IntegerField(default=0)
-    ploshch = models.IntegerField(default=0)
-
-    toppotype = models.CharField(max_length=30)
-    geomorform = models.CharField(max_length=250)
-    vysotnadrm = models.IntegerField(default=0)
-    vysotnadrm = models.IntegerField(default=0)
-
-    chron = models.CharField(max_length=250)
-    nvchron = models.CharField(max_length=250)
-    data = models.CharField(max_length=10000)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 
+# combine filters into groups
+class FilterGroup(models.Model):
+    name = models.CharField(max_length = 32)
+    data = models.ForeignKey(Filter, on_delete = models.CASCADE, null = True)
+
+# FilterValue of a Filter, can have multiple types
+class FilterValue(models.Model):
+    instance = models.ForeignKey(Filter)
+    boolean = models.BooleanField(default = False)
+    integer = models.IntegerField(default = 0)
+    double  = models.FloatField(default = 0.0)
+    string  = models.TextField(max_length = 128)
+
+# User model
+class User(models.Model):
+    email = models.EmailField(max_length = 128)
+    nickname = models.CharField(max_length = 64)
+    password = models.CharField(max_length = 64)
+
+    # User can define custom Filters
+    filters = models.ForeignKey(FilterGroup, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.email
+
+# Site photos
+class Image(models.Model):
+    image = models.ImageField(max_length = 128, upload_to = 'uploads/')
+
+# archaeology Site
+class Site(models.Model):
+    name = models.CharField(max_length = 128)
+
+    # it LOTS of Filters
+    filters = models.ForeignKey(FilterGroup, on_delete = models.DO_NOTHING) # don't delete existing Filter when deleting the Site
+
+    # someone has created it
+    user = models.ForeignKey(User, on_delete = models.DO_NOTHING) # don't delete User when deleting it's Site
+
+    # it also has images
+    images = models.ForeignKey(Image, on_delete = models.CASCADE) # wipe out all previously stored photos
+
+    # aux data (serialized)
+    data = models.CharField(max_length = 16384)
+
+    def __str__(self):
+        return self.name
