@@ -1,22 +1,33 @@
 from django.contrib import admin
-
+from django.db.models import Count
 from .models import Site, Filter, Property
 
 class PropertyAdmin(admin.ModelAdmin):
 	list_display = ('__str__', 'oftype', 'instance', 'linked')
 	list_editable = ('linked', 'oftype', 'instance')
-
-"""    actions = ['link', ]
-
-    def link(self, request, queryset):
-        queryset.update(linked = True)
-        self.message_user(request, 'Properties has been linked to their filters')
-
-    link.short_description = 'Use as a sub-filter'
-"""
+	list_filter = ('instance', 'linked', 'oftype')
 
 class FilterAdmin(admin.ModelAdmin):
-	pass
+    list_display = ('name', 'prop_count', 'linked_count')
+
+    def get_queryset(self, request):
+        return super(FilterAdmin, self).get_queryset(request).annotate(num_props = Count('property'))#.filter(property__linked = True)
+
+    def prop_count(self, obj):
+        return obj.num_props
+
+    def linked_count(self, obj):
+        return 'Not Implemented Yet'
+        #return Filter.objects.filter(property__linked = True).annotate(Count('property'))
+
+    prop_count.short_description = 'Subfilters'
+    prop_count.admin_order_field = 'num_props'
+
+#class FilterAdmin(admin.ModelAdmin):
+#	list_display = ('name', 'get_size')
+
+#	def get_size(self, obj):
+#		return Property.
     #def get_queryset(self, request):
     #	return super(FilterAdmin, self).get_queryset(request).filter(linked = True).select_related('filter')
 
