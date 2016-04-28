@@ -1,34 +1,40 @@
 from django.db import models
-from djchoices import DjangoChoices, ChoiceItem
 
-# generic Filter model with many FilterValues
+# generic Filter for Property referencing
 class Filter(models.Model):
-    class Type(DjangoChoices):
-        integer = ChoiceItem(0)
-        boolean = ChoiceItem(1)
-        double = ChoiceItem(2)
-        string = ChoiceItem(3)
 
+    # descriptive name
     name = models.CharField(max_length = 64)
-    data = models.ForeignKey('FilterValue', on_delete = models.CASCADE, null = True)
-    group = models.ForeignKey('FilterGroup', on_delete = models.DO_NOTHING, null = True) # preserve entire group from deletion
-    oftype = models.IntegerField(default = 0)
 
     def __str__(self):
         return self.name
 
-# combine filters into groups
-class FilterGroup(models.Model):
-    name = models.CharField(max_length = 32)
-    data = models.ForeignKey(Filter, on_delete = models.CASCADE, null = True)
+# Property of a Site
+class Property(models.Model):
+    class Type:
+        integer = 0
+        boolean = 1
+        double = 2
+        string = 3
 
-# FilterValue of a Filter, can have multiple types
-class FilterValue(models.Model):
-    instance = models.ForeignKey(Filter)
+    instance = models.ForeignKey(Filter, on_delete = models.CASCADE)
     boolean = models.BooleanField(default = False)
     integer = models.IntegerField(default = 0)
-    double  = models.FloatField(default = 0.0)
-    string  = models.TextField(max_length = 128)
+    double = models.FloatField(default = 0.0)
+    string = models.TextField(max_length = 128)
+
+    oftype = models.IntegerField(default = 0)
+    linked = models.BooleanField(default = False)
+
+    def __str__(self):
+        if self.oftype == Type.integer:
+            return str(self.integer)
+        elif self.oftype == Type.boolean:
+            return str(self.boolean)
+        elif self.oftype == Type.double:
+            return str(self.double)
+        elif self.oftype == Type.string:
+            return self.string
 
 # User model
 class User(models.Model):
@@ -37,30 +43,36 @@ class User(models.Model):
     password = models.CharField(max_length = 64)
 
     # User can define custom Filters
-    filters = models.ForeignKey(FilterGroup, on_delete = models.CASCADE)
+    #filters = models.ForeignKey(FilterGroup, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.email
 
-# Site photos
-class Image(models.Model):
-    image = models.ImageField(max_length = 128, upload_to = 'uploads/')
 
 # archaeology Site
 class Site(models.Model):
     name = models.CharField(max_length = 128)
 
-    # it LOTS of Filters
-    filters = models.ForeignKey(FilterGroup, on_delete = models.DO_NOTHING) # don't delete existing Filter when deleting the Site
-
     # someone has created it
-    user = models.ForeignKey(User, on_delete = models.DO_NOTHING) # don't delete User when deleting it's Site
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
 
-    # it also has images
-    images = models.ForeignKey(Image, on_delete = models.CASCADE) # wipe out all previously stored photos
+    # it has many properties
+    props = models.ManyToManyField('Property')
 
     # aux data (serialized)
-    data = models.CharField(max_length = 16384)
+    data = models.CharField(max_length = 4096)
 
     def __str__(self):
         return self.name
+
+# Site photos
+class Image(models.Model):
+    class Type:
+        general = 1
+        plane = 2
+        photo = 3
+        found = 4
+
+    site = models.ForeignKey(Site, on_delete = models.CASCADE, null = True)
+    image = models.ImageField(max_length = 128, upload_to = 'uploads/')
+    oftype = models.IntegerField(default = 0)

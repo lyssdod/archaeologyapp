@@ -1,32 +1,10 @@
 [
   {
-  	"model": "archapp.filtergroup", 
-  	"pk": 1, 
-  	"fields": 
-  	{
-  		"name": "generic", 
-  		"data": null
-  	}
-  }, 
-  {
-  	"model": "archapp.filtergroup", 
-  	"pk": 2, 
-  	"fields": 
-  	{
-  		"name": "user", 
-  		"data": null
-  	}
-  }, 
-
-  {
   	"model": "archapp.filter", 
   	"pk": 1, 
   	"fields": 
   	{
   		"name": "Country", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 3
   	}
   }, 
   {
@@ -35,9 +13,6 @@
   	"fields": 
   	{
   		"name": "Region", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 3
   	}
   }, 
   {
@@ -46,9 +21,6 @@
   	"fields": 
   	{
   		"name": "District", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 3
   	}
   }, 
   {
@@ -57,9 +29,6 @@
   	"fields": 
   	{
   		"name": "Settlement", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 3
   	}
   }, 
   {
@@ -68,9 +37,6 @@
   	"fields": 
   	{
   		"name": "Latitude", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 2
   	}
   }, 
   {
@@ -79,9 +45,6 @@
   	"fields": 
   	{
   		"name": "Longtitude", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 2
   	}
   }, 
   {
@@ -90,9 +53,6 @@
   	"fields": 
   	{
   		"name": "Area", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 0
   	}
   }, 
   {
@@ -101,9 +61,6 @@
   	"fields": 
   	{
   		"name": "AreaWidth", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 0
   	}
   }, 
   {
@@ -112,9 +69,6 @@
   	"fields": 
   	{
   		"name": "AreaHeight", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 0
   	}
   }, 
   {
@@ -123,9 +77,6 @@
   	"fields": 
   	{
   		"name": "Topography", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 0
   	}
   }, 
   {
@@ -134,9 +85,6 @@
   	"fields": 
   	{
   		"name": "Geomorphology", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 0
   	}
   }, 
   {
@@ -145,9 +93,6 @@
   	"fields": 
   	{
   		"name": "Altitude", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 0
   	}
   }, 
   {
@@ -156,9 +101,6 @@
   	"fields": 
   	{
   		"name": "ValleyAltitude", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 0
   	}
   }, 
   {
@@ -167,9 +109,6 @@
   	"fields": 
   	{
   		"name": "Dating", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 0
   	}
   }, 
   {
@@ -178,9 +117,6 @@
   	"fields": 
   	{
   		"name": "Typology", 
-  		"data": null, 
-  		"group": 1, 
-  		"oftype": 3
   	}
   }
 ]
