@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Site, Filter, Property
+from .models import Site, Filter, Property
 
 class PropertyAdmin(admin.ModelAdmin):
 	list_display = ('__str__', 'oftype', 'instance', 'linked')
@@ -22,6 +22,5 @@ class FilterAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Site)
-admin.site.register(User)
 admin.site.register(Property, PropertyAdmin)
 admin.site.register(Filter, FilterAdmin)
