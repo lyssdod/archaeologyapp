@@ -1,13 +1,26 @@
 from django.db import models
+from picklefield import fields
+
+# User model
+class User(models.Model):
+    email = models.EmailField(max_length = 128)
+    nickname = models.CharField(max_length = 64)
+    password = models.CharField(max_length = 64)
+
+    def __str__(self):
+        return self.email
 
 # generic Filter for Property referencing
 class Filter(models.Model):
-
-    # descriptive name
-    name = models.CharField(max_length = 64)
+    name = models.CharField(max_length = 128)
 
     def __str__(self):
         return self.name
+
+# User-defined Filter
+class UserFilter(Filter):
+    query = fields.PickledObjectField()
+    owner = models.ForeignKey(User, on_delete = models.CASCADE)
 
 # Property of a Site
 class Property(models.Model):
@@ -36,31 +49,12 @@ class Property(models.Model):
         elif self.oftype == Type.string:
             return self.string
 
-# User model
-class User(models.Model):
-    email = models.EmailField(max_length = 128)
-    nickname = models.CharField(max_length = 64)
-    password = models.CharField(max_length = 64)
-
-    # User can define custom Filters
-    #filters = models.ForeignKey(FilterGroup, on_delete = models.CASCADE)
-
-    def __str__(self):
-        return self.email
-
-
 # archaeology Site
 class Site(models.Model):
     name = models.CharField(max_length = 128)
-
-    # someone has created it
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-
-    # it has many properties
-    props = models.ManyToManyField('Property')
-
-    # aux data (serialized)
-    data = models.CharField(max_length = 4096)
+    props = models.ManyToManyField(Property)
+    data = fields.PickledObjectField()
 
     def __str__(self):
         return self.name
@@ -73,6 +67,6 @@ class Image(models.Model):
         photo = 3
         found = 4
 
-    site = models.ForeignKey(Site, on_delete = models.CASCADE, null = True)
+    site = models.ForeignKey(Site, on_delete = models.CASCADE)
     image = models.ImageField(max_length = 128, upload_to = 'uploads/')
     oftype = models.IntegerField(default = 0)
