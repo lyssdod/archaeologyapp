@@ -24,7 +24,7 @@ SECRET_KEY = 'mldcn%7k0&#5fesf6wwensamw5*h^)_)_lhvj3*3&3rne!m79d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,18 +74,19 @@ WSGI_APPLICATION = 'archaeologyapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+CURRDB = {'ENGINE': 'django.db.backends.sqlite3',
+         'NAME': os.path.join(BASE_DIR, 'db.sqlite3')}
 
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
-#        'USER': 'archdev',
-#        'PASSWORD': 'ufyl;f666',
-#        'HOST': 'localhost',
-#        'PORT': '5432'
-    }
+if DEBUG is False:
+    CURRDB = {  'ENGINE': 'django.db.backends.postgresql',
+                'NAME': 'archapp',
+                'USER': 'archdev',
+                'PASSWORD': 'ufyl;f666',
+                'HOST': 'localhost',
+                'PORT': '5432' }
+
+DATABASES = {
+    'default': CURRDB
 }
 
 
