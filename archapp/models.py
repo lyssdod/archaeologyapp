@@ -1,5 +1,6 @@
 from django.db import models
 from picklefield import fields
+from djchoices import DjangoChoices, ChoiceItem
 
 # User model
 class User(models.Model):
@@ -24,29 +25,32 @@ class UserFilter(Filter):
 
 # Property of a Site
 class Property(models.Model):
-    class Type:
-        integer = 0
-        boolean = 1
-        double = 2
-        string = 3
+    class Meta:
+        verbose_name_plural = "properties"
 
-    instance = models.ForeignKey(Filter, on_delete = models.CASCADE)
-    boolean = models.BooleanField(default = False)
-    integer = models.IntegerField(default = 0)
-    double = models.FloatField(default = 0.0)
-    string = models.TextField(max_length = 128)
+    class Type(DjangoChoices):
+        integer = ChoiceItem(0, "Integer")
+        boolean = ChoiceItem(1, "Boolean")
+        double = ChoiceItem(2, "Double")
+        string = ChoiceItem(3, "String")
 
-    oftype = models.IntegerField(default = 0)
-    linked = models.BooleanField(default = False)
+    instance = models.ForeignKey(Filter, verbose_name = "Related filter", on_delete = models.CASCADE)
+    boolean = models.BooleanField(default = False, verbose_name = "Boolean value")
+    integer = models.IntegerField(default = 0, verbose_name = "Integer value")
+    double = models.FloatField(default = 0.0, verbose_name = "Float value")
+    string = models.TextField(max_length = 128, blank = True, verbose_name = "String value")
+
+    oftype = models.IntegerField(default = 0, verbose_name = "Value type", choices = Type.choices)
+    linked = models.BooleanField(default = False, verbose_name = "Use as a subfilter")
 
     def __str__(self):
-        if self.oftype == Type.integer:
+        if self.oftype == Property.Type.integer:
             return str(self.integer)
-        elif self.oftype == Type.boolean:
+        elif self.oftype == Property.Type.boolean:
             return str(self.boolean)
-        elif self.oftype == Type.double:
+        elif self.oftype == Property.Type.double:
             return str(self.double)
-        elif self.oftype == Type.string:
+        elif self.oftype == Property.Type.string:
             return self.string
 
 # archaeology Site

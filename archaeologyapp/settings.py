@@ -50,7 +50,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'archapp.urls'
+ROOT_URLCONF = 'archaeologyapp.urls'
 
 TEMPLATES = [
     {
