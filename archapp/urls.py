@@ -1,22 +1,16 @@
-"""djarch URL Configuration
+from django.conf.urls import url
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.9/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
-from django.conf.urls import include, url
-from django.contrib import admin
+from . import views
 
+app_name='archapp'
 urlpatterns = [
-    url(r'^archapp/', include('archapp.urls')),
-    url(r'^admin/', admin.site.urls),
-]
+        url(r'^$', views.welcomePage, name='welcome'),
+        url(r'^new/$', views.newSite, name='newsite'),
+#        url(r'^(?P<pk>[0-9]+)/$', views.sitePage.as_view(), name='sitepage'),
+        url(r'^(?P<site_id>[0-9]+)/edit/$', views.siteEdit, name='edit'),
+        url(r'^(?P<site_id>[0-9]+)/delete/$', views.siteDelete, name='delete'),
+        url(r'^all/$', views.allSites, name='all'),
+        url(r'^sites/p/$', views.publicQueries, name='publq'),
+        url(r'^search/$', views.search, name='sresults'),
+        url(r'^login/$', views.login, name='login'),
+        ]

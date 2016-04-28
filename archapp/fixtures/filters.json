@@ -4,7 +4,7 @@
   	"pk": 1, 
   	"fields": 
   	{
-  		"name": "Country", 
+  		"name": "Country"
   	}
   }, 
   {
@@ -12,7 +12,7 @@
   	"pk": 2, 
   	"fields": 
   	{
-  		"name": "Region", 
+  		"name": "Region"
   	}
   }, 
   {
@@ -20,7 +20,7 @@
   	"pk": 3, 
   	"fields": 
   	{
-  		"name": "District", 
+  		"name": "District"
   	}
   }, 
   {
@@ -28,7 +28,7 @@
   	"pk": 4, 
   	"fields": 
   	{
-  		"name": "Settlement", 
+  		"name": "Settlement"
   	}
   }, 
   {
@@ -36,7 +36,7 @@
   	"pk": 5, 
   	"fields": 
   	{
-  		"name": "Latitude", 
+  		"name": "Latitude"
   	}
   }, 
   {
@@ -44,7 +44,7 @@
   	"pk": 6, 
   	"fields": 
   	{
-  		"name": "Longtitude", 
+  		"name": "Longtitude"
   	}
   }, 
   {
@@ -52,7 +52,7 @@
   	"pk": 7, 
   	"fields": 
   	{
-  		"name": "Area", 
+  		"name": "Area"
   	}
   }, 
   {
@@ -60,7 +60,7 @@
   	"pk": 8, 
   	"fields": 
   	{
-  		"name": "AreaWidth", 
+  		"name": "AreaWidth"
   	}
   }, 
   {
@@ -68,7 +68,7 @@
   	"pk": 9, 
   	"fields": 
   	{
-  		"name": "AreaHeight", 
+  		"name": "AreaHeight"
   	}
   }, 
   {
@@ -76,7 +76,7 @@
   	"pk": 10, 
   	"fields": 
   	{
-  		"name": "Topography", 
+  		"name": "Topography"
   	}
   }, 
   {
@@ -84,7 +84,7 @@
   	"pk": 11, 
   	"fields": 
   	{
-  		"name": "Geomorphology", 
+  		"name": "Geomorphology"
   	}
   }, 
   {
@@ -92,7 +92,7 @@
   	"pk": 12, 
   	"fields": 
   	{
-  		"name": "Altitude", 
+  		"name": "Altitude"
   	}
   }, 
   {
@@ -100,7 +100,7 @@
   	"pk": 13, 
   	"fields": 
   	{
-  		"name": "ValleyAltitude", 
+  		"name": "ValleyAltitude"
   	}
   }, 
   {
@@ -108,15 +108,15 @@
   	"pk": 14, 
   	"fields": 
   	{
-  		"name": "Dating", 
-  	}
+  		"name": "Dating"
+    }
   }, 
   {
   	"model": "archapp.filter", 
   	"pk": 15, 
   	"fields": 
   	{
-  		"name": "Typology", 
+  		"name": "Typology"
   	}
   }
 ]
