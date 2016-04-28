@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.db.models import Count
+from django.db.models import Sum, Count, Case, When, IntegerField
 from .models import Site, Filter, Property
 
 class PropertyAdmin(admin.ModelAdmin):
@@ -8,28 +8,25 @@ class PropertyAdmin(admin.ModelAdmin):
 	list_filter = ('instance', 'linked', 'oftype')
 
 class FilterAdmin(admin.ModelAdmin):
-    list_display = ('name', 'prop_count', 'linked_count')
+    list_display = ('name', 'link_count', 'prop_count')
 
     def get_queryset(self, request):
-        return super(FilterAdmin, self).get_queryset(request).annotate(num_props = Count('property'))#.filter(property__linked = True)
+        return super(FilterAdmin, self).get_queryset(request).annotate(
+            num_props = Count(Case(When(property__linked = False, then = 1), output_field = IntegerField())),
+            num_linkd = Count(Case(When(property__linked = True, then = 1), output_field = IntegerField()))
+            )
 
     def prop_count(self, obj):
         return obj.num_props
 
-    def linked_count(self, obj):
-        return 'Not Implemented Yet'
-        #return Filter.objects.filter(property__linked = True).annotate(Count('property'))
+    def link_count(self, obj):
+        return obj.num_linkd
 
-    prop_count.short_description = 'Subfilters'
-    prop_count.admin_order_field = 'num_props'
+    prop_count.short_description = 'Used by'
+    prop_count.admin_order_field = 'num_links'
 
-#class FilterAdmin(admin.ModelAdmin):
-#	list_display = ('name', 'get_size')
-
-#	def get_size(self, obj):
-#		return Property.
-    #def get_queryset(self, request):
-    #	return super(FilterAdmin, self).get_queryset(request).filter(linked = True).select_related('filter')
+    link_count.short_description = 'Subfilters'
+    link_count.admin_order_field = 'num_props'
 
 
 admin.site.register(Site)
