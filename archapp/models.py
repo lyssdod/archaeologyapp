@@ -1,15 +1,7 @@
 from django.db import models
 from picklefield import fields
 from djchoices import DjangoChoices, ChoiceItem
-
-# User model
-class User(models.Model):
-    email = models.EmailField(max_length = 128)
-    nickname = models.CharField(max_length = 64)
-    password = models.CharField(max_length = 64)
-
-    def __str__(self):
-        return self.email
+from django.contrib.auth.models import User
 
 # generic Filter for Property referencing
 class Filter(models.Model):
