@@ -122,7 +122,7 @@
         <hr class="hrr"> 
         <div>
 
-          {% for site in allsites %}
+          {% for site in object_list %}
           <a href = "{% url 'archapp:sitepage' site.id %}"> <p>{{site.name}}</p></a>
           {% endfor %}
         </div>

@@ -1,43 +1,47 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, get_list_or_404, render
 from django.core.urlresolvers import reverse
-from django.views import generic
 from .models import Site
+from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 
 
-def welcomePage(request):
-    return render(request, 'archapp/welcome.html')
+class WelcomePage(TemplateView):
+    template_name = 'archapp/welcome.html'
 
-def newSite(request):
-    return render(request, 'archapp/newsite.html')
+class NewSite(CreateView):
+    model = Site
+    fields = ['name']
+    template_name = 'archapp/newsite.html'
 
-#def sitePage(generic.DetailView):
-#    model = Site
-#    template_name = 'archapp/site.html'
-    #thesite = get_object_or_404(Site, pk=site_id)
-    #return render(request, 'archapp/site.html', {'site': thesite})
+class SitePage(DetailView):
+    model = Site
+    template_name = 'archapp/site.html'
+#
+class SiteEdit(UpdateView):
+    model = Site
+    fields = ['name']
+    template_name = 'archapp/edit.html'
 
-def siteEdit(request, site_id):
-    thesite = get_object_or_404(Site, pk=site_id)
-    return render(request, 'archapp/edit.html', {'site': thesite})
+class SiteDelete(DeleteView):
+    model = Site
+    success_url = '/archapp/all/' 
+    template_name = 'archapp/delete.html'
 
-def siteDelete(request, site_id):
-    thesite = get_object_or_404(Site, pk=site_id)
-    return render(request, 'archapp/delete.html', {'site': thesite})
+class AllSites(ListView):
+    model = Site
+    template_name = 'archapp/all.html'
 
-def allSites(request):
-    allsites = Site.objects.all()
-    return render(request, 'archapp/all.html', {'allsites': allsites})
-
-def publicQueries(request):
-    return HttpResponse("You're viewing public queries.")
+#class PublicQueries(TemplateView):
+#    template_name = 'archapp/all.html'
 
 
-def search(request):
-    return HttpResponse("Hello, You're viewing search results")
+class Search(ListView):
+    model = Site
+    template_name = 'archapp/search.html'
 
-def login(request):
-    return render(request, 'archapp/login.html')
+class Login(TemplateView):
+    template_name = 'archapp/login.html'
 
 
 

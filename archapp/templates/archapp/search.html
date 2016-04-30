@@ -1,13 +1,13 @@
-{% extends "base.html" %}
+{% extends "archapp/base.html" %}
 
 {% block content %}
 <div class="row">
   <h2 class="text-center">Результати пошуку</h2>
 </div>
 <div class="row">
-  {%if results %}
-  {% for site in results %}
-  <a href = "{{url_for('sitePage', site_id = site.id)}}"> <p>{{site.name}}</p></a>
+  {%if  object_list%}
+  {% for site in object_list %}
+  <a href = "url_for('sitePage', site_id = site.id)"> <p>{{site.name}}</p></a>
   {% endfor %}
   {% else %}
   <h3>Ми не знайшли нiчого!</h3>
