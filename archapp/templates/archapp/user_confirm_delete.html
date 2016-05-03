@@ -1,0 +1,21 @@
+{% extends "archapp/base.html" %}
+
+{% block content %}
+<div class = "row">
+  <div class="col-md-6 col-md-offset-3 text-center">
+    <h2 class="site_name">Видалити користувача {{User.username}}? </h2>
+  </div>
+</div>
+<hr class="hrr"> 
+<div class="row">
+  <div class="col-md-1 col-md-offset-5">
+    <form action="#" method = 'post'>
+      {% csrf_token %}
+      <input type="submit" name="Delete" value="Видалити" class="btn btn-border-color textcol btn-sm background">
+    </form>
+  </div>
+  <div class="col-md-1">
+    <a href = "{% url 'archapp:welcome' %}"  class="btn btn-border-color textcol btn-sm"> Скасувати </a>
+  </div>
+</div>
+{% endblock %}
