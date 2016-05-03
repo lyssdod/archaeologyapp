@@ -34,6 +34,10 @@ class Property(models.Model):
 
     oftype = models.IntegerField(default = 0, verbose_name = "Value type", choices = Type.choices)
     linked = models.BooleanField(default = False, verbose_name = "Use as a subfilter")
+    # for example, we have a subfiltered property. In that case, this field
+    # will be used to link some site's propery to this subfilter and avoid
+    # property duplication
+    usedby = models.IntegerField(default = None)
 
     def __str__(self):
         if self.oftype == Property.Type.integer:
