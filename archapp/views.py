@@ -7,16 +7,18 @@ from django.core.urlresolvers import reverse_lazy
 from .forms import NewSiteForm, SignUpForm
 from django.contrib.auth.models import User
 
+from django.contrib.auth.forms import UserCreationForm
+
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
     users = User.objects.all()
     print(users)
     
 class SignUp(CreateView):
+    model = User
+    success_url='/archapp/'
     form_class = SignUpForm
     template_name = 'archapp/signup.html'
-    success_url='/archapp/'
-
     def form_valid(self, form):
         return super(SignUp, self).form_valid(form)
 

@@ -1,12 +1,20 @@
 from django.forms import ModelForm, CharField, PasswordInput
 from .models import Filter, UserFilter, Property, Site 
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
-class SignUpForm(ModelForm):
-#    password = CharField(widget=PasswordInput())
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(required=True)
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'first_name', 'last_name'] 
+        fields = ['username', 'email', 'first_name', 'last_name'] 
+    def save(self, commit=True):
+        user = super(SignUpForm, self).save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
 
 class NewSiteForm(ModelForm):
     class Meta:
