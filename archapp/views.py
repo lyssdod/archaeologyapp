@@ -1,21 +1,13 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, get_list_or_404, render
-from django.core.urlresolvers import reverse
 from .models import Site
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView
-from django.core.urlresolvers import reverse_lazy
 from .forms import NewSiteForm, SignUpForm
 from django.contrib.auth.models import User
 
-from django.contrib.auth.forms import UserCreationForm
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
-    users = User.objects.all()
-    print(users)
     
 class SignUp(CreateView):
-    model = User
     success_url='/archapp/'
     form_class = SignUpForm
     template_name = 'archapp/signup.html'

@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField, PasswordInput
+from django.forms import ModelForm, CharField 
 from .models import Filter, UserFilter, Property, Site 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm

@@ -15,6 +15,4 @@ urlpatterns = [
         url(r'^login/$', views.Login.as_view(), name='login'),
         url(r'user/(?P<slug>[\w.@+-]+)/$', views.UserUpdate.as_view(), name='user-update'),
         url(r'user/(?P<slug>[\w.@+-]+)/delete/$', views.UserDelete.as_view(), name='user-delete'),
-        url(r'^login1/$', 'django.contrib.auth.views.login', name='login1'),
-        url(r'^logout/$', 'django.contrib.auth.views.logout'),
         ]
