@@ -3,6 +3,25 @@ from .models import Filter, UserFilter, Property, Site
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from .models import Site
+
+def render_form_field(fieldtype = None):
+    if fieldtype == 'text':
+        return forms.CharField()
+    elif fieldtype == 'number':
+        return forms.IntegerField()
+    elif fieldtype == 'checkbox':
+        return forms.BooleanField()
+
+# pickled data
+data = Site().data
+
+# let's assume each data item is a following dict:
+# item['name'] = 'Aux Field name 1', item['fielddtype'] = 'number'
+
+class AuxForm(forms.Form):
+    for item in data:
+        setattr(this, item['name'], item['fieldtype'])
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -16,10 +35,9 @@ class SignUpForm(UserCreationForm):
             user.save()
         return user
 
-class NewSiteForm(ModelForm):
-    class Meta:
-        model = Site
-        fields = ['name']
+class NewSiteForm(forms.Form):
+    name = forms.CharField(max_length = 128)
+#    image = forms.ImageField(max_length = 128)
 
 #class PropertiesForm(ModelForm):
 #    model = Property

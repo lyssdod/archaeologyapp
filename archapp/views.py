@@ -1,16 +1,16 @@
 from .models import Site
-from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from .forms import NewSiteForm, SignUpForm
 from django.contrib.auth.models import User
-
+from django.http import HttpResponseRedirect
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
     
 class SignUp(CreateView):
-    success_url='/archapp/'
     form_class = SignUpForm
     template_name = 'archapp/signup.html'
+    success_url='/archapp/'
     def form_valid(self, form):
         return super(SignUp, self).form_valid(form)
 
@@ -25,9 +25,21 @@ class UserDelete(DeleteView):
     slug_field = "username"
     success_url = '/signup/'
 
-class NewSite(CreateView):
-    form_class = NewSiteForm
+class NewSite(FormView):
     template_name = 'archapp/newsite.html'
+    form_class = NewSiteForm
+    success_url='/archapp/'
+    def form_valid(self, form):
+        name = form.cleaned_data['name']
+        user = User.objects.get(pk=1)
+        newsite = Site(name = name, user = user)
+        newsite.save()
+        return super(NewSite, self).form_valid(form)
+
+    #def valid_form(NewSiteForm):
+    #    if form.is_valid():
+    #        name = form.cleaned_data['name']
+    #    return HttpResponseRedirect('archapp/all.html')
 
 class SitePage(DetailView):
     model = Site
