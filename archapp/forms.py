@@ -37,6 +37,10 @@ class SignUpForm(UserCreationForm):
 #class NewSiteForm(forms.Form):
 #    name = forms.CharField(max_length = 128)
 #    image = forms.ImageField(max_length = 128)
+class NewSiteForm(forms.ModelForm):
+    class Meta:
+        model = Site
+        fields = ['name']
 
 class SearchForm(forms.Form):
     filters = ['Country', 'Region', 'District', 'Area', 'AreaWidth', 'AreaHeight', 'Topography', 'Geomorphology', 'Dating']

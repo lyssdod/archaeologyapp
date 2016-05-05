@@ -1,11 +1,6 @@
 from .models import Site
-<<<<<<< HEAD
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
-from .forms import NewSiteForm, SignUpForm
-=======
-from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView
 from .forms import NewSiteForm, SignUpForm, SearchForm
->>>>>>> 92fb41d73a9231711e3fdf3f988bf4cf4ff095db
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
