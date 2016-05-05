@@ -1,6 +1,6 @@
 from .models import Site
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView
-from .forms import NewSiteForm, SignUpForm
+from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
 
 
@@ -45,8 +45,11 @@ class SiteDelete(DeleteView):
 
 class AllSites(ListView):
     model = Site
+    form_class = SearchForm
     template_name = 'archapp/all.html'
 
+    def form_valid(self, form):
+        return super(SearchForm, self).form_valid(form)
 #class PublicQueries(TemplateView):
 #    template_name = 'archapp/all.html'
 

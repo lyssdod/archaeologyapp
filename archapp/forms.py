@@ -24,6 +24,7 @@ class SearchForm(forms.Form):
     filters = ['Country', 'Region', 'District', 'Area', 'AreaWidth', 'AreaHeight', 'Topography', 'Geomorphology', 'Dating']
 
     def __init__(self, *args, **kwargs):
+        super(SearchForm, self).__init__(*args, **kwargs)
         for name in filters:
             flt = Filter.objects.filter(name = name)
             fld = None
@@ -39,9 +40,9 @@ class SearchForm(forms.Form):
 
     def getsubdata(self, key):
         if type(key) is int:
-            return Filter.objects.filter(pk = key)
+            return Filter.objects.filter(subfilters__pk = key)
         else:
-            return Filter.objects.filter(name = key)
+            return Filter.objects.filter(subfilters__name = key)
 
 #class PropertiesForm(ModelForm):
 #    model = Property
