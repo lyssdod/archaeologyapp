@@ -1,7 +1,15 @@
 [
   {
+    "model": "archapp.filter", 
+    "pk": 1, 
+    "fields": 
+    {
+      "name": "Type"
+    }
+  }, 
+  {
   	"model": "archapp.filter", 
-  	"pk": 1, 
+  	"pk": 2, 
   	"fields": 
   	{
   		"name": "Country"
@@ -9,7 +17,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 2, 
+  	"pk": 3, 
   	"fields": 
   	{
   		"name": "Region"
@@ -17,7 +25,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 3, 
+  	"pk": 4, 
   	"fields": 
   	{
   		"name": "District"
@@ -25,7 +33,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 4, 
+  	"pk": 5, 
   	"fields": 
   	{
   		"name": "Settlement"
@@ -33,7 +41,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 5, 
+  	"pk": 6, 
   	"fields": 
   	{
   		"name": "Latitude"
@@ -41,7 +49,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 6, 
+  	"pk": 7, 
   	"fields": 
   	{
   		"name": "Longtitude"
@@ -49,7 +57,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 7, 
+  	"pk": 8, 
   	"fields": 
   	{
   		"name": "Area"
@@ -57,7 +65,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 8, 
+  	"pk": 9, 
   	"fields": 
   	{
   		"name": "AreaWidth"
@@ -65,7 +73,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 9, 
+  	"pk": 10, 
   	"fields": 
   	{
   		"name": "AreaHeight"
@@ -73,7 +81,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 10, 
+  	"pk": 11, 
   	"fields": 
   	{
   		"name": "Topography"
@@ -81,7 +89,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 11, 
+  	"pk": 12, 
   	"fields": 
   	{
   		"name": "Geomorphology"
@@ -89,7 +97,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 12, 
+  	"pk": 13, 
   	"fields": 
   	{
   		"name": "Altitude"
@@ -97,7 +105,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 13, 
+  	"pk": 14, 
   	"fields": 
   	{
   		"name": "ValleyAltitude"
@@ -105,7 +113,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 14, 
+  	"pk": 15, 
   	"fields": 
   	{
   		"name": "Dating"
@@ -113,7 +121,7 @@
   }, 
   {
   	"model": "archapp.filter", 
-  	"pk": 15, 
+  	"pk": 16, 
   	"fields": 
   	{
   		"name": "Typology"
