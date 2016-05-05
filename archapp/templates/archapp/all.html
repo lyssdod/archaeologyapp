@@ -14,6 +14,10 @@
         <li>
         <input type="checkbox" name="by_alphabet">Впорядкувати за абеткою
         </li>
+                {% csrf_token %}
+        <!-- here goes the search form -->
+      <!--div>
+
         <li>
         <select name="by_type" size="1">
           <option value="" selected>Тип пам'ятки</option>   
@@ -101,6 +105,7 @@
           <li>
           <input type="submit">
           </li>
+          </div -->
         </form>
       </ul>
     </div>

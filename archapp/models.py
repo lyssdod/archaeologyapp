@@ -3,9 +3,19 @@ from picklefield import fields
 from djchoices import DjangoChoices, ChoiceItem
 from django.contrib.auth.models import User
 
+# all possible Property value types
+class ValueType(DjangoChoices):
+    #enum    = ChoiceItem(0, "Enum")
+    integer = ChoiceItem(1, "Integer")
+    boolean = ChoiceItem(2, "Boolean")
+    double = ChoiceItem(3, "Double")
+    string = ChoiceItem(4, "String")
+
 # generic Filter for Property referencing
 class Filter(models.Model):
     name = models.CharField(max_length = 128)
+    parent = models.ForeignKey('self', null = True, blank = True, related_name = 'subfilters')
+    oftype = models.IntegerField(default = 0, verbose_name = "Value type", choices = ValueType.choices)
 
     def __str__(self):
         return self.name
@@ -20,33 +30,25 @@ class Property(models.Model):
     class Meta:
         verbose_name_plural = "properties"
 
-    class Type(DjangoChoices):
-        integer = ChoiceItem(0, "Integer")
-        boolean = ChoiceItem(1, "Boolean")
-        double = ChoiceItem(2, "Double")
-        string = ChoiceItem(3, "String")
-
     instance = models.ForeignKey(Filter, verbose_name = "Related filter", on_delete = models.CASCADE)
+    # kind of overkill here
+    oftype = models.IntegerField(default = 0, verbose_name = "Value type", choices = ValueType.choices)
+
+
     boolean = models.BooleanField(default = False, verbose_name = "Boolean value")
     integer = models.IntegerField(default = 0, verbose_name = "Integer value")
     double = models.FloatField(default = 0.0, verbose_name = "Float value")
     string = models.TextField(max_length = 128, blank = True, verbose_name = "String value")
 
-    oftype = models.IntegerField(default = 0, verbose_name = "Value type", choices = Type.choices)
-    linked = models.BooleanField(default = False, verbose_name = "Use as a subfilter")
-    # for example, we have a subfiltered property. In that case, this field
-    # will be used to link some site's propery to this subfilter and avoid
-    # property duplication
-    usedby = models.IntegerField(default = None)
 
     def __str__(self):
-        if self.oftype == Property.Type.integer:
+        if self.oftype == ValueType.integer:
             return str(self.integer)
-        elif self.oftype == Property.Type.boolean:
+        elif self.oftype == ValueType.boolean:
             return str(self.boolean)
-        elif self.oftype == Property.Type.double:
+        elif self.oftype == ValueType.double:
             return str(self.double)
-        elif self.oftype == Property.Type.string:
+        elif self.oftype == ValueType.string:
             return self.string
 
 # archaeology Site
