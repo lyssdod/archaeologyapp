@@ -4,7 +4,8 @@
     "pk": 1, 
     "fields": 
     {
-      "name": "Type"
+      "name": "Type",
+      "oftype": 4
     }
   }, 
   {
@@ -12,7 +13,8 @@
   	"pk": 2, 
   	"fields": 
   	{
-  		"name": "Country"
+  		"name": "Country",
+      "oftype": 4
   	}
   }, 
   {
@@ -20,7 +22,8 @@
   	"pk": 3, 
   	"fields": 
   	{
-  		"name": "Region"
+  		"name": "Region",
+      "oftype": 4
   	}
   }, 
   {
@@ -28,7 +31,8 @@
   	"pk": 4, 
   	"fields": 
   	{
-  		"name": "District"
+  		"name": "District",
+      "oftype": 4
   	}
   }, 
   {
@@ -36,7 +40,8 @@
   	"pk": 5, 
   	"fields": 
   	{
-  		"name": "Settlement"
+  		"name": "Settlement",
+      "oftype": 4
   	}
   }, 
   {
@@ -44,7 +49,8 @@
   	"pk": 6, 
   	"fields": 
   	{
-  		"name": "Latitude"
+  		"name": "Latitude",
+      "oftype": 1
   	}
   }, 
   {
@@ -52,7 +58,8 @@
   	"pk": 7, 
   	"fields": 
   	{
-  		"name": "Longtitude"
+  		"name": "Longtitude",
+      "oftype": 1
   	}
   }, 
   {
@@ -60,7 +67,8 @@
   	"pk": 8, 
   	"fields": 
   	{
-  		"name": "Area"
+  		"name": "Area",
+      "oftype": 1
   	}
   }, 
   {
@@ -68,7 +76,8 @@
   	"pk": 9, 
   	"fields": 
   	{
-  		"name": "AreaWidth"
+  		"name": "AreaWidth",
+      "oftype": 1
   	}
   }, 
   {
@@ -76,7 +85,8 @@
   	"pk": 10, 
   	"fields": 
   	{
-  		"name": "AreaHeight"
+  		"name": "AreaHeight",
+      "oftype": 1
   	}
   }, 
   {
@@ -84,7 +94,8 @@
   	"pk": 11, 
   	"fields": 
   	{
-  		"name": "Topography"
+  		"name": "Topography",
+      "oftype": 4
   	}
   }, 
   {
@@ -92,7 +103,8 @@
   	"pk": 12, 
   	"fields": 
   	{
-  		"name": "Geomorphology"
+  		"name": "Geomorphology",
+      "oftype": 4
   	}
   }, 
   {
@@ -100,7 +112,8 @@
   	"pk": 13, 
   	"fields": 
   	{
-  		"name": "Altitude"
+  		"name": "Altitude",
+      "oftype": 1
   	}
   }, 
   {
@@ -108,7 +121,8 @@
   	"pk": 14, 
   	"fields": 
   	{
-  		"name": "ValleyAltitude"
+  		"name": "ValleyAltitude",
+      "oftype": 1
   	}
   }, 
   {
@@ -116,7 +130,8 @@
   	"pk": 15, 
   	"fields": 
   	{
-  		"name": "Dating"
+  		"name": "Dating",
+      "oftype": 4
     }
   }, 
   {
@@ -124,7 +139,8 @@
   	"pk": 16, 
   	"fields": 
   	{
-  		"name": "Typology"
+  		"name": "Typology",
+      "oftype": 4
   	}
   }
 ]

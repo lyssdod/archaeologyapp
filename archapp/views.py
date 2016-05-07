@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
-    
+
 class SignUp(CreateView):
     form_class = SignUpForm
     template_name = 'archapp/signup.html'
@@ -28,6 +28,7 @@ class UserDelete(DeleteView):
 class NewSite(FormView):
     template_name = 'archapp/newsite.html'
     form_class = NewSiteForm
+    #form_class = SearchForm
     success_url='/archapp/'
     def form_valid(self, form):
         name = form.cleaned_data['name']

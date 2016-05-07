@@ -14,7 +14,7 @@
   </div>
   <form action="#" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <!--
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#maindata" aria-controls="home" role="tab" data-toggle="tab">Базові дані</a></li>
