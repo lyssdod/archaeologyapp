@@ -14,7 +14,8 @@
   	"fields": 
   	{
   		"name": "Country",
-      "oftype": 4
+      "oftype": 4,
+      "basic": 1
   	}
   }, 
   {
@@ -23,7 +24,8 @@
   	"fields": 
   	{
   		"name": "Region",
-      "oftype": 4
+      "oftype": 4,
+      "basic": 1
   	}
   }, 
   {
@@ -32,7 +34,8 @@
   	"fields": 
   	{
   		"name": "District",
-      "oftype": 4
+      "oftype": 4,
+      "basic": 1
   	}
   }, 
   {
@@ -68,7 +71,8 @@
   	"fields": 
   	{
   		"name": "Area",
-      "oftype": 1
+      "oftype": 1,
+      "basic": 1
   	}
   }, 
   {
@@ -95,7 +99,8 @@
   	"fields": 
   	{
   		"name": "Topography",
-      "oftype": 4
+      "oftype": 4,
+      "basic": 1
   	}
   }, 
   {
@@ -104,7 +109,8 @@
   	"fields": 
   	{
   		"name": "Geomorphology",
-      "oftype": 4
+      "oftype": 4,
+      "basic": 1
   	}
   }, 
   {
@@ -113,7 +119,8 @@
   	"fields": 
   	{
   		"name": "Altitude",
-      "oftype": 1
+      "oftype": 1,
+      "basic": 1
   	}
   }, 
   {
@@ -122,7 +129,8 @@
   	"fields": 
   	{
   		"name": "ValleyAltitude",
-      "oftype": 1
+      "oftype": 1,
+      "basic": 1
   	}
   }, 
   {
@@ -131,7 +139,8 @@
   	"fields": 
   	{
   		"name": "Dating",
-      "oftype": 4
+      "oftype": 4,
+      "basic": 1
     }
   }, 
   {

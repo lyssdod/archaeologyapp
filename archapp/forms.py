@@ -2,8 +2,30 @@ from .models import Filter, UserFilter, Property, Site, ValueType
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Site
+from .models import Site, ValueType
 from django.db import models
+
+import pprint
+
+class FilterForm(forms.Form):
+
+    # creates fields for basic filters
+    def create_filter_fields(self):
+        filters = Filter.objects.filter(basic = True)
+        mapping = { ValueType.integer : forms.IntegerField(),
+                    ValueType.string  : forms.CharField(),
+                    ValueType.double  : forms.FloatField()
+                  }
+
+        for flt in filters:
+            self.fields[flt.name.lower()] = mapping[flt.oftype]
+
+    # get child filters
+    def getsubdata(self, key):
+        if type(key) is int:
+            return Filter.objects.filter(subfilters__pk = key)
+        else:
+            return Filter.objects.filter(subfilters__name = key)
 
 def render_form_field(fieldtype = None):
     if fieldtype == 'text':
@@ -40,56 +62,23 @@ class SignUpForm(UserCreationForm):
 #        model = Site
 #        fields = ['name']
 
-class SearchForm(forms.Form):
+class SearchForm(FilterForm):
 
     def __init__(self, *args, **kwargs):
         super(SearchForm, self).__init__(*args, **kwargs)
-        filters = ['Country', 'Region', 'District', 'Area', 'Topography', 'Altitude', 'ValleyAltitude', 'Geomorphology', 'Dating']
-        for name in filters:
-            flt = Filter.objects.get(name = name)
-            fld = None
-            print(flt.oftype)
-            if flt.oftype == 1:
-                fld = forms.IntegerField()
-            elif flt.oftype == 4:
-                #fld = forms.ChoiceField(('Please select', -1))
-                fld = forms.CharField()
-            elif flt.oftype == 3:
-                fld = forms.FloatField()
 
-            self.fields[name.lower()] = fld
+        self.create_filter_fields()
 
-    def getsubdata(self, key):
-        if type(key) is int:
-            return Filter.objects.filter(subfilters__pk = key)
-        else:
-            return Filter.objects.filter(subfilters__name = key)
 
-class NewSiteForm(forms.Form):
+class NewSiteForm(FilterForm):
 
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
+        self.create_filter_fields()
+
         self.fields['name'] = forms.CharField(max_length = 128)
         self.fields['image'] = forms.ImageField(max_length = 128)
-
-        filters = Filter.objects.all()
-        for flt in filters:
-            fld = None
-            if flt.oftype == 1:
-                fld = forms.IntegerField()
-            elif flt.oftype == 4:
-                fld = forms.CharField()
-            elif flt.oftype == 3:
-                fld = forms.FloatField()
-
-            self.fields[flt.name.lower()] = fld
-
-    def getsubdata(self, key):
-        if type(key) is int:
-            return Filter.objects.filter(subfilters__pk = key)
-        else:
-            return Filter.objects.filter(subfilters__name = key)
 
 #class PropertiesForm(ModelForm):
 #    model = Property
