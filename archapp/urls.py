@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from django.contrib.auth import views as auth_views
 
 app_name='archapp'
 urlpatterns = [
@@ -12,7 +13,8 @@ urlpatterns = [
 #        url(r'^sites/p/$', views.PublicQueries.as_view(), name='publq'),
         url(r'^search/$', views.Search.as_view(), name='sresults'),
         url(r'^signup/$', views.SignUp.as_view(), name='signup'),
-        url(r'^login/$', views.Login.as_view(), name='login'),
+        url(r'^accounts/login/$', auth_views.login, {'template_name': 'archapp/login.html'} , name='login'),
+        url(r'^accounts/logout/$', auth_views.logout, {'template_name': 'archapp/logout.html'} , name='logout'),
         url(r'user/(?P<slug>[\w.@+-]+)/$', views.UserUpdate.as_view(), name='user-update'),
         url(r'user/(?P<slug>[\w.@+-]+)/delete/$', views.UserDelete.as_view(), name='user-delete'),
         ]

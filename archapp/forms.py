@@ -1,8 +1,7 @@
-from .models import Filter, UserFilter, Property, Site, ValueType
+from .models import Filter, Image, UserFilter, Property, Site, ValueType
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Site
 from django.db import models
 
 def render_form_field(fieldtype = None):
@@ -71,8 +70,10 @@ class NewSiteForm(forms.Form):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
         self.fields['name'] = forms.CharField(max_length = 128)
-        self.fields['image'] = forms.ImageField(max_length = 128)
-
+        self.fields['general picture'] = forms.ImageField() 
+        self.fields['planes'] = forms.ImageField() 
+        self.fields['photos'] = forms.ImageField() 
+        self.fields['found'] = forms.ImageField() 
         filters = Filter.objects.all()
         for flt in filters:
             fld = None
@@ -84,7 +85,6 @@ class NewSiteForm(forms.Form):
                 fld = forms.FloatField()
 
             self.fields[flt.name.lower()] = fld
-
     def getsubdata(self, key):
         if type(key) is int:
             return Filter.objects.filter(subfilters__pk = key)

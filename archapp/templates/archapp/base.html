@@ -46,7 +46,13 @@
     </div>
     <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:all' %}" class="btn btn-color btn-sm">Усi</a>
     </div>
+    <div class="col-md-1 text-center padding">{{user}}</div>
+   {% if user.is_anonymous %} 
     <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:login' %}" class="btn btn-color btn-sm">Увiйти</a></div>
+    {% else %}
+    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">Вийти</a></div>
+    {% endif %}
+
   </div>
   {% block content %} {% endblock %}
   <footer class="footer">
