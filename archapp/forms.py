@@ -1,4 +1,4 @@
-from .models import Filter, UserFilter, Property, Site, ValueType
+from .models import Filter, Image, UserFilter, Property, Site, ValueType
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -79,7 +79,6 @@ class NewSiteForm(FilterForm):
 
         self.fields['name'] = forms.CharField(max_length = 128)
         self.fields['image'] = forms.ImageField(max_length = 128)
-
 #class PropertiesForm(ModelForm):
 #    model = Property
 #    fields = ['__all__']

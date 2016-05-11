@@ -1,22 +1,38 @@
 {% extends "archapp/base.html" %}
 {% block content %}
+<div id="sign-in">
+  <h2>Увійти</h2>
+  <form method="post" action="">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+</div>
 <div id="sign-up">
-  <h1>Зареєструватися</h1>
+  <h2>Зареєструватися</h2>
   <p>
   <a href="{% url 'archapp:signup' %}">SignUp</a>
 </div>
-<div id="sign-in">
-  <h1>Увійти</h1>
-  <p>
-  <a href="">Enter</a>
-</div>
 
-
-
+<!--
 <div id="sign-in-soc">
   <h1>Увійти за допомогою Google</h1>
   <p>
   <a href="">Google</a>
 </div>
+-->
 {% endblock %}
 

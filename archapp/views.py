@@ -3,6 +3,7 @@ from django.views.generic import DetailView, TemplateView, ListView, CreateView,
 from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
@@ -25,16 +26,21 @@ class UserDelete(DeleteView):
     slug_field = "username"
     success_url = '/signup/'
 
-class NewSite(FormView):
+class NewSite(LoginRequiredMixin, FormView):
     template_name = 'archapp/newsite.html'
     form_class = NewSiteForm
     #form_class = SearchForm
     success_url='/archapp/'
+    login_url = '/archapp/accounts/login/'
+    redirect_field_name= 'redirect_to'
     def form_valid(self, form):
         name = form.cleaned_data['name']
-        user = User.objects.get(pk=1)
         newsite = Site(name = name, user = user)
         newsite.save()
+        flds = ['country', 'region', 'district']
+        for e in flds:
+            e = form.cleaned_data['%s' % e]
+        
         return super(NewSite, self).form_valid(form)
 
     #def valid_form(NewSiteForm):
@@ -56,10 +62,12 @@ class SiteDelete(DeleteView):
     success_url = '/archapp/all/' 
     template_name = 'archapp/delete.html'
 
-class AllSites(ListView):
+class AllSites(LoginRequiredMixin, ListView):
     model = Site
     form_class = SearchForm
     template_name = 'archapp/all.html'
+    success_url='/archapp/'
+    login_url = '/archapp/accounts/login/'
 
     def form_valid(self, form):
         return super(SearchForm, self).form_valid(form)
@@ -70,11 +78,4 @@ class AllSites(ListView):
 class Search(ListView):
     model = Site
     template_name = 'archapp/search.html'
-
-class Login(TemplateView):
-    template_name = 'archapp/login.html'
-
-
-
-
 
