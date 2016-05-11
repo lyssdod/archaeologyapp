@@ -35,6 +35,8 @@
 <div class="container container-config textcol">
   <div class="row header">
     <div class="col-md-6"><a href = "{% url 'archapp:welcome' %}" class="btn btn-sm"><h2 class="logo">Archaeology DataBase</h2></a></div>
+
+    {% if user.is_authenticated %}
     <div class="col-md-2 padding">
       <form action="" class="form-inline box-shadow" method="post">
         <label class="sr-only">Пошук:</label>
@@ -42,13 +44,15 @@
 
       </form>
     </div>
+
     <div class="col-md-1 text-center padding"><a href ="{% url 'archapp:newsite'%}" class="btn btn-color btn-sm">Нова</a>
     </div>
     <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:all' %}" class="btn btn-color btn-sm">Усi</a>
     </div>
-    <div class="col-md-1 text-center padding">{{user}}</div>
-   {% if user.is_anonymous %} 
-    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:login' %}" class="btn btn-color btn-sm">Увiйти</a></div>
+    <div class="col-md-1 text-center padding"><a href = "" class="btn btn-color btn-sm">{{user}}</a></div>
+    {% endif %}
+    {% if user.is_anonymous %} 
+    <div class="col-md-1 col-md-offset-5 text-center padding"><a href = "{% url 'archapp:login' %}" class="btn btn-color btn-sm">Увiйти</a></div>
     {% else %}
     <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">Вийти</a></div>
     {% endif %}

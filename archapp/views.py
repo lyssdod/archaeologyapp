@@ -31,11 +31,10 @@ class NewSite(LoginRequiredMixin, FormView):
     form_class = NewSiteForm
     #form_class = SearchForm
     success_url='/archapp/'
-    login_url = '/accounts/login/'
-    redirect_field_name= 'login'
+    login_url = '/archapp/accounts/login/'
+    redirect_field_name= 'redirect_to'
     def form_valid(self, form):
         name = form.cleaned_data['name']
-        user = User.objects.get(pk=1)
         newsite = Site(name = name, user = user)
         newsite.save()
         flds = ['country', 'region', 'district']
@@ -63,10 +62,12 @@ class SiteDelete(DeleteView):
     success_url = '/archapp/all/' 
     template_name = 'archapp/delete.html'
 
-class AllSites(ListView):
+class AllSites(LoginRequiredMixin, ListView):
     model = Site
     form_class = SearchForm
     template_name = 'archapp/all.html'
+    success_url='/archapp/'
+    login_url = '/archapp/accounts/login/'
 
     def form_valid(self, form):
         return super(SearchForm, self).form_valid(form)
@@ -77,11 +78,4 @@ class AllSites(ListView):
 class Search(ListView):
     model = Site
     template_name = 'archapp/search.html'
-
-class Login(TemplateView):
-    template_name = 'archapp/login.html'
-
-
-
-
 

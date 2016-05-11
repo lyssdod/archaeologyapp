@@ -1,11 +1,7 @@
 {% extends "archapp/base.html" %}
 {% block content %}
-<div id="sign-up">
-  <h1>Зареєструватися</h1>
-  <p>
-  <a href="{% url 'archapp:signup' %}">SignUp</a>
-</div>
 <div id="sign-in">
+  <h2>Увійти</h2>
   <form method="post" action="">
     {% csrf_token %}
     <table>
@@ -25,12 +21,18 @@
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
 </div>
+<div id="sign-up">
+  <h2>Зареєструватися</h2>
+  <p>
+  <a href="{% url 'archapp:signup' %}">SignUp</a>
+</div>
 
-
+<!--
 <div id="sign-in-soc">
   <h1>Увійти за допомогою Google</h1>
   <p>
   <a href="">Google</a>
 </div>
+-->
 {% endblock %}
 
