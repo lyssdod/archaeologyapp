@@ -11,7 +11,7 @@ class WelcomePage(TemplateView):
 class SignUp(CreateView):
     form_class = SignUpForm
     template_name = 'archapp/signup.html'
-    success_url='/archapp/'
+    success_url='/archapp/accounts/login'
     def form_valid(self, form):
         return super(SignUp, self).form_valid(form)
 
