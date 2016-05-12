@@ -7,8 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
-    x = Filter.objects.get(name = "Country")
-    print(x.name)
+    #x = Site.objects.get(name='Pobeda')
+    #print(x.props.all())
 
 class SignUp(CreateView):
     form_class = SignUpForm
@@ -42,7 +42,7 @@ class NewSite(LoginRequiredMixin, FormView):
         newsite = Site(name = name, user = user)
         newsite.save()
 
-        filters = ['Country', 'Region', 'District']
+        filters = ['Country', 'Region', 'District', 'Area', 'Altitude']
         for e in filters:
             instance = Filter.objects.get(name=e)
             data = e.lower()
@@ -57,18 +57,42 @@ class NewSite(LoginRequiredMixin, FormView):
                     prop = Property.objects.create(instance=instance, 
                             oftype=oftype, 
                             string=string)
-                    theprop = Property.objects.get(string = string)    
-                    thenewsite = Site.objects.get(name = name)
-                    thenewsite.props.add(theprop)
+                    newsite.props.add(prop)
             elif type(x) is int:
                 oftype = 1
                 integer = x
+                try:
+                    prop = Property.objects.get(integer = integer)
+                    newsite.props.add(prop)
+                except Property.DoesNotExist:
+                    prop = Property.objects.create(instance=instance, 
+                            oftype=oftype, 
+                            integer=integer)
+                    newsite.props.add(prop)
+
             elif type(x) is bool:
                 oftype = 2
                 boolean = x
+                try:
+                    prop = Property.objects.get(boolean = boolean)
+                    newsite.props.add(prop)
+                except Property.DoesNotExist:
+                    prop = Property.objects.create(instance=instance, 
+                            oftype=oftype, 
+                            boolean=boolean)
+                    newsite.props.add(prop)
+
             elif type(x) is float:
                 oftype = 3
                 double = x
+                try:
+                    prop = Property.objects.get(double = double)
+                    newsite.props.add(prop)
+                except Property.DoesNotExist:
+                    prop = Property.objects.create(instance=instance, 
+                            oftype=oftype, 
+                            double=double)
+                    newsite.props.add(prop)
 
 
                 #flds = ['country', 'region', 'district']
