@@ -1,4 +1,4 @@
-from .models import Site
+from .models import Site, Filter, Property
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
@@ -7,6 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
+    x = Filter.objects.get(name = "Country")
+    print(x.name)
 
 class SignUp(CreateView):
     form_class = SignUpForm
@@ -30,17 +32,49 @@ class NewSite(LoginRequiredMixin, FormView):
     template_name = 'archapp/newsite.html'
     form_class = NewSiteForm
     #form_class = SearchForm
-    success_url='/archapp/'
+    success_url='/archapp/all'
     login_url = '/archapp/accounts/login/'
     redirect_field_name= 'redirect_to'
+        
     def form_valid(self, form):
         name = form.cleaned_data['name']
+        user = self.request.user
         newsite = Site(name = name, user = user)
         newsite.save()
-        flds = ['country', 'region', 'district']
-        for e in flds:
-            e = form.cleaned_data['%s' % e]
-        
+
+        filters = ['Country', 'Region', 'District']
+        for e in filters:
+            instance = Filter.objects.get(name=e)
+            data = e.lower()
+            x = form.cleaned_data['%s' %  data] 
+            if type(x) is str:
+                oftype = 4
+                string = x
+                try:
+                    prop = Property.objects.get(string = string)
+                    newsite.props.add(prop)
+                except Property.DoesNotExist:
+                    prop = Property.objects.create(instance=instance, 
+                            oftype=oftype, 
+                            string=string)
+                    theprop = Property.objects.get(string = string)    
+                    thenewsite = Site.objects.get(name = name)
+                    thenewsite.props.add(theprop)
+            elif type(x) is int:
+                oftype = 1
+                integer = x
+            elif type(x) is bool:
+                oftype = 2
+                boolean = x
+            elif type(x) is float:
+                oftype = 3
+                double = x
+
+
+                #flds = ['country', 'region', 'district']
+        #for e in flds:
+        #    e = form.cleaned_data['%s' % e]
+
         return super(NewSite, self).form_valid(form)
 
     #def valid_form(NewSiteForm):
