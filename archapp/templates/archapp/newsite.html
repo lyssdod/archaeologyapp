@@ -14,8 +14,6 @@
   </div>
   <form action="#" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <!--
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#maindata" aria-controls="home" role="tab" data-toggle="tab">Базові дані</a></li>
       <li role="presentation"><a href="#description" aria-controls="profile" role="tab" data-toggle="tab">Опис</a></li>
@@ -27,63 +25,30 @@
       <div role="tabpanel" class="tab-pane active" id="maindata">
         <div class="row">
           <label class="col-md-2 col-md-offset-4" for="name">Назва </label>
-          <input type="text" id="name" name="name">
+          {{form.name}}
+          {{form.name.errors}}
         </div>
         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="krajina">Країна</label>
-          <input type="text" id="krajina" name="krajina">
+          <label class="col-md-2 col-md-offset-4" for="country">Країна</label>
+          {{form.country}}
+          {{form.country.errors}}
         </div>
         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="oblast">Область</label>
-
-          <input type="text" id="oblast" name="oblast">
+          <label class="col-md-2 col-md-offset-4" for="region">Область</label>
+          {{form.region}}
+          {{form.region.errors}}
         </div>
         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="rajon">Район </label>
-          <input type="text" id="rajon" name="rajon">
+          <label class="col-md-2 col-md-offset-4" for="district">Район </label>
+          {{form.district}}
+          {{form.district.errors}}
         </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="ploshch">Площа пам'ятки</label>
-
-          <input type="number" id="ploshch" name="ploshch">
+         <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="settlement">Населений пункт </label>
+          {{form.settlement}}
+          {{form.settlement.errors}}
         </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="rozpl">Розрахункова площа</label>
-
-          <input type="number" id="rozpl" name="rozpl">
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="toppotype">Топографія</label>
-
-          <input type="text" id="toppotype" name="toppotype">
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="geomorform">Геоморфологічна форма</label>
-
-          <input type="text" id="geomorform" name="geomorform">
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="vysotnadrm">Висота над рівнем моря</label>
-
-          <input type="number" id="vysotnadrm" name="vysotnadrm">
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="chron">Вузька хронологія</label>
-
-          <input type="text" id="chron" name="chron">
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="nvchron">Невизначена хронологія</label>
-
-          <input type="checkbox" id="nvchron" name="nvchron">
-        </div>
-
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="data">data</label>
-
-          <input type="text" id="data" name="data">
-        </div>
-
+ 
         <div class="container">
           <div class="row">
             <div class="col-md-12 text-center">
@@ -99,19 +64,71 @@
         </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="description">
+        <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="area">Площа пам'ятки</label>
+          {{form.area}}
+          {{form.area.errors}}
+        </div>
+         <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="height">Довжина</label>
+          {{form.height}}
+          {{form.height.errors}}
+        </div>
+         <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="width">Ширина</label>
+          {{form.width}}
+          {{form.width.errors}}
+        </div>
+        <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="calculated_area">Розрахункова площа</label>
+          {{form.calculated_area}}
+          {{form.calculated_area.errors}}
+        </div>
+        <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="topography">Топографія</label>
+          {{form.topography}}
+          {{form.topography.errors}}
+        </div>
+
+        <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="geomorphology">Геоморфологічна форма</label>
+          {{form.geomorphology}}
+          {{form.geomorphology.errors}}
+        </div>
+        <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="altitude">Висота над рівнем моря</label>
+          {{form.altitude}}
+          {{form.altitude.errors}}
+        </div>
+       <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="valleyaltitude">Висота над долиною</label>
+          {{form.valleyaltitude}}
+          {{form.valleyaltitude.errors}}
+        </div>
+ <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="dating">Датування</label>
+          {{form.dating}}
+          {{form.dating.errors}}
+        </div>
+        <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="undefined_date">Точно не встановлено</label>
+          {{form.undefined_date}}
+          {{form.undefined_date.errors}}
+        </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="typology">...</div>
       <div role="tabpanel" class="tab-pane" id="attachments">
-            <div class="row">
-              <label class="col-md-2 col-md-offset-2" for="input-id">Основна світлина</label>
-              <input id="input-1" type="file" class="file">
-            </div>
-            <div class="row">
-              <label class="col-md-2 col-md-offset-2" for="input-6">Плани</label>
-              <input id="input-6" name="input6[]" type="file" multiple class="file">
-            </div>
-            <div class="row">
-              <label class="col-md-2 col-md-offset-2" for="input-61">Фотографії</label>
+        <div class="row">
+          <label class="col-md-2 col-md-offset-2" for="input-id">Основна світлина</label>
+          {{form.image}}
+          {{form.image.errors}}
+        </div>
+        <div class="row">
+          <label class="col-md-2 col-md-offset-2" for="input-6">Плани</label>
+          <input id="input-6" name="input6[]" type="file" multiple class="file">
+        </div>
+        <div class="row">
+          <label class="col-md-2 col-md-offset-2" for="input-61">Фотографії</label>
               <input id="input-61" name="input6[]" type="file" multiple class="file">
             </div>
             <div class="row">
@@ -122,14 +139,15 @@
           </div>
           <div role="tabpanel" class="tab-pane" id="literature">
             <div class="row">
-              <label class="col-md-2 col-md-offset-4" for="publicacii">Публікації</label>
-                          </div>
-           </div>
+              <label class="col-md-2 col-md-offset-4" for="literature">Література</label>
+              {{form.literature}}
+              {{form.literature.errors}}
+            </div>
+                    </div>
         </div>
--->
-    <div class="row">
-      <div class="col-md-4 col-md-offset-4 text-center">
-        <input type="submit" value="Створити" class="btn btn-border-color textcol btn-sm background">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <input type="submit" value="Створити" class="btn btn-border-color textcol btn-sm background">
         <a href = "{% url 'archapp:welcome'%}" class="btn btn-border-color textcol btn-sm background">Скасувати</a>
       </div>
     </div> 

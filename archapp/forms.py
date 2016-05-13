@@ -57,11 +57,6 @@ class SignUpForm(UserCreationForm):
             user.save()
         return user
 
-#class NewSiteForm(forms.ModelForm):
-#    class Meta:
-#        model = Site
-#        fields = ['name']
-
 class SearchForm(FilterForm):
 
     def __init__(self, *args, **kwargs):
@@ -79,8 +74,8 @@ class NewSiteForm(FilterForm):
         self.fields['settlement'] = forms.CharField(max_length = 128)
         self.fields['height'] = forms.IntegerField()
         self.fields['width'] = forms.IntegerField()
-        self.fields['calculated area'] = forms.IntegerField()
-        self.fields['undefined date'] = forms.BooleanField()
+        self.fields['calculated_area'] = forms.IntegerField(label = 'Calculated area')
+        self.fields['undefined_date'] = forms.BooleanField(label = 'Undefined date')
         self.fields['literature'] = forms.CharField(widget=forms.Textarea, max_length = 512)
         self.create_filter_fields()
 
