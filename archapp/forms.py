@@ -75,9 +75,15 @@ class NewSiteForm(FilterForm):
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
+        self.fields['name'] = forms.CharField(max_length = 128)
+        self.fields['settlement'] = forms.CharField(max_length = 128)
+        self.fields['height'] = forms.IntegerField()
+        self.fields['width'] = forms.IntegerField()
+        self.fields['calculated area'] = forms.IntegerField()
+        self.fields['undefined date'] = forms.BooleanField()
+        self.fields['literature'] = forms.CharField(widget=forms.Textarea, max_length = 512)
         self.create_filter_fields()
 
-        self.fields['name'] = forms.CharField(max_length = 128)
         self.fields['image'] = forms.ImageField(max_length = 128)
 #class PropertiesForm(ModelForm):
 #    model = Property

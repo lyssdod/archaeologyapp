@@ -4,11 +4,12 @@ from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+import pickle
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
-    #x = Site.objects.get(name='Pobeda')
-    #print(x.props.all())
+    x = Site.objects.get(name='Suka')
+    print(x)
 
 class SignUp(CreateView):
     form_class = SignUpForm
@@ -40,10 +41,11 @@ class NewSite(LoginRequiredMixin, FormView):
         name = form.cleaned_data['name']
         user = self.request.user
         newsite = Site(name = name, user = user)
+        newsite.data = [{'settlement': form.cleaned_data['settlement']}, {'heigth': form.cleaned_data['height']}, {'width': form.cleaned_data['width']} , {'calculated area': form.cleaned_data['calculated area']} , {'undefined date': form.cleaned_data['height']} , {'heigth': form.cleaned_data['height']}] 
         newsite.save()
-
-        filters = ['Country', 'Region', 'District', 'Area', 'Altitude']
-        for e in filters:
+        filters = Filter.objects.filter(basic = True)
+        for i in filters:
+            e = i.name
             instance = Filter.objects.get(name=e)
             data = e.lower()
             x = form.cleaned_data['%s' %  data] 
@@ -95,21 +97,14 @@ class NewSite(LoginRequiredMixin, FormView):
                     newsite.props.add(prop)
 
 
-                #flds = ['country', 'region', 'district']
-        #for e in flds:
-        #    e = form.cleaned_data['%s' % e]
 
         return super(NewSite, self).form_valid(form)
 
-    #def valid_form(NewSiteForm):
-    #    if form.is_valid():
-    #        name = form.cleaned_data['name']
-    #    return HttpResponseRedirect('archapp/all.html')
 
 class SitePage(DetailView):
     model = Site
     template_name = 'archapp/site.html'
-#
+
 class SiteEdit(UpdateView):
     model = Site
     fields = ['name']
