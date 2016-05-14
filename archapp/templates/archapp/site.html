@@ -1,6 +1,8 @@
 {% extends "archapp/base.html" %}
 
 {% block content %}
+{% with site.props.all as prop%}
+
 <div class = "row">
   <div class="col-md-4 col-md-offset-4 text-center">
     <h2 class="site_name">{{site.name}} </h2>
@@ -16,6 +18,26 @@
   </div>
 </div>
 <hr class="hrr"> 
+{% for e in prop %}
+<div class="row">
+  <div class=col-md-4>
+    <table class="table">
+      <tr>
+        <td>{{e.instance}} </td>
+        <td>{{e}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+{% endfor %}
+{% for d in site.data %}
+<div class="row">
+{{d}}
+</div>
+{% endfor %}
+<br>
+<br>
+<!--
 <div class="row">
   <div class="col-md-4">
     <img src="#" class="avatar" alt="Upload image">
@@ -24,7 +46,6 @@
     <table class="table">
       <tr>
         <td>Назва: </td>
-        <td>{{site.name}}</td>
       </tr>
     </table>
   </div>
@@ -32,15 +53,12 @@
     <table class="table">
       <tr>
         <td>Країна:</td>
-        <td>{{site.krajina}}</td>
       </tr>
       <tr>
         <td>Область:</td>
-        <td>{{site.oblast}}</td>
       </tr>
       <tr>
         <td>Район:</td>
-        <td>{{site.rajon}}</td>
       </tr>
     </table>
   </div>
@@ -50,14 +68,13 @@
     <table class="table">
         <tr>
         <td>Вузька хронологiя: </td>
-        <td>{{site.chron}}</td>
       </tr>
       <tr>
         <td>Невизначена хронологія: </td>
-        <td>{{site.nvchron}}</td>
       </tr>
     </table>
   </div>
 </div>
-
+-->
+{% endwith %}
 {% endblock %}

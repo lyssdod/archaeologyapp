@@ -8,8 +8,8 @@ import pickle
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
-    #x = Site.objects.get(name='Suka')
-    #print(x)
+    x = Site.objects.get(name='Lynove')
+    print(x.props.all()[0])
 
 class SignUp(CreateView):
     form_class = SignUpForm
@@ -64,7 +64,7 @@ class NewSite(LoginRequiredMixin, FormView):
                 oftype = 1
                 integer = x
                 try:
-                    prop = Property.objects.get(integer = integer)
+                    prop = Property.objects.get(instance=instance, integer = integer)
                     newsite.props.add(prop)
                 except Property.DoesNotExist:
                     prop = Property.objects.create(instance=instance, 
@@ -76,7 +76,7 @@ class NewSite(LoginRequiredMixin, FormView):
                 oftype = 2
                 boolean = x
                 try:
-                    prop = Property.objects.get(boolean = boolean)
+                    prop = Property.objects.get(instance=instance, boolean = boolean)
                     newsite.props.add(prop)
                 except Property.DoesNotExist:
                     prop = Property.objects.create(instance=instance, 
@@ -88,14 +88,13 @@ class NewSite(LoginRequiredMixin, FormView):
                 oftype = 3
                 double = x
                 try:
-                    prop = Property.objects.get(double = double)
+                    prop = Property.objects.get(instance=instance, double = double)
                     newsite.props.add(prop)
                 except Property.DoesNotExist:
                     prop = Property.objects.create(instance=instance, 
                             oftype=oftype, 
                             double=double)
                     newsite.props.add(prop)
-
 
 
         return super(NewSite, self).form_valid(form)
