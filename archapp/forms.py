@@ -12,9 +12,9 @@ class FilterForm(forms.Form):
     # creates fields for basic filters
     def create_filter_fields(self):
         filters = Filter.objects.filter(basic = True)
-        mapping = { ValueType.integer : forms.IntegerField(),
-                    ValueType.string  : forms.CharField(),
-                    ValueType.double  : forms.FloatField()
+        mapping = { ValueType.integer : forms.IntegerField(required=False),
+                    ValueType.string  : forms.CharField(required=False),
+                    ValueType.double  : forms.FloatField(required=False)
                   }
 
         for flt in filters:
@@ -26,24 +26,6 @@ class FilterForm(forms.Form):
             return Filter.objects.filter(subfilters__pk = key)
         else:
             return Filter.objects.filter(subfilters__name = key)
-
-def render_form_field(fieldtype = None):
-    if fieldtype == 'text':
-        return forms.CharField()
-    elif fieldtype == 'number':
-        return forms.IntegerField()
-    elif fieldtype == 'checkbox':
-        return forms.BooleanField()
-
-# pickled data
-data = Site().data
-
-# let's assume each data item is a following dict:
-# item['name'] = 'Aux Field name 1', item['fielddtype'] = 'number'
-
-class AuxForm(forms.Form):
-    for item in data:
-        setattr(this, item['name'], item['fieldtype'])
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -71,18 +53,13 @@ class NewSiteForm(FilterForm):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
         self.fields['name'] = forms.CharField(max_length = 128)
-        self.fields['settlement'] = forms.CharField(max_length = 128)
-        self.fields['height'] = forms.IntegerField()
-        self.fields['width'] = forms.IntegerField()
-        self.fields['calculated_area'] = forms.IntegerField(label = 'Calculated area')
-        self.fields['undefined_date'] = forms.BooleanField(label = 'Undefined date')
-        self.fields['literature'] = forms.CharField(widget=forms.Textarea, max_length = 512)
+        self.fields['settlement'] = forms.CharField(max_length = 128, required = False)
+        self.fields['height'] = forms.IntegerField(required=False)
+        self.fields['width'] = forms.IntegerField(required=False)
+        self.fields['calculated_area'] = forms.IntegerField(required=False, label = 'Calculated area')
+        self.fields['undefined_date'] = forms.BooleanField(required = False, label = 'Undefined date')
+        self.fields['literature'] = forms.CharField(required=False, 
+                widget=forms.Textarea, max_length = 512)
         self.create_filter_fields()
 
-        self.fields['image'] = forms.ImageField(max_length = 128)
-#class PropertiesForm(ModelForm):
-#    model = Property
-#    fields = ['__all__']
-
-#class FilterForm(ProperitesForm):
-#    model = Filter 
+        self.fields['image'] = forms.ImageField(required=False, max_length = 128)

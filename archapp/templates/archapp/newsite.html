@@ -1,6 +1,7 @@
 {% extends "archapp/base.html" %}
 
 {% block content %}
+{% load widget_tweaks %}
 <div class="container container-config">
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
@@ -17,7 +18,6 @@
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#maindata" aria-controls="home" role="tab" data-toggle="tab">Базові дані</a></li>
       <li role="presentation"><a href="#description" aria-controls="profile" role="tab" data-toggle="tab">Опис</a></li>
-      <li role="presentation"><a href="#typology" aria-controls="messages" role="tab" data-toggle="tab">Типологія</a></li>
       <li role="presentation"><a href="#attachments" aria-controls="settings" role="tab" data-toggle="tab">Додатки</a></li>
       <li role="presentation"><a href="#literature" aria-controls="settings" role="tab" data-toggle="tab">Література</a></li>
     </ul>
@@ -25,27 +25,34 @@
       <div role="tabpanel" class="tab-pane active" id="maindata">
         <div class="row">
           <label class="col-md-2 col-md-offset-4" for="name">Назва </label>
-          {{form.name}}
+          {{form.name|attr:"required"}}
           {{form.name.errors}}
+          {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
         </div>
         <div class="row">
           <label class="col-md-2 col-md-offset-4" for="country">Країна</label>
-          {{form.country}}
+          {{form.country|attr:"required"}}
           {{form.country.errors}}
         </div>
         <div class="row">
           <label class="col-md-2 col-md-offset-4" for="region">Область</label>
-          {{form.region}}
+          {{form.region|attr:"required"}}
           {{form.region.errors}}
         </div>
         <div class="row">
           <label class="col-md-2 col-md-offset-4" for="district">Район </label>
-          {{form.district}}
+          {{form.district|attr:"required"}}
           {{form.district.errors}}
         </div>
          <div class="row">
           <label class="col-md-2 col-md-offset-4" for="settlement">Населений пункт </label>
-          {{form.settlement}}
+          {{form.settlement|attr:"required"}}
           {{form.settlement.errors}}
         </div>
  
@@ -116,7 +123,6 @@
           {{form.undefined_date.errors}}
         </div>
       </div>
-      <div role="tabpanel" class="tab-pane" id="typology">...</div>
       <div role="tabpanel" class="tab-pane" id="attachments">
         <div class="row">
           <label class="col-md-2 col-md-offset-2" for="input-id">Основна світлина</label>

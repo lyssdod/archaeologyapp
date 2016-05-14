@@ -8,8 +8,8 @@ import pickle
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
-    x = Site.objects.get(name='Suka')
-    print(x)
+    #x = Site.objects.get(name='Suka')
+    #print(x)
 
 class SignUp(CreateView):
     form_class = SignUpForm
@@ -38,8 +38,8 @@ class NewSite(LoginRequiredMixin, FormView):
     redirect_field_name= 'redirect_to'
         
     def form_valid(self, form):
-        name = form.cleaned_data['name']
         user = self.request.user
+        name = form.cleaned_data['name']
         newsite = Site(name = name, user = user)
         newsite.data = [{'settlement': form.cleaned_data['settlement']}, {'heigth': form.cleaned_data['height']}, {'width': form.cleaned_data['width']} , {'calculated area': form.cleaned_data['calculated_area']} , {'undefined_date': form.cleaned_data['height']} , {'heigth': form.cleaned_data['height']}] 
         newsite.save()
@@ -53,7 +53,7 @@ class NewSite(LoginRequiredMixin, FormView):
                 oftype = 4
                 string = x
                 try:
-                    prop = Property.objects.get(string = string)
+                    prop = Property.objects.get(instance = instance, string = string)
                     newsite.props.add(prop)
                 except Property.DoesNotExist:
                     prop = Property.objects.create(instance=instance, 
