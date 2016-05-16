@@ -16,9 +16,33 @@ class FilterForm(forms.Form):
                     ValueType.string  : forms.CharField(required=False),
                     ValueType.double  : forms.FloatField(required=False)
                   }
-
+        TOPOGRAPHY_TYPES = (
+                ('Valley', 'Valley'),
+                ('1st Terrace','1st Terrace'),
+                ('2d Terrace', '2d Terrace'),
+                ('High Terrace', 'High Terrace'),
+                ('Riverbank', 'Riverbank')
+                )
+        GEOMORPHOLOGY_TYPES = (
+                ('Dune', 'Dune'),
+                ('Cape', 'Cape'),
+                ('Plateau', 'Plateau')
+                )
         for flt in filters:
-            self.fields[flt.name.lower()] = mapping[flt.oftype]
+            if flt.name == 'Topography':
+                self.fields[flt.name.lower()] = forms.ChoiceField(
+                    required=False,
+                    widget=forms.Select,
+                    choices=TOPOGRAPHY_TYPES, 
+                    )
+            elif flt.name == 'Geomorphology':
+                self.fields[flt.name.lower()] = forms.ChoiceField(
+                    required=False,
+                    widget=forms.Select,
+                    choices=GEOMORPHOLOGY_TYPES, 
+                    )
+            else:
+                self.fields[flt.name.lower()] = mapping[flt.oftype]
 
     # get child filters
     def getsubdata(self, key):
