@@ -69,7 +69,10 @@ class Image(models.Model):
         plane = 2
         photo = 3
         found = 4
-
+    def site_directory_path(instance, filename):
+        print('site_{0}/{1}'.format(instance.site.id, filename))
+        return 'uploads/{0}/site_{1}/{2}'.format(instance.site.user, instance.site.id, filename)
+    
     site = models.ForeignKey(Site, on_delete = models.CASCADE)
-    image = models.ImageField(max_length = 128, upload_to = 'uploads/')
+    image = models.ImageField(max_length = 128, upload_to = site_directory_path)
     oftype = models.IntegerField(default = 0)

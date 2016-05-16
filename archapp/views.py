@@ -1,4 +1,4 @@
-from .models import Site, Filter, Property
+from .models import Site, Filter, Image, Property
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
@@ -95,7 +95,7 @@ class NewSite(LoginRequiredMixin, FormView):
                             oftype=oftype, 
                             double=double)
                     newsite.props.add(prop)
-
+        g_image = Image.objects.create(site=newsite, image=form.cleaned_data['image'])
 
         return super(NewSite, self).form_valid(form)
 
