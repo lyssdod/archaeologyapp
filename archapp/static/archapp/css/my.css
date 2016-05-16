@@ -235,3 +235,7 @@
   .avatar {
     width: 350px;
   }
+  #id_dating {
+    border:0px;
+    background-color: #F5F5F5;
+  }

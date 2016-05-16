@@ -112,10 +112,13 @@
           {{form.valleyaltitude}}
           {{form.valleyaltitude.errors}}
         </div>
- <div class="row">
+        <div class="row">
           <label class="col-md-2 col-md-offset-4" for="dating">Датування</label>
-          {{form.dating}}
+          {{form.dating|attr:"readonly"}}
           {{form.dating.errors}}
+        </div>
+        <div class="row">
+          <div id='slider' class="col-md-2 col-md-offset-6"></div>
         </div>
         <div class="row">
           <label class="col-md-2 col-md-offset-4" for="undefined_date">Точно не встановлено</label>

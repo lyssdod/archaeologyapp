@@ -60,22 +60,6 @@ function createOption(ddl, text, value) {
   ddl.options.add(opt);
 };
 
-//Slider
-$(document).ready(function(){
-  $('#slider').slider({});
-  $('#slider').change(function(){
-    var value = $('#slider').attr('value');
-    $("#slider_v").attr("value", value);
-  })
-});
-$(document).ready(function(){
-  $('#slider2').slider({});
-  $('#slider2').change(function(){
-    var value = $('#slider2').attr('value');
-    $("#slider_v2").attr("value", value);
-  })
-});
-
 //var app = angular.module('app', ['flow'])
 //
 
