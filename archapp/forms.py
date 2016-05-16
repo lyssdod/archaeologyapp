@@ -19,7 +19,7 @@ class FilterForm(forms.Form):
                   }
 
         for flt in filters:
-            subs = flt.subfilters.all()
+            subs = flt.subfilters.all().exclude(pk = models.F('parent'))
 
             # if this filter have children, use select for them
             if subs.count():

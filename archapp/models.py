@@ -31,10 +31,6 @@ class Property(models.Model):
         verbose_name_plural = "properties"
 
     instance = models.ForeignKey(Filter, verbose_name = "Related filter", on_delete = models.CASCADE)
-    # kind of overkill here
-    oftype = models.IntegerField(default = 1, verbose_name = "Value type", choices = ValueType.choices)
-
-
     boolean = models.BooleanField(default = False, verbose_name = "Boolean value")
     integer = models.IntegerField(default = 0, verbose_name = "Integer value")
     double = models.FloatField(default = 0.0, verbose_name = "Float value")
@@ -42,6 +38,9 @@ class Property(models.Model):
 
 
     def __str__(self):
+        if self.instance.parent != None:
+            # return parent filter name for use in select
+            return str(Filter.objects.get(pk = self.integer))
         if self.oftype == ValueType.integer:
             return str(self.integer)
         elif self.oftype == ValueType.boolean:

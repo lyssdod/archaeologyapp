@@ -99,7 +99,8 @@
     "fields":
     {
       "name": "Topography",
-      "oftype": 4,
+      "oftype": 1,
+      "parent": 11,
       "basic": 1
     }
   },
@@ -109,7 +110,6 @@
     "fields":
     {
       "name": "Valley",
-      "oftype": 4,
       "parent": 11
     }
   },
@@ -119,7 +119,6 @@
     "fields":
     {
       "name": "1st Terrace",
-      "oftype": 4,
       "parent": 11
     }
   },
@@ -129,7 +128,6 @@
     "fields":
     {
       "name": "2nd Terrace",
-      "oftype": 4,
       "parent": 11
     }
   },
@@ -139,7 +137,6 @@
     "fields":
     {
       "name": "High Terrace",
-      "oftype": 4,
       "parent": 11
     }
   },
@@ -149,7 +146,6 @@
     "fields":
     {
       "name": "Riverbank",
-      "oftype": 4,
       "parent": 11
     }
   },
@@ -159,7 +155,8 @@
     "fields":
     {
       "name": "Geomorphology",
-      "oftype": 4,
+      "oftype": 1,
+      "parent": 17,
       "basic": 1
     }
   },
@@ -169,7 +166,6 @@
     "fields":
     {
       "name": "Dune",
-      "oftype": 4,
       "parent": 17
     }
   },
@@ -179,7 +175,6 @@
     "fields":
     {
       "name": "Cape",
-      "oftype": 4,
       "parent": 17
     }
   },
@@ -189,7 +184,6 @@
     "fields":
     {
       "name": "Plateau",
-      "oftype": 4,
       "parent": 17
     }
   },
@@ -229,7 +223,7 @@
     "fields":
     {
       "name": "Typology",
-      "oftype": 4
+      "oftype": 1
     }
   }
 ]
