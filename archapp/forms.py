@@ -86,4 +86,7 @@ class NewSiteForm(FilterForm):
                 widget=forms.Textarea, max_length = 512)
         self.create_filter_fields()
 
-        self.fields['image'] = forms.ImageField(required=False, max_length = 128)
+        self.fields['general'] = forms.ImageField(required=False, max_length = 128)
+        self.fields['plane'] = forms.ImageField(required=False, max_length = 128)
+        self.fields['photo'] = forms.ImageField(required=False, max_length = 128)
+        self.fields['found'] = forms.ImageField(required=False, max_length = 128)

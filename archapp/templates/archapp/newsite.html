@@ -126,27 +126,36 @@
       <div role="tabpanel" class="tab-pane" id="attachments">
         <div class="row">
           <label class="col-md-2 col-md-offset-2" for="input-id">Основна світлина</label>
-          {{form.image}}
-          {{form.image.errors}}
+          {{form.general}}
+          {{form.general.errors}}
         </div>
         <div class="row">
           <label class="col-md-2 col-md-offset-2" for="input-6">Плани</label>
-          <input id="input-6" name="input6[]" type="file" multiple class="file">
+          {{form.plane}}
+          {{form.plane.errors}}
+
         </div>
         <div class="row">
           <label class="col-md-2 col-md-offset-2" for="input-61">Фотографії</label>
-              <input id="input-61" name="input6[]" type="file" multiple class="file">
-            </div>
-            <div class="row">
-              <label class="col-md-2 col-md-offset-2" for="input-62">Знахідки</label>
-              <input id="input-62" name="input6[]" type="file" multiple class="file">
-            </div>
+          {{form.photo}}
+          {{form.photo.errors}}
 
-          </div>
-          <div role="tabpanel" class="tab-pane" id="literature">
-            <div class="row">
-              <label class="col-md-2 col-md-offset-4" for="literature">Література</label>
-              {{form.literature}}
+        </div>
+        <div class="row">
+          <label class="col-md-2 col-md-offset-2" for="input-62">Знахідки</label>
+          {{form.found}}
+          {{form.found.errors}}
+
+          <!--
+              <input id="input-62" name="input6[]" type="file" multiple class="file">
+-->
+        </div>
+
+      </div>
+      <div role="tabpanel" class="tab-pane" id="literature">
+        <div class="row">
+          <label class="col-md-2 col-md-offset-4" for="literature">Література</label>
+          {{form.literature}}
               {{form.literature.errors}}
             </div>
                     </div>

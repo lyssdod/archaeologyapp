@@ -81,7 +81,7 @@ $(document).ready(function(){
 
 //initialize with defaults
 
-$("#input-1").fileinput();
+$("#id_image").fileinput();
 $("#input-6").fileinput({
         showUpload: false,
         maxFileCount: 10,

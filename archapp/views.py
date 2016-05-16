@@ -8,8 +8,8 @@ import pickle
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
-    x = Site.objects.get(name='Lynove')
-    print(x.props.all()[0])
+#    x = Site.objects.get(name='Lynove')
+#    print(x.props.all()[0])
 
 class SignUp(CreateView):
     form_class = SignUpForm
@@ -95,7 +95,20 @@ class NewSite(LoginRequiredMixin, FormView):
                             oftype=oftype, 
                             double=double)
                     newsite.props.add(prop)
-        g_image = Image.objects.create(site=newsite, image=form.cleaned_data['image'])
+        general = Image.objects.create(site=newsite, 
+                oftype=1,
+                image=form.cleaned_data['general'])
+        plane = Image.objects.create(site=newsite, 
+                oftype=2,
+                image=form.cleaned_data['plane'])
+        photo = Image.objects.create(site=newsite, 
+                oftype=3,
+                image=form.cleaned_data['photo'])
+        found = Image.objects.create(site=newsite, 
+                oftype=4,
+                image=form.cleaned_data['found'])
+
+
 
         return super(NewSite, self).form_valid(form)
 
