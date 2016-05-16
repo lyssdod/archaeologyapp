@@ -85,7 +85,7 @@ map: map
         }
       }
 
-document.getElementById('rajon').value= rajon;
+document.getElementById('id_district').value= rajon;
 var oblast;
 for (x in results[0].address_components) {
   if (results[0].address_components[x].types[0] == "administrative_area_level_1") {
@@ -93,7 +93,7 @@ for (x in results[0].address_components) {
     oblast = results[0].address_components[x].long_name;
   } 
 } 
-document.getElementById('oblast').value= oblast;
+document.getElementById('id_region').value= oblast;
 var krajina;
 for (x in results[0].address_components) {
   if (results[0].address_components[x].types[0] == "country") {
@@ -101,7 +101,7 @@ for (x in results[0].address_components) {
     krajina = results[0].address_components[x].long_name;
   } 
 } 
-document.getElementById('krajina').value= krajina;
+document.getElementById('id_country').value= krajina;
 var latd;
 latd = location.lat();
 document.getElementById('latd').value= latd;
