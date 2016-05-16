@@ -12,35 +12,24 @@ class FilterForm(forms.Form):
     # creates fields for basic filters
     def create_filter_fields(self):
         filters = Filter.objects.filter(basic = True)
-        mapping = { ValueType.integer : forms.IntegerField(required=False),
-                    ValueType.string  : forms.CharField(required=False),
-                    ValueType.double  : forms.FloatField(required=False)
+        mapping = { ValueType.integer : forms.IntegerField(required = False),
+                    ValueType.string  : forms.CharField(required = False),
+                    ValueType.double  : forms.FloatField(required = False),
+                    ValueType.boolean : forms.BooleanField(required = False)
                   }
-        TOPOGRAPHY_TYPES = (
-                ('Valley', 'Valley'),
-                ('1st Terrace','1st Terrace'),
-                ('2d Terrace', '2d Terrace'),
-                ('High Terrace', 'High Terrace'),
-                ('Riverbank', 'Riverbank')
-                )
-        GEOMORPHOLOGY_TYPES = (
-                ('Dune', 'Dune'),
-                ('Cape', 'Cape'),
-                ('Plateau', 'Plateau')
-                )
+
         for flt in filters:
-            if flt.name == 'Topography':
+            subs = flt.subfilters.all()
+
+            # if this filter have children, use select for them
+            if subs.count():
+                subchoices = [(s.id, s.name) for s in subs]
                 self.fields[flt.name.lower()] = forms.ChoiceField(
-                    required=False,
-                    widget=forms.Select,
-                    choices=TOPOGRAPHY_TYPES, 
+                    required = False,
+                    widget = forms.Select,
+                    choices = subchoices,
                     )
-            elif flt.name == 'Geomorphology':
-                self.fields[flt.name.lower()] = forms.ChoiceField(
-                    required=False,
-                    widget=forms.Select,
-                    choices=GEOMORPHOLOGY_TYPES, 
-                    )
+            # render plain field otherwise
             else:
                 self.fields[flt.name.lower()] = mapping[flt.oftype]
 

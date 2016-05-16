@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 # all possible Property value types
 class ValueType(DjangoChoices):
-    #enum    = ChoiceItem(0, "Enum")
     integer = ChoiceItem(1, "Integer")
     boolean = ChoiceItem(2, "Boolean")
     double = ChoiceItem(3, "Double")
@@ -16,7 +15,7 @@ class Filter(models.Model):
     name = models.CharField(max_length = 128)
     basic = models.BooleanField(default = False)
     parent = models.ForeignKey('self', null = True, blank = True, related_name = 'subfilters')
-    oftype = models.IntegerField(default = 0, verbose_name = "Value type", choices = ValueType.choices)
+    oftype = models.IntegerField(default = 1, verbose_name = "Value type", choices = ValueType.choices)
 
     def __str__(self):
         return self.name
@@ -33,7 +32,7 @@ class Property(models.Model):
 
     instance = models.ForeignKey(Filter, verbose_name = "Related filter", on_delete = models.CASCADE)
     # kind of overkill here
-    oftype = models.IntegerField(default = 0, verbose_name = "Value type", choices = ValueType.choices)
+    oftype = models.IntegerField(default = 1, verbose_name = "Value type", choices = ValueType.choices)
 
 
     boolean = models.BooleanField(default = False, verbose_name = "Boolean value")

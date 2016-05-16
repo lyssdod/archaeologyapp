@@ -1,155 +1,235 @@
 [
   {
-    "model": "archapp.filter", 
-    "pk": 1, 
-    "fields": 
+    "model": "archapp.filter",
+    "pk": 1,
+    "fields":
     {
       "name": "Type",
       "oftype": 4
     }
   }, 
   {
-  	"model": "archapp.filter", 
-  	"pk": 2, 
-  	"fields": 
-  	{
-  		"name": "Country",
-      "oftype": 4,
-      "basic": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 3, 
-  	"fields": 
-  	{
-  		"name": "Region",
-      "oftype": 4,
-      "basic": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 4, 
-  	"fields": 
-  	{
-  		"name": "District",
-      "oftype": 4,
-      "basic": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 5, 
-  	"fields": 
-  	{
-  		"name": "Settlement",
-      "oftype": 4
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 6, 
-  	"fields": 
-  	{
-  		"name": "Latitude",
-      "oftype": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 7, 
-  	"fields": 
-  	{
-  		"name": "Longtitude",
-      "oftype": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 8, 
-  	"fields": 
-  	{
-  		"name": "Area",
-      "oftype": 1,
-      "basic": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 9, 
-  	"fields": 
-  	{
-  		"name": "AreaWidth",
-      "oftype": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 10, 
-  	"fields": 
-  	{
-  		"name": "AreaHeight",
-      "oftype": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 11, 
-  	"fields": 
-  	{
-  		"name": "Topography",
-      "oftype": 4,
-      "basic": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 12, 
-  	"fields": 
-  	{
-  		"name": "Geomorphology",
-      "oftype": 4,
-      "basic": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 13, 
-  	"fields": 
-  	{
-  		"name": "Altitude",
-      "oftype": 1,
-      "basic": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 14, 
-  	"fields": 
-  	{
-  		"name": "ValleyAltitude",
-      "oftype": 1,
-      "basic": 1
-  	}
-  }, 
-  {
-  	"model": "archapp.filter", 
-  	"pk": 15, 
-  	"fields": 
-  	{
-  		"name": "Dating",
+    "model": "archapp.filter",
+    "pk": 2,
+    "fields":
+    {
+      "name": "Country",
       "oftype": 4,
       "basic": 1
     }
-  }, 
+  },
   {
-  	"model": "archapp.filter", 
-  	"pk": 16, 
-  	"fields": 
-  	{
-  		"name": "Typology",
+    "model": "archapp.filter",
+    "pk": 3,
+    "fields":
+    {
+      "name": "Region",
+      "oftype": 4,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 4,
+    "fields":
+    {
+      "name": "District",
+      "oftype": 4,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 5,
+    "fields":
+    {
+      "name": "Settlement",
       "oftype": 4
-  	}
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 6,
+    "fields":
+    {
+      "name": "Latitude",
+      "oftype": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 7,
+    "fields":
+    {
+      "name": "Longtitude",
+      "oftype": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 8,
+    "fields":
+    {
+      "name": "Area",
+      "oftype": 1,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 9,
+    "fields":
+    {
+      "name": "AreaWidth",
+      "oftype": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 10,
+    "fields":
+    {
+      "name": "AreaHeight",
+      "oftype": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 11,
+    "fields":
+    {
+      "name": "Topography",
+      "oftype": 4,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 12,
+    "fields":
+    {
+      "name": "Valley",
+      "oftype": 4,
+      "parent": 11
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 13,
+    "fields":
+    {
+      "name": "1st Terrace",
+      "oftype": 4,
+      "parent": 11
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 14,
+    "fields":
+    {
+      "name": "2nd Terrace",
+      "oftype": 4,
+      "parent": 11
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 15,
+    "fields":
+    {
+      "name": "High Terrace",
+      "oftype": 4,
+      "parent": 11
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 16,
+    "fields":
+    {
+      "name": "Riverbank",
+      "oftype": 4,
+      "parent": 11
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 17,
+    "fields":
+    {
+      "name": "Geomorphology",
+      "oftype": 4,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 18,
+    "fields":
+    {
+      "name": "Dune",
+      "oftype": 4,
+      "parent": 17
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 19,
+    "fields":
+    {
+      "name": "Cape",
+      "oftype": 4,
+      "parent": 17
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 20,
+    "fields":
+    {
+      "name": "Plateau",
+      "oftype": 4,
+      "parent": 17
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 21,
+    "fields":
+    {
+      "name": "Altitude",
+      "oftype": 1,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 22,
+    "fields":
+    {
+      "name": "ValleyAltitude",
+      "oftype": 1,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 23,
+    "fields":
+    {
+      "name": "Dating",
+      "oftype": 4,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 24,
+    "fields":
+    {
+      "name": "Typology",
+      "oftype": 4
+    }
   }
 ]
