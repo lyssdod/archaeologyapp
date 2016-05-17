@@ -32,7 +32,6 @@ class UserDelete(DeleteView):
 class NewSite(LoginRequiredMixin, FormView):
     template_name = 'archapp/newsite.html'
     form_class = NewSiteForm
-    #form_class = SearchForm
     success_url='/archapp/all'
     login_url = '/archapp/accounts/login/'
     redirect_field_name= 'redirect_to'
@@ -47,6 +46,7 @@ class NewSite(LoginRequiredMixin, FormView):
         filters = Filter.objects.filter(basic = True)
 
         for instance in filters:
+            prop = None
             data = form.cleaned_data[instance.name.lower()]
 
             double = 0.0
@@ -63,28 +63,21 @@ class NewSite(LoginRequiredMixin, FormView):
             elif instance.oftype == ValueType.string:
                 string = data
 
-            #try:
-            #    prop = Property.objects.get(instance = instance, string = string)
-            #    newsite.props.add(prop)
-            #except Property.DoesNotExist:
-            prop = Property.objects.create(instance = instance, oftype = instance.oftype, integer = integer,
-                boolean = boolean, double = double, string = string)
+            # search for string values first
+            if instance.oftype == ValueType.string:
+                try:
+                    prop = Property.objects.get(instance = instance, string = string)
+                except Property.DoesNotExist:
+                    prop = Property.objects.create(instance = instance, string = string)
+            else:
+                prop = Property.objects.create(instance = instance, integer = integer, boolean = boolean, double = double, string = string)
+
             newsite.props.add(prop)
 
-        general = Image.objects.create(site=newsite, 
-                oftype=Image.Type.general,
-                image=form.cleaned_data['general'])
-        plane = Image.objects.create(site=newsite, 
-                oftype=Image.Type.plane,
-                image=form.cleaned_data['plane'])
-        photo = Image.objects.create(site=newsite, 
-                oftype=Image.Type.photo,
-                image=form.cleaned_data['photo'])
-        found = Image.objects.create(site=newsite, 
-                oftype=Image.Type.found,
-                image=form.cleaned_data['found'])
-
-
+        general = Image.objects.create(site = newsite, oftype = Image.Type.general, image = form.cleaned_data['general'])
+        plane = Image.objects.create(site = newsite,   oftype = Image.Type.plane,   image = form.cleaned_data['plane'])
+        photo = Image.objects.create(site = newsite,   oftype = Image.Type.photo,   image = form.cleaned_data['photo'])
+        found = Image.objects.create(site = newsite,   oftype = Image.Type.found,   image = form.cleaned_data['found'])
 
         return super(NewSite, self).form_valid(form)
 

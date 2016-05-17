@@ -40,14 +40,17 @@ class Property(models.Model):
     def __str__(self):
         if self.instance.parent != None:
             # return parent filter name for use in select
-            return str(Filter.objects.get(pk = self.integer))
-        if self.oftype == ValueType.integer:
+            try:
+                return str(Filter.objects.get(pk = self.integer))
+            except Filter.DoesNotExist:
+                return 'Broken parent?'
+        if self.instance.oftype == ValueType.integer:
             return str(self.integer)
-        elif self.oftype == ValueType.boolean:
+        elif self.instance.oftype == ValueType.boolean:
             return str(self.boolean)
-        elif self.oftype == ValueType.double:
+        elif self.instance.oftype == ValueType.double:
             return str(self.double)
-        elif self.oftype == ValueType.string:
+        elif self.instance.oftype == ValueType.string:
             return self.string
 
 # archaeology Site
