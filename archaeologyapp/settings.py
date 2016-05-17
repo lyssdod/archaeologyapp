@@ -130,3 +130,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/archapp/'
 LOGIN_URL = '/archapp/accounts/login/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'archapp/static/archapp')
+MEDIA_URL = '/uploads/'
