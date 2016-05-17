@@ -1,4 +1,4 @@
-from .models import Site, Filter, Image, Property
+from .models import Site, Filter, Image, Property, ValueType
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
@@ -32,7 +32,6 @@ class UserDelete(DeleteView):
 class NewSite(LoginRequiredMixin, FormView):
     template_name = 'archapp/newsite.html'
     form_class = NewSiteForm
-    #form_class = SearchForm
     success_url='/archapp/all'
     login_url = '/archapp/accounts/login/'
     redirect_field_name= 'redirect_to'
@@ -41,74 +40,44 @@ class NewSite(LoginRequiredMixin, FormView):
         user = self.request.user
         name = form.cleaned_data['name']
         newsite = Site(name = name, user = user)
+        # ?
         newsite.data = [{'settlement': form.cleaned_data['settlement']}, {'heigth': form.cleaned_data['height']}, {'width': form.cleaned_data['width']} , {'calculated area': form.cleaned_data['calculated_area']} , {'undefined_date': form.cleaned_data['height']} , {'heigth': form.cleaned_data['height']}] 
         newsite.save()
         filters = Filter.objects.filter(basic = True)
-        for i in filters:
-            e = i.name
-            instance = Filter.objects.get(name=e)
-            data = e.lower()
-            x = form.cleaned_data['%s' %  data] 
-            if type(x) is str:
-                oftype = 4
-                string = x
+
+        for instance in filters:
+            prop = None
+            data = form.cleaned_data[instance.name.lower()]
+
+            double = 0.0
+            string = ''
+            boolean = False
+            integer = 0
+
+            if instance.oftype == ValueType.integer:
+                integer = int(data)
+            elif instance.oftype == ValueType.boolean:
+                boolean = bool(data)
+            elif instance.oftype == ValueType.double:
+                double = float(data)
+            elif instance.oftype == ValueType.string:
+                string = data
+
+            # search for string values first
+            if instance.oftype == ValueType.string:
                 try:
                     prop = Property.objects.get(instance = instance, string = string)
-                    newsite.props.add(prop)
                 except Property.DoesNotExist:
-                    prop = Property.objects.create(instance=instance, 
-                            oftype=oftype, 
-                            string=string)
-                    newsite.props.add(prop)
-            elif type(x) is int:
-                oftype = 1
-                integer = x
-                try:
-                    prop = Property.objects.get(instance=instance, integer = integer)
-                    newsite.props.add(prop)
-                except Property.DoesNotExist:
-                    prop = Property.objects.create(instance=instance, 
-                            oftype=oftype, 
-                            integer=integer)
-                    newsite.props.add(prop)
+                    prop = Property.objects.create(instance = instance, string = string)
+            else:
+                prop = Property.objects.create(instance = instance, integer = integer, boolean = boolean, double = double, string = string)
 
-            elif type(x) is bool:
-                oftype = 2
-                boolean = x
-                try:
-                    prop = Property.objects.get(instance=instance, boolean = boolean)
-                    newsite.props.add(prop)
-                except Property.DoesNotExist:
-                    prop = Property.objects.create(instance=instance, 
-                            oftype=oftype, 
-                            boolean=boolean)
-                    newsite.props.add(prop)
+            newsite.props.add(prop)
 
-            elif type(x) is float:
-                oftype = 3
-                double = x
-                try:
-                    prop = Property.objects.get(instance=instance, double = double)
-                    newsite.props.add(prop)
-                except Property.DoesNotExist:
-                    prop = Property.objects.create(instance=instance, 
-                            oftype=oftype, 
-                            double=double)
-                    newsite.props.add(prop)
-        general = Image.objects.create(site=newsite, 
-                oftype=1,
-                image=form.cleaned_data['general'])
-        plane = Image.objects.create(site=newsite, 
-                oftype=2,
-                image=form.cleaned_data['plane'])
-        photo = Image.objects.create(site=newsite, 
-                oftype=3,
-                image=form.cleaned_data['photo'])
-        found = Image.objects.create(site=newsite, 
-                oftype=4,
-                image=form.cleaned_data['found'])
-
-
+        general = Image.objects.create(site = newsite, oftype = Image.Type.general, image = form.cleaned_data['general'])
+        plane = Image.objects.create(site = newsite,   oftype = Image.Type.plane,   image = form.cleaned_data['plane'])
+        photo = Image.objects.create(site = newsite,   oftype = Image.Type.photo,   image = form.cleaned_data['photo'])
+        found = Image.objects.create(site = newsite,   oftype = Image.Type.found,   image = form.cleaned_data['found'])
 
         return super(NewSite, self).form_valid(form)
 

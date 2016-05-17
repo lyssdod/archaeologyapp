@@ -3,24 +3,28 @@ from django.db.models import Sum, Count, Case, When, IntegerField
 from .models import Site, Filter, Property
 
 class PropertyAdmin(admin.ModelAdmin):
-	list_display = ('__str__', 'oftype', 'instance')
-	list_editable = ('oftype', 'instance')
-	list_filter = ('instance', 'oftype')
+    list_display = ('ofsite', '__str__', 'instance')
+    #list_editable = ('oftype', 'instance')
+    list_filter = ('instance',)
 
-class FilterInline(admin.StackedInline):
-    model = Filter
-    fields = ['name', 'parent', 'oftype']
+    def ofsite(self, obj):
+        return obj.site_set.get()#filter(obj)
+
+#class FilterInline(admin.StackedInline):
+#    model = Filter
+#    fields = ['name', 'parent', 'oftype']
 
 class FilterAdmin(admin.ModelAdmin):
-    list_filter = ('parent',)
+    list_filter = ('parent', )
     #list_display = ('name', 'link_count', 'prop_count')
     #inlines = [ FilterInline, ]
-
     #def get_queryset(self, request):
     #    return super(FilterAdmin, self).get_queryset(request).annotate(
     #        num_props = Count(Case(When(property__linked = False, then = 1), output_field = IntegerField())),
     #        num_linkd = Count(Case(When(property__linked = True, then = 1), output_field = IntegerField()))
     #        )
+
+   # def onlyparent(self, obj):
 
     #def prop_count(self, obj):
     #    return obj.num_props

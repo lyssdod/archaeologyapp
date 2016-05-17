@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 # all possible Property value types
 class ValueType(DjangoChoices):
-    #enum    = ChoiceItem(0, "Enum")
     integer = ChoiceItem(1, "Integer")
     boolean = ChoiceItem(2, "Boolean")
     double = ChoiceItem(3, "Double")
@@ -16,7 +15,7 @@ class Filter(models.Model):
     name = models.CharField(max_length = 128)
     basic = models.BooleanField(default = False)
     parent = models.ForeignKey('self', null = True, blank = True, related_name = 'subfilters')
-    oftype = models.IntegerField(default = 0, verbose_name = "Value type", choices = ValueType.choices)
+    oftype = models.IntegerField(default = 1, verbose_name = "Value type", choices = ValueType.choices)
 
     def __str__(self):
         return self.name
@@ -32,10 +31,6 @@ class Property(models.Model):
         verbose_name_plural = "properties"
 
     instance = models.ForeignKey(Filter, verbose_name = "Related filter", on_delete = models.CASCADE)
-    # kind of overkill here
-    oftype = models.IntegerField(default = 0, verbose_name = "Value type", choices = ValueType.choices)
-
-
     boolean = models.BooleanField(default = False, verbose_name = "Boolean value")
     integer = models.IntegerField(default = 0, verbose_name = "Integer value")
     double = models.FloatField(default = 0.0, verbose_name = "Float value")
@@ -43,13 +38,19 @@ class Property(models.Model):
 
 
     def __str__(self):
-        if self.oftype == ValueType.integer:
+        if self.instance.parent != None:
+            # return parent filter name for use in select
+            try:
+                return str(Filter.objects.get(pk = self.integer))
+            except Filter.DoesNotExist:
+                return 'Broken parent?'
+        if self.instance.oftype == ValueType.integer:
             return str(self.integer)
-        elif self.oftype == ValueType.boolean:
+        elif self.instance.oftype == ValueType.boolean:
             return str(self.boolean)
-        elif self.oftype == ValueType.double:
+        elif self.instance.oftype == ValueType.double:
             return str(self.double)
-        elif self.oftype == ValueType.string:
+        elif self.instance.oftype == ValueType.string:
             return self.string
 
 # archaeology Site
