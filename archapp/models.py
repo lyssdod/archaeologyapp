@@ -14,6 +14,7 @@ class ValueType(DjangoChoices):
 class Filter(models.Model):
     name = models.CharField(max_length = 128)
     basic = models.BooleanField(default = False)
+    hidden = models.BooleanField(default = False)
     parent = models.ForeignKey('self', null = True, blank = True, related_name = 'subfilters')
     oftype = models.IntegerField(default = 1, verbose_name = "Value type", choices = ValueType.choices)
 

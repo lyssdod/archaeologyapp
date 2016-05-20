@@ -212,14 +212,26 @@
     "pk": 23,
     "fields":
     {
-      "name": "Dating",
-      "oftype": 4,
+      "name": "DatingFrom",
+      "oftype": 1,
+      "hidden": 1,
       "basic": 1
     }
   },
   {
     "model": "archapp.filter",
     "pk": 24,
+    "fields":
+    {
+      "name": "DatingTo",
+      "oftype": 1,
+      "hidden": 1,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 25,
     "fields":
     {
       "name": "Typology",

@@ -2,36 +2,42 @@ from .models import Filter, Image, UserFilter, Property, Site, ValueType
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Site, ValueType
 from django.db import models
 
-import pprint
 
 class FilterForm(forms.Form):
 
     # creates fields for basic filters
     def create_filter_fields(self):
         filters = Filter.objects.filter(basic = True)
-        mapping = { ValueType.integer : forms.IntegerField(required = False),
-                    ValueType.string  : forms.CharField(required = False),
-                    ValueType.double  : forms.FloatField(required = False),
-                    ValueType.boolean : forms.BooleanField(required = False)
+        mapping = { ValueType.integer : forms.IntegerField(),
+                    ValueType.string  : forms.CharField(),
+                    ValueType.double  : forms.FloatField(),
+                    ValueType.boolean : forms.BooleanField()
                   }
 
         for flt in filters:
-            subs = flt.subfilters.all().exclude(pk = models.F('parent'))
+            field = None
+            subs  = flt.subfilters.all().exclude(pk = models.F('parent'))
+            args  = {'required': False}
 
             # if this filter have children, use select for them
             if subs.count():
-                subchoices = [(s.id, s.name) for s in subs]
-                self.fields[flt.name.lower()] = forms.ChoiceField(
-                    required = False,
-                    widget = forms.Select,
-                    choices = subchoices,
-                    )
+                args['widget']  = forms.Select()
+                args['choices'] = [(s.id, s.name) for s in subs]
+
+                field = forms.ChoiceField()
+
             # render plain field otherwise
             else:
-                self.fields[flt.name.lower()] = mapping[flt.oftype]
+                if flt.hidden:
+                    args['widget'] = forms.widgets.HiddenInput()
+
+                field = mapping[flt.oftype]
+
+            # implicit reconstruction with needed params
+            self.fields[flt.name.lower()] = type(field)(**args)
+
 
     # get child filters
     def getsubdata(self, key):

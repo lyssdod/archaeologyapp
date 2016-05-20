@@ -1,5 +1,7 @@
 $( window ).load(function() {
 var centuries = {
+  // TODO:
+  // move this data to fixtures
   "1" : "VIII BCE",
   "2" : "VII BCE",
   "3" : "VI BCE",
@@ -18,13 +20,15 @@ $(function() {
   values: [ 3, 8],
 
   slide: function( event, ui ) {
-    var val1 = ui.values[0]
-    var val2 = ui.values[1]
-    $( "#id_dating" ).val(centuries[val1] + " - " + centuries[val2]);
+    var val1 = centuries[ui.values[0]];
+    var val2 = centuries[ui.values[1]];
+
+    $( "#id_datingfrom" ).val(val1);
+    $( "#id_datingto" ).val(val2);
+    $( "#dating" ).html(val1 + " - " + val2);
   }
   });
-  $( "#id_dating" ).val( $( "#slider-range" ).slider( "values", 3 ) +
-    $( "#slider-range" ).slider( "values", 8 ) );
 });
-
+//$('#slider').toggle('slide');
+//$('#slider').show();
 });

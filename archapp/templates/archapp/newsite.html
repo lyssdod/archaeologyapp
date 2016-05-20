@@ -114,8 +114,11 @@
         </div>
         <div class="row">
           <label class="col-md-2 col-md-offset-4" for="dating">Датування</label>
-          {{form.dating|attr:"readonly"}}
-          {{form.dating.errors}}
+          <span id="dating"></span>
+          {{form.datingfrom}}
+          {{form.datingfrom.errors}}
+          {{form.datingto}}
+          {{form.datingto.errors}}
         </div>
         <div class="row">
           <div id='slider' class="col-md-2 col-md-offset-6"></div>
