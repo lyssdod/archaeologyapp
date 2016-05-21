@@ -29,7 +29,7 @@ class Filter(models.Model):
 
 # User-defined Filter
 class UserFilter(Filter):
-    name = models.TextField(max_length = 128, default = "User-defined filter")
+    title = models.TextField(max_length = 128, default = "User-defined filter")
     query = fields.PickledObjectField()
     owner = models.ForeignKey(User, on_delete = models.CASCADE)
 

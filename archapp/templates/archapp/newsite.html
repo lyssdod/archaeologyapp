@@ -15,46 +15,31 @@
   </div>
   <form action="#" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#maindata" aria-controls="home" role="tab" data-toggle="tab">Базові дані</a></li>
-      <li role="presentation"><a href="#description" aria-controls="profile" role="tab" data-toggle="tab">Опис</a></li>
-      <li role="presentation"><a href="#attachments" aria-controls="settings" role="tab" data-toggle="tab">Додатки</a></li>
-      <li role="presentation"><a href="#literature" aria-controls="settings" role="tab" data-toggle="tab">Література</a></li>
+      {% for tabslug, tabname in form.tablist.items %}
+      <li role = "presentation"><a href = "#{{ tabslug }}" role = "tab" data-toggle = "tab">{{ tabname }}</a></li>
+      {% endfor %}
     </ul>
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="maindata">
+      <div role="tabpanel" class="tab-pane active" id="basicdata">
+        {% for field in form.basictab %}
         <div class="row">
           <label class="col-md-2 col-md-offset-4" for="name">Назва </label>
-          {{form.name|attr:"required"}}
-          {{form.name.errors}}
-          {% if messages %}
-          <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-          </ul>
-          {% endif %}
+        {{ field.errors }}
+        {{ field.label_tag }} {{ field }}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
         </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="country">Країна</label>
-          {{form.country|attr:"required"}}
-          {{form.country.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="region">Область</label>
-          {{form.region|attr:"required"}}
-          {{form.region.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="district">Район </label>
-          {{form.district|attr:"required"}}
-          {{form.district.errors}}
-        </div>
-         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="settlement">Населений пункт </label>
-          {{form.settlement|attr:"required"}}
-          {{form.settlement.errors}}
-        </div>
+        {% endfor %}
+
  
         <div class="container">
           <div class="row">
@@ -114,7 +99,9 @@
         </div>
         <div class="row">
           <label class="col-md-2 col-md-offset-4" for="dating">Датування</label>
-          <span id="dating"></span>
+          <span id="dating2"></span>
+          {{form.dating}}
+          {{form.dating.errors}}
           {{form.datingfrom}}
           {{form.datingfrom.errors}}
           {{form.datingto}}

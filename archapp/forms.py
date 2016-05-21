@@ -8,8 +8,8 @@ from django.db import models
 class FilterForm(forms.Form):
 
     # creates fields for basic filters
-    def create_filter_fields(self):
-        filters = Filter.objects.filter(basic = True)
+    def create_filter_fields(self, query = {'basic': True}):
+        filters = Filter.objects.filter(**query)
         mapping = { ValueType.integer : forms.IntegerField(),
                     ValueType.string  : forms.CharField(),
                     ValueType.double  : forms.FloatField(),
@@ -18,7 +18,7 @@ class FilterForm(forms.Form):
 
         for flt in filters:
             field = None
-            subs  = flt.subfilters.all().exclude(pk = models.F('parent'))
+            subs  = self.getsubdata(flt)
             args  = {'required': False}
 
             # if this filter have children, use select for them
@@ -40,11 +40,8 @@ class FilterForm(forms.Form):
 
 
     # get child filters
-    def getsubdata(self, key):
-        if type(key) is int:
-            return Filter.objects.filter(subfilters__pk = key)
-        else:
-            return Filter.objects.filter(subfilters__name = key)
+    def getsubdata(self, obj):
+        return obj.subfilters.all().exclude(pk = models.F('parent'))
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -68,6 +65,9 @@ class SearchForm(FilterForm):
 
 class NewSiteForm(FilterForm):
 
+    def create_tab(self, *args, **kwargs):
+        return [self.fields[f] for f in args]
+
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
@@ -85,3 +85,9 @@ class NewSiteForm(FilterForm):
         self.fields['plane'] = forms.ImageField(required=False, max_length = 128)
         self.fields['photo'] = forms.ImageField(required=False, max_length = 128)
         self.fields['found'] = forms.ImageField(required=False, max_length = 128)
+
+
+        self.tablist = {"basictab": "Basic data", "description": "Description", "attachments": "Attachments", "references": "References"}
+
+        self.basictab = self.create_tab('name', 'country', 'region', 'district', 'settlement')
+        #self.desctab = [self.fields[]]
