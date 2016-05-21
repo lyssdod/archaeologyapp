@@ -1,26 +1,45 @@
-$( window ).load(function() {
-var centuries = {
-  // TODO:
-  // move this data to fixtures
+(function(jQuery) {
+    $(document).ready(function($){
+        var d = $('#id_dating');
 
-}
-$(function() {
-  $( "#slider" ).slider({
-    range: true,
-  min: 1,
-  max: 9,
-  values: [ 3, 8],
+        if( d.length )
+        {
+            var l = $("<span id = 'slider_label'>aewoeirn908</span>")
+            var z = $("<div id = 'slider'></div>");
+            var x = function(e, ui) {
+                var r1 = d.find('option').eq(ui.values[0] - 1);
+                var r2 = d.find('option').eq(ui.values[1] - 1);
+                $('#id_datingfrom').val(r1[0].value);
+                $('#id_datingto').val(r2[0].value);
+                l.html(r1.text() + ' - ' + r2.text()); }
+            var s = z.slider({
+                min: 1,
+                max: 8,
+                range: true,
+                values: [d[0].selectedIndex, d[0].selectedIndex ],
+                slide: x });
+            $('#id_undefined').click(function(){
+                if ($(this).is(':checked'))
+                {
+                    z.slider('option', 'disabled', true);
+                    l.html('---');
+                }
+                else
+                {
+                    z.slider('option', 'disabled', false);
+                    z.trigger('slidechange');
+                    x(null, z.slider("instance").options);
+                }
+            });
 
-  slide: function( event, ui ) {
-    var val1 = ui.values[0];
-    var val2 = ui.values[1];
+            z.addClass('col-md-2 col-md-offset-6');
+            d.hide();
+            d.after(l);
+            l.after(z);
 
-    $( "#id_datingfrom" ).val(val1);
-    $( "#id_datingto" ).val(val2);
-    $( "#dating" ).html(val1 + " - " + val2);
-  }
-  });
-});
-//$('#slider').toggle('slide');
-//$('#slider').show();
-});
+            z.slider('values', [1, 3]);
+            x(null, z.slider("instance").options);
+        }
+
+    });
+})()

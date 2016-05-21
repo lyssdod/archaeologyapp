@@ -68,9 +68,9 @@ class NewSiteForm(FilterForm):
 
     class Meta:
         fieldsets = [('1', {'description': 'Basic data', 'legend': 'maintab', 'fields':
-                            ['name', 'country', 'region', 'district', 'settlement']}),
+                    ['name', 'country', 'region', 'district', 'settlement']}),
                      ('2', {'description': 'Description', 'legend': 'desctab', 'fields':
-                            ['areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating']}),
+                    ['areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
                      ('3', {'description': 'Attachments', 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found']}),
                      ('4', {'description': 'References', 'legend': 'refstab', 'fields': ['literature']})]
 
@@ -78,11 +78,8 @@ class NewSiteForm(FilterForm):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
         self.fields['name'] = forms.CharField(max_length = 128)
-        self.fields['settlement'] = forms.CharField(max_length = 128, required = False)
-        self.fields['height'] = forms.IntegerField(required=False)
-        self.fields['width'] = forms.IntegerField(required=False)
         self.fields['calculated_area'] = forms.IntegerField(required=False, label = 'Calculated area')
-        self.fields['undefined_date'] = forms.BooleanField(required = False, label = 'Undefined date')
+        self.fields['undefined'] = forms.BooleanField(required = False, label = 'Dating is undefined')
         self.fields['literature'] = forms.CharField(required=False, 
                 widget=forms.Textarea, max_length = 512)
         self.create_filter_fields()
@@ -92,7 +89,3 @@ class NewSiteForm(FilterForm):
         self.fields['photo'] = forms.ImageField(required=False, max_length = 128)
         self.fields['found'] = forms.ImageField(required=False, max_length = 128)
 
-
-        self.tablist = {"basictab": "Basic data", "description": "Description", "attachments": "Attachments", "references": "References"}
-
-        #self.desctab = [self.fields[]]
