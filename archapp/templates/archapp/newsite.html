@@ -23,24 +23,24 @@
     </ul>
     {% endif %}
     <ul class="nav nav-tabs" role="tablist">
-      {% for tabslug, tabname in form.tablist.items %}
-      <li role = "presentation"><a href = "#{{ tabslug }}" role = "tab" data-toggle = "tab">{{ tabname }}</a></li>
+      {% for fset in form.fieldsets %}
+      <li role = "presentation"><a href = "#{{ fset.legend }}" role = "tab" data-toggle = "tab">{{ fset.description }}</a></li>
       {% endfor %}
     </ul>
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="basicdata">
-        {% for field in form.basictab %}
+      {% for fset in form.fieldsets %}
+      <div role="tabpanel" class="tab-pane" id="{{fset.legend}}">
+        {% for field in fset %}
         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="name">Назва </label>
-        {{ field.errors }}
-        {{ field.label_tag }} {{ field }}
-        {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
-        {% endif %}
+          {% if not field.is_hidden %}
+          <div class = "col-md-2 col-md-offset-4">{{field.label_tag}}</div>
+          {{ field.errors }}
+          {% endif %}
+          {{ field }}
         </div>
         {% endfor %}
-
  
+        {% if fset == "asds" %}
         <div class="container">
           <div class="row">
             <div class="col-md-12 text-center">
@@ -54,108 +54,13 @@
             <input id="reset" type="button" value="reset">
           </div>
         </div>
+        {% endif %}
       </div>
-      <div role="tabpanel" class="tab-pane" id="description">
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="area">Площа пам'ятки</label>
-          {{form.area}}
-          {{form.area.errors}}
-        </div>
-         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="height">Довжина</label>
-          {{form.height}}
-          {{form.height.errors}}
-        </div>
-         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="width">Ширина</label>
-          {{form.width}}
-          {{form.width.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="calculated_area">Розрахункова площа</label>
-          {{form.calculated_area}}
-          {{form.calculated_area.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="topography">Топографія</label>
-          {{form.topography}}
-          {{form.topography.errors}}
-        </div>
-
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="geomorphology">Геоморфологічна форма</label>
-          {{form.geomorphology}}
-          {{form.geomorphology.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="altitude">Висота над рівнем моря</label>
-          {{form.altitude}}
-          {{form.altitude.errors}}
-        </div>
-       <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="valleyaltitude">Висота над долиною</label>
-          {{form.valleyaltitude}}
-          {{form.valleyaltitude.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="dating">Датування</label>
-          <span id="dating2"></span>
-          {{form.dating}}
-          {{form.dating.errors}}
-          {{form.datingfrom}}
-          {{form.datingfrom.errors}}
-          {{form.datingto}}
-          {{form.datingto.errors}}
-        </div>
-        <div class="row">
-          <div id='slider' class="col-md-2 col-md-offset-6"></div>
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="undefined_date">Точно не встановлено</label>
-          {{form.undefined_date}}
-          {{form.undefined_date.errors}}
-        </div>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="attachments">
-        <div class="row">
-          <label class="col-md-2 col-md-offset-2" for="input-id">Основна світлина</label>
-          {{form.general}}
-          {{form.general.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-2" for="input-6">Плани</label>
-          {{form.plane}}
-          {{form.plane.errors}}
-
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-2" for="input-61">Фотографії</label>
-          {{form.photo}}
-          {{form.photo.errors}}
-
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-2" for="input-62">Знахідки</label>
-          {{form.found}}
-          {{form.found.errors}}
-
-          <!--
-              <input id="input-62" name="input6[]" type="file" multiple class="file">
--->
-        </div>
-
-      </div>
-      <div role="tabpanel" class="tab-pane" id="literature">
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="literature">Література</label>
-          {{form.literature}}
-              {{form.literature.errors}}
-            </div>
-                    </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-md-offset-4 text-center">
-            <input type="submit" value="Створити" class="btn btn-border-color textcol btn-sm background">
+      {% endfor %}
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 text-center">
+        <input type="submit" value="Створити" class="btn btn-border-color textcol btn-sm background">
         <a href = "{% url 'archapp:welcome'%}" class="btn btn-border-color textcol btn-sm background">Скасувати</a>
       </div>
     </div> 

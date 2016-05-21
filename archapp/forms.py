@@ -1,11 +1,12 @@
-from .models import Filter, Image, UserFilter, Property, Site, ValueType
+from .models import Filter, Image, UserFilter, Property, Site, ValueType, ImageType
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from form_utils import forms as betterforms
 from django.db import models
 
 
-class FilterForm(forms.Form):
+class FilterForm(betterforms.BetterForm):
 
     # creates fields for basic filters
     def create_filter_fields(self, query = {'basic': True}):
@@ -19,7 +20,7 @@ class FilterForm(forms.Form):
         for flt in filters:
             field = None
             subs  = self.getsubdata(flt)
-            args  = {'required': False}
+            args  = {'required': False, 'label': flt.name}
 
             # if this filter have children, use select for them
             if subs.count():
@@ -65,8 +66,13 @@ class SearchForm(FilterForm):
 
 class NewSiteForm(FilterForm):
 
-    def create_tab(self, *args, **kwargs):
-        return [self.fields[f] for f in args]
+    class Meta:
+        fieldsets = [('1', {'description': 'Basic data', 'legend': 'maintab', 'fields':
+                            ['name', 'country', 'region', 'district', 'settlement']}),
+                     ('2', {'description': 'Description', 'legend': 'desctab', 'fields':
+                            ['areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating']}),
+                     ('3', {'description': 'Attachments', 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found']}),
+                     ('4', {'description': 'References', 'legend': 'refstab', 'fields': ['literature']})]
 
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)
@@ -89,5 +95,4 @@ class NewSiteForm(FilterForm):
 
         self.tablist = {"basictab": "Basic data", "description": "Description", "attachments": "Attachments", "references": "References"}
 
-        self.basictab = self.create_tab('name', 'country', 'region', 'district', 'settlement')
         #self.desctab = [self.fields[]]

@@ -40,8 +40,6 @@ class NewSite(LoginRequiredMixin, FormView):
         user = self.request.user
         name = form.cleaned_data['name']
         newsite = Site(name = name, user = user)
-        # ?
-        newsite.data = [{'settlement': form.cleaned_data['settlement']}, {'heigth': form.cleaned_data['height']}, {'width': form.cleaned_data['width']} , {'calculated area': form.cleaned_data['calculated_area']} , {'undefined_date': form.cleaned_data['height']} , {'heigth': form.cleaned_data['height']}] 
         newsite.save()
         filters = Filter.objects.filter(basic = True)
 

@@ -4,3 +4,4 @@ django-choices==1.4.2
 django-picklefield==0.3.2
 six==1.10.0
 django-widget-tweaks==1.4.1
+django-form-utils
