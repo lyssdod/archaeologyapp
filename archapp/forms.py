@@ -25,7 +25,7 @@ class FilterForm(betterforms.BetterForm):
             # if this filter have children, use select for them
             if subs.count():
                 args['widget']  = forms.Select()
-                args['choices'] = [(s.id, s.name) for s in subs]
+                args['choices'] = [(s.id, _(s.name)) for s in subs]
 
                 field = forms.ChoiceField()
 
@@ -67,12 +67,12 @@ class SearchForm(FilterForm):
 class NewSiteForm(FilterForm):
 
     class Meta:
-        fieldsets = [('1', {'description': 'Basic data', 'legend': 'maintab', 'fields':
+        fieldsets = [('1', {'description': _('Basic data'), 'legend': 'maintab', 'fields':
                     ['name', 'country', 'region', 'district', 'settlement']}),
-                     ('2', {'description': 'Description', 'legend': 'desctab', 'fields':
+                     ('2', {'description': _('Description'), 'legend': 'desctab', 'fields':
                     ['areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
-                     ('3', {'description': 'Attachments', 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found']}),
-                     ('4', {'description': 'References', 'legend': 'refstab', 'fields': ['literature']})]
+                     ('3', {'description': _('Attachments'), 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found']}),
+                     ('4', {'description': _('References'), 'legend': 'refstab', 'fields': ['literature']})]
 
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)

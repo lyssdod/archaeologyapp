@@ -24,8 +24,9 @@
   <div class=col-md-4>
     <table class="table">
       <tr>
-        <td>{{e.instance}} </td>
-        <td>{{e}}</td>
+        <td>{% trans e.instance.name %}</td>
+        <!-- wtf ?? -->
+        <td>{% blocktrans %} {{ e }} {% endblocktrans %}</td>
       </tr>
     </table>
   </div>
@@ -38,44 +39,6 @@
 {% endfor %}
 <br>
 <br>
-<!--
-<div class="row">
-  <div class="col-md-4">
-    <img src="#" class="avatar" alt="Upload image">
-  </div>
-  <div class=col-md-4>
-    <table class="table">
-      <tr>
-        <td>Назва: </td>
-      </tr>
-    </table>
-  </div>
-  <div class="col-md-4">
-    <table class="table">
-      <tr>
-        <td>Країна:</td>
-      </tr>
-      <tr>
-        <td>Область:</td>
-      </tr>
-      <tr>
-        <td>Район:</td>
-      </tr>
-    </table>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4 col-md-offset-4">
-    <table class="table">
-        <tr>
-        <td>Вузька хронологiя: </td>
-      </tr>
-      <tr>
-        <td>Невизначена хронологія: </td>
-      </tr>
-    </table>
-  </div>
-</div>
--->
+
 {% endwith %}
 {% endblock %}
