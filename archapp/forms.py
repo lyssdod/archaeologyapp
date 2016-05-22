@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from form_utils import forms as betterforms
 from django.db import models
-
+from django.utils.translation import ugettext_lazy as _
 
 class FilterForm(betterforms.BetterForm):
 
@@ -20,7 +20,7 @@ class FilterForm(betterforms.BetterForm):
         for flt in filters:
             field = None
             subs  = self.getsubdata(flt)
-            args  = {'required': False, 'label': flt.name}
+            args  = {'required': False, 'label': _(flt.name)}
 
             # if this filter have children, use select for them
             if subs.count():
@@ -78,8 +78,8 @@ class NewSiteForm(FilterForm):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
         self.fields['name'] = forms.CharField(max_length = 128)
-        self.fields['calculated_area'] = forms.IntegerField(required=False, label = 'Calculated area')
-        self.fields['undefined'] = forms.BooleanField(required = False, label = 'Dating is undefined')
+        self.fields['calculated_area'] = forms.IntegerField(required=False, label = _('Calculated area'))
+        self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
         self.fields['literature'] = forms.CharField(required=False, 
                 widget=forms.Textarea, max_length = 512)
         self.create_filter_fields()

@@ -2,6 +2,7 @@ from django.db import models
 from picklefield import fields
 from djchoices import DjangoChoices, ChoiceItem
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
 # all possible Property value types
 class ValueType(DjangoChoices):
@@ -29,7 +30,7 @@ class Filter(models.Model):
 
 # User-defined Filter
 class UserFilter(Filter):
-    title = models.TextField(max_length = 128, default = "User-defined filter")
+    title = models.TextField(max_length = 128, default = _("User-defined filter"))
     query = fields.PickledObjectField()
     owner = models.ForeignKey(User, on_delete = models.CASCADE)
 

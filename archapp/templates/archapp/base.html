@@ -1,3 +1,5 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +9,7 @@
 {%if title %}
 <title> {{title}}</title>
 {% else %}
-<title> Археологiчна база даних </title>
+<title>{% trans "Archaeology database" %}</title>
 {% endif %}
 {% load staticfiles %}
 <!--style-->
@@ -39,28 +41,26 @@
 <body class="background">
 <div class="container container-config textcol">
   <div class="row header">
-    <div class="col-md-6"><a href = "{% url 'archapp:welcome' %}" class="btn btn-sm"><h2 class="logo">Archaeology DataBase</h2></a></div>
+    <div class="col-md-6"><a href = "{% url 'archapp:welcome' %}" class="btn btn-sm"><h2 class="logo">{% trans "Archaeology database" %}</h2></a></div>
 
     {% if user.is_authenticated %}
     <div class="col-md-2 padding">
       <form action="" class="form-inline box-shadow" method="post">
-        <label class="sr-only">Пошук:</label>
-        <input class="form-control" type="text" name="name_of_site" placeholder="Пошук пам'яток">
-
+        <input class="form-control" type="text" name="name_of_site" placeholder="{% trans 'Search sites' %}">
       </form>
     </div>
 
-    <div class="col-md-1 text-center padding"><a href ="{% url 'archapp:newsite'%}" class="btn btn-color btn-sm">Нова</a>
+    <div class="col-md-1 text-center padding"><a href ="{% url 'archapp:newsite'%}" class="btn btn-color btn-sm">{% trans "New site" %}</a>
     </div>
-    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:all' %}" class="btn btn-color btn-sm">Усi</a>
+    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:all' %}" class="btn btn-color btn-sm">{% trans "All sites" %}</a>
     </div>
     <div class="col-md-1 text-center padding"><a href = "" class="btn btn-color btn-sm">{{user}}</a></div>
     {% endif %}
     {% if user.is_anonymous %} 
-    <div class="col-md-2 col-md-offset-3 text-center padding"><a href = "{% url 'archapp:signup' %}" class="btn btn-color btn-sm">Зареєструватися</a></div>
-    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:login' %}" class="btn btn-color btn-sm">Увiйти</a></div>
+    <div class="col-md-2 col-md-offset-3 text-center padding"><a href = "{% url 'archapp:signup' %}" class="btn btn-color btn-sm">{% trans "Register" %}</a></div>
+    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:login' %}" class="btn btn-color btn-sm">{% trans "Log in" %}</a></div>
     {% else %}
-    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">Вийти</a></div>
+    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">{% trans "Log out" %}</a></div>
     {% endif %}
 
   </div>
@@ -73,10 +73,8 @@
     </div>
   </footer>
 </div>
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&language=uk">
-</script>
-
+<!-- need to specify a key -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&language={{LANGUAGE_CODE}}"></script>
 </body>
 </html>
 

@@ -1,7 +1,8 @@
 {% extends "archapp/base.html" %}
 
 {% block content %}
-{% with site.props.all as prop%}
+{% load i18n %}
+{% with site.props.all as prop %}
 
 <div class = "row">
   <div class="col-md-4 col-md-offset-4 text-center">
@@ -11,10 +12,10 @@
 
 <div class ="row">
   <div class="col-md-1 col-md-offset-2">
-    <a href = "{% url 'archapp:delete' site.id %}" class="btn textcol btn-border-color btn-sm">Видалити</a>
+    <a href = "{% url 'archapp:delete' site.id %}" class="btn textcol btn-border-color btn-sm">{% trans "Delete" %}</a>
   </div>
   <div class="col-md-1">
-    <a href = "{% url 'archapp:edit' site.id %}" class="btn btn-border-color textcol btn-sm btn-postion">Редагувати</a>
+    <a href = "{% url 'archapp:edit' site.id %}" class="btn btn-border-color textcol btn-sm btn-postion">{% trans "Edit" %}</a>
   </div>
 </div>
 <hr class="hrr"> 
