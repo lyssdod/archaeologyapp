@@ -1,4 +1,4 @@
-from .models import Site, Filter, Image, Property, ValueType
+from .models import Site, Filter, Image, Property, ValueType, ImageType
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
@@ -40,44 +40,45 @@ class NewSite(LoginRequiredMixin, FormView):
         user = self.request.user
         name = form.cleaned_data['name']
         newsite = Site(name = name, user = user)
-        # ?
-        newsite.data = [{'settlement': form.cleaned_data['settlement']}, {'heigth': form.cleaned_data['height']}, {'width': form.cleaned_data['width']} , {'calculated area': form.cleaned_data['calculated_area']} , {'undefined_date': form.cleaned_data['height']} , {'heigth': form.cleaned_data['height']}] 
         newsite.save()
         filters = Filter.objects.filter(basic = True)
 
         for instance in filters:
             prop = None
+            args = {'instance': instance}
             data = form.cleaned_data[instance.name.lower()]
+            print('filter: {}, data: {}'.format(instance.name, data))
 
-            double = 0.0
-            string = ''
-            boolean = False
-            integer = 0
+            # usually this means validation fail, but
+            # let's override this for missing fields
+            if data is None:
+                data = False
 
             if instance.oftype == ValueType.integer:
-                integer = int(data)
+                args['integer'] = int(data)
             elif instance.oftype == ValueType.boolean:
-                boolean = bool(data)
+                args['boolean'] = bool(data)
             elif instance.oftype == ValueType.double:
-                double = float(data)
+                args['double'] = float(data)
             elif instance.oftype == ValueType.string:
-                string = data
+                args['string'] = data
 
             # search for string values first
             if instance.oftype == ValueType.string:
                 try:
-                    prop = Property.objects.get(instance = instance, string = string)
+                    prop = Property.objects.get(instance = instance, string = args['string'])
                 except Property.DoesNotExist:
-                    prop = Property.objects.create(instance = instance, string = string)
+                    prop = Property.objects.create(instance = instance, string = args['string'])
             else:
-                prop = Property.objects.create(instance = instance, integer = integer, boolean = boolean, double = double, string = string)
+                prop = Property.objects.create(**args)
 
             newsite.props.add(prop)
 
-        general = Image.objects.create(site = newsite, oftype = Image.Type.general, image = form.cleaned_data['general'])
-        plane = Image.objects.create(site = newsite,   oftype = Image.Type.plane,   image = form.cleaned_data['plane'])
-        photo = Image.objects.create(site = newsite,   oftype = Image.Type.photo,   image = form.cleaned_data['photo'])
-        found = Image.objects.create(site = newsite,   oftype = Image.Type.found,   image = form.cleaned_data['found'])
+        images = [ImageType.general, ImageType.plane, ImageType.photo, ImageType.found]
+
+        for img in images:
+            if str(img).lower() in form.cleaned_data:
+                tmp = Image.objects.create(site = newsite, oftype = img, image = form.cleaned_data[str(img).lower()])
 
         return super(NewSite, self).form_valid(form)
 

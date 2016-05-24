@@ -212,14 +212,118 @@
     "pk": 23,
     "fields":
     {
-      "name": "Dating",
-      "oftype": 4,
+      "name": "DatingFrom",
+      "oftype": 1,
+      "hidden": 1,
       "basic": 1
     }
   },
   {
     "model": "archapp.filter",
     "pk": 24,
+    "fields":
+    {
+      "name": "DatingTo",
+      "oftype": 1,
+      "hidden": 1,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 25,
+    "fields":
+    {
+      "name": "Dating",
+      "oftype": 1,
+      "hidden": 1,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 26,
+    "fields":
+    {
+      "name": "VIII BCE",
+      "parent": 25
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 27,
+    "fields":
+    {
+      "name": "VII BCE",
+      "parent": 25
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 28,
+    "fields":
+    {
+      "name": "VI BCE",
+      "parent": 25
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 29,
+    "fields":
+    {
+      "name": "V BCE",
+      "parent": 25
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 30,
+    "fields":
+    {
+      "name": "IV BCE",
+      "parent": 25
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 31,
+    "fields":
+    {
+      "name": "III BCE",
+      "parent": 25
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 32,
+    "fields":
+    {
+      "name": "II BCE",
+      "parent": 25
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 33,
+    "fields":
+    {
+      "name": "I BCE",
+      "parent": 25
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 34,
+    "fields":
+    {
+      "name": "I CE",
+      "parent": 25
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 35,
     "fields":
     {
       "name": "Typology",

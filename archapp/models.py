@@ -10,10 +10,17 @@ class ValueType(DjangoChoices):
     double = ChoiceItem(3, "Double")
     string = ChoiceItem(4, "String")
 
+class ImageType(DjangoChoices):
+    general = ChoiceItem(1, "General")
+    plane = ChoiceItem(2, "Plane")
+    photo = ChoiceItem(3, "Photo")
+    found = ChoiceItem(4, "Found")
+
 # generic Filter for Property referencing
 class Filter(models.Model):
     name = models.CharField(max_length = 128)
     basic = models.BooleanField(default = False)
+    hidden = models.BooleanField(default = False)
     parent = models.ForeignKey('self', null = True, blank = True, related_name = 'subfilters')
     oftype = models.IntegerField(default = 1, verbose_name = "Value type", choices = ValueType.choices)
 
@@ -22,6 +29,7 @@ class Filter(models.Model):
 
 # User-defined Filter
 class UserFilter(Filter):
+    title = models.TextField(max_length = 128, default = "User-defined filter")
     query = fields.PickledObjectField()
     owner = models.ForeignKey(User, on_delete = models.CASCADE)
 
@@ -43,7 +51,7 @@ class Property(models.Model):
             try:
                 return str(Filter.objects.get(pk = self.integer))
             except Filter.DoesNotExist:
-                return 'Broken parent?'
+                return 'Broken parent link'
         if self.instance.oftype == ValueType.integer:
             return str(self.integer)
         elif self.instance.oftype == ValueType.boolean:
@@ -65,15 +73,10 @@ class Site(models.Model):
 
 # Site photos
 class Image(models.Model):
-    class Type:
-        general = 1
-        plane = 2
-        photo = 3
-        found = 4
     def site_directory_path(instance, filename):
         print('site_{0}/{1}'.format(instance.site.id, filename))
         return 'uploads/{0}/site_{1}/{2}'.format(instance.site.user, instance.site.id, filename)
     
     site = models.ForeignKey(Site, on_delete = models.CASCADE)
     image = models.ImageField(max_length = 128, upload_to = site_directory_path)
-    oftype = models.IntegerField(default = 0)
+    oftype = models.IntegerField(default = 1, verbose_name = "Image type", choices = ImageType.choices)

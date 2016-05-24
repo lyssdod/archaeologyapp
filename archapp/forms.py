@@ -1,44 +1,48 @@
-from .models import Filter, Image, UserFilter, Property, Site, ValueType
+from .models import Filter, Image, UserFilter, Property, Site, ValueType, ImageType
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Site, ValueType
+from form_utils import forms as betterforms
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
-import pprint
-
-class FilterForm(forms.Form):
+class FilterForm(betterforms.BetterForm):
 
     # creates fields for basic filters
-    def create_filter_fields(self):
-        filters = Filter.objects.filter(basic = True)
-        mapping = { ValueType.integer : forms.IntegerField(required = False),
-                    ValueType.string  : forms.CharField(required = False),
-                    ValueType.double  : forms.FloatField(required = False),
-                    ValueType.boolean : forms.BooleanField(required = False)
+    def create_filter_fields(self, query = {'basic': True}):
+        filters = Filter.objects.filter(**query)
+        mapping = { ValueType.integer : forms.IntegerField(),
+                    ValueType.string  : forms.CharField(),
+                    ValueType.double  : forms.FloatField(),
+                    ValueType.boolean : forms.BooleanField()
                   }
 
         for flt in filters:
-            subs = flt.subfilters.all().exclude(pk = models.F('parent'))
+            field = None
+            subs  = self.getsubdata(flt)
+            args  = {'required': False, 'label': _(flt.name)}
 
             # if this filter have children, use select for them
             if subs.count():
-                subchoices = [(s.id, s.name) for s in subs]
-                self.fields[flt.name.lower()] = forms.ChoiceField(
-                    required = False,
-                    widget = forms.Select,
-                    choices = subchoices,
-                    )
+                args['widget']  = forms.Select()
+                args['choices'] = [(s.id, _(s.name)) for s in subs]
+
+                field = forms.ChoiceField()
+
             # render plain field otherwise
             else:
-                self.fields[flt.name.lower()] = mapping[flt.oftype]
+                if flt.hidden:
+                    args['widget'] = forms.widgets.HiddenInput()
+
+                field = mapping[flt.oftype]
+
+            # implicit reconstruction with needed params
+            self.fields[flt.name.lower()] = type(field)(**args)
+
 
     # get child filters
-    def getsubdata(self, key):
-        if type(key) is int:
-            return Filter.objects.filter(subfilters__pk = key)
-        else:
-            return Filter.objects.filter(subfilters__name = key)
+    def getsubdata(self, obj):
+        return obj.subfilters.all().exclude(pk = models.F('parent'))
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -62,15 +66,20 @@ class SearchForm(FilterForm):
 
 class NewSiteForm(FilterForm):
 
+    class Meta:
+        fieldsets = [('1', {'description': _('Basic data'), 'legend': 'maintab', 'fields':
+                    ['name', 'country', 'region', 'district', 'settlement']}),
+                     ('2', {'description': _('Description'), 'legend': 'desctab', 'fields':
+                    ['areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
+                     ('3', {'description': _('Attachments'), 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found']}),
+                     ('4', {'description': _('References'), 'legend': 'refstab', 'fields': ['literature']})]
+
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
         self.fields['name'] = forms.CharField(max_length = 128)
-        self.fields['settlement'] = forms.CharField(max_length = 128, required = False)
-        self.fields['height'] = forms.IntegerField(required=False)
-        self.fields['width'] = forms.IntegerField(required=False)
-        self.fields['calculated_area'] = forms.IntegerField(required=False, label = 'Calculated area')
-        self.fields['undefined_date'] = forms.BooleanField(required = False, label = 'Undefined date')
+        self.fields['calculated_area'] = forms.IntegerField(required=False, label = _('Calculated area'))
+        self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
         self.fields['literature'] = forms.CharField(required=False, 
                 widget=forms.Textarea, max_length = 512)
         self.create_filter_fields()
@@ -79,3 +88,4 @@ class NewSiteForm(FilterForm):
         self.fields['plane'] = forms.ImageField(required=False, max_length = 128)
         self.fields['photo'] = forms.ImageField(required=False, max_length = 128)
         self.fields['found'] = forms.ImageField(required=False, max_length = 128)
+

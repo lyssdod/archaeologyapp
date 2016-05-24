@@ -1,7 +1,10 @@
 {% extends "archapp/base.html" %}
 
 {% block content %}
+
+{% load i18n %}
+
 <div class="row">
-  <h1 class="text-center">Вiтаємо у базi данних археологiчних пам'яток!</h1>
+  <h1 class="text-center">{% trans "Welcome to the archaeology database!" %}</h1>
 </div>
 {% endblock %}

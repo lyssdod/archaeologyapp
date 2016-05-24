@@ -1,8 +1,11 @@
 {% extends "archapp/base.html" %}
 
 {% block content %}
+
+{% load i18n %}
+
 <div class="row">
-  <h2 class="text-center">Результати пошуку</h2>
+  <h2 class="text-center">{% trans "Search results" %}</h2>
 </div>
 <div class="row">
   {%if  object_list%}
@@ -10,7 +13,7 @@
   <a href = "url_for('sitePage', site_id = site.id)"> <p>{{site.name}}</p></a>
   {% endfor %}
   {% else %}
-  <h3>Ми не знайшли нiчого!</h3>
+  <h3>{% trans "Nothing found" %}</h3>
   {% endif %}
 </div>
 {% endblock %}

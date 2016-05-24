@@ -1,11 +1,12 @@
 {% extends "archapp/base.html" %}
+{% load i18n %}
 
 {% block content %}
 {% load widget_tweaks %}
 <div class="container container-config">
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
-      <h2 class="site_name">Створити нову пам'ятку</h2>
+      <h2 class="site_name">{% trans "Create new site" %}</h2>
     </div>
   </div>
   <hr class="hrr"> 
@@ -15,51 +16,36 @@
   </div>
   <form action="#" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#maindata" aria-controls="home" role="tab" data-toggle="tab">Базові дані</a></li>
-      <li role="presentation"><a href="#description" aria-controls="profile" role="tab" data-toggle="tab">Опис</a></li>
-      <li role="presentation"><a href="#attachments" aria-controls="settings" role="tab" data-toggle="tab">Додатки</a></li>
-      <li role="presentation"><a href="#literature" aria-controls="settings" role="tab" data-toggle="tab">Література</a></li>
+      {% for fset in form.fieldsets %}
+      <li role = "presentation"><a href = "#{{ fset.legend }}" role = "tab" data-toggle = "tab">{{ fset.description }}</a></li>
+      {% endfor %}
     </ul>
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="maindata">
+      {% for fset in form.fieldsets %}
+      <div role="tabpanel" class="tab-pane" id="{{fset.legend}}">
+        {% for field in fset %}
         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="name">Назва </label>
-          {{form.name|attr:"required"}}
-          {{form.name.errors}}
-          {% if messages %}
-          <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-          </ul>
+          {% if not field.is_hidden %}
+          <div class = "col-md-2 col-md-offset-4">{{field.label_tag}}</div>
+          {{ field.errors }}
           {% endif %}
+          {{ field }}
         </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="country">Країна</label>
-          {{form.country|attr:"required"}}
-          {{form.country.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="region">Область</label>
-          {{form.region|attr:"required"}}
-          {{form.region.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="district">Район </label>
-          {{form.district|attr:"required"}}
-          {{form.district.errors}}
-        </div>
-         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="settlement">Населений пункт </label>
-          {{form.settlement|attr:"required"}}
-          {{form.settlement.errors}}
-        </div>
+        {% endfor %}
  
+        {% if fset.legend == 'maintab' %}
         <div class="container">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h3>Клікніть на мапі, щоб встановити локацію</h3>
+              <h3>{% trans "Click on the map to pick location" %}</h3>
             </div>
           </div>
           <div id="map"></div>
@@ -69,104 +55,14 @@
             <input id="reset" type="button" value="reset">
           </div>
         </div>
+        {% endif %}
       </div>
-      <div role="tabpanel" class="tab-pane" id="description">
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="area">Площа пам'ятки</label>
-          {{form.area}}
-          {{form.area.errors}}
-        </div>
-         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="height">Довжина</label>
-          {{form.height}}
-          {{form.height.errors}}
-        </div>
-         <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="width">Ширина</label>
-          {{form.width}}
-          {{form.width.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="calculated_area">Розрахункова площа</label>
-          {{form.calculated_area}}
-          {{form.calculated_area.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="topography">Топографія</label>
-          {{form.topography}}
-          {{form.topography.errors}}
-        </div>
-
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="geomorphology">Геоморфологічна форма</label>
-          {{form.geomorphology}}
-          {{form.geomorphology.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="altitude">Висота над рівнем моря</label>
-          {{form.altitude}}
-          {{form.altitude.errors}}
-        </div>
-       <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="valleyaltitude">Висота над долиною</label>
-          {{form.valleyaltitude}}
-          {{form.valleyaltitude.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="dating">Датування</label>
-          {{form.dating|attr:"readonly"}}
-          {{form.dating.errors}}
-        </div>
-        <div class="row">
-          <div id='slider' class="col-md-2 col-md-offset-6"></div>
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="undefined_date">Точно не встановлено</label>
-          {{form.undefined_date}}
-          {{form.undefined_date.errors}}
-        </div>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="attachments">
-        <div class="row">
-          <label class="col-md-2 col-md-offset-2" for="input-id">Основна світлина</label>
-          {{form.general}}
-          {{form.general.errors}}
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-2" for="input-6">Плани</label>
-          {{form.plane}}
-          {{form.plane.errors}}
-
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-2" for="input-61">Фотографії</label>
-          {{form.photo}}
-          {{form.photo.errors}}
-
-        </div>
-        <div class="row">
-          <label class="col-md-2 col-md-offset-2" for="input-62">Знахідки</label>
-          {{form.found}}
-          {{form.found.errors}}
-
-          <!--
-              <input id="input-62" name="input6[]" type="file" multiple class="file">
--->
-        </div>
-
-      </div>
-      <div role="tabpanel" class="tab-pane" id="literature">
-        <div class="row">
-          <label class="col-md-2 col-md-offset-4" for="literature">Література</label>
-          {{form.literature}}
-              {{form.literature.errors}}
-            </div>
-                    </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-md-offset-4 text-center">
-            <input type="submit" value="Створити" class="btn btn-border-color textcol btn-sm background">
-        <a href = "{% url 'archapp:welcome'%}" class="btn btn-border-color textcol btn-sm background">Скасувати</a>
+      {% endfor %}
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 text-center">
+        <input type="submit" value="{% trans 'Create' %}" class="btn btn-border-color textcol btn-sm background">
+        <a href = "{% url 'archapp:welcome'%}" class="btn btn-border-color textcol btn-sm background">{% trans 'Cancel' %}</a>
       </div>
     </div> 
   </form>

@@ -1,7 +1,8 @@
 {% extends "archapp/base.html" %}
+{% load i18n %}
 {% block content %}
 <div id="sign-in">
-  <h2>Увійти</h2>
+  <h2>{% trans "Log in" %}</h2>
   <form method="post" action="">
     {% csrf_token %}
     <table>
@@ -15,7 +16,7 @@
       </tr>
     </table>
     {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+    <p>{% trans "Your username and password didn't match. Please try again." %}</p>
     {% endif %}
     <input type="submit" value="login" />
     <input type="hidden" name="next" value="{{ next }}" />
