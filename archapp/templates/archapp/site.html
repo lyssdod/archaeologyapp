@@ -2,6 +2,7 @@
 
 {% block content %}
 {% load i18n %}
+{% load lookup %}
 {% with site.props.all as prop %}
 
 <div class = "row">
@@ -18,7 +19,10 @@
     <a href = "{% url 'archapp:edit' site.id %}" class="btn btn-border-color textcol btn-sm btn-postion">{% trans "Edit" %}</a>
   </div>
 </div>
-<hr class="hrr"> 
+<hr class="hrr">
+
+An example of case-independent property name query : {{prop|lookup:"GeoMoRpHoLoGy"}}
+
 {% for e in prop %}
 <div class="row">
   <div class=col-md-4>
