@@ -3,3 +3,4 @@ venv
 *.swp
 *.crt
 *.key
+*.sqlite3
