@@ -39,17 +39,15 @@
 <script src="{% static 'archapp/js/tweaks.js' %}"></script>
 </head>
 <body class="background">
-<div class="container container-config textcol">
-  <div class="row header">
+<header class="header">
+  <div class="container-fluid container-config textcol">
     <div class="col-md-6"><a href = "{% url 'archapp:welcome' %}" class="btn btn-sm"><h2 class="logo">{% trans "Archaeology database" %}</h2></a></div>
-
     {% if user.is_authenticated %}
     <div class="col-md-2 padding">
       <form action="" class="form-inline box-shadow" method="post">
         <input class="form-control" type="text" name="name_of_site" placeholder="{% trans 'Search sites' %}">
       </form>
     </div>
-
     <div class="col-md-1 text-center padding"><a href ="{% url 'archapp:newsite'%}" class="btn btn-color btn-sm">{% trans "New site" %}</a>
     </div>
     <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:all' %}" class="btn btn-color btn-sm">{% trans "All sites" %}</a>
@@ -62,17 +60,19 @@
     {% else %}
     <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">{% trans "Log out" %}</a></div>
     {% endif %}
-
   </div>
+</header>
+<div class="container content">
   {% block content %} {% endblock %}
-  <footer class="row footer">
-    <div class="container">
-      <div class="header row">
-      <div class="text-right"><strong class="signature">Written by BB</strong></div>
-    </div>
-    </div>
-  </footer>
 </div>
+<footer class="row footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 col-md-offset-10 text-left"><strong class="signature">Written by BB & lyssdod</strong>
+      </div>
+    </div>
+  </div>
+</footer>
 <!-- need to specify a key -->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&language={{LANGUAGE_CODE}}"></script>
 </body>

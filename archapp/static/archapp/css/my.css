@@ -1,11 +1,20 @@
+html, body, .container {
+  height: 100%;
+}
+body > .container {
+  height: auto;
+  min-height: 100%;
+}
 .container-config {
-    margin-bottom: 15px;
+  margin-bottom: 10px;
+}
+.content {
+  color: #67727A;
 }
 .header {
-    background: #C3D7DF;
+  background: #C3D7DF;
 }
 .footer {
-    position: fixed;
     bottom: 0px;
     width: auto;
     height: 20px;
@@ -42,14 +51,8 @@
 .background {
   background-color: #F5F5F5;
 }
-.hrr {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: 0px;
-  border-top: 3px solid #D75C37;
-}
+
 .textcol {
-  color: #67727A;
 }
 .html-height,.body-height {
   height: 100%;
@@ -86,6 +89,9 @@
   text-align:center;
 }
 
+.map-preview {
+  height: 300px;
+}
 
 /*!
  *  * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
@@ -214,7 +220,7 @@
   }
 
   /*Geolocation*/
-  #map {
+  .geo-map {
     height: 500px;
   }
 
@@ -239,3 +245,5 @@
     border:0px;
     background-color: #F5F5F5;
   }
+
+ 
