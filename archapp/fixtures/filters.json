@@ -44,7 +44,8 @@
     "fields":
     {
       "name": "Settlement",
-      "oftype": 4
+      "oftype": 4,
+      "basic": 1
     }
   },
   {
@@ -81,7 +82,8 @@
     "fields":
     {
       "name": "AreaWidth",
-      "oftype": 1
+      "oftype": 1,
+      "basic": 1
     }
   },
   {
@@ -90,7 +92,8 @@
     "fields":
     {
       "name": "AreaHeight",
-      "oftype": 1
+      "oftype": 1,
+      "basic": 1
     }
   },
   {
