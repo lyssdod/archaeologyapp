@@ -54,7 +54,8 @@
     "fields":
     {
       "name": "Latitude",
-      "oftype": 1
+      "oftype": 3,
+      "basic": 1
     }
   },
   {
@@ -63,7 +64,8 @@
     "fields":
     {
       "name": "Longtitude",
-      "oftype": 1
+      "oftype": 3,
+      "basic": 1
     }
   },
   {

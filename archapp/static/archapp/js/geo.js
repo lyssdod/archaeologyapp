@@ -11,32 +11,7 @@ function setMapOnAll(map) {
 function clearMarkers() {
   setMapOnAll(null);
 }
-// Init the Map
-function initMap() {
-  var myCenter=new google.maps.LatLng(50.4501,30.5234);
-  var mapProp = {
-    center:myCenter,
-    zoom:5,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById("map"),mapProp);
 
-  var geocoder = new google.maps.Geocoder();
-  var infowindow = new google.maps.InfoWindow;
-
-  document.getElementById('submit').addEventListener('click', function() {
-    clearMarkers();
-    geocodeAddress(geocoder, map);
-  });
-
-  google.maps.event.addListener(map, 'click', function(event) {
-    clearMarkers();
-    geocodeLatLng(geocoder, map, infowindow, event.latLng);
-  });
-
-  document.getElementById('reset').addEventListener('click', initMap);
-
-}
 //Geocoding
 function geocodeAddress(geocoder, resultsMap) {
   var address = document.getElementById('address').value;
@@ -100,12 +75,12 @@ function geocodeLatLng(geocoder, map, infowindow, location) {
           } 
         } 
         document.getElementById('id_country').value= krajina;
-        //var latd;
-        //latd = location.lat();
-        //document.getElementById('latd').value= latd;
-        //var longt;
-        //longt = location.lng();
-        //document.getElementById('longt').value= longt;
+        var latd;
+        latd = location.lat();
+        document.getElementById('id_latitude').value= latd;
+        var longt;
+        longt = location.lng();
+        document.getElementById('id_longtitude').value= longt;
 
 
 
@@ -119,4 +94,5 @@ function geocodeLatLng(geocoder, map, infowindow, location) {
     }
   });
 }
+
 

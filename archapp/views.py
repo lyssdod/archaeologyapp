@@ -86,6 +86,10 @@ class NewSite(LoginRequiredMixin, FormView):
 class SitePage(LoginRequiredMixin, DetailView):
     model = Site
     template_name = 'archapp/site.html'
+    def get_context_data(self, **kwargs):
+        context = super(SitePage, self).get_context_data(**kwargs)
+        context['title'] = "Site Page" 
+        return context
 
 class SiteEdit(LoginRequiredMixin, UpdateView):
     model = Site
@@ -96,6 +100,7 @@ class SiteDelete(LoginRequiredMixin, DeleteView):
     model = Site
     success_url = '/archapp/all/' 
     template_name = 'archapp/delete.html'
+
 
 class AllSites(LoginRequiredMixin, ListView):
     model = Site

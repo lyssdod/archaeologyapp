@@ -16,9 +16,11 @@
     <a href = "{% url 'archapp:edit' site.id %}" class="btn btn-border-color textcol btn-sm btn-postion">{% trans "Edit" %}</a>
   </div>
 </div>
+<input  hidden id="Lat" name="Lat" type="number" value='{{ prop|lookup:"latitude"}}'>
 
+<input  hidden id="Lng" name="Lng" type="number" value='{{prop|lookup:"longtitude"}}'>
 <div class="row">
-  <div class="map-preview" id="map"></div>
+  <div class="map-preview" id="map2"></div>
   <div class="row">
     <div class="col-md-12">
     </div>

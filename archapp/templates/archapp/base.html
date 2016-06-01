@@ -21,7 +21,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!--google maps-->
-<script src="{% static 'archapp/js/gm.js' %}"></script>
+<script src="{% static 'archapp/js/geo.js' %}"></script>
+{% if title = "Site Page" %}
+<script src="{% static 'archapp/js/sitegm.js' %}"></script>
+{% else %}
+<script src="{% static 'archapp/js/newgm.js' %}"></script>
+{% endif %}
 
 <!--photo uploads-->
 <link href="{% static  'archapp/css/f-upload/kartik/css/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
