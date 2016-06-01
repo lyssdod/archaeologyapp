@@ -16,7 +16,10 @@ def lookup(obj, args):
 
             if len(names) > 1:
                 # TODO: optimize
-                p = Filter.objects.filter(name = names[1]).get()
-                z = p.subfilters.filter(pk = x.integer).get()
+                try:
+                    p = Filter.objects.filter(name = names[1]).get()
+                    z = p.subfilters.filter(pk = x.integer).get()
+                except:
+                    return "Undefined"
 
             return _(str(z))
