@@ -8,8 +8,8 @@ import pickle
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
-#    x = Site.objects.get(name='Lynove')
-#    print(x.props.all()[0])
+    x = Site.objects.get(name="bykivna")
+    print(x)
 
 class SignUp(CreateView):
     form_class = SignUpForm
@@ -18,13 +18,13 @@ class SignUp(CreateView):
     def form_valid(self, form):
         return super(SignUp, self).form_valid(form)
 
-class UserUpdate(UpdateView):
+class UserUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'archapp/userupdate.html'
     model = User
     slug_field = "username"
     fields = ['username']
 
-class UserDelete(DeleteView):
+class UserDelete(LoginRequiredMixin, DeleteView):
     model = User
     slug_field = "username"
     success_url = '/signup/'
@@ -83,16 +83,16 @@ class NewSite(LoginRequiredMixin, FormView):
         return super(NewSite, self).form_valid(form)
 
 
-class SitePage(DetailView):
+class SitePage(LoginRequiredMixin, DetailView):
     model = Site
     template_name = 'archapp/site.html'
 
-class SiteEdit(UpdateView):
+class SiteEdit(LoginRequiredMixin, UpdateView):
     model = Site
     fields = ['name']
     template_name = 'archapp/edit.html'
 
-class SiteDelete(DeleteView):
+class SiteDelete(LoginRequiredMixin, DeleteView):
     model = Site
     success_url = '/archapp/all/' 
     template_name = 'archapp/delete.html'
@@ -110,7 +110,7 @@ class AllSites(LoginRequiredMixin, ListView):
 #    template_name = 'archapp/all.html'
 
 
-class Search(ListView):
+class Search(LoginRequiredMixin, ListView):
     model = Site
     template_name = 'archapp/search.html'
 
