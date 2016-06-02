@@ -68,9 +68,9 @@ class NewSiteForm(FilterForm):
 
     class Meta:
         fieldsets = [('1', {'description': _('Basic data'), 'legend': 'maintab', 'fields':
-                    ['name', 'country', 'region', 'district', 'settlement', 'latitude', 'longtitude']}),
+                    ['name', 'country', 'region', 'district', 'latitude', 'longtitude', 'settlement']}),
                      ('2', {'description': _('Description'), 'legend': 'desctab', 'fields':
-                    ['area', 'areawidth', 'areaheight', 'calculated_area', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
+                    ['area', 'areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
                      ('3', {'description': _('Attachments'), 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found']}),
                      ('4', {'description': _('References'), 'legend': 'refstab', 'fields': ['literature']})]
 
@@ -78,7 +78,6 @@ class NewSiteForm(FilterForm):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
         self.fields['name'] = forms.CharField(max_length = 128)
-        self.fields['calculated_area'] = forms.IntegerField(required=False, label = _('Calculated area'))
         self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
         self.fields['literature'] = forms.CharField(required=False, 
                 widget=forms.Textarea, max_length = 512)

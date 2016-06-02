@@ -64,7 +64,11 @@
       <p>{% trans "Calculated Area" %} </p>
     </div>
     <div class="col-md-2">
-      <p></p>
+      {% with prop|lookup:"AreaWidth" as aw %}
+      {% with prop|lookup:"AreaHeight" as ah %} 
+      <p>{% widthratio aw 1 ah %}</p>
+      {%endwith%}
+      {%endwith%}
     </div>
   </div>
 
@@ -113,7 +117,7 @@
       <p> {% trans "Bibliography" %} </p>
     </div>
     <div class="col-md-2">
-      <p></p>
+      <p>{{site.data.0.Bibliography}}</p>
     </div>
   </div>
 </div>

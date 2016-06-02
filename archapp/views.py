@@ -80,6 +80,10 @@ class NewSite(LoginRequiredMixin, FormView):
             if str(img).lower() in form.cleaned_data:
                 tmp = Image.objects.create(site = newsite, oftype = img, image = form.cleaned_data[str(img).lower()])
 
+        newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
+        newsite.save()
+        print (newsite.data)
+
         return super(NewSite, self).form_valid(form)
 
 
