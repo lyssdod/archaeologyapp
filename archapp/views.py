@@ -2,9 +2,28 @@ from .models import Site, Filter, Image, Property, ValueType, ImageType
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.template import Context, loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 import pickle
+
+# error handlers
+def error404(request):
+    print ('handler 404!')
+    template = loader.get_template('archapp/error.html')
+    context = Context({
+        'message': 'All: %s' % request,
+        })
+
+    return HttpResponse(content = template.render(context), content_type = 'text/html; charset=utf-8', status = 404)
+
+def error500(request):
+    template = loader.get_template('archapp/error.html')
+    context = Context({
+        'message': 'All: %s' % request,
+        })
+
+    return HttpResponse(content = template.render(context), content_type = 'text/html; charset=utf-8', status = 500)
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'

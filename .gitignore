@@ -4,3 +4,5 @@ venv
 *.crt
 *.key
 *.sqlite3
+settings.ini
+
