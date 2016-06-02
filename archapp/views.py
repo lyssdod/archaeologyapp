@@ -8,8 +8,6 @@ import pickle
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
-    x = Site.objects.get(name="bykivna")
-    print(x)
 
 class SignUp(CreateView):
     form_class = SignUpForm
