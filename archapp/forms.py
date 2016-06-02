@@ -80,7 +80,7 @@ class NewSiteForm(FilterForm):
         self.fields['name'] = forms.CharField(max_length = 128)
         self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
         self.fields['literature'] = forms.CharField(required=False, 
-                widget=forms.Textarea, max_length = 512)
+                widget=forms.Textarea, max_length = 2056)
         self.create_filter_fields()
 
         self.fields['general'] = forms.ImageField(required=False, max_length = 128)

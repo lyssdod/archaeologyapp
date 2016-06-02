@@ -90,9 +90,11 @@ body > .container {
 }
 
 .map-preview {
-  height: 300px;
+  height: 350px;
 }
-
+.bibliography {
+  white-space: pre-line;
+}
 /*!
  *  * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
  *   * Code licensed under the Apache License v2.0.
