@@ -74,7 +74,7 @@
     "fields":
     {
       "name": "Area",
-      "oftype": 1,
+      "oftype": 3,
       "basic": 1
     }
   },
@@ -84,7 +84,7 @@
     "fields":
     {
       "name": "AreaWidth",
-      "oftype": 1,
+      "oftype": 3,
       "basic": 1
     }
   },
@@ -94,7 +94,7 @@
     "fields":
     {
       "name": "AreaHeight",
-      "oftype": 1,
+      "oftype": 3,
       "basic": 1
     }
   },
