@@ -19,10 +19,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'mldcn%7k0&#5fesf6wwensamw5*h^)_)_lhvj3*3&3rne!m79d'
+SECRET_KEY = os.environ.get('ARCHAPPSECRET') or 'mldcn%7k0&#5fesf6wwensamw5*h^)_)_lhvj3*3&3rne!m79d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('ARCHAPPDEBUG')) or False
 
 ALLOWED_HOSTS = ['*']
 
@@ -83,8 +83,8 @@ CURRDB = {'ENGINE': 'django.db.backends.sqlite3',
 if DEBUG is False:
     CURRDB = {  'ENGINE': 'django.db.backends.postgresql',
                 'NAME': 'archapp',
-                'USER': 'archdev',
-                'PASSWORD': 'ufyl;f666',
+                'USER': os.environ.get('ARCHDBUSER'),
+                'PASSWORD': os.environ.get('ARCHDBPASS'),
                 'HOST': 'localhost',
                 'PORT': '5432' }
 

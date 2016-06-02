@@ -17,4 +17,8 @@ urlpatterns = [
         url(r'^accounts/logout/$', auth_views.logout, {'template_name': 'archapp/logout.html'} , name='logout'),
         url(r'user/(?P<slug>[\w.@+-]+)/$', views.UserUpdate.as_view(), name='user-update'),
         url(r'user/(?P<slug>[\w.@+-]+)/delete/$', views.UserDelete.as_view(), name='user-delete'),
+        #url(r'^404/$', views.error404, ),
         ]
+
+#handler404 = "views.error404"
+#handler500 = "views.error500"
