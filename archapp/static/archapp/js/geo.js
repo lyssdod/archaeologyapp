@@ -41,7 +41,9 @@ function geocodeLatLng(geocoder, map, infowindow, location) {
             map: map
         });
         markers.push(marker);
-        infowindow.setContent(results[1].formatted_address + "<br>" +location.lat() +"<br>"+ location.lng());
+        var lat = String(location.lat());
+        var lng = String(location.lng());
+        infowindow.setContent(results[1].formatted_address + "<br>" + lat.slice(0,6) +", "+ lng.slice(0,6));
         infowindow.open(map, marker);
         var rajon;
         for (x in results[0].address_components) {
