@@ -46,18 +46,35 @@
         }
     }
 
-    // save marker position back to the input fields
-    obj.storePosition = function()
+    // save marker data back to the input fields
+    obj.storeData = function()
     {
         var loc = obj.marker.getPosition();
 
         document.getElementById('id_latitude').value = loc.lat();
         document.getElementById('id_longtitude').value = loc.lng();
+
+        obj.elevator.getElevationForLocations({ 'locations': [loc] }, function(results, status)
+        {
+            if (status === google.maps.ElevationStatus.OK)
+            {
+                var elv = 0;
+
+                if (results[0])
+                    elv = results[0].elevation;
+
+                document.getElementById('id_altitude').value = Math.round(elv);
+            }
+            else
+                alert('Elevation service failed due to: ' + status);
+        });
     }
 
     // handle location picking
     obj.setupHandler = function()
     {
+        obj.elevator = new google.maps.ElevationService;
+
         google.maps.event.addListener(obj.handle, 'click', function(event)
         {
             var picked = event.latLng;
@@ -73,14 +90,14 @@
 
                 // listen for drag events
                 google.maps.event.addListener(obj.marker, 'dragend', function(event) {
-                    obj.storePosition();
+                    obj.storeData();
                 });
             }
             else
                 obj.marker.setPosition(picked);
 
             // ...and now we need to
-            obj.storePosition();
+            obj.storeData();
         });
     }
 
