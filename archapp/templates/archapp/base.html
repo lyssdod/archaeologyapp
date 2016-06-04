@@ -20,6 +20,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+        <script type="text/javascript">var archapp = {}; archapp.Map = {}; archapp.Map.handle = false;</script>
+
         <!--google maps-->
         <script src="{% static 'archapp/js/geo.js' %}"></script>
         {% if title = "Site Page" %}
@@ -109,7 +111,7 @@
 
         <!-- need to specify a key -->
         {% if user.is_authenticated %}
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&language={{LANGUAGE_CODE}}"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=archapp.Map.init&language={{LANGUAGE_CODE}}"></script>
         {% endif %}
     </body>
 </html>

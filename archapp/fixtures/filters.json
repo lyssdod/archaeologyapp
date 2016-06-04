@@ -334,5 +334,16 @@
       "name": "Typology",
       "oftype": 1
     }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 36,
+    "fields":
+    {
+      "name": "PlaceID",
+      "oftype": 4,
+      "hidden": 1,
+      "basic": 1
+    }
   }
 ]
