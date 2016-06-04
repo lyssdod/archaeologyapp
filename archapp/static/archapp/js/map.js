@@ -5,56 +5,61 @@
     // will be called by google api
     obj.init = function()
     {
-        var dlat = 50.2700; 
-        var dlon = 30.3124;
-        var clat = 0.00;
-        var clon = 0.00;
-        var zoom = 5;
-        var parm = {};
+        var dmap = document.getElementById('map');
 
-        if(obj.siteview)
+        if(dmap)
         {
-            zoom = 7;
-            clat = parseFloat(document.getElementById('lat').value);
-            clon = parseFloat(document.getElementById('lon').value);
+            var dlat = 50.2700;
+            var dlon = 30.3124;
+            var clat = 0.00;
+            var clon = 0.00;
+            var zoom = 5;
+            var parm = {};
 
-            // failed to parse stored data
-            if(isNaN(clat) || isNaN(clon))
+            if(obj.siteview)
+            {
+                zoom = 7;
+                clat = parseFloat(document.getElementById('lat').value);
+                clon = parseFloat(document.getElementById('lon').value);
+
+                // failed to parse stored data
+                if(isNaN(clat) || isNaN(clon))
+                {
+                    clat = dlat;
+                    clon = dlon;
+                    zoom = 5;
+                }
+            }
+            else
             {
                 clat = dlat;
                 clon = dlon;
-                zoom = 5;
             }
-        }
-        else
-        {
-            clat = dlat;
-            clon = dlon;
-        }
 
-        obj.pos = new google.maps.LatLng(clat, clon);
-        obj.handle = new google.maps.Map(document.getElementById('map'), 
-        {
-            zoom: zoom,
-            center: obj.pos,
-            mapTypeId: google.maps.MapTypeId.TERRAIN
-        });
+            obj.pos = new google.maps.LatLng(clat, clon);
+            obj.handle = new google.maps.Map(dmap,
+            {
+                zoom: zoom,
+                center: obj.pos,
+                mapTypeId: google.maps.MapTypeId.TERRAIN
+            });
 
-        // setup marker default params
-        parm.position = obj.pos;
-        parm.map   = obj.handle;
+            // setup marker default params
+            parm.position = obj.pos;
+            parm.map   = obj.handle;
 
-        if( !obj.siteview )
-            parm.draggable = true;
+            if( !obj.siteview )
+                parm.draggable = true;
 
-        // create marker
-        obj.marker = new google.maps.Marker(parm);
+            // create marker
+            obj.marker = new google.maps.Marker(parm);
 
-        // create handlers and fill fields with data for obj.pos
-        if( !obj.siteview )
-        {
-            obj.setupHandlers();
-            obj.storeData();
+            // create handlers and fill fields with data for obj.pos
+            if( !obj.siteview )
+            {
+                obj.setupHandlers();
+                obj.storeData();
+            }
         }
     }
 

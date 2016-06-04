@@ -140,7 +140,8 @@ LOGIN_URL = '/archapp/accounts/login/'
 
 LANGUAGES = (
     ('en', 'English'),
-    ('uk', 'Ukrainian')
+    ('uk', 'Ukrainian'),
+    ('pl', 'Polish')
 )
 
 LOCALE_PATHS = (
