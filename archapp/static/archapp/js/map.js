@@ -32,7 +32,7 @@
             clon = dlon;
         }
 
-        obj.pos = { lat: clat, lng: clon };
+        obj.pos = new google.maps.LatLng(clat, clon);
         obj.handle = new google.maps.Map(document.getElementById('map'), 
         {
             zoom: zoom,
@@ -61,12 +61,29 @@
     // save marker data back to the input fields
     obj.storeData = function()
     {
-        var loc = obj.marker.getPosition();
+        document.getElementById('id_latitude').value = obj.pos.lat();
+        document.getElementById('id_longtitude').value = obj.pos.lng();
 
-        document.getElementById('id_latitude').value = loc.lat();
-        document.getElementById('id_longtitude').value = loc.lng();
-
-        obj.elevator.getElevationForLocations({ 'locations': [loc] }, function(results, status)
+        obj.geocoder.geocode({ 'location': obj.pos }, function(results, status)
+        {
+            if (status === google.maps.GeocoderStatus.OK)
+            {
+                if (results[0])
+                {
+                    console.log(results[0]);
+                    document.getElementById('id_placeid').value = results[0].place_id;
+                    document.getElementById('id_country').value = obj.getSubset(results[0], ['country']);
+                    document.getElementById('id_region').value = obj.getSubset(results[0], ['administrative_area_level_1']);
+                    document.getElementById('id_district').value = obj.getSubset(results[0], ['administrative_area_level_2', 'administrative_area_level_3']);
+                    document.getElementById('id_settlement').value = obj.getSubset(results[0], ['locality', 'route']);
+                }
+                else
+                    window.alert('No results found');
+            }
+            else
+                window.alert('Geocoder failed due to: ' + status);
+        });
+        obj.elevator.getElevationForLocations({ 'locations': [obj.pos] }, function(results, status)
         {
             if (status === google.maps.ElevationStatus.OK)
             {
@@ -80,24 +97,36 @@
             else
                 alert('Elevation service failed due to: ' + status);
         });
+
+
     }
 
     // handle location picking and dragging
     obj.setupHandlers = function()
     {
         obj.elevator = new google.maps.ElevationService;
+        obj.geocoder = new google.maps.Geocoder;
 
         google.maps.event.addListener(obj.handle, 'click', function(event)
         {
-            obj.marker.setPosition(event.latLng);
+            obj.pos = event.latLng;
+            obj.marker.setPosition(obj.pos);
             obj.storeData();
         });
         google.maps.event.addListener(obj.marker, 'dragend', function(event)
         {
+            obj.pos = event.latLng;
             obj.storeData();
         });
     }
 
+    // get needed addr subset
+    obj.getSubset = function(address, subset)
+    {
+        for (i = address.address_components.length; i--;)
+            if (subset.indexOf(address.address_components[i].types[0]) >= 0)
+                return address.address_components[i].long_name;
+    }
 
 })(archapp.Map);
 

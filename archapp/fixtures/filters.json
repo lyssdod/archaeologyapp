@@ -55,6 +55,7 @@
     {
       "name": "Latitude",
       "oftype": 3,
+      "hidden": 1,
       "basic": 1
     }
   },
@@ -65,6 +66,7 @@
     {
       "name": "Longtitude",
       "oftype": 3,
+      "hidden": 1,
       "basic": 1
     }
   },
