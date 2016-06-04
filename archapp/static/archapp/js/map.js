@@ -37,7 +37,7 @@
         {
             zoom: zoom,
             center: obj.pos,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.TERRAIN
         });
 
         // setup marker default params
