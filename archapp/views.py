@@ -109,6 +109,7 @@ class SitePage(LoginRequiredMixin, DetailView):
     template_name = 'archapp/site.html'
     def get_context_data(self, **kwargs):
         context = super(SitePage, self).get_context_data(**kwargs)
+        context['sview'] = True
         context['title'] = "Site Page" 
         return context
 

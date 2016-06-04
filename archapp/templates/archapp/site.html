@@ -5,15 +5,13 @@
 {% load lookup %}
 {% load mathfilters %}
 {% with site.props.all as prop %}
-<input  hidden id="Lat" name="Lat" type="number" value='{{ prop|lookup:"latitude"}}'>
-
-<input  hidden id="Lng" name="Lng" type="number" value='{{prop|lookup:"longtitude"}}'>
-
 
 <div class="row">
   <div class="col-md-3">
     <div class="row">
-      <div class="map-preview" id="map2"></div>
+        <input id="lat" type="hidden" value='{{ prop|lookup:"latitude" }}' />
+        <input id="lon" type="hidden" value='{{ prop|lookup:"longtitude" }}' />
+      <div class="map-preview" id="map"></div>
     </div>
     <div class="row">
       <div class="col-md-3">
