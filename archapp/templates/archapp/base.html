@@ -41,7 +41,6 @@
         <!--my js-->
         <script src="{% static 'archapp/js/my.js' %}"></script>
         <script src="{% static 'archapp/js/slider.js' %}"></script>
-        <script src="{% static 'archapp/js/tweaks.js' %}"></script>
     </head>
 
     <body class="background">
@@ -94,10 +93,10 @@
                 {% endif %}
             </div>
         </header>
-        <div class="container content">
-            {% block content %} {% endblock %}
+        <div class="container content nopadding">
+            {% block content %}{% endblock %}
         </div>
-        <footer class="row footer">
+        <footer class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-11 text-right">
