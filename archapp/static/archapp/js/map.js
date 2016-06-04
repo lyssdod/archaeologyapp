@@ -39,7 +39,51 @@
                 position: obj.pos,
                 map: obj.handle
             });
+        else
+        {
+            obj.marker = false;
+            obj.setupHandler();
+        }
     }
+
+    // save marker position back to the input fields
+    obj.storePosition = function()
+    {
+        var loc = obj.marker.getPosition();
+
+        document.getElementById('id_latitude').value = loc.lat();
+        document.getElementById('id_longtitude').value = loc.lng();
+    }
+
+    // handle location picking
+    obj.setupHandler = function()
+    {
+        google.maps.event.addListener(obj.handle, 'click', function(event)
+        {
+            var picked = event.latLng;
+
+            // create the marker
+            if(obj.marker === false)
+            {
+                obj.marker = new google.maps.Marker({
+                    position: picked,
+                    map: obj.handle,
+                    draggable: true
+                });
+
+                // listen for drag events
+                google.maps.event.addListener(obj.marker, 'dragend', function(event) {
+                    obj.storePosition();
+                });
+            }
+            else
+                obj.marker.setPosition(picked);
+
+            // ...and now we need to
+            obj.storePosition();
+        });
+    }
+
 })(archapp.Map);
 
 function initmap()
