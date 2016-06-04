@@ -10,6 +10,7 @@
         var clat = 0.00;
         var clon = 0.00;
         var zoom = 5;
+        var parm = {};
 
         if(obj.siteview)
         {
@@ -25,6 +26,11 @@
                 zoom = 5;
             }
         }
+        else
+        {
+            clat = dlat;
+            clon = dlon;
+        }
 
         obj.pos = { lat: clat, lng: clon };
         obj.handle = new google.maps.Map(document.getElementById('map'), 
@@ -34,15 +40,21 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
-        if(obj.siteview)
-            obj.marker = new google.maps.Marker({
-                position: obj.pos,
-                map: obj.handle
-            });
-        else
+        // setup marker default params
+        parm.position = obj.pos;
+        parm.map   = obj.handle;
+
+        if( !obj.siteview )
+            parm.draggable = true;
+
+        // create marker
+        obj.marker = new google.maps.Marker(parm);
+
+        // create handlers and fill fields with data for obj.pos
+        if( !obj.siteview )
         {
-            obj.marker = false;
-            obj.setupHandler();
+            obj.setupHandlers();
+            obj.storeData();
         }
     }
 
@@ -70,36 +82,22 @@
         });
     }
 
-    // handle location picking
-    obj.setupHandler = function()
+    // handle location picking and dragging
+    obj.setupHandlers = function()
     {
         obj.elevator = new google.maps.ElevationService;
 
         google.maps.event.addListener(obj.handle, 'click', function(event)
         {
-            var picked = event.latLng;
-
-            // create the marker
-            if(obj.marker === false)
-            {
-                obj.marker = new google.maps.Marker({
-                    position: picked,
-                    map: obj.handle,
-                    draggable: true
-                });
-
-                // listen for drag events
-                google.maps.event.addListener(obj.marker, 'dragend', function(event) {
-                    obj.storeData();
-                });
-            }
-            else
-                obj.marker.setPosition(picked);
-
-            // ...and now we need to
+            obj.marker.setPosition(event.latLng);
+            obj.storeData();
+        });
+        google.maps.event.addListener(obj.marker, 'dragend', function(event)
+        {
             obj.storeData();
         });
     }
+
 
 })(archapp.Map);
 
