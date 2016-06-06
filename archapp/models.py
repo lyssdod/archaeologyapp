@@ -2,6 +2,8 @@ from django.db import models
 from picklefield import fields
 from djchoices import DjangoChoices, ChoiceItem
 from django.contrib.auth.models import User
+from hvad.models import TranslatableModel, TranslatedFields
+from django.utils.translation import ugettext as _
 
 # all possible Property value types
 class ValueType(DjangoChoices):
@@ -34,7 +36,7 @@ class UserFilter(Filter):
     owner = models.ForeignKey(User, on_delete = models.CASCADE)
 
 # Property of a Site
-class Property(models.Model):
+class Property(TranslatableModel):
     class Meta:
         verbose_name_plural = "properties"
 
@@ -42,8 +44,10 @@ class Property(models.Model):
     boolean = models.BooleanField(default = False, verbose_name = "Boolean value")
     integer = models.IntegerField(default = 0, verbose_name = "Integer value")
     double = models.FloatField(default = 0.0, verbose_name = "Float value")
-    string = models.TextField(max_length = 128, blank = True, verbose_name = "String value")
 
+    translations = TranslatedFields(
+        string = models.TextField(max_length = 128, blank = True, verbose_name = "String value")
+    )
 
     def __str__(self):
         if self.instance.parent != None:
@@ -59,7 +63,7 @@ class Property(models.Model):
         elif self.instance.oftype == ValueType.double:
             return str(self.double)
         elif self.instance.oftype == ValueType.string:
-            return self.string
+            return self.lazy_translation_getter('string', _('No translation available'))
 
 # archaeology Site
 class Site(models.Model):

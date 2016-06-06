@@ -2,9 +2,12 @@ from .models import Site, Filter, Image, Property, ValueType, ImageType
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import translation
+from hvad.utils import get_translation_aware_manager
+from django.conf import settings
 import pickle
 
 # error handlers
@@ -52,19 +55,19 @@ class NewSite(LoginRequiredMixin, FormView):
     success_url='/archapp/all'
     login_url = '/archapp/accounts/login/'
     redirect_field_name= 'redirect_to'
-        
+
     def form_valid(self, form):
         user = self.request.user
         name = form.cleaned_data['name']
         newsite = Site(name = name, user = user)
         newsite.save()
         filters = Filter.objects.filter(basic = True)
+        geofilters = ['country', 'region', 'district', 'settlement']
 
         for instance in filters:
             prop = None
             args = {'instance': instance}
             data = form.cleaned_data[instance.name.lower()]
-            print('filter: {}, data: {}'.format(instance.name, data))
 
             # usually this means validation fail, but
             # let's override this for missing fields
@@ -82,10 +85,31 @@ class NewSite(LoginRequiredMixin, FormView):
 
             # search for string values first
             if instance.oftype == ValueType.string:
-                try:
-                    prop = Property.objects.get(instance = instance, string = args['string'])
-                except Property.DoesNotExist:
+                # we want these values to be translated
+                if instance.name.lower() in geofilters:
+                    # let's remember missing translations
+                    missing = []
+
+                    for lang, etc in settings.LANGUAGES:
+                        try:
+                            # try to get geo data in specified language
+                            prop = Property.objects.language(lang).get(instance = instance, string = args['string'] + lang) # just string here
+                        except Property.DoesNotExist:
+                            missing.append(lang)
+
+                    # if no translations available, create property without translation
+                    if prop is None:
+                        prop = Property.objects.create(instance = instance)
+                        prop.save(update_fields = ['instance'])
+
+                    # finally fill missing translations
+                    for lang in missing:
+                        prop.translate(lang)
+                        prop.string = args['string'] + lang # geopy here
+                        prop.save()
+                else:
                     prop = Property.objects.create(instance = instance, string = args['string'])
+
             else:
                 prop = Property.objects.create(**args)
 
@@ -105,13 +129,19 @@ class NewSite(LoginRequiredMixin, FormView):
 
 
 class SitePage(LoginRequiredMixin, DetailView):
-    model = Site
+    manager = get_translation_aware_manager(Site)
+    queryset = manager.language(translation.get_language())#.prefetch_related('props')
     template_name = 'archapp/site.html'
-    def get_context_data(self, **kwargs):
-        context = super(SitePage, self).get_context_data(**kwargs)
-        context['sview'] = True
-        context['title'] = "Site Page" 
-        return context
+
+    def get(self, request, **kwargs):
+        try:
+            self.object = self.get_object()
+            context = self.get_context_data(object = self.object)
+            context['sview'] = True
+            return self.render_to_response(context)
+        except:
+            raise Http404
+
 
 class SiteEdit(LoginRequiredMixin, UpdateView):
     model = Site
