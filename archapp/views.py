@@ -84,31 +84,33 @@ class NewSite(LoginRequiredMixin, FormView):
 
             # search for string values first
             if instance.oftype == ValueType.string:
-                # we want these values to be translated
-                if instance.name.lower() in geofilters:
-                    # let's remember missing translations
-                    missing = []
+                # let's remember missing translations
+                missing = []
 
+                # we want these values to be explicitly translated
+                if instance.name.lower() in geofilters:
+                    # try to get geo data in specified language
                     for lang, etc in settings.LANGUAGES:
                         try:
-                            # try to get geo data in specified language
-                            prop = Property.objects.language(lang).get(instance = instance, string = args['string'] + lang) # just string here
+                            prop = Property.objects.language(lang).get(instance = instance, string = args['string']+lang)
                         except Property.DoesNotExist:
-                            missing.append(lang)
-
-                    # if no translations available, create property without translation
-                    if prop is None:
-                        prop = Property.objects.create(instance = instance)
-                        prop.save(update_fields = ['instance'])
-
-                    # finally fill missing translations
-                    for lang in missing:
-                        prop.translate(lang)
-                        prop.string = args['string'] + lang # geopy here
-                        prop.save()
+                            missing.append((lang, args['string']+lang)) # <<-- geopy here
                 else:
-                    prop = Property.objects.create(instance = instance, string = args['string'])
+                    # for plain string properties just copy provided text to all translations
+                    missing = [(code, args['string']) for code, full in settings.LANGUAGES]
 
+                # if no translations available, create property without translation
+                if prop is None:
+                    prop = Property.objects.create(instance = instance)
+                    prop.save(update_fields = ['instance'])
+
+                # finally fill missing translations
+                for lang, translation in missing:
+                    prop.translate(lang)
+                    prop.string = translation
+                    prop.save()
+
+            # create other property types
             else:
                 prop = Property.objects.create(**args)
 
