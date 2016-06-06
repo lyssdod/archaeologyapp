@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils import translation
 from hvad.utils import get_translation_aware_manager
 from django.conf import settings
 import pickle
@@ -130,18 +129,13 @@ class NewSite(LoginRequiredMixin, FormView):
 
 class SitePage(LoginRequiredMixin, DetailView):
     manager = get_translation_aware_manager(Site)
-    queryset = manager.language(translation.get_language())#.prefetch_related('props')
+    queryset = manager.language()
     template_name = 'archapp/site.html'
 
-    def get(self, request, **kwargs):
-        try:
-            self.object = self.get_object()
-            context = self.get_context_data(object = self.object)
-            context['sview'] = True
-            return self.render_to_response(context)
-        except:
-            raise Http404
-
+    def get_context_data(self, **kwargs):
+          context = super(SitePage, self).get_context_data(**kwargs)
+          context['sview'] = True
+          return context
 
 class SiteEdit(LoginRequiredMixin, UpdateView):
     model = Site

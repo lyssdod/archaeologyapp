@@ -18,7 +18,6 @@ def lookup(obj, args):
                 # TODO: optimize
                 try:
                     p = Filter.objects.filter(name = names[1]).get()
-                    print(p)
                     z = p.subfilters.filter(pk = x.integer).get()
                 except:
                     return "Undefined"
