@@ -6,3 +6,5 @@ django-widget-tweaks==1.4.1
 django-form-utils
 django-mathfilters == 0.4.0
 django-hvad
+geopy
+

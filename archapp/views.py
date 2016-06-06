@@ -6,7 +6,9 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from hvad.utils import get_translation_aware_manager
+from django.utils import translation
 from django.conf import settings
+from geopy.geocoders import GoogleV3
 import pickle
 
 # error handlers
@@ -55,18 +57,33 @@ class NewSite(LoginRequiredMixin, FormView):
     login_url = '/archapp/accounts/login/'
     redirect_field_name= 'redirect_to'
 
+    def get_geodata(self, query, name):
+        data = None
+
+        for p in reversed(query.raw['address_components']):
+            if p['types'][0] in name:
+                data = p['long_name']
+
+        return data
+
     def form_valid(self, form):
-        user = self.request.user
-        name = form.cleaned_data['name']
-        newsite = Site(name = name, user = user)
+        geo = GoogleV3()
+        siteuser = self.request.user
+        sitename = form.cleaned_data['name']
+        newsite = Site(name = sitename, user = siteuser)
         newsite.save()
         filters = Filter.objects.filter(basic = True)
-        geofilters = ['country', 'region', 'district', 'settlement']
+        geocache = {}
+        geofilters = {'country': ['country'],
+                      'region': ['administrative_area_level_1'],
+                      'district': ['administrative_area_level_2', 'administrative_area_level_3'],
+                      'settlement': ['locality', 'route']}
 
         for instance in filters:
             prop = None
             args = {'instance': instance}
-            data = form.cleaned_data[instance.name.lower()]
+            name = instance.name.lower()
+            data = form.cleaned_data[name]
 
             # usually this means validation fail, but
             # let's override this for missing fields
@@ -84,17 +101,35 @@ class NewSite(LoginRequiredMixin, FormView):
 
             # search for string values first
             if instance.oftype == ValueType.string:
-                # let's remember missing translations
+                # let's remember missing translations...
                 missing = []
 
                 # we want these values to be explicitly translated
-                if instance.name.lower() in geofilters:
+                if name in geofilters:
                     # try to get geo data in specified language
                     for lang, etc in settings.LANGUAGES:
+                        # meanwhile cache language-dependent data
+                        if lang not in geocache:
+                            # gonna be slow
+                            result = None
+                            while not result:
+                                try:
+                                    result = geo.reverse(query = (form.cleaned_data['latitude'], form.cleaned_data['longtitude']), language = lang)
+                                except:
+                                    pass
+                            geocache[lang] = result[0]
+
+                        # retrieve geocoded data
+                        with translation.override(lang):
+                            geocoded = self.get_geodata(geocache[lang], geofilters[name]) or translation.ugettext('Unknown')
+                        print('retrieved',name,geocoded)
+
+                        #let's search for it
                         try:
-                            prop = Property.objects.language(lang).get(instance = instance, string = args['string']+lang)
+                            prop = Property.objects.language(lang).get(instance = instance, string = geocoded)
+                            print('got!', instance, prop)
                         except Property.DoesNotExist:
-                            missing.append((lang, args['string']+lang)) # <<-- geopy here
+                            missing.append( (lang, geocoded) )
                 else:
                     # for plain string properties just copy provided text to all translations
                     missing = [(code, args['string']) for code, full in settings.LANGUAGES]
@@ -105,9 +140,9 @@ class NewSite(LoginRequiredMixin, FormView):
                     prop.save(update_fields = ['instance'])
 
                 # finally fill missing translations
-                for lang, translation in missing:
+                for lang, translated in missing:
                     prop.translate(lang)
-                    prop.string = translation
+                    prop.string = translated
                     prop.save()
 
             # create other property types
