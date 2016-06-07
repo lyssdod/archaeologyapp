@@ -20,6 +20,6 @@ def lookup(obj, args):
                     p = Filter.objects.filter(name = names[1]).get()
                     z = p.subfilters.filter(pk = x.integer).get()
                 except:
-                    return "Undefined"
+                    return _("Undefined")
 
             return _(str(z))

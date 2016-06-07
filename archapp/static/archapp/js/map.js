@@ -75,8 +75,6 @@
             {
                 if (results[0])
                 {
-                    console.log(results[0]);
-                    document.getElementById('id_placeid').value = results[0].place_id;
                     document.getElementById('id_country').value = obj.getSubset(results[0], ['country']);
                     document.getElementById('id_region').value = obj.getSubset(results[0], ['administrative_area_level_1']);
                     document.getElementById('id_district').value = obj.getSubset(results[0], ['administrative_area_level_2', 'administrative_area_level_3']);

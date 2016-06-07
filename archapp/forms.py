@@ -70,7 +70,7 @@ class NewSiteForm(FilterForm):
         fieldsets = [('1', {'description': _('Basic data'), 'legend': 'maintab', 'fields':
                     ['name', 'country', 'region', 'district', 'latitude', 'longtitude', 'settlement', 'placeid']}),
                      ('2', {'description': _('Description'), 'legend': 'desctab', 'fields':
-                    ['area', 'areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
+                    ['riversystem', 'area', 'areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
                      ('3', {'description': _('Attachments'), 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found']}),
                      ('4', {'description': _('References'), 'legend': 'refstab', 'fields': ['literature']})]
 
