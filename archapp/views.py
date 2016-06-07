@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from hvad.utils import get_translation_aware_manager
 from django.utils import translation
 from django.conf import settings
-from geopy.geocoders import GoogleV3
+from .geo import GeoCoder
 import pickle
 
 # error handlers
@@ -57,27 +57,13 @@ class NewSite(LoginRequiredMixin, FormView):
     login_url = '/archapp/accounts/login/'
     redirect_field_name= 'redirect_to'
 
-    def get_geodata(self, query, name):
-        data = None
-
-        for p in reversed(query.raw['address_components']):
-            if p['types'][0] in name:
-                data = p['long_name']
-
-        return data
-
     def form_valid(self, form):
-        geo = GoogleV3()
+        geo = GeoCoder(GeoCoder.Type.google)
         siteuser = self.request.user
         sitename = form.cleaned_data['name']
         newsite = Site(name = sitename, user = siteuser)
         newsite.save()
         filters = Filter.objects.filter(basic = True)
-        geocache = {}
-        geofilters = {'country': ['country'],
-                      'region': ['administrative_area_level_1'],
-                      'district': ['administrative_area_level_2', 'administrative_area_level_3'],
-                      'settlement': ['locality', 'route']}
 
         for instance in filters:
             prop = None
@@ -105,29 +91,16 @@ class NewSite(LoginRequiredMixin, FormView):
                 missing = []
 
                 # we want these values to be explicitly translated
-                if name in geofilters:
-                    # try to get geo data in specified language
+                if name in geo.filters():
                     for lang, etc in settings.LANGUAGES:
-                        # meanwhile cache language-dependent data
-                        if lang not in geocache:
-                            # gonna be slow
-                            result = None
-                            while not result:
-                                try:
-                                    result = geo.reverse(query = (form.cleaned_data['latitude'], form.cleaned_data['longtitude']), language = lang)
-                                except:
-                                    pass
-                            geocache[lang] = result[0]
-
-                        # retrieve geocoded data
+                        # try to get geo data in specified language
                         with translation.override(lang):
-                            geocoded = self.get_geodata(geocache[lang], geofilters[name]) or translation.ugettext('Unknown')
-                        print('retrieved',name,geocoded)
+                            geocoded = geo.reverse(form.cleaned_data['latitude'], form.cleaned_data['longtitude'], lang, geo.filters()[name])
+                            geocoded = geocoded or translation.ugettext('Unknown') # maybe try another provider here?
 
                         #let's search for it
                         try:
                             prop = Property.objects.language(lang).get(instance = instance, string = geocoded)
-                            print('got!', instance, prop)
                         except Property.DoesNotExist:
                             missing.append( (lang, geocoded) )
                 else:
