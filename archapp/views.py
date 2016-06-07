@@ -95,7 +95,7 @@ class NewSite(LoginRequiredMixin, FormView):
                     for lang, etc in settings.LANGUAGES:
                         # try to get geo data in specified language
                         with translation.override(lang):
-                            geocoded = geo.reverse(form.cleaned_data['latitude'], form.cleaned_data['longtitude'], lang, geo.filters()[name])
+                            geocoded = geo.reverse(form.cleaned_data['latitude'], form.cleaned_data['longtitude'], lang, name)
                             geocoded = geocoded or translation.ugettext('Unknown') # maybe try another provider here?
 
                         #let's search for it

@@ -26,9 +26,6 @@ class GeoCoder:
                                        'district': ['county'],
                                        'settlement': ['city', 'hamlet', 'village'] } }
 
-    def filters(self):
-        return dict(self.mapping[self.coder_type].keys())
-
     def reverse(self, lat = 0.0, lng = 0.0, lang = None, name = 'country', raw = False):
         if lang is None:
             lang = translation.get_language()
