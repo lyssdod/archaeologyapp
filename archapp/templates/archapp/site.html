@@ -2,8 +2,10 @@
 
 {% block content %}
 {% load i18n %}
+{% load pick %}
 {% load lookup %}
 {% load mathfilters %}
+{% with site.image_set.values as imgs %}
 {% with site.props.all as prop %}
 
 <div class="row">
@@ -26,6 +28,7 @@
     <div class = "row">
       <div class="col-md-4 text-center">
         <h2 class="site_name">{{site.name}} </h2>
+        <img src = "{{imgs|pick:'general,thumb'}}" />
       </div>
 
       <div class="col-md-2 col-md-offset-4">
@@ -130,5 +133,6 @@
     </div>
   </div>
 </div>
+{% endwith %}
 {% endwith %}
 {% endblock %}
