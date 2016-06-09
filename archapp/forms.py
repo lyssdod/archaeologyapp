@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from form_utils import forms as betterforms
 from django.db import models
+from .multi import MultiImageField
 from django.utils.translation import ugettext_lazy as _
 
 class FilterForm(betterforms.BetterForm):
@@ -79,12 +80,16 @@ class NewSiteForm(FilterForm):
 
         self.fields['name'] = forms.CharField(max_length = 128)
         self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
-        self.fields['literature'] = forms.CharField(required=False, 
-                widget=forms.Textarea, max_length = 2056)
+        self.fields['literature'] = forms.CharField(required = False, widget=forms.Textarea, max_length = 2048)
         self.create_filter_fields()
 
-        self.fields['general'] = forms.ImageField(required=False, max_length = 128)
-        self.fields['plane'] = forms.ImageField(required=False, max_length = 128)
-        self.fields['photo'] = forms.ImageField(required=False, max_length = 128)
-        self.fields['found'] = forms.ImageField(required=False, max_length = 128)
+        # create image fields
+        for i, choice in ImageType.choices:
+            max_images = 10
+
+            # limit site profile picture to one
+            if i == ImageType.general:
+                max_images = 1
+
+            self.fields[choice.lower()] = MultiImageField(min_num = 1, max_num = max_images, max_file_size = 1024*1024*5)
 

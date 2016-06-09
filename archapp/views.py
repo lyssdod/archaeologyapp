@@ -124,11 +124,13 @@ class NewSite(LoginRequiredMixin, FormView):
 
             newsite.props.add(prop)
 
-        images = [ImageType.general, ImageType.plane, ImageType.photo, ImageType.found]
 
-        for img in images:
-            if str(img).lower() in form.cleaned_data:
-                tmp = Image.objects.create(site = newsite, oftype = img, image = form.cleaned_data[str(img).lower()])
+        for i, choice in ImageType.choices:
+            img = choice.lower()
+
+            if img in form.cleaned_data:
+                for each in form.cleaned_data[img]:
+                    Image.objects.create(site = newsite, oftype = i, image = each)
 
         newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
         newsite.save()
