@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['*']
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
+MEDIA_SIZES = {'thumb': (128, 128), 'medium': (900, 700)}
 # Application definition
 
 INSTALLED_APPS = [
