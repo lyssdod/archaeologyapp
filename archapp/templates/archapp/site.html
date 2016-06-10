@@ -2,18 +2,18 @@
 
 {% block content %}
 {% load i18n %}
+{% load pick %}
 {% load lookup %}
 {% load mathfilters %}
+{% with site.image_set.values as imgs %}
 {% with site.props.all as prop %}
-<input  hidden id="Lat" name="Lat" type="number" value='{{ prop|lookup:"latitude"}}'>
-
-<input  hidden id="Lng" name="Lng" type="number" value='{{prop|lookup:"longtitude"}}'>
-
 
 <div class="row">
   <div class="col-md-3">
     <div class="row">
-      <div class="map-preview" id="map2"></div>
+        <input id="lat" type="hidden" value='{{ prop|lookup:"latitude" }}' />
+        <input id="lon" type="hidden" value='{{ prop|lookup:"longtitude" }}' />
+      <div class="map-preview" id="map"></div>
     </div>
     <div class="row">
       <div class="col-md-3">
@@ -28,6 +28,7 @@
     <div class = "row">
       <div class="col-md-4 text-center">
         <h2 class="site_name">{{site.name}} </h2>
+        <img src = "{{imgs|pick:'general,thumb'}}" />
       </div>
 
       <div class="col-md-2 col-md-offset-4">
@@ -35,6 +36,14 @@
       </div>
       <div class="col-md-2">
         <a href = "{% url 'archapp:edit' site.id %}" class="btn btn-border-color textcol btn-sm btn-postion">{% trans "Edit" %}</a>
+      </div>
+    </div>
+        <div class="row">
+      <div class="col-md-2">
+        <p>{% trans "RiverSystem" %} </p>
+      </div>
+      <div class="col-md-10">
+        <p>{{prop|lookup:"RiverSystem"}}</p>
       </div>
     </div>
         <div class="row">
@@ -124,5 +133,6 @@
     </div>
   </div>
 </div>
+{% endwith %}
 {% endwith %}
 {% endblock %}

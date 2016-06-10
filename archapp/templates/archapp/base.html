@@ -2,84 +2,114 @@
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-{%if title %}
-<title> {{title}}</title>
-{% else %}
-<title>{% trans "Archaeology database" %}</title>
-{% endif %}
-{% load staticfiles %}
-<!--style-->
-<link rel="stylesheet" type="text/css" href="{% static 'archapp/css/bootstrap.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'archapp/css/my.css' %}" />
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% if title %}
+        <title> {{title}}</title>
+        {% else %}
+        <title>{% trans "Archaeology database" %}</title>
+        {% endif %}
+        {% load staticfiles %}
+        <!--style-->
+        <link rel="stylesheet" type="text/css" href="{% static 'archapp/css/bootstrap.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'archapp/css/my.css' %}" />
 
-<!--js-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <!--js-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-<!--google maps-->
-<script src="{% static 'archapp/js/geo.js' %}"></script>
-{% if title = "Site Page" %}
-<script src="{% static 'archapp/js/sitegm.js' %}"></script>
-{% else %}
-<script src="{% static 'archapp/js/newgm.js' %}"></script>
-{% endif %}
+        <script type="text/javascript">var archapp = {}; archapp.Map = {}; archapp.Map.handle = false;</script>
 
-<!--photo uploads-->
-<link href="{% static  'archapp/css/f-upload/kartik/css/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
-<script src="{% static 'archapp/css/f-upload/kartik/js/plugins/canvas-to-blob.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'archapp/css/f-upload/kartik/js/fileinput.min.js'%}" type="text/javascript"></script>
-<script src="{% static 'archapp/css/f-upload/kartik/js/fileinput_locale_uk.js' %}"></script>
+        <!--google maps-->
+        {% if sview %}
+        <script type="text/javascript">archapp.Map.siteview = true;</script>
+        {% endif %}
+        <script src="{% static 'archapp/js/map.js' %}"></script>
 
-<!--jqueryui for a slider-->
-<link href="{% static 'archapp/jquery-ui/jquery-ui.min.css' %}" media="all" rel="stylesheet" type="text/css" />
-<script src="{% static 'archapp/jquery-ui/jquery-ui.min.js' %}"></script>
+        <!--photo uploads-->
+        <link href="{% static  'archapp/css/f-upload/kartik/css/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+        <script src="{% static 'archapp/css/f-upload/kartik/js/plugins/canvas-to-blob.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'archapp/css/f-upload/kartik/js/fileinput.min.js'%}" type="text/javascript"></script>
+        <script src="{% static 'archapp/css/f-upload/kartik/js/fileinput_locale_uk.js' %}"></script>
 
-<!--my js-->
-<script src="{% static 'archapp/js/my.js' %}"></script>
-<script src="{% static 'archapp/js/slider.js' %}"></script>
-<script src="{% static 'archapp/js/tweaks.js' %}"></script>
-</head>
-<body class="background">
-<header class="header">
-  <div class="container-fluid container-config textcol">
-    <div class="col-md-6"><a href = "{% url 'archapp:welcome' %}" class="btn btn-sm"><h2 class="logo">{% trans "Archaeology database" %}</h2></a></div>
-    {% if user.is_authenticated %}
-    <div class="col-md-2 padding">
-      <form action="" class="form-inline box-shadow" method="post">
-        <input class="form-control" type="text" name="name_of_site" placeholder="{% trans 'Search sites' %}">
-      </form>
-    </div>
-    <div class="col-md-1 text-center padding"><a href ="{% url 'archapp:newsite'%}" class="btn btn-color btn-sm">{% trans "New site" %}</a>
-    </div>
-    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:all' %}" class="btn btn-color btn-sm">{% trans "All sites" %}</a>
-    </div>
-    <div class="col-md-1 text-center padding"><a href = "" class="btn btn-color btn-sm">{{user}}</a></div>
-    {% endif %}
-    {% if user.is_anonymous %} 
-    <div class="col-md-2 col-md-offset-3 text-center padding"><a href = "{% url 'archapp:signup' %}" class="btn btn-color btn-sm">{% trans "Register" %}</a></div>
-    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:login' %}" class="btn btn-color btn-sm">{% trans "Log in" %}</a></div>
-    {% else %}
-    <div class="col-md-1 text-center padding"><a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">{% trans "Log out" %}</a></div>
-    {% endif %}
-  </div>
-</header>
-<div class="container content">
-  {% block content %} {% endblock %}
-</div>
-<footer class="row footer">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2 col-md-offset-10 text-left"><strong class="signature">Written by BB & lyssdod</strong>
-      </div>
-    </div>
-  </div>
-</footer>
-<!-- need to specify a key -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&language={{LANGUAGE_CODE}}"></script>
-</body>
+        <!--jqueryui for a slider-->
+        <link href="{% static 'archapp/jquery-ui/jquery-ui.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+        <script src="{% static 'archapp/jquery-ui/jquery-ui.min.js' %}"></script>
+
+        <!--my js-->
+        <script src="{% static 'archapp/js/my.js' %}"></script>
+        <script src="{% static 'archapp/js/slider.js' %}"></script>
+    </head>
+
+    <body class="background">
+        <header class="header">
+            <div class="container-fluid container-config textcol">
+                <div class="col-md-5">
+                    <a href = "{% url 'archapp:welcome' %}" class="btn btn-sm">
+                        <h2 class="logo">{% trans "Archaeology database" %}</h2>
+                    </a>
+                </div>
+                <div class="col-md-1 text-center padding">
+                    <form action="{% url "set_language" %}" method="post">
+                        {% csrf_token %}
+                        <select name="language" onchange="this.form.submit()">
+                        {% get_language_info_list for LANGUAGES as langs %}
+                        {% for lang in langs %}
+                            <option value="{{ lang.code }}"
+                                {% if lang.code == LANGUAGE_CODE %}selected="selected"{% endif %}>
+                                {{ lang.name_local }}
+                            </option>
+                        {% endfor %}
+                        </select>
+                    </form>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="col-md-2 padding">
+                    <form action="" class="form-inline box-shadow" method="post">
+                        <input class="form-control" type="text" name="name_of_site" placeholder="{% trans 'Search sites' %}" />
+                    </form>
+                </div>
+                <div class="col-md-1 text-center padding">
+                    <a href ="{% url 'archapp:newsite'%}" class="btn btn-color btn-sm">{% trans "New site" %}</a>
+                </div>
+                <div class="col-md-1 text-center padding">
+                    <a href = "{% url 'archapp:all' %}" class="btn btn-color btn-sm">{% trans "All sites" %}</a>
+                </div>
+                <div class="col-md-1 text-center padding">
+                    <a href = "" class="btn btn-color btn-sm">{{user}}</a>
+                </div>
+                <div class="col-md-1 text-center padding">
+                    <a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">{% trans "Log out" %}</a>
+                </div>
+                {% else %}
+                <div class="col-md-2 col-md-offset-3 text-center padding">
+                    <a href = "{% url 'archapp:signup' %}" class="btn btn-color btn-sm">{% trans "Register" %}</a>
+                </div>
+                <div class="col-md-1 text-center padding">
+                    <a href = "{% url 'archapp:login' %}" class="btn btn-color btn-sm">{% trans "Log in" %}</a>
+                </div>
+                {% endif %}
+            </div>
+        </header>
+        <div class="container content nopadding">
+            {% block content %}{% endblock %}
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-11 text-right">
+                        <strong class="signature">Written by BB &amp; lyssdod</strong>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- need to specify a key -->
+        {% if user.is_authenticated %}
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initmap&language={{LANGUAGE_CODE}}"></script>
+        {% endif %}
+    </body>
 </html>
 

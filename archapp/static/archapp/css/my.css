@@ -221,6 +221,15 @@ body > .container {
     }
   }
 
+.nopadding {
+  padding-right:0;
+  padding-left:0;
+}
+
+.mbottom {
+  margin-bottom: 20px;
+}
+
   /*Geolocation*/
   .geo-map {
     height: 500px;

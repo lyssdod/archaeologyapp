@@ -2,9 +2,13 @@ from .models import Site, Filter, Image, Property, ValueType, ImageType
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from .forms import NewSiteForm, SignUpForm, SearchForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
 from django.contrib.auth.mixins import LoginRequiredMixin
+from hvad.utils import get_translation_aware_manager
+from django.utils import translation
+from django.conf import settings
+from .geo import GeoCoder
 import pickle
 
 # error handlers
@@ -52,19 +56,20 @@ class NewSite(LoginRequiredMixin, FormView):
     success_url='/archapp/all'
     login_url = '/archapp/accounts/login/'
     redirect_field_name= 'redirect_to'
-        
+
     def form_valid(self, form):
-        user = self.request.user
-        name = form.cleaned_data['name']
-        newsite = Site(name = name, user = user)
+        geo = GeoCoder(GeoCoder.Type.google)
+        siteuser = self.request.user
+        sitename = form.cleaned_data['name']
+        newsite = Site(name = sitename, user = siteuser)
         newsite.save()
         filters = Filter.objects.filter(basic = True)
 
         for instance in filters:
             prop = None
             args = {'instance': instance}
-            data = form.cleaned_data[instance.name.lower()]
-            print('filter: {}, data: {}'.format(instance.name, data))
+            name = instance.name.lower()
+            data = form.cleaned_data[name]
 
             # usually this means validation fail, but
             # let's override this for missing fields
@@ -82,20 +87,50 @@ class NewSite(LoginRequiredMixin, FormView):
 
             # search for string values first
             if instance.oftype == ValueType.string:
-                try:
-                    prop = Property.objects.get(instance = instance, string = args['string'])
-                except Property.DoesNotExist:
-                    prop = Property.objects.create(instance = instance, string = args['string'])
+                # let's remember missing translations...
+                missing = []
+
+                # we want these values to be explicitly translated
+                if name in geo.filters():
+                    for lang, etc in settings.LANGUAGES:
+                        # try to get geo data in specified language
+                        with translation.override(lang):
+                            geocoded = geo.reverse(form.cleaned_data['latitude'], form.cleaned_data['longtitude'], lang, name)
+                            geocoded = geocoded or translation.ugettext('Unknown') # maybe try another provider here?
+
+                        #let's search for it
+                        try:
+                            prop = Property.objects.language(lang).get(instance = instance, string = geocoded)
+                        except Property.DoesNotExist:
+                            missing.append( (lang, geocoded) )
+                else:
+                    # for plain string properties just copy provided text to all translations
+                    missing = [(code, args['string']) for code, full in settings.LANGUAGES]
+
+                # if no translations available, create property without translation
+                if prop is None:
+                    prop = Property.objects.create(instance = instance)
+                    prop.save(update_fields = ['instance'])
+
+                # finally fill missing translations
+                for lang, translated in missing:
+                    prop.translate(lang)
+                    prop.string = translated
+                    prop.save()
+
+            # create other property types
             else:
                 prop = Property.objects.create(**args)
 
             newsite.props.add(prop)
 
-        images = [ImageType.general, ImageType.plane, ImageType.photo, ImageType.found]
 
-        for img in images:
-            if str(img).lower() in form.cleaned_data:
-                tmp = Image.objects.create(site = newsite, oftype = img, image = form.cleaned_data[str(img).lower()])
+        for i, choice in ImageType.choices:
+            img = choice.lower()
+
+            if img in form.cleaned_data:
+                for each in form.cleaned_data[img]:
+                    Image.objects.create(site = newsite, oftype = i, image = each)
 
         newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
         newsite.save()
@@ -105,12 +140,14 @@ class NewSite(LoginRequiredMixin, FormView):
 
 
 class SitePage(LoginRequiredMixin, DetailView):
-    model = Site
+    manager = get_translation_aware_manager(Site)
+    queryset = manager.language()
     template_name = 'archapp/site.html'
+
     def get_context_data(self, **kwargs):
-        context = super(SitePage, self).get_context_data(**kwargs)
-        context['title'] = "Site Page" 
-        return context
+          context = super(SitePage, self).get_context_data(**kwargs)
+          context['sview'] = True
+          return context
 
 class SiteEdit(LoginRequiredMixin, UpdateView):
     model = Site

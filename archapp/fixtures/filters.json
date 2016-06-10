@@ -55,6 +55,7 @@
     {
       "name": "Latitude",
       "oftype": 3,
+      "hidden": 1,
       "basic": 1
     }
   },
@@ -65,6 +66,7 @@
     {
       "name": "Longtitude",
       "oftype": 3,
+      "hidden": 1,
       "basic": 1
     }
   },
@@ -333,6 +335,116 @@
     {
       "name": "Typology",
       "oftype": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 36,
+    "fields":
+    {
+      "name": "RiverSystem",
+      "oftype": 1,
+      "parent": 36,
+      "basic": 1
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 37,
+    "fields":
+    {
+      "name": "Dnieper",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 38,
+    "fields":
+    {
+      "name": "Desna",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 39,
+    "fields":
+    {
+      "name": "Sejm",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 40,
+    "fields":
+    {
+      "name": "Sula",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 41,
+    "fields":
+    {
+      "name": "Psel",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 42,
+    "fields":
+    {
+      "name": "Vorskla",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 43,
+    "fields":
+    {
+      "name": "Oril",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 44,
+    "fields":
+    {
+      "name": "Samara",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 45,
+    "fields":
+    {
+      "name": "Southern Bug",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 46,
+    "fields":
+    {
+      "name": "Dniester",
+      "parent": 36
+    }
+  },
+  {
+    "model": "archapp.filter",
+    "pk": 47,
+    "fields":
+    {
+      "name": "Pripyat",
+      "parent": 36
     }
   }
 ]

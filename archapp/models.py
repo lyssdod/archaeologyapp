@@ -2,6 +2,14 @@ from django.db import models
 from picklefield import fields
 from djchoices import DjangoChoices, ChoiceItem
 from django.contrib.auth.models import User
+from hvad.models import TranslatableModel, TranslatedFields
+from django.utils.translation import ugettext as _
+from PIL import Image as PillowImage
+from django.conf import settings
+from hashlib import md5
+from time import strftime
+from uuid import uuid4
+from os import path
 
 # all possible Property value types
 class ValueType(DjangoChoices):
@@ -34,7 +42,7 @@ class UserFilter(Filter):
     owner = models.ForeignKey(User, on_delete = models.CASCADE)
 
 # Property of a Site
-class Property(models.Model):
+class Property(TranslatableModel):
     class Meta:
         verbose_name_plural = "properties"
 
@@ -42,8 +50,10 @@ class Property(models.Model):
     boolean = models.BooleanField(default = False, verbose_name = "Boolean value")
     integer = models.IntegerField(default = 0, verbose_name = "Integer value")
     double = models.FloatField(default = 0.0, verbose_name = "Float value")
-    string = models.TextField(max_length = 128, blank = True, verbose_name = "String value")
 
+    translations = TranslatedFields(
+        string = models.TextField(max_length = 128, blank = True, verbose_name = "String value")
+    )
 
     def __str__(self):
         if self.instance.parent != None:
@@ -59,7 +69,7 @@ class Property(models.Model):
         elif self.instance.oftype == ValueType.double:
             return str(self.double)
         elif self.instance.oftype == ValueType.string:
-            return self.string
+            return self.lazy_translation_getter('string', _('No translation available'))
 
 # archaeology Site
 class Site(models.Model):
@@ -73,10 +83,29 @@ class Site(models.Model):
 
 # Site photos
 class Image(models.Model):
-    def site_directory_path(instance, filename):
-        print('site_{0}/{1}'.format(instance.site.id, filename))
-        return 'uploads/{0}/site_{1}/{2}'.format(instance.site.user, instance.site.id, filename)
-    
+    def content_filename(instance, filename):
+        name, ext = path.splitext(filename)
+        return path.join(strftime('%Y'), strftime('%m'), strftime('%d'), name + md5(str(uuid4()).encode('utf-8')).hexdigest() + ext.lower())
+
+    def save(self, *args, **kwargs):
+        super(Image, self).save()
+
+        origname, ext = path.splitext(str(self.image))
+        origfile, ext = path.splitext(str(self.image.path))
+
+        handle = PillowImage.open(origfile + ext)
+
+        for size in settings.MEDIA_SIZES:
+            suffix = '_' + size + ext
+
+            handle.thumbnail(settings.MEDIA_SIZES[size], PillowImage.ANTIALIAS)
+            handle.save(origfile + suffix)
+            setattr(self, size, origname + suffix)
+
+        super(Image, self).save(update_fields = list(settings.MEDIA_SIZES))
+
     site = models.ForeignKey(Site, on_delete = models.CASCADE)
-    image = models.ImageField(max_length = 128, upload_to = site_directory_path)
-    oftype = models.IntegerField(default = 1, verbose_name = "Image type", choices = ImageType.choices)
+    image = models.FileField(upload_to = content_filename, null = True, blank = True)
+    thumb = models.CharField(max_length = 512, blank = True)
+    medium = models.CharField(max_length = 512, blank = True)
+    oftype = models.IntegerField(default = ImageType.general, verbose_name = "Image type", choices = ImageType.choices)

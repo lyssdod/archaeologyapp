@@ -13,14 +13,14 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 import configparser
 
-conf = configparser.ConfigParser()
-conf.read('settings.ini')
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
+
+conf = configparser.ConfigParser()
+conf.read(os.path.join(BASE_DIR, 'settings.ini'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = conf.get('archapp', 'secret', fallback = 'mldcn%7k0&#5fesf6wwensamw5*h^)_)_lhvj3*3&3rne!m79d')
@@ -31,6 +31,9 @@ DEBUG = conf.getboolean('archapp', 'debug', fallback = False)
 ALLOWED_HOSTS = ['*']
 
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_SIZES = {'thumb': (128, 128), 'medium': (900, 700)}
 # Application definition
 
 INSTALLED_APPS = [
@@ -140,7 +143,8 @@ LOGIN_URL = '/archapp/accounts/login/'
 
 LANGUAGES = (
     ('en', 'English'),
-    ('uk', 'Ukrainian')
+    ('uk', 'Ukrainian'),
+    ('pl', 'Polish')
 )
 
 LOCALE_PATHS = (
