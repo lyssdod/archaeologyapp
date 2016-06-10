@@ -13,7 +13,7 @@ function initMap() {
 
   var geocoder = new google.maps.Geocoder();
   var infowindow = new google.maps.InfoWindow;
-
+  var elevator = new google.maps.ElevationService;
   document.getElementById('submit').addEventListener('click', function() {
     clearMarkers();
     geocodeAddress(geocoder, map);
@@ -22,8 +22,11 @@ function initMap() {
   google.maps.event.addListener(map, 'click', function(event) {
     clearMarkers();
     geocodeLatLng(geocoder, map, infowindow, event.latLng);
+   console.log( displayLocationElevation(event.latLng, elevator)
+     ); 
   });
 
   document.getElementById('reset').addEventListener('click', initMap);
+
 }
 

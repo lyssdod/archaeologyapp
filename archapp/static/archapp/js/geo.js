@@ -58,7 +58,7 @@ function geocodeLatLng(geocoder, map, infowindow, location) {
               rajon = results[0].address_components[x].long_name;
             }
           }
-        }
+        };
 
         document.getElementById('id_district').value= rajon;
         var oblast;
@@ -97,4 +97,10 @@ function geocodeLatLng(geocoder, map, infowindow, location) {
   });
 }
 
-
+function displayLocationElevation(location, elevator) {
+  //Initiate the location request
+  elevator.getElevationForLocations({
+    'locations': [location]
+  });
+  document.getElementById('id_altitude').value="hello"
+}
