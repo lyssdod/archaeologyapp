@@ -4,10 +4,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from form_utils import forms as betterforms
 from django.db import models
-from .multi import MultiImageField
 from django.utils.translation import ugettext_lazy as _
+from django_file_form.forms import FileFormMixin, UploadedFileField, MultipleUploadedFileField
+
 
 class FilterForm(betterforms.BetterForm):
+    def __init__(self, *args, **kwargs):
+        super(FilterForm, self).__init__(*args, **kwargs)
+        print('filter form __init__')
 
     # creates fields for basic filters
     def create_filter_fields(self, query = {'basic': True}):
@@ -64,20 +68,23 @@ class SearchForm(FilterForm):
 
         self.create_filter_fields()
 
-
-class NewSiteForm(FilterForm):
+class NewSiteForm(FileFormMixin, FilterForm):
 
     class Meta:
         fieldsets = [('1', {'description': _('Basic data'), 'legend': 'maintab', 'fields':
                     ['name', 'country', 'region', 'district', 'latitude', 'longtitude', 'settlement', 'placeid']}),
                      ('2', {'description': _('Description'), 'legend': 'desctab', 'fields':
                     ['riversystem', 'area', 'areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
-                     ('3', {'description': _('Attachments'), 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found']}),
+                     ('3', {'description': _('Attachments'), 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found'] + ['form_id', 'upload_url', 'delete_url']}),
                      ('4', {'description': _('References'), 'legend': 'refstab', 'fields': ['literature']})]
 
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
+        print('NewEntityForm.__mro__', NewSiteForm.__mro__)
+
+        #FileFormMixin.__init__(self)
+        print('newsiteform __init__')
         self.fields['name'] = forms.CharField(max_length = 128)
         self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
         self.fields['literature'] = forms.CharField(required = False, widget=forms.Textarea, max_length = 2048)
@@ -85,11 +92,11 @@ class NewSiteForm(FilterForm):
 
         # create image fields
         for i, choice in ImageType.choices:
-            max_images = 10
+            field = None
 
             # limit site profile picture to one
             if i == ImageType.general:
-                max_images = 1
-
-            self.fields[choice.lower()] = MultiImageField(min_num = 1, max_num = max_images, max_file_size = 1024*1024*5)
-
+                field = UploadedFileField(required = False)
+            else:
+                field = MultipleUploadedFileField(required = False)
+            self.fields[choice.lower()] = field

@@ -11,6 +11,20 @@ from django.conf import settings
 from .geo import GeoCoder
 import pickle
 
+from django.middleware.csrf import get_token
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+from ajaxuploader.views import AjaxFileUploader
+#from ajaxuploader.backends.easythumbnails import EasyThumbnailUploadBackend
+
+def start(request):
+    csrf_token = get_token(request)
+    return render_to_response('import.html',
+        {'csrf_token': csrf_token}, context_instance = RequestContext(request))
+
+import_uploader = AjaxFileUploader()#UPLOAD_DIR='my_upload', backend=EasyThumbnailUploadBackend, DIMENSIONS=(250, 250))
+
 # error handlers
 def error404(request):
     print ('handler 404!')
@@ -127,10 +141,21 @@ class NewSite(LoginRequiredMixin, FormView):
 
         for i, choice in ImageType.choices:
             img = choice.lower()
+            pic = form.cleaned_data[img]
 
-            if img in form.cleaned_data:
-                for each in form.cleaned_data[img]:
-                    Image.objects.create(site = newsite, oftype = i, image = each)
+            print('Image for ', img, pic, type(pic))
+
+            if pic is not None:
+                if i == ImageType.general:
+                    tmp = Image.objects.create(site = newsite, oftype = i, image = pic)
+                    tmp.save()
+                else:
+                    for each in pic:
+                        tmp = Image.objects.create(site = newsite, oftype = i, image = each)
+                        tmp.save()
+
+
+        form.delete_temporary_files()
 
         newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
         newsite.save()
