@@ -11,7 +11,6 @@ from django_file_form.forms import FileFormMixin, UploadedFileField, MultipleUpl
 class FilterForm(betterforms.BetterForm):
     def __init__(self, *args, **kwargs):
         super(FilterForm, self).__init__(*args, **kwargs)
-        print('filter form __init__')
 
     # creates fields for basic filters
     def create_filter_fields(self, query = {'basic': True}):
@@ -81,10 +80,6 @@ class NewSiteForm(FileFormMixin, FilterForm):
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
-        print('NewEntityForm.__mro__', NewSiteForm.__mro__)
-
-        #FileFormMixin.__init__(self)
-        print('newsiteform __init__')
         self.fields['name'] = forms.CharField(max_length = 128)
         self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
         self.fields['literature'] = forms.CharField(required = False, widget=forms.Textarea, max_length = 2048)
