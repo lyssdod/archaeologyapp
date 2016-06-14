@@ -11,17 +11,6 @@ from django.conf import settings
 from .geo import GeoCoder
 import pickle
 
-
-from ajaxuploader.views import AjaxFileUploader
-
-
-def start(request):
-    csrf_token = get_token(request)
-    return render_to_response('import.html',
-        {'csrf_token': csrf_token}, context_instance = RequestContext(request))
-
-import_uploader = AjaxFileUploader()#UPLOAD_DIR='my_upload', backend=EasyThumbnailUploadBackend, DIMENSIONS=(250, 250))
-
 # error handlers
 def error404(request):
     print ('handler 404!')
