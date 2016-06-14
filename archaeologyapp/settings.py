@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'mathfilters',
     'django_file_form',
     'django_file_form.ajaxuploader',
-    #'easy_thumbnails',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE_CLASSES = [

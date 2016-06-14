@@ -4,7 +4,7 @@ from djchoices import DjangoChoices, ChoiceItem
 from django.contrib.auth.models import User
 from hvad.models import TranslatableModel, TranslatedFields
 from django.utils.translation import ugettext as _
-#from easy_thumbnails.fields import ThumbnailerImageField
+from easy_thumbnails.fields import ThumbnailerImageField
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
@@ -83,7 +83,7 @@ class Site(models.Model):
 class Image(models.Model):
     fs = FileSystemStorage(location=settings.MEDIA_ROOT)
     site = models.ForeignKey(Site, on_delete = models.CASCADE)
-    image = models.FileField(max_length=255, upload_to='uploads', storage = fs)#ThumbnailerImageField(upload_to = 'uploads', blank = True)
+    image = ThumbnailerImageField(upload_to = 'uploads', blank = True)
     oftype = models.IntegerField(default = ImageType.general, verbose_name = "Image type", choices = ImageType.choices)
 
     def __str__(self):

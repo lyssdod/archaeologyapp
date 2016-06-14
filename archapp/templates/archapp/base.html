@@ -12,10 +12,12 @@
         <title>{% trans "Archaeology database" %}</title>
         {% endif %}
         {% load staticfiles %}
-        <!--style-->
+
+        <!-- styles -->
         <link rel="stylesheet" type="text/css" href="{% static 'archapp/css/bootstrap.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'archapp/css/my.css' %}" />
-        <!--js-->
+
+        <!-- js libs -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -34,20 +36,16 @@
         {% endif %}
         <script src="{% static 'archapp/js/map.js' %}"></script>
 
-        <!--photo uploads-->
-        <script src="{% static 'archapp/js/jquery.fine-uploader.js' %}" ></script>            
+        <!-- photo uploads -->
+        <script src="{% static 'archapp/js/jquery.fine-uploader.js' %}" ></script>
         <link href="{% static 'archapp/css/fine-uploader.css' %}" media="screen" rel="stylesheet" type="text/css" />
-        <!--script src="{% static "ajaxuploader/js/fileuploader.js" %}"></script-->
-        <script src="{% static "file_form/file_form.js" %}"></script>
-        <!--link rel="stylesheet" href="{% static "ajaxuploader/css/fileuploader.css" %}"-->
-        <!--script src="{% static 'archapp/js/upload.js' %}"></script-->
+        <script src="{% static 'file_form/file_form.js' %}"></script>
 
-        <!--jqueryui for a slider-->
+        <!-- jqueryui for slider -->
         <link href="{% static 'archapp/jquery-ui/jquery-ui.min.css' %}" media="all" rel="stylesheet" type="text/css" />
         <script src="{% static 'archapp/jquery-ui/jquery-ui.min.js' %}"></script>
 
-        <!--my js-->
-
+        <!-- slider -->
         <script src="{% static 'archapp/js/slider.js' %}"></script>
     </head>
 

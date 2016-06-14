@@ -11,12 +11,9 @@ from django.conf import settings
 from .geo import GeoCoder
 import pickle
 
-from django.middleware.csrf import get_token
-from django.shortcuts import render_to_response
-from django.template import RequestContext
 
 from ajaxuploader.views import AjaxFileUploader
-#from ajaxuploader.backends.easythumbnails import EasyThumbnailUploadBackend
+
 
 def start(request):
     csrf_token = get_token(request)
@@ -76,8 +73,8 @@ class NewSite(LoginRequiredMixin, FormView):
         siteuser = self.request.user
         sitename = form.cleaned_data['name']
         newsite = Site(name = sitename, user = siteuser)
-        newsite.save()
         filters = Filter.objects.filter(basic = True)
+        newsite.save()
 
         for instance in filters:
             prop = None
@@ -136,25 +133,24 @@ class NewSite(LoginRequiredMixin, FormView):
             else:
                 prop = Property.objects.create(**args)
 
+            # add this property to the site
             newsite.props.add(prop)
 
-
+        # attach images
         for i, choice in ImageType.choices:
             img = choice.lower()
             pic = form.cleaned_data[img]
 
-            print('Image for ', img, pic, type(pic))
-
             if pic is not None:
                 if i == ImageType.general:
-                    tmp = Image.objects.create(site = newsite, oftype = i, image = pic)
+                    # make array from single picture
+                    pic = [pic]
+
+                for each in pic:
+                    tmp = Image.objects.create(site = newsite, oftype = i, image = each)
                     tmp.save()
-                else:
-                    for each in pic:
-                        tmp = Image.objects.create(site = newsite, oftype = i, image = each)
-                        tmp.save()
 
-
+        # delete data from temp_uploads
         form.delete_temporary_files()
 
         newsite.data = [{'Bibliography': form.cleaned_data['literature']}]

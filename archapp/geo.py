@@ -39,7 +39,7 @@ class GeoCoder:
             cached = None
             exceptions = 0
 
-            while not cached and exceptions < 5:
+            while not cached and exceptions < 3:
                 try:
                     cached = self.coder.reverse((lat, lng), language = lang)
                 except: # timeout, not available
