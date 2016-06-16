@@ -62,8 +62,8 @@ class NewSite(LoginRequiredMixin, FormView):
         siteuser = self.request.user
         sitename = form.cleaned_data['name']
         newsite = Site(name = sitename, user = siteuser)
-        newsite.save()
         filters = Filter.objects.filter(basic = True)
+        newsite.save()
 
         for instance in filters:
             prop = None
@@ -122,15 +122,25 @@ class NewSite(LoginRequiredMixin, FormView):
             else:
                 prop = Property.objects.create(**args)
 
+            # add this property to the site
             newsite.props.add(prop)
 
-
+        # attach images
         for i, choice in ImageType.choices:
             img = choice.lower()
+            pic = form.cleaned_data[img]
 
-            if img in form.cleaned_data:
-                for each in form.cleaned_data[img]:
-                    Image.objects.create(site = newsite, oftype = i, image = each)
+            if pic is not None:
+                if i == ImageType.general:
+                    # make array from single picture
+                    pic = [pic]
+
+                for each in pic:
+                    tmp = Image.objects.create(site = newsite, oftype = i, image = each)
+                    tmp.save()
+
+        # delete data from temp_uploads
+        form.delete_temporary_files()
 
         newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
         newsite.save()

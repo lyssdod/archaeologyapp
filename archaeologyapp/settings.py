@@ -33,7 +33,14 @@ ALLOWED_HOSTS = ['*']
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-MEDIA_SIZES = {'thumb': (128, 128), 'medium': (900, 700)}
+THUMBNAIL_ALIASES = {
+    '': {
+        'thumb': {'size': (100, 100), 'crop': True},
+        'medium': {'size': (800, 600), 'crop': False},
+        'large': {'size': (1200, 900), 'crop': False}
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,7 +52,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks', 
-    'mathfilters'
+    'mathfilters',
+    'django_file_form',
+    'django_file_form.ajaxuploader',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -138,6 +148,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 LOGIN_REDIRECT_URL = '/archapp/'
 LOGIN_URL = '/archapp/accounts/login/'
 

@@ -4,12 +4,10 @@ from djchoices import DjangoChoices, ChoiceItem
 from django.contrib.auth.models import User
 from hvad.models import TranslatableModel, TranslatedFields
 from django.utils.translation import ugettext as _
-from PIL import Image as PillowImage
+from easy_thumbnails.fields import ThumbnailerImageField
 from django.conf import settings
-from hashlib import md5
-from time import strftime
-from uuid import uuid4
-from os import path
+from django.core.files.storage import FileSystemStorage
+
 
 # all possible Property value types
 class ValueType(DjangoChoices):
@@ -83,29 +81,10 @@ class Site(models.Model):
 
 # Site photos
 class Image(models.Model):
-    def content_filename(instance, filename):
-        name, ext = path.splitext(filename)
-        return path.join(strftime('%Y'), strftime('%m'), strftime('%d'), name + md5(str(uuid4()).encode('utf-8')).hexdigest() + ext.lower())
-
-    def save(self, *args, **kwargs):
-        super(Image, self).save()
-
-        origname, ext = path.splitext(str(self.image))
-        origfile, ext = path.splitext(str(self.image.path))
-
-        handle = PillowImage.open(origfile + ext)
-
-        for size in settings.MEDIA_SIZES:
-            suffix = '_' + size + ext
-
-            handle.thumbnail(settings.MEDIA_SIZES[size], PillowImage.ANTIALIAS)
-            handle.save(origfile + suffix)
-            setattr(self, size, origname + suffix)
-
-        super(Image, self).save(update_fields = list(settings.MEDIA_SIZES))
-
+    fs = FileSystemStorage(location=settings.MEDIA_ROOT)
     site = models.ForeignKey(Site, on_delete = models.CASCADE)
-    image = models.FileField(upload_to = content_filename, null = True, blank = True)
-    thumb = models.CharField(max_length = 512, blank = True)
-    medium = models.CharField(max_length = 512, blank = True)
+    image = ThumbnailerImageField(upload_to = 'uploads', blank = True)
     oftype = models.IntegerField(default = ImageType.general, verbose_name = "Image type", choices = ImageType.choices)
+
+    def __str__(self):
+        return "type '{}', file '{}'".format(ImageType.values[self.oftype], self.image)

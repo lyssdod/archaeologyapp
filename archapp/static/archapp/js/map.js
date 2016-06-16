@@ -131,9 +131,9 @@
                 return address.address_components[i].long_name;
     }
 
-})(archapp.Map);
+})(archapp.map);
 
 function initmap()
 {
-    archapp.Map.init();
+    archapp.map.init();
 }

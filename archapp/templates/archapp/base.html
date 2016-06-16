@@ -12,34 +12,40 @@
         <title>{% trans "Archaeology database" %}</title>
         {% endif %}
         {% load staticfiles %}
-        <!--style-->
+
+        <!-- styles -->
         <link rel="stylesheet" type="text/css" href="{% static 'archapp/css/bootstrap.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'archapp/css/my.css' %}" />
 
-        <!--js-->
+        <!-- js libs -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-        <script type="text/javascript">var archapp = {}; archapp.Map = {}; archapp.Map.handle = false;</script>
+        <script type="text/javascript">
+            var archapp = {}; 
+            archapp.map = {}; 
+            archapp.upload = {};
+            archapp.map.handle = false;
+            archapp.upload.names = [];
+            archapp.upload.handles = [];
+        </script>
 
         <!--google maps-->
         {% if sview %}
-        <script type="text/javascript">archapp.Map.siteview = true;</script>
+        <script type="text/javascript">archapp.map.siteview = true;</script>
         {% endif %}
         <script src="{% static 'archapp/js/map.js' %}"></script>
 
-        <!--photo uploads-->
-        <link href="{% static  'archapp/css/f-upload/kartik/css/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
-        <script src="{% static 'archapp/css/f-upload/kartik/js/plugins/canvas-to-blob.min.js' %}" type="text/javascript"></script>
-        <script src="{% static 'archapp/css/f-upload/kartik/js/fileinput.min.js'%}" type="text/javascript"></script>
-        <script src="{% static 'archapp/css/f-upload/kartik/js/fileinput_locale_uk.js' %}"></script>
+        <!-- photo uploads -->
+        <script src="{% static 'archapp/js/jquery.fine-uploader.min.js' %}" ></script>
+        <link href="{% static 'archapp/css/fine-uploader.min.css' %}" media="screen" rel="stylesheet" type="text/css" />
+        <script src="{% static 'file_form/file_form.js' %}"></script>
 
-        <!--jqueryui for a slider-->
+        <!-- jqueryui for slider -->
         <link href="{% static 'archapp/jquery-ui/jquery-ui.min.css' %}" media="all" rel="stylesheet" type="text/css" />
         <script src="{% static 'archapp/jquery-ui/jquery-ui.min.js' %}"></script>
 
-        <!--my js-->
-        <script src="{% static 'archapp/js/my.js' %}"></script>
+        <!-- slider -->
         <script src="{% static 'archapp/js/slider.js' %}"></script>
     </head>
 

@@ -37,12 +37,14 @@ class GeoCoder:
 
         if not key in self.cache:
             cached = None
+            exceptions = 0
 
-            while not cached:
+            while not cached and exceptions < 3:
                 try:
                     cached = self.coder.reverse((lat, lng), language = lang)
                 except: # timeout, not available
-                    pass
+                    exceptions += 1
+
             self.cache[key] = cached
 
         if raw:
@@ -53,15 +55,16 @@ class GeoCoder:
     def decode(self, query, name):
         data = None
 
-        if self.coder_type == self.Type.google:
-            for p in query[0].raw['address_components']:
-                for m in self.mapping[self.coder_type][name]:
-                    if m == p['types'][0]:
-                        data = p['long_name']
+        if query:
+            if self.coder_type == self.Type.google:
+                for p in query[0].raw['address_components']:
+                    for m in self.mapping[self.coder_type][name]:
+                        if m == p['types'][0]:
+                            data = p['long_name']
 
-        elif self.coder_type == self.Type.osm:
-            for i in query['address']:
-                if i in self.mapping[self.coder_type][name]:
-                    data = i
+            elif self.coder_type == self.Type.osm:
+                for i in query['address']:
+                    if i in self.mapping[self.coder_type][name]:
+                        data = i
 
         return data
