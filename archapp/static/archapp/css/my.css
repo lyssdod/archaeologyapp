@@ -227,34 +227,46 @@ body > .container {
 }
 
 .mbottom {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
-  /*Geolocation*/
-  .geo-map {
-    height: 500px;
-  }
 
-  #floating-panel {
-    border: 2px solid #C3D7DF;
-    left: 500px;
-    width: 45%;
-    background: white;
-    position: relative;
-    bottom: 480px;
-    z-index: 5;
-    padding: 5px;
-    text-align: center;
-    font-family: 'Roboto','sans-serif';
-    line-height: 30px;
-    padding-left: 10px;
-  }
-  .avatar {
-    width: 350px;
-  }
-  #id_dating {
-    border:0px;
-    background-color: #F5F5F5;
-  }
+#slider {
+  padding-left:70px;
+  padding-right:100px;
+  margin-left:0px;
+}
+#id_undefined {
+  width: 1.2em;
+  height: 1.2em;
+  outline: none;
+}
 
- 
+/*Geolocation*/
+.geo-map {
+  height: 500px;
+}
+
+#floating-panel {
+  border: 2px solid #C3D7DF;
+  left: 500px;
+  width: 45%;
+  background: white;
+  position: relative;
+  bottom: 480px;
+  z-index: 5;
+  padding: 5px;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+.avatar {
+  width: 350px;
+}
+#id_dating {
+  border:0px;
+  background-color: #F5F5F5;
+}
+

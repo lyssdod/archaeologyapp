@@ -46,15 +46,15 @@
     <body class="background">
         <header class="header">
             <div class="container-fluid container-config textcol">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <a href = "{% url 'archapp:welcome' %}" class="btn btn-sm">
                         <h2 class="logo">{% trans "Archaeology database" %}</h2>
                     </a>
                 </div>
-                <div class="col-md-1 text-center padding">
+                <div class="col-md-2 text-center padding">
                     <form action="{% url "set_language" %}" method="post">
                         {% csrf_token %}
-                        <select name="language" onchange="this.form.submit()">
+                        <select name="language" class="form-control" onchange="this.form.submit()">
                         {% get_language_info_list for LANGUAGES as langs %}
                         {% for lang in langs %}
                             <option value="{{ lang.code }}"

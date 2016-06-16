@@ -1,11 +1,31 @@
 {% extends "archapp/base.html" %}
-{% block content %}
 {% load i18n %}
-<h2>{% trans "Register" %}</h2>
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2>{% trans "Register" %}</h2>
+  </div>
+</div>
 <form action="" method="post">
   {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit" />
+  {% for field in form %}
+  <div class="row form-group">
+    <div class = "col-md-2 col-md-offset-4">{{field.label_tag}}</div>
+    <div class = "col-md-2">
+      {{ field|attr:"class:form-control"|attr:"class:has-error"}}
+    </div>
+    <div class="col-md-3 text-danger">
+      {{ field.errors }}
+    </div>
+  </div>
+  {% endfor %}
+  <div class="row">
+    <div class="col-md-2 col-md-offset-4">
+      <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
+  </div>
 </form>
 {% endblock %}
 

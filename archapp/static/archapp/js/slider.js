@@ -40,7 +40,7 @@
             d.after(l);
             l.after(z);
 
-            z.slider('values', [1, 3]);
+            z.slider('values', [3, 6]);
             x(null, z.slider("instance").options);
         }
 

@@ -1,63 +1,77 @@
 {% extends "archapp/base.html" %}
 {% load i18n %}
-
-{% block content %}
 {% load widget_tweaks %}
+{% block content %}
 
-    <div class="row text-center">
-        <h2 class="site_name">{% trans "Create new site" %}</h2>
-    </div>
-    <hr class="hrr" />
-    <form action="#" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        <ul class="nav nav-tabs" role="tablist">
-        {% for fset in form.fieldsets %}
-            <li role = "presentation"{% if forloop.first %} class="active"{% endif %}>
-                <a href = "#{{ fset.legend }}" role = "tab" data-toggle = "tab">{{ fset.description }}</a>
-            </li>
+<div class="row text-center">
+  <h2 class="site_name">{% trans "Create new site" %}</h2>
+</div>
+<hr class="hrr" />
+<form action="#" method="post" enctype="multipart/form-data">
+  <div class = "row">
+    {% csrf_token %}
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <ul class="nav nav-tabs" role="tablist">
+      {% for fset in form.fieldsets %}
+      <li role = "presentation"{% if forloop.first %} class="active"{% endif %}>
+      <a href = "#{{ fset.legend }}" role = "tab" data-toggle = "tab">{{ fset.description }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="tab-content">
+      {% for fset in form.fieldsets %}
+      <div role="tabpanel" class="tab-pane{% if forloop.first %} active{% endif %}" id="{{fset.legend}}">
+        {% for field in fset %}
+        <div class="row">
+          {% if not field.is_hidden %}
+          <div class = "col-md-2 col-md-offset-3 text-right">{{field.label_tag}}</div>
+          {% endif %}
+          {% if field.name = "literature" %}
+          <div class = "col-md-5">
+            {{ field|attr:"class:form-control"}}
+          </div>
+          {% elif fset.description = "Attachments" %}
+          <div class = "col-md-5">
+            {{ field|attr:"class:file" }}
+          </div>
+          {% else %}
+          <div class = "col-md-2">
+            {{ field|attr:"class:form-control"}}
+          </div>
+          {% endif %}
+          <div class="col-md-2 text-danger">
+            {{ field.errors }}
+          </div>
+        </div>
         {% endfor %}
-        </ul>
-        <div class="tab-content">
-        {% for fset in form.fieldsets %}
-            <div role="tabpanel" class="tab-pane{% if forloop.first %} active{% endif %}" id="{{fset.legend}}">
-                {% for field in fset %}
-                <div class="row">
-                    {% if not field.is_hidden %}
-                    <div class = "col-md-2 col-md-offset-4">{{field.label_tag}}</div>
-                    {{ field.errors }}
-                    {% endif %}
-                    {{ field }}
-                </div>
-                {% endfor %}
 
-                {% if forloop.first %}
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h3>{% trans "Click on the map to pick location" %}</h3>
-                        </div>
-                    </div>
-                    <div class="geo-map" id="map"></div>
-                </div>
-                {% endif %}
+        {% if forloop.first %}
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h3>{% trans "Click on the map to pick location" %}</h3>
             </div>
-            {% endfor %}
+          </div>
+          <div class="geo-map" id="map"></div>
         </div>
-        <div class="row mbottom">
-            <hr class="hrr" />
-            <div class="col-md-4 col-md-offset-4 text-center">
-                <input type="submit" value="{% trans 'Create' %}" class="btn btn-border-color textcol btn-sm background" />
-                <a href = "{% url 'archapp:welcome'%}" class="btn btn-border-color textcol btn-sm background">{% trans 'Cancel' %}</a>
-            </div>
-            <br />
-        </div>
-    </form>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="row mbottom">
+    <div class="col-md-4 col-md-offset-4 text-center">
+      <input type="submit" class="btn btn-primary" value="{% trans 'Create' %}" class="btn btn-border-color textcol btn-sm background" />
+      <a href = "{% url 'archapp:welcome'%}" class="btn btn-primary">{% trans 'Cancel' %}</a>
+    </div>
+    <br />
+  </div>
+</form>
 
 {% endblock %}
