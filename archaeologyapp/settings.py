@@ -36,6 +36,8 @@ MEDIA_URL = '/media/'
 THUMBNAIL_ALIASES = {
     '': {
         'thumb': {'size': (100, 100), 'crop': True},
+        'gallery': {'size': (200, 200), 'crop': True},
+        'general': {'size': (250, 250), 'crop': True},
         'medium': {'size': (800, 600), 'crop': False},
         'large': {'size': (1200, 900), 'crop': False}
     },

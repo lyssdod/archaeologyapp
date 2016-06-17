@@ -11,13 +11,16 @@
 <div class="row">
   <div class="col-md-3">
     <div class="row">
-        <input id="lat" type="hidden" value='{{ prop|lookup:"latitude" }}' />
-        <input id="lon" type="hidden" value='{{ prop|lookup:"longtitude" }}' />
+      <img src = "{{imgs|pick:'general,general'}}" />
+    </div>
+    <div class="row">
+      <input id="lat" type="hidden" value='{{ prop|lookup:"latitude" }}' />
+      <input id="lon" type="hidden" value='{{ prop|lookup:"longtitude" }}' />
       <div class="map-preview" id="map"></div>
     </div>
     <div class="row">
       <div class="col-md-3">
-        <p>{% trans "Settlement" %} </p>
+        <p class="text-muted">{% trans "Settlement" %} </p>
       </div>
       <div class="col-md-9">
         <p>{{prop|lookup:"settlement"}}, {{prop|lookup:"district"}}, {{prop|lookup:"region"}}, {{prop|lookup:"country"}}</p>
@@ -28,7 +31,6 @@
     <div class = "row">
       <div class="col-md-4 text-center">
         <h2 class="site_name">{{site.name}} </h2>
-        <img src = "{{imgs|pick:'general,thumb'}}" />
       </div>
 
       <div class="col-md-2 col-md-offset-4">
@@ -38,94 +40,140 @@
         <a href = "{% url 'archapp:edit' site.id %}" class="btn btn-border-color textcol btn-sm btn-postion">{% trans "Edit" %}</a>
       </div>
     </div>
-        <div class="row">
-      <div class="col-md-2">
-        <p>{% trans "RiverSystem" %} </p>
-      </div>
-      <div class="col-md-10">
-        <p>{{prop|lookup:"RiverSystem"}}</p>
-      </div>
-    </div>
-        <div class="row">
-      <div class="col-md-2">
-        <p>{% trans "Area" %} </p>
-      </div>
-      <div class="col-md-10">
-        <p>{{prop|lookup:"Area"}}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <p>{% trans "AreaWidth" %} </p>
-      </div>
-      <div class="col-md-2">
-        <p>{{prop|lookup:"AreaWidth"}}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <p>{% trans "AreaHeight" %} </p>
-      </div>
-      <div class="col-md-10">
-        <p>{{prop|lookup:"AreaHeight"}}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <p>{% trans "Calculated Area" %} </p>
-      </div>
-      <div class="col-md-10">
-        {% with prop|lookup:"AreaWidth" as aw %}
-        {% with prop|lookup:"AreaHeight" as ah %} 
-        <p>{{ aw|mul:ah }}</p>
-        {%endwith%}
-        {%endwith%}
-      </div>
-    </div>
+    <div class="gallery">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="carousel slide multi-item-carousel" id="theCarousel">
+            <div class="carousel-inner">
+              <div class="item active">
+                <div class="col-xs-4">
+                  <a href="{{imgs|pick:'general,large'}}" data-toggle="lightbox" data-gallery="photos">
+                    <img src = "{{imgs|pick:'plane,gallery'}}" class="img-thumbnail" />
+                  </a>
+                </div>
+              </div>
+              <div class="item">
+                <div class="col-xs-4">
+                  <a href="{{imgs|pick:'plane,large'}}" data-toggle="lightbox" data-gallery="photos">
+                    <img src = "{{imgs|pick:'plane,gallery'}}" class="img-thumbnail" />
+                  </a>
+                </div>
+              </div>
+              <div class="item">
+                <div class="col-xs-4">
+                  <a href="{{imgs|pick:'general,large'}}" data-toggle="lightbox" data-gallery="photos">
+                    <img src = "{{imgs|pick:'general,gallery'}}" class="img-thumbnail" />
+                  </a>
+                </div>
+              </div>
+              <div class="item">
+                <div class="col-xs-4">
+                  <a href="{{imgs|pick:'photo,large'}}" data-toggle="lightbox" data-gallery="photos">
+                    <img src = "{{imgs|pick:'photo,gallery'}}" class="img-thumbnail" />
+                  </a>
+                </div>
+              </div>
 
-    <div class="row">
-      <div class="col-md-2">
-        <p> {% trans "Topography" %} </p>
+            </div>
+            <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+          </div>
+        </div>
       </div>
-      <div class="col-md-10">
-        <p>{{prop|lookup:"Topography"}}</p>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted">{% trans "RiverSystem" %} </p>
+          </div>
+          <div class="col-md-9">
+            <p>{{prop|lookup:"RiverSystem"}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted">{% trans "Area" %} </p>
+          </div>
+          <div class="col-md-9">
+            <p>{{prop|lookup:"Area"}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted">{% trans "AreaWidth" %} </p>
+          </div>
+          <div class="col-md-3">
+            <p>{{prop|lookup:"AreaWidth"}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted">{% trans "AreaHeight" %} </p>
+          </div>
+          <div class="col-md-9">
+            <p>{{prop|lookup:"AreaHeight"}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted">{% trans "Calculated Area" %} </p>
+          </div>
+          <div class="col-md-9">
+            {% with prop|lookup:"AreaWidth" as aw %}
+            {% with prop|lookup:"AreaHeight" as ah %} 
+            <p>{{ aw|mul:ah }}</p>
+            {%endwith%}
+            {%endwith%}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted"> {% trans "Topography" %} </p>
+          </div>
+          <div class="col-md-9">
+            <p>{{prop|lookup:"Topography"}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted"> {% trans "Geomorphology" %} </p>
+          </div>
+          <div class="col-md-9">
+            <p>{{prop|lookup:"Geomorphology"}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted"> {% trans "Altitude" %} </p>
+          </div>
+          <div class="col-md-9">
+            <p>{{prop|lookup:"Altitude"}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted"> {% trans "ValleyAltitude" %} </p>
+          </div>
+          <div class="col-md-9">
+            <p>{{prop|lookup:"ValleyAltitude"}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="text-muted"> {% trans "Dating" %}</p>
+          </div>
+          <div class="col-md-9">
+            <p>{{prop|lookup:"DatingFrom, Dating"}} - {{prop|lookup:"DatingTo, Dating"}}</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-2">
-        <p> {% trans "Geomorphology" %} </p>
-      </div>
-      <div class="col-md-10">
-        <p>{{prop|lookup:"Geomorphology"}}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <p> {% trans "Altitude" %} </p>
-      </div>
-      <div class="col-md-10">
-        <p>{{prop|lookup:"Altitude"}}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <p> {% trans "ValleyAltitude" %} </p>
-      </div>
-      <div class="col-md-10">
-        <p>{{prop|lookup:"ValleyAltitude"}}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <p> {% trans "Dating" %}</p>
-      </div>
-      <div class="col-md-10">
-        <p>{{prop|lookup:"DatingFrom, Dating"}} - {{prop|lookup:"DatingTo, Dating"}}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <p> {% trans "Bibliography" %} </p>
+        <p class="text-muted"> {% trans "Bibliography" %} </p>
       </div>
       <div class="col-md-10 bibliography">
         <p>{{site.data.0.Bibliography}}</p>
@@ -133,6 +181,34 @@
     </div>
   </div>
 </div>
+<script>
+$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+    });
+</script>
+<script>
+// Instantiate the Bootstrap carousel
+$('.multi-item-carousel').carousel({
+interval: false
+});
+
+// for every slide in carousel, copy the next slide's item in the slide.
+// Do the same for the next, next item.
+$('.multi-item-carousel .item').each(function(){
+    var next = $(this).next();
+    if (!next.length) {
+    next = $(this).siblings(':first');
+    }
+    next.children(':first-child').clone().appendTo($(this));
+
+    if (next.next().length>0) {
+    next.next().children(':first-child').clone().appendTo($(this));
+    } else {
+    $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+    }
+    });
+</script>
 {% endwith %}
 {% endwith %}
 {% endblock %}
