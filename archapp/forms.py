@@ -71,7 +71,7 @@ class NewSiteForm(FileFormMixin, FilterForm):
 
     class Meta:
         fieldsets = [('1', {'description': _('Basic data'), 'legend': 'maintab', 'fields':
-                    ['name', 'country', 'region', 'district', 'latitude', 'longtitude', 'settlement', 'placeid']}),
+                    ['name', 'country', 'region', 'district', 'settlement', 'latitude', 'longtitude','placeid']}),
                      ('2', {'description': _('Description'), 'legend': 'desctab', 'fields':
                     ['riversystem', 'area', 'areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
                      ('3', {'description': _('Attachments'), 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found'] + ['form_id', 'upload_url', 'delete_url']}),
