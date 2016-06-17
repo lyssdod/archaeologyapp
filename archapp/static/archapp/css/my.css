@@ -95,6 +95,12 @@ body > .container {
 .bibliography {
   white-space: pre-line;
 }
+
+.site-preview {
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
 /*!
  *  * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
  *   * Code licensed under the Apache License v2.0.
