@@ -9,7 +9,7 @@ body > .container {
   margin-bottom: 10px;
 }
 .content {
-  color: #67727A;
+  color: #242C2F;
 }
 .header {
   background: #C3D7DF;
@@ -52,7 +52,8 @@ body > .container {
   background-color: #F5F5F5;
 }
 
-.textcol {
+.text-gr {
+  color: #535859;
 }
 .html-height,.body-height {
   height: 100%;
@@ -100,7 +101,10 @@ body > .container {
   margin-bottom: 15px;
   margin-top: 10px;
 }
-
+.gallery {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
 /*!
  *  * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
  *   * Code licensed under the Apache License v2.0.
