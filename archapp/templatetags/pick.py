@@ -15,6 +15,16 @@ def pick_type(objs, oftype):
             result.append(i)
 
     return result
+# filter multiple image types from all images
+@register.filter
+def pick_mult_types(objs, oftypes):
+    result = []
+    oftypes = oftypes.split(',')
+    for oftype in oftypes:
+        for i in objs:
+            if i.oftype == getattr(ImageType, oftype.lower()):
+                result.append(i)
+    return result
 
 # get specific size of a single image
 @register.filter
