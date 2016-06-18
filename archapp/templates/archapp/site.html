@@ -11,7 +11,7 @@
 <div class="row">
   <div class="col-md-3">
     <div class="row">
-      <img src = "{{imgs|pick:'general,general'}}" />
+      <img src = "{{imgs|pick:'general,thumb'}}" />
     </div>
     <div class="row">
       <input id="lat" type="hidden" value='{{ prop|lookup:"latitude" }}' />
@@ -43,40 +43,25 @@
     <div class="gallery">
       <div class="row">
         <div class="col-md-12">
+          {% with imgs|pick_type:'plane' as planes %}
+          {% if planes|length %}
+          <h3>{% trans "Plane gallery" %}
           <div class="carousel slide multi-item-carousel" id="theCarousel">
             <div class="carousel-inner">
-              <div class="item active">
+              {% for img in planes %}
+              <div class="item{% if forloop.first %} active{% endif %}">
                 <div class="col-xs-4">
-                  <a href="{{imgs|pick:'general,large'}}" data-toggle="lightbox" data-gallery="photos">
-                    <img src = "{{imgs|pick:'plane,gallery'}}" class="img-thumbnail" />
+                  <a href="{{ img|pick_size:'large' }}" data-toggle="lightbox" data-gallery="photos">
+                    <img src = "{{ img|pick_size:'thumb' }}" class="img-thumbnail" />
                   </a>
                 </div>
               </div>
-              <div class="item">
-                <div class="col-xs-4">
-                  <a href="{{imgs|pick:'plane,large'}}" data-toggle="lightbox" data-gallery="photos">
-                    <img src = "{{imgs|pick:'plane,gallery'}}" class="img-thumbnail" />
-                  </a>
-                </div>
-              </div>
-              <div class="item">
-                <div class="col-xs-4">
-                  <a href="{{imgs|pick:'general,large'}}" data-toggle="lightbox" data-gallery="photos">
-                    <img src = "{{imgs|pick:'general,gallery'}}" class="img-thumbnail" />
-                  </a>
-                </div>
-              </div>
-              <div class="item">
-                <div class="col-xs-4">
-                  <a href="{{imgs|pick:'photo,large'}}" data-toggle="lightbox" data-gallery="photos">
-                    <img src = "{{imgs|pick:'photo,gallery'}}" class="img-thumbnail" />
-                  </a>
-                </div>
-              </div>
-
+              {% endfor %}
             </div>
             <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
             <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+            {% endif %}
+            {% endwith %}
           </div>
         </div>
       </div>

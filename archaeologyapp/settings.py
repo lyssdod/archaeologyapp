@@ -30,14 +30,17 @@ DEBUG = conf.getboolean('archapp', 'debug', fallback = False)
 
 ALLOWED_HOSTS = ['*']
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+THUMBNAIL_DEFAULT = STATIC_URL + 'archapp' + '/' + 'noimage.png'
 THUMBNAIL_ALIASES = {
     '': {
-        'thumb': {'size': (100, 100), 'crop': True},
-        'gallery': {'size': (200, 200), 'crop': True},
-        'general': {'size': (250, 250), 'crop': True},
+        'avatar': {'size': (100, 100), 'crop': True},
+        'thumb': {'size': (200, 200), 'crop': True},
+        'small': {'size': (250, 250), 'crop': True},
         'medium': {'size': (800, 600), 'crop': False},
         'large': {'size': (1200, 900), 'crop': False}
     },
@@ -149,8 +152,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 LOGIN_REDIRECT_URL = '/archapp/'
 LOGIN_URL = '/archapp/accounts/login/'

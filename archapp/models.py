@@ -6,8 +6,6 @@ from hvad.models import TranslatableModel, TranslatedFields
 from django.utils.translation import ugettext as _
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.conf import settings
-from django.core.files.storage import FileSystemStorage
-
 
 # all possible Property value types
 class ValueType(DjangoChoices):
@@ -81,7 +79,6 @@ class Site(models.Model):
 
 # Site photos
 class Image(models.Model):
-    fs = FileSystemStorage(location=settings.MEDIA_ROOT)
     site = models.ForeignKey(Site, on_delete = models.CASCADE)
     image = ThumbnailerImageField(upload_to = 'uploads', blank = True)
     oftype = models.IntegerField(default = ImageType.general, verbose_name = "Image type", choices = ImageType.choices)
