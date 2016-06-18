@@ -129,6 +129,7 @@
       <hr class="hrr"> 
       <div class="row">
         {% for site in object_list %}
+        {% if site.user = user %}
         {% with site.image_set.all as imgs %}
         {% with site.props.all as prop %}
         <div class="col-md-4 site-preview">
@@ -147,6 +148,7 @@
         </div>
         {% endwith %}
         {% endwith %}
+        {% endif %}
         {% endfor %}
       </div>
     </div>
