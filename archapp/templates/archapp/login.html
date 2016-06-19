@@ -10,30 +10,38 @@
   </div>
   <form method="post" action="">
     {% csrf_token %}
-    {% for field in form %}
     <div class="row form-group">
-      <div class = "col-md-2 col-md-offset-4">{{field.label_tag}}</div>
-      <div class = "col-md-2">
-        {{ field|attr:"class:form-control"}}
-      </div>
-      <div class="col-md-3 text-danger">
-        {{ field.errors }}
+      <div class="col-md-3 col-md-offset-5 form-box">
+        {% for field in form %}
+        <div class="row">
+          <div class = "col-md-12">{{field.label_tag}}</div>
+        </div>
+        <div class="row">
+          <div class = "col-md-12">
+            {{ field|attr:"class:form-control"}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-danger">
+            {{ field.errors }}
+          </div>
+        </div>
+        {% endfor %}
+        {% if form.errors %}
+        <div class="row">
+          <div class="col-md-12 text-danger text-center">
+            <p>{% trans "Your username and password didn't match. Please try again." %}</p>
+          </div>
+        </div>
+        {% endif %}
+        <div class="row padding-top">
+          <div class="col-md-2 col-md-offset-4">
+            <input type="submit" class="btn btn-primary" value="login" />
+          </div>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}" />
       </div>
     </div>
-    {% endfor %}
-    {% if form.errors %}
-    <div class="row">
-      <div class="col-md-5 col-md-offset-4 text-danger">
-        <p>{% trans "Your username and password didn't match. Please try again." %}</p>
-      </div>
-    </div>
-    {% endif %}
-    <div class="row">
-      <div class="col-md-2 col-md-offset-4">
-        <input type="submit" class="btn btn-primary" value="login" />
-      </div>
-    </div>
-    <input type="hidden" name="next" value="{{ next }}" />
   </form>
 </div>
 {% endblock %}
