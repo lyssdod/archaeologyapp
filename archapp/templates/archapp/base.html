@@ -63,7 +63,7 @@
                 <div class="col-md-2 text-center padding">
                     <form action="{% url "set_language" %}" method="post">
                         {% csrf_token %}
-                        <select name="language" class="form-control" onchange="this.form.submit()">
+                        <select name="language" class="form-control form-custom" onchange="this.form.submit()">
                         {% get_language_info_list for LANGUAGES as langs %}
                         {% for lang in langs %}
                             <option value="{{ lang.code }}"
@@ -77,7 +77,7 @@
                 {% if user.is_authenticated %}
                 <div class="col-md-2 padding">
                     <form action="" class="form-inline box-shadow" method="post">
-                        <input class="form-control" type="text" name="name_of_site" placeholder="{% trans 'Search sites' %}" />
+                        <input class="form-control form-custom" type="text" name="name_of_site" placeholder="{% trans 'Search sites' %}" />
                     </form>
                 </div>
                 <div class="col-md-1 text-center padding">

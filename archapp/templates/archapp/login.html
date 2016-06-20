@@ -10,7 +10,7 @@
   </div>
   <form method="post" action="">
     {% csrf_token %}
-    <div class="row form-group">
+    <div class="row form-group-custom">
       <div class="col-md-3 col-md-offset-5 form-box">
         {% for field in form %}
         <div class="row">
@@ -18,7 +18,7 @@
         </div>
         <div class="row">
           <div class = "col-md-12">
-            {{ field|attr:"class:form-control"}}
+            {{ field|attr:"class:form-control form-custom"}}
           </div>
         </div>
         <div class="row">
@@ -34,7 +34,7 @@
           </div>
         </div>
         {% endif %}
-        <div class="row padding-top">
+        <div class="row margin-top">
           <div class="col-md-2 col-md-offset-4">
             <input type="submit" class="btn btn-primary" value="login" />
           </div>

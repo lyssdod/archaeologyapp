@@ -25,7 +25,7 @@
   <div class="tab-content">
     {% for fset in form.fieldsets %}
     <div role="tabpanel" class="tab-pane{% if forloop.first %} active{% endif %}" id="{{fset.legend}}">
-      <div class="row">
+      <div class="row margin-top">
         {% if fset.description = "References" %}
         <div class="col-md-8 col-md-offset-2">
           {% else %}
@@ -33,7 +33,7 @@
           {% endif %}
           {% for field in fset %}
           {% if not field.is_hidden %}
-          <div class="row form-group">
+          <div class="row form-group-custom">
             {% else %}
             <div class="row">
               {% endif %}
@@ -45,7 +45,7 @@
           {% else %}
           <div class = "col-md-6">
             {% endif %}
-            {{ field|attr:"class:form-control"}}
+            {{ field|attr:"class:form-control form-custom"}}
           </div>
           <div class="row">
           <div class="col-md-12 text-danger text-center">
