@@ -43,16 +43,16 @@
     <div class="gallery">
       <div class="row">
         <div class="col-md-12">
-          {% with imgs|pick_mult_types:'photo,plane,found' as gallery%}
+          {% with imgs|pick_mult_types:'photo,plane,found' as gallery %}
           {% if gallery|length %}
-          <h3>{% trans "Gallery" %}
-          <div class="carousel slide multi-item-carousel margin-top " id="theCarousel">
-            <div class="carousel-inner gallery-box">
+          <h3>{% trans "Gallery" %} </h3>
+          <div class="carousel slide multi-item-carousel margin-top gallery-box" id="theCarousel">
+            <div class="carousel-inner">
               {% for img in gallery %}
-              <div class="item{% if forloop.first %} active{% endif %}">
+              <div class="item {% if forloop.first %} active{% endif %}">
                 <div class="col-xs-4">
                   <a href="{{ img|pick_size:'large' }}" data-toggle="lightbox" data-gallery="photos">
-                    <img src = "{{ img|pick_size:'thumb' }}" class="img-thumbnail gallery-img" />
+                    <img src = "{{ img|pick_size:'thumb' }}" class="img-thumbnail"/>
                   </a>
                 </div>
               </div>
@@ -60,9 +60,9 @@
             </div>
             <a class="left carousel-control control-left-radius" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
             <a class="right carousel-control control-right-radius" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-            {% endif %}
-            {% endwith %}
           </div>
+          {% endif %}
+          {% endwith %}
         </div>
       </div>
     </div>
