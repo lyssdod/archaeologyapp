@@ -105,20 +105,22 @@ body > .container {
   margin-top: 10px;
 }
 .gallery-box {
+  background-color: #447391;
+  border-radius: 4px;
+}
+.carousel-inner > .item > div {
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: #447391;
-  border-radius: 2px;
 }
-.gallery-img {
+.carousel-inner > .item > div > a > img {
   display: block;
   margin: auto;
 }
-.control-left-radius{
-  border-radius: 2px;
+.carousel-control.left {
+  border-radius: 4px;
 }
-.control-right-radius{
-  border-radius: 2px;
+.carousel-control.right {
+  border-radius: 4px;
 }
 .form-custom {
   height: 28px;
