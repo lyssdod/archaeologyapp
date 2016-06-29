@@ -147,7 +147,7 @@ class NewSite(LoginRequiredMixin, FormView):
         print (newsite.data)
 
         return super(NewSite, self).form_valid(form)
-
+    
 
 class SitePage(LoginRequiredMixin, DetailView):
     manager = get_translation_aware_manager(Site)
@@ -159,10 +159,31 @@ class SitePage(LoginRequiredMixin, DetailView):
           context['sview'] = True
           return context
 
-class SiteEdit(LoginRequiredMixin, UpdateView):
-    model = Site
-    fields = ['name']
+class SiteEdit(LoginRequiredMixin, DetailView):
+    manager = get_translation_aware_manager(Site)
+    queryset = manager.language()
     template_name = 'archapp/edit.html'
+
+    def get_context_data(self, **kwargs):
+        context= super(SiteEdit, self).get_context_data(**kwargs)
+        context['form'] = NewSiteForm
+        return context
+
+class SiteEditForm(LoginRequiredMixin, FormView):
+    form_class = NewSiteForm
+    success_url='/archapp/all'
+    login_url = '/archapp/accounts/login/'
+    redirect_field_name= 'redirect_to'
+    
+    def form_valid(self, form):
+        geo = GeoCoder(GeoCoder.Type.google)
+        siteuser = self.request.user
+        site_id = form.cleaned_data['site_id']
+        site_to_update = Site.objects.get(pk=site_id, user=siteuser)
+        filters = Filter.objects.filter(basic = True)
+        site_to_update.name = form.cleaned_data['name']
+        site_to_update.save()
+        return super(SiteEditForm, self).form_valid(form)
 
 class SiteDelete(LoginRequiredMixin, DeleteView):
     model = Site
