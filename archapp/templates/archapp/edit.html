@@ -58,7 +58,6 @@
             {{ field|attr:"class:form-control form-custom"}}
             {% elif field.name in cho.split %}
             <p>hello</p>
-            {% endfor %}
             {% else %}
             {% render_field field class+="form-control form-custom" value=val %}
             {% endif %}
