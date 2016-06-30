@@ -9,8 +9,8 @@
 
         if(dmap)
         {
-            var dlat = 51.528397002221;
-            var dlon = 30.625762939453;
+            var dlat = 50.450100000000;
+            var dlon = 30.523400000000;
             var clat = 0.00;
             var clon = 0.00;
             var zoom = 5;
