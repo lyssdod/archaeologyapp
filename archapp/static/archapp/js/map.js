@@ -5,8 +5,12 @@
    // will be called by google api
    obj.init = function()
 {
-  var dlat = parseFloat(document.getElementById('id_latitude').value);
-  var dlon = parseFloat(document.getElementById('id_longtitude').value);
+  var lat_element = document.getElementById('id_latitude');
+  var lon_element = document.getElementById('id_longtitude');
+  if (lat_element) {
+  var dlat = parseFloat(lat_element.value);
+  var dlon = parseFloat(lon_element.value);
+  };
   var dmap = document.getElementById('map');
   if(dmap)
 {

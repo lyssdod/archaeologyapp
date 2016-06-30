@@ -144,7 +144,6 @@ class NewSite(LoginRequiredMixin, FormView):
 
         newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
         newsite.save()
-        print (newsite.data)
 
         return super(NewSite, self).form_valid(form)
     
@@ -183,6 +182,74 @@ class SiteEditForm(LoginRequiredMixin, FormView):
         filters = Filter.objects.filter(basic = True)
         site_to_update.name = form.cleaned_data['name']
         site_to_update.save()
+        for instance in filters:
+            prop = None
+            args = {'instance': instance}
+            name = instance.name.lower()
+            data = form.cleaned_data[name]
+
+            # usually this means validation fail, but
+            # let's override this for missing fields
+            if data is None:
+                data = False
+
+            if instance.oftype == ValueType.integer:
+               # args['integer'] = int(data)
+               pass
+            elif instance.oftype == ValueType.boolean:
+                args['boolean'] = bool(data)
+            elif instance.oftype == ValueType.double:
+                args['double'] = float(data)
+            elif instance.oftype == ValueType.string:
+                args['string'] = data
+
+            # search for string values first
+            if instance.oftype == ValueType.string:
+                # let's remember missing translations...
+                missing = []
+
+                # we want these values to be explicitly translated
+                if name in geo.filters():
+                    for lang, etc in settings.LANGUAGES:
+                        # try to get geo data in specified language
+                        with translation.override(lang):
+                            geocoded = geo.reverse(form.cleaned_data['latitude'], form.cleaned_data['longtitude'], lang, name)
+                            geocoded = geocoded or translation.ugettext('Unknown') # maybe try another provider here?
+
+                        #let's search for it
+                        try:
+                            prop = Property.objects.language(lang).get(instance = instance, string = geocoded)
+                        except Property.DoesNotExist:
+                            missing.append( (lang, geocoded) )
+                else:
+                    # for plain string properties just copy provided text to all translations
+                    missing = [(code, args['string']) for code, full in settings.LANGUAGES]
+
+                # if no translations available, create property without translation
+                if prop is None:
+                    prop = Property.objects.create(instance = instance)
+                    prop.save(update_fields = ['instance'])
+
+                # finally fill missing translations
+                for lang, translated in missing:
+                    prop.translate(lang)
+                    prop.string = translated
+                    prop.save()
+
+            # create other property types
+            else:
+                prop = Property.objects.create(**args)
+
+            # add this property to the site
+            print(prop)
+            old_prop = site_to_update.props.all().get(instance=instance)
+            site_to_update.props.remove(old_prop)
+            site_to_update.props.add(prop)
+
+        site_to_update.data[0]['Bibliography'] = form.cleaned_data['literature']
+        site_to_update.save()
+
+
         return super(SiteEditForm, self).form_valid(form)
 
 class SiteDelete(LoginRequiredMixin, DeleteView):
