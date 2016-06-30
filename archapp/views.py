@@ -1,6 +1,6 @@
 from .models import Site, Filter, Image, Property, ValueType, ImageType
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
-from .forms import NewSiteForm, SignUpForm, SearchForm
+from .forms import NewSiteForm, SignUpForm, SearchForm, EditForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
@@ -166,11 +166,11 @@ class SiteEdit(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context= super(SiteEdit, self).get_context_data(**kwargs)
-        context['form'] = NewSiteForm
+        context['form'] = EditForm 
         return context
 
 class SiteEditForm(LoginRequiredMixin, FormView):
-    form_class = NewSiteForm
+    form_class = EditForm
     success_url='/archapp/all'
     login_url = '/archapp/accounts/login/'
     redirect_field_name= 'redirect_to'

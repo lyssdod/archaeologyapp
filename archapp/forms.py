@@ -81,7 +81,6 @@ class NewSiteForm(FileFormMixin, FilterForm):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
         self.fields['name'] = forms.CharField(max_length = 128)
-        self.fields['site_id'] = forms.IntegerField()
         self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
         self.fields['literature'] = forms.CharField(required = False, widget=forms.Textarea, max_length = 2048)
         self.create_filter_fields()
@@ -96,3 +95,8 @@ class NewSiteForm(FileFormMixin, FilterForm):
             else:
                 field = MultipleUploadedFileField(required = False)
             self.fields[choice.lower()] = field
+
+class EditForm(NewSiteForm):
+    def __init__(self, *args, **kwargs):
+        super(EditForm, self).__init__(*args, **kwargs)
+        self.fields['site_id'] = forms.IntegerField()

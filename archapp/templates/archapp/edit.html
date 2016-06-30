@@ -1,9 +1,14 @@
 {% extends "archapp/base.html" %}
 {% load i18n %}
 {% load widget_tweaks %}
+{% load pick %}
+{% load lookup %}
+{% with site.image_set.all as imgs %}
+{% with site.props.all as prop %}
 {% block content %}
 <div class="row text-center">
     <h2 class="site_name">Редагувати {{site.name}}</h2>
+    <h2> {{ site.props.all|lookup:"RiverSystem"}} </h2>
 </div>
 <form id="newsiteform" action="{% url 'archapp:edit_form' %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
@@ -45,10 +50,23 @@
           {% else %}
           <div class = "col-md-6">
             {% endif %}
+            {% with site.props.all|lookup:field.name as val %}
+            {% with 'riversystem topography geomorphology' as cho %}
+            {% if field.name = "name" %}
+            {% render_field field class+="form-control form-custom" value=site.name %}
+            {% elif field.name = "literature" %}
             {{ field|attr:"class:form-control form-custom"}}
+            {% elif field.name in cho.split %}
+            <p>hello</p>
+            {% endfor %}
+            {% else %}
+            {% render_field field class+="form-control form-custom" value=val %}
+            {% endif %}
+            {% endwith %}
+            {% endwith %}
           </div>
           <div class="row">
-          <div class="col-md-12 text-danger text-center">
+            <div class="col-md-12 text-danger text-center">
             {{ field.errors }}
           </div>
         </div>
@@ -89,5 +107,17 @@ $(function() {
     initUploadFields($('#newsiteform'));
     });
 </script>
+<script type="text/javascript">
+{% with site.data.0.Bibliography as lit %}
+$(document).ready(function(){
+    var lit_data = '{{lit}}';
+    $("#id_literature").val(lit_data);
+    });
+{% endwith %}
+</script>
+
+
 {% include 'django_file_form/upload_template.html' %}
 {% endblock %}
+{% endwith %}
+{% endwith %}
