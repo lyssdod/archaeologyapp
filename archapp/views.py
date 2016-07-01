@@ -152,7 +152,7 @@ class SitePage(LoginRequiredMixin, DetailView):
     manager = get_translation_aware_manager(Site)
     queryset = manager.language()
     template_name = 'archapp/site.html'
-
+    
     def get_context_data(self, **kwargs):
           context = super(SitePage, self).get_context_data(**kwargs)
           context['sview'] = True
@@ -195,6 +195,7 @@ class SiteEditForm(LoginRequiredMixin, FormView):
 
             if instance.oftype == ValueType.integer:
                # args['integer'] = int(data)
+               # return ValueError: invalid literal for int() with base 10: ''
                pass
             elif instance.oftype == ValueType.boolean:
                 args['boolean'] = bool(data)
@@ -246,9 +247,38 @@ class SiteEditForm(LoginRequiredMixin, FormView):
             site_to_update.props.remove(old_prop)
             site_to_update.props.add(prop)
 
-        site_to_update.data[0]['Bibliography'] = form.cleaned_data['literature']
-        site_to_update.save()
+        # attach images
+        for i, choice in ImageType.choices:
+            img = choice.lower()
+            pic = form.cleaned_data[img]
 
+            if pic is not None:
+                if i == ImageType.general:
+                    # make array from single picture
+                    pic = [pic]
+
+                for each in pic:
+                    tmp = Image.objects.create(site = site_to_update, oftype = i, image = each)
+                    tmp.save()
+
+        # delete data from temp_uploads
+        form.delete_temporary_files()
+
+        # delete unnecessary images
+        imgs_del_data = form.cleaned_data['imgs_to_del']
+        print(imgs_del_data)
+        trash_images = imgs_del_data.split(',')
+        for img_id in trash_images:
+            img_id = int(img_id)
+            try:
+                img_to_delete = site_to_update.image_set.all().get(id=img_id)
+                img_to_delete.delete()
+            except:
+                pass
+
+        site_to_update.data[0]['Bibliography'] = form.cleaned_data['literature']
+        
+        site_to_update.save()
 
         return super(SiteEditForm, self).form_valid(form)
 
