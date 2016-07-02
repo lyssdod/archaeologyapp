@@ -118,33 +118,6 @@ body > .container {
   margin: auto;
 }
 
-.carousel-inner > .item > div > a > div {
-  right: 0;
-  left: 0;
-  margin: 0 auto;
-  position: absolute;
-  display: inline-block;
-  height: 210px;
-  width: 210px;
-  padding: 4px;
-  background: #337ab7;
-  opacity: 0;
-}
-
-.carousel-inner > .item > div > a > div > .caption-content {
-  position: absolute;
-  width: 100%;
-  height: 50px;
-  font-size: 50px;
-  text-align: center;
-  top: 50%;
-  color: #fff;
-  margin-top: -12px;
-}
-
-.carousel-inner > .item > div > a > div:hover {
-  opacity: 0.9;
-}
 .carousel-control.left {
   border-radius: 4px;
 }

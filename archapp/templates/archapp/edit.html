@@ -40,10 +40,8 @@
               {{form.imgs_to_del|attr:"hidden"}}
               {% for img in gallery %}
               <div class="col-xs-4">
-                <div class="caption">
-                  <div class="caption-content checkbox">
-                    <input type="checkbox" name="image_to_delete" value="{{img.id}}">
-                  </div>
+                <div class="checkbox">
+                  <input type="checkbox" name="image_to_delete" value="{{img.id}}">
                 </div>
                 <img src = "{{ img|pick_size:'thumb' }}" class="img-thumbnail"/>
               </div>
