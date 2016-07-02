@@ -141,49 +141,26 @@ $(function() {
 {% with site.data.0.Bibliography as lit %}
 // There are some issues with escaping in lit 
 $(document).ready(function(){
+    //populate textarea with data
     var lit_data = '{{lit}}';
     $("#id_literature").val(lit_data);
-    //on click add to list value of elements with name img
+    //on click add to list value of elements to delete images
     var img_list = ["0"];
     // with empty list there is a wierd error on validation "TemplateResponseMixin requires either a definition of 'template_name' or an implementation of 'get_template_names()'"
     $("#id_imgs_to_del").val(img_list);
     $("input[name='image_to_delete']").change(function() {
       if ($(this).is(':checked')) {
       img_list.push($(this).val());
-      $("#id_imgs_to_del").val(img_list);
       } else 
       {
       var index = img_list.indexOf($(this).val());
       img_list.splice(index, 1);
-      $("#id_imgs_to_del").val(img_list);
       };
+      $("#id_imgs_to_del").val(img_list);
       });
     });
 {% endwith %}
 </script>
-<script>
-// Instantiate the Bootstrap carousel
-$('.multi-item-carousel').carousel({
-interval: false
-});
-
-// for every slide in carousel, copy the next slide's item in the slide.
-// Do the same for the next, next item.
-$('.multi-item-carousel .item').each(function(){
-    var next = $(this).next();
-    if (!next.length) {
-    next = $(this).siblings(':first');
-    }
-    next.children(':first-child').clone().appendTo($(this));
-
-    if (next.next().length>0) {
-    next.next().children(':first-child').clone().appendTo($(this));
-    } else {
-    $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
-    }
-    });
-</script>
-
 
 {% include 'django_file_form/upload_template.html' %}
 {% endblock %}
