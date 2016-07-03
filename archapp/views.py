@@ -10,6 +10,7 @@ from django.utils import translation
 from django.conf import settings
 from .geo import GeoCoder
 import pickle
+from .populatedb import Populate_from_xlsx, sheet  
 
 # error handlers
 def error404(request):
@@ -31,6 +32,9 @@ def error500(request):
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
+    model = Site
+    ### Uncomment to populate database with sites from excel
+    #print(Populate_from_xlsx(sheet))
 
 class SignUp(CreateView):
     form_class = SignUpForm
@@ -304,4 +308,6 @@ class AllSites(LoginRequiredMixin, ListView):
 class Search(LoginRequiredMixin, ListView):
     model = Site
     template_name = 'archapp/search.html'
+
+
 
