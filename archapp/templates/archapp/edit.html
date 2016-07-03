@@ -1,9 +1,13 @@
 {% extends "archapp/base.html" %}
 {% load i18n %}
 {% load widget_tweaks %}
+{% load pick %}
+{% load lookup %}
+{% with site.image_set.all as imgs %}
+{% with site.props.all as prop %}
 {% block content %}
 <div class="row text-center">
-    <h2 class="site_name">Редагувати {{site.name}}</h2>
+  <h2 class="site_name">Редагувати {{site.name}}</h2>
 </div>
 <form id="newsiteform" action="{% url 'archapp:edit_form' %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
@@ -26,60 +30,102 @@
     {% for fset in form.fieldsets %}
     <div role="tabpanel" class="tab-pane{% if forloop.first %} active{% endif %}" id="{{fset.legend}}">
       <div class="row margin-top">
+        {% if fset.description = "Attachments" %}
+        <div class="gallery">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              {% with site.image_set.all|pick_mult_types:'general,photo,plane,found' as gallery %}
+              {% if gallery|length %}
+              <h3>{% trans "Delete Images" %} </h3>
+              {{form.imgs_to_del|attr:"hidden"}}
+              {% for img in gallery %}
+              <div class="col-xs-4">
+                <div class="checkbox">
+                  <input type="checkbox" name="image_to_delete" value="{{img.id}}">
+                </div>
+                <img src = "{{ img|pick_size:'thumb' }}" class="img-thumbnail"/>
+              </div>
+              {% endfor %}
+              {% endif %}
+              {% endwith %}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <h3>Upload New Images</h3>
+          </div>
+        </div>
+        {% endif %}
         {% if fset.description = "References" %}
         <div class="col-md-8 col-md-offset-2">
           {% else %}
-        <div class="col-md-4 col-md-offset-4">
-          {% endif %}
-          {% for field in fset %}
-          {% if not field.is_hidden %}
-          <div class="row form-group-custom">
-            {% else %}
-            <div class="row">
-              {% endif %}
-              {% if not field.is_hidden %}
-        <div class = "col-md-6 text-right text-gr">{{field.label_tag}}</div>
-        {% endif %}
-        {% if field.name = "literature" %}
-        <div class = "col-md-12">
-          {% else %}
-          <div class = "col-md-6">
+          <div class="col-md-4 col-md-offset-4">
             {% endif %}
-            {{ field|attr:"class:form-control form-custom"}}
-          </div>
-          <div class="row">
-          <div class="col-md-12 text-danger text-center">
-            {{ field.errors }}
-          </div>
-        </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-        {% if forloop.first %}
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <h3>{% trans "Click on the map to pick location" %}</h3>
+            {% for field in fset %}
+            {% if not field.is_hidden %}
+            <div class="row form-group-custom">
+              {% else %}
+              <div class="row">
+                {% endif %}
+                {% if not field.is_hidden %}
+                <div class = "col-md-6 text-right text-gr">{{field.label_tag}}</div>
+                {% endif %}
+                {% if field.name = "literature" %}
+                <div class = "col-md-12">
+                  {% else %}
+                  <div class = "col-md-6">
+                    {% endif %}
+                    {% with site.props.all|lookup:field.name as val %}
+                    {% with 'riversystem topography geomorphology' as cho %}
+                    {% if field.name = "name" %}
+                    {% render_field field class+="form-control form-custom" value=site.name %}
+                    {% elif field.name = "literature" %}
+                    {{ field|attr:"class:form-control form-custom"}}
+                    {% elif field.name in cho.split %}
+                    <!-- Don't know how to access choices to set a default value -->
+                    <p>hello</p>
+                    {% else %}
+                    {% render_field field class+="form-control form-custom" value=val %}
+                    {% endif %}
+                    {% endwith %}
+                    {% endwith %}
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 text-danger text-center">
+                      {{ field.errors }}
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
             </div>
+            {% if forloop.first %}
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <h3>{% trans "Click on the map to pick location" %}</h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <div class="geo-map" value='{{ site.props.all|lookup:"latitude"}},{{site.props.all|lookup:"longtitude"}}' id="map"></div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
           </div>
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-          <div class="geo-map" id="map"></div>
+          {% endfor %}
+        </div>
+        <div class="row mbottom">
+          <div id='testinput'></div>
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <input type="submit" class="btn btn-primary" value="{% trans 'Update' %}" class="btn btn-border-color textcol btn-sm background" />
+            <a href = "{% url 'archapp:welcome'%}" class="btn btn-primary">{% trans 'Cancel' %}</a>
+          </div>
+          <br />
         </div>
       </div>
-        </div>
-        {% endif %}
-      </div>
-      {% endfor %}
-    </div>
-    <div class="row mbottom">
-      <div id='testinput'></div>
-      <div class="col-md-4 col-md-offset-4 text-center">
-        <input type="submit" class="btn btn-primary" value="{% trans 'Create' %}" class="btn btn-border-color textcol btn-sm background" />
-        <a href = "{% url 'archapp:welcome'%}" class="btn btn-primary">{% trans 'Cancel' %}</a>
-      </div>
-      <br />
     </div>
   </div>
 </form>
@@ -89,5 +135,32 @@ $(function() {
     initUploadFields($('#newsiteform'));
     });
 </script>
+<script type="text/javascript">
+{% with site.data.0.Bibliography as lit %}
+// There are some issues with escaping in lit 
+$(document).ready(function(){
+    //populate textarea with data
+    var lit_data = '{{lit}}';
+    $("#id_literature").val(lit_data);
+    //on click add to list value of elements to delete images
+    var img_list = ["0"];
+    // with empty list there is a wierd error on validation "TemplateResponseMixin requires either a definition of 'template_name' or an implementation of 'get_template_names()'"
+    $("#id_imgs_to_del").val(img_list);
+    $("input[name='image_to_delete']").change(function() {
+      if ($(this).is(':checked')) {
+      img_list.push($(this).val());
+      } else 
+      {
+      var index = img_list.indexOf($(this).val());
+      img_list.splice(index, 1);
+      };
+      $("#id_imgs_to_del").val(img_list);
+      });
+    });
+{% endwith %}
+</script>
+
 {% include 'django_file_form/upload_template.html' %}
 {% endblock %}
+{% endwith %}
+{% endwith %}
