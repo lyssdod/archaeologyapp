@@ -30,6 +30,7 @@ class FilterForm(betterforms.BetterForm):
             if subs.count():
                 args['widget']  = forms.Select()
                 args['choices'] = [(s.id, _(s.name)) for s in subs]
+                args['initial'] = subs[0].id 
 
                 field = forms.ChoiceField()
 

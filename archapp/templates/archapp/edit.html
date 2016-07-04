@@ -3,6 +3,7 @@
 {% load widget_tweaks %}
 {% load pick %}
 {% load lookup %}
+{% load choices %}
 {% with site.image_set.all as imgs %}
 {% with site.props.all as prop %}
 {% block content %}
@@ -83,8 +84,8 @@
                     {% elif field.name = "literature" %}
                     {{ field|attr:"class:form-control form-custom"}}
                     {% elif field.name in cho.split %}
-                    <!-- Don't know how to access choices to set a default value -->
-                    <p>hello</p>
+                    {{ field.initial = 40 }}
+                    {% endfor %}
                     {% else %}
                     {% render_field field class+="form-control form-custom" value=val %}
                     {% endif %}
