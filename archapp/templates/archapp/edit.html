@@ -3,7 +3,6 @@
 {% load widget_tweaks %}
 {% load pick %}
 {% load lookup %}
-{% load choices %}
 {% with site.image_set.all as imgs %}
 {% with site.props.all as prop %}
 {% block content %}
@@ -84,8 +83,7 @@
                     {% elif field.name = "literature" %}
                     {{ field|attr:"class:form-control form-custom"}}
                     {% elif field.name in cho.split %}
-                    {{ field.initial = 40 }}
-                    {% endfor %}
+                    {{ field }}
                     {% else %}
                     {% render_field field class+="form-control form-custom" value=val %}
                     {% endif %}

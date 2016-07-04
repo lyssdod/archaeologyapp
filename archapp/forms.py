@@ -10,6 +10,7 @@ from django_file_form.forms import FileFormMixin, UploadedFileField, MultipleUpl
 
 class FilterForm(betterforms.BetterForm):
     def __init__(self, *args, **kwargs):
+        #self.selected = kwargs['selected'] if 'selected' in kwargs else None
         super(FilterForm, self).__init__(*args, **kwargs)
 
     # creates fields for basic filters
@@ -30,7 +31,7 @@ class FilterForm(betterforms.BetterForm):
             if subs.count():
                 args['widget']  = forms.Select()
                 args['choices'] = [(s.id, _(s.name)) for s in subs]
-                args['initial'] = subs[0].id 
+                args['initial'] = self.selected[flt] if self.selected is not None else subs[0].id
 
                 field = forms.ChoiceField()
 
@@ -97,8 +98,12 @@ class NewSiteForm(FileFormMixin, FilterForm):
                 field = MultipleUploadedFileField(required = False)
             self.fields[choice.lower()] = field
 
-class EditForm(NewSiteForm):
+class EditForm(forms.ModelForm): #FileFormMixin, FilterForm):
+    class Meta:
+        model = Site
+        fields = ['name']
     def __init__(self, *args, **kwargs):
         super(EditForm, self).__init__(*args, **kwargs)
         self.fields['site_id'] = forms.IntegerField()
         self.fields['imgs_to_del'] = forms.CharField()
+        #self.create_filter_fields()

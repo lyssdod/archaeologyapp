@@ -172,6 +172,13 @@ class SiteEdit(LoginRequiredMixin, DetailView):
         context['form'] = EditForm 
         return context
 
+class NewEdit(LoginRequiredMixin, UpdateView):
+    model = Site
+    manager = get_translation_aware_manager(Site)
+    queryset = manager.language()
+    form_class = EditForm
+    template_name = 'archapp/edit.html'
+
 class SiteEditForm(LoginRequiredMixin, FormView):
     form_class = EditForm
     success_url='/archapp/all'

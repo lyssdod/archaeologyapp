@@ -146,9 +146,9 @@ CURRDB = {'ENGINE': 'django.db.backends.sqlite3',
 
 if DEBUG is False:
     CURRDB = {  'ENGINE': 'django.db.backends.postgresql',
-                'NAME': 'archapp',
-                'USER': conf.get('archapp', 'dbuser', fallback = ''),
-                'PASSWORD': conf.get('archapp', 'dbpass', fallback = ''),
+                'NAME': conf.get('archapp', 'dbname', fallback = 'archapp'),
+                'USER': conf.get('archapp', 'dbuser', fallback = 'postgres'),
+                'PASSWORD': conf.get('archapp', 'dbpass', fallback = 'postgres'),
                 'HOST': 'localhost',
                 'PORT': '5432' }
 
