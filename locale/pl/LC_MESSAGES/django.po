@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: adb\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-04 21:30+0000\n"
-"PO-Revision-Date: 2016-06-26 17:11+0200\n"
+"PO-Revision-Date: 2016-07-04 19:03+0200\n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -185,3 +185,93 @@ msgstr "Witamy w archeologicznej bazie danych "
 #: mydjango/lib/python3.4/site-packages/django/contrib/messages/apps.py:7
 msgid "Messages"
 msgstr "Wiadomości"
+
+msgid "User-defined filter"
+msgstr "Filtr użytkownika "
+
+msgid "Name"
+msgstr "Nazwa"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Country"
+msgstr "Kraj"
+
+msgid "Region"
+msgstr "Oblast (Woewódstwo)"
+
+msgid "District"
+msgstr "Rajon"
+
+msgid "Valley"
+msgstr "Dolina"
+
+msgid "1st Terrace"
+msgstr "Pierwsza terasa"
+
+msgid "2nd Terrace"
+msgstr "Druga terasa"
+
+msgid "High Terrace"
+msgstr "Terasa wysoka "
+
+msgid "Riverbank"
+msgstr "Zbocze doliny "
+
+msgid "Dune"
+msgstr "Den"
+
+msgid "Cape"
+msgstr "Krawędź"
+
+msgid "Plateau"
+msgstr "Wysoczyna"
+
+msgid "DatingFrom"
+msgstr "Istniało od"
+
+msgid "DatingTo"
+msgstr "Istniało do "
+
+msgid "RiverSystem"
+msgstr "Dorzecze  "
+
+msgid "Dnieper"
+msgstr "Dniepr"
+
+msgid "Desna"
+msgstr "Desna"
+
+msgid "Sejm"
+msgstr "Sejm"
+
+msgid "Sula"
+msgstr "Suła"
+
+msgid "Psel"
+msgstr "Pseł"
+
+msgid "Vorskla"
+msgstr "Worskła"
+
+msgid "Oril"
+msgstr "Oriel"
+
+msgid "Samara"
+msgstr "Samara "
+
+msgid "Southern Bug"
+msgstr "Boh"
+
+msgid "Dniester"
+msgstr "Dniestr "
+
+msgid "Pripyat"
+msgstr "Prypeć "
+
+msgid "Undefined"
+msgstr "Nieokreślone"
+
+msgid "Unknown"
+msgstr "Niewiadomo"
