@@ -275,3 +275,27 @@ msgstr "Nieokreślone"
 
 msgid "Unknown"
 msgstr "Niewiadomo"
+
+msgid "Retry"
+msgstr "Powtórz"
+
+msgid "Drop files here to upload"
+msgstr "Przeciągnij pilk tutaj"
+
+msgid "Upload a file"
+msgstr "Dodaj plik"
+
+msgid "Processing dropped files..."
+msgstr "Plik dodaje się"
+
+msgid "General"
+msgstr "Zdjęcze profilowe"
+
+msgid "Plane"
+msgstr "Plan"
+
+msgid "Photo"
+msgstr "Zdjęczia"
+
+msgid "Found"
+msgstr "Znalezienia"
