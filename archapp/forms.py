@@ -31,7 +31,7 @@ class FilterForm(betterforms.BetterForm):
             if subs.count():
                 args['widget']  = forms.Select()
                 args['choices'] = [(s.id, _(s.name)) for s in subs]
-                args['initial'] = self.selected[flt] if self.selected is not None else subs[0].id
+                #args['initial'] = self.selected[flt] if self.selected is not None else subs[0].id
 
                 field = forms.ChoiceField()
 
