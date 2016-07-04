@@ -9,4 +9,4 @@ django-hvad
 geopy
 django-file-form
 easy-thumbnails
-openp >yxl
+openpyxl
