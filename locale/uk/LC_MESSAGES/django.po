@@ -188,16 +188,6 @@ msgstr "Ви дійсно хочете видалити"
 msgid "Welcome to the archaeology database!"
 msgstr "Вітаємо вас у базі даних археологічних пам’яток!"
 
-#: archapp/templatetags/lookup.py:23
-msgid "Undefined"
-msgstr ""
-
-#: archapp/views.py:99
-msgid "Unknown"
-msgstr ""
-
-
-
 # filters next
 
 msgid "User-defined filter"
