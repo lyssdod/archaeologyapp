@@ -5,278 +5,183 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: adb\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-07 23:04+0000\n"
-"PO-Revision-Date: 2016-05-23 00:51+0300\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: pl\n"
+"POT-Creation-Date: 2016-06-04 21:30+0000\n"
+"PO-Revision-Date: 2016-06-26 17:11+0200\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.5\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: archapp/forms.py:70
 msgid "Basic data"
-msgstr "Основні дані"
+msgstr "Dane podstawowe "
 
 #: archapp/forms.py:72
 msgid "Description"
-msgstr "Опис"
+msgstr "Opis"
 
 #: archapp/forms.py:74
 msgid "Attachments"
-msgstr "Додаткові файли"
+msgstr "Załączniki"
 
 #: archapp/forms.py:75
 msgid "References"
-msgstr "Посилання"
+msgstr "Źródła"
 
 #: archapp/forms.py:81
 msgid "Dating is undefined"
-msgstr "Датування не визначено"
-
-#: archapp/models.py:66
-msgid "No translation available"
-msgstr ""
+msgstr "Datowanie nieokreślone"
 
 #: archapp/templates/404.html:12 archapp/templates/archapp/error.html.py:12
 msgid "Page not found"
-msgstr ""
+msgstr "Strona nie została znaleziona "
 
 #: archapp/templates/404.html:13 archapp/templates/archapp/error.html.py:13
 msgid "The content you requested can not be found"
-msgstr ""
+msgstr "Nie znaleziono treści"
 
 #: archapp/templates/archapp/all.html:12 archapp/templates/archapp/all.html:120
 msgid "Filters"
-msgstr "Фільтри"
+msgstr "Filtry"
 
 #: archapp/templates/archapp/all.html:16
 msgid "Sort by alphabet"
-msgstr "Сортувати за абеткою"
+msgstr "Porządkuj alfabetycznie "
 
 #: archapp/templates/archapp/all.html:125
 #: archapp/templates/archapp/base.html:78
 msgid "All sites"
-msgstr "Всі пам’ятки"
+msgstr "Wszystkie stanowiska "
 
 #: archapp/templates/archapp/base.html:12
 #: archapp/templates/archapp/base.html:51
 msgid "Archaeology database"
-msgstr "Археологічна база даних"
+msgstr "Archeologiczna baza danych "
 
 #: archapp/templates/archapp/base.html:71
 msgid "Search sites"
-msgstr "Шукати"
+msgstr "Szukaj stanowiska"
 
 #: archapp/templates/archapp/base.html:75
 msgid "New site"
-msgstr "Нова пам’ятка"
+msgstr "Nowe stanowisko"
 
 #: archapp/templates/archapp/base.html:84
 msgid "Log out"
-msgstr "Вийти"
+msgstr "Wyloguj się "
 
 #: archapp/templates/archapp/base.html:88
 #: archapp/templates/archapp/signup.html:4
 msgid "Register"
-msgstr "Зареєструватись"
+msgstr "Zarejestruj się "
 
 #: archapp/templates/archapp/base.html:91
 #: archapp/templates/archapp/login.html:5
 msgid "Log in"
-msgstr "Увійти"
+msgstr "Zaloguj się"
 
 #: archapp/templates/archapp/login.html:19
 msgid "Your username and password didn't match. Please try again."
-msgstr "Логін або пароль невірний. Будь ласка, спробуйте ще."
+msgstr ""
+"Twoja nazwa użytkownika lub hasło są nieprawidłowe. Spróbuj jeszcze raz."
 
 #: archapp/templates/archapp/logout.html:7
 msgid "Logged out!"
-msgstr "Ви успішно вийшли з системи!"
+msgstr ""
 
 #: archapp/templates/archapp/newsite.html:8
 msgid "Create new site"
-msgstr "Створити нову пам’ятку"
+msgstr "Utwórz nowe stanowisko"
 
 #: archapp/templates/archapp/newsite.html:44
 msgid "Click on the map to pick location"
-msgstr "Клацніть по мапі для вибору локації"
+msgstr "Kliknij na mapie żeby zapisać lokację. "
 
 #: archapp/templates/archapp/newsite.html:56
 msgid "Create"
-msgstr "Створити"
+msgstr "Utwórz "
 
 #: archapp/templates/archapp/newsite.html:57
 #: archapp/templates/archapp/user_confirm_delete.html:20
 msgid "Cancel"
-msgstr "Скасувати"
+msgstr "Anuluj"
 
 #: archapp/templates/archapp/search.html:8
 msgid "Search results"
-msgstr "Результати пошуку"
+msgstr "Szukaj rezultatów"
 
 #: archapp/templates/archapp/search.html:16
 msgid "Nothing found"
-msgstr "Нічого не знайдено"
+msgstr "Nic nie znaleziono"
 
 #: archapp/templates/archapp/site.html:18
 msgid "Settlement"
-msgstr "Населений пункт"
+msgstr "Osada"
 
 #: archapp/templates/archapp/site.html:32
 #: mydjango/lib/python3.4/site-packages/django/forms/formsets.py:384
 msgid "Delete"
-msgstr "Видалити"
+msgstr "Usuń"
 
 #: archapp/templates/archapp/site.html:35
 msgid "Edit"
-msgstr "Редагувати"
+msgstr "Edytuj"
+
+#: archapp/templates/archapp/site.html:40
+msgid "Area"
+msgstr "Powierzchnia"
 
 #: archapp/templates/archapp/site.html:48
-msgid "Area"
-msgstr "Площа"
+msgid "AreaWidth"
+msgstr "Szerokość"
 
 #: archapp/templates/archapp/site.html:56
-msgid "AreaWidth"
-msgstr "Ширина"
+msgid "AreaHeight"
+msgstr "Wysokość "
 
 #: archapp/templates/archapp/site.html:64
-msgid "AreaHeight"
-msgstr "Довжина"
-
-#: archapp/templates/archapp/site.html:72
-#, fuzzy
-#| msgid "Calculated area"
 msgid "Calculated Area"
-msgstr "Порахована площа"
+msgstr "Obliczona powierzchnia"
+
+#: archapp/templates/archapp/site.html:77
+msgid "Topography"
+msgstr "Topografia"
 
 #: archapp/templates/archapp/site.html:85
-msgid "Topography"
-msgstr "Топографія"
+msgid "Geomorphology"
+msgstr "Geomorfologia"
 
 #: archapp/templates/archapp/site.html:93
-msgid "Geomorphology"
-msgstr "Геоморфологія"
+msgid "Altitude"
+msgstr "Wysokość nad poziomem morza "
 
 #: archapp/templates/archapp/site.html:101
-msgid "Altitude"
-msgstr "Висота"
+msgid "ValleyAltitude"
+msgstr "Wysokość względna"
 
 #: archapp/templates/archapp/site.html:109
-msgid "ValleyAltitude"
-msgstr "Висота над долиною"
+msgid "Dating"
+msgstr "Datowanie"
 
 #: archapp/templates/archapp/site.html:117
-msgid "Dating"
-msgstr "Датування"
-
-#: archapp/templates/archapp/site.html:125
-#, fuzzy
 msgid "Bibliography"
-msgstr "Література"
+msgstr "Bibliografia "
 
 #: archapp/templates/archapp/user_confirm_delete.html:8
 msgid "Do you really want to delete"
-msgstr "Ви дійсно хочете видалити"
+msgstr "Czy naprawdę chcesz usunąć"
 
 #: archapp/templates/archapp/welcome.html:8
 msgid "Welcome to the archaeology database!"
-msgstr "Вітаємо вас у базі даних археологічних пам’яток!"
+msgstr "Witamy w archeologicznej bazie danych "
 
-#: archapp/templatetags/lookup.py:23
-msgid "Undefined"
-msgstr ""
-
-#: archapp/views.py:99
-msgid "Unknown"
-msgstr ""
-
-
-
-# filters next
-
-msgid "User-defined filter"
-msgstr "Користувацький фільтр"
-
-msgid "Type"
-msgstr "Тип"
-
-msgid "Country"
-msgstr "Країна"
-
-msgid "Region"
-msgstr "Область"
-
-msgid "District"
-msgstr "Район"
-
-msgid "Valley"
-msgstr "Долина"
-
-msgid "1st Terrace"
-msgstr "Перша тераса"
-
-msgid "2nd Terrace"
-msgstr "Друга тераса"
-
-msgid "High Terrace"
-msgstr "Висока тераса"
-
-msgid "Riverbank"
-msgstr "Берег"
-
-msgid "Dune"
-msgstr "Дюна"
-
-msgid "Cape"
-msgstr "Мис"
-
-msgid "Plateau"
-msgstr "Плато"
-
-msgid "DatingFrom"
-msgstr "Датування від"
-
-msgid "DatingTo"
-msgstr "Датування до"
-
-msgid "RiverSystem"
-msgstr "Річкова система"
-
-msgid "Dnieper"
-msgstr "Дніпро"
-
-msgid "Desna"
-msgstr "Десна"
-
-msgid "Sejm"
-msgstr "Сейм"
-
-msgid "Sula"
-msgstr "Сула"
-
-msgid "Psel"
-msgstr "Псел"
-
-msgid "Vorskla"
-msgstr "Ворскла"
-
-msgid "Oril"
-msgstr "Оріль"
-
-msgid "Samara"
-msgstr "Самара"
-
-msgid "Southern Bug"
-msgstr "Південний Буг"
-
-msgid "Dniester"
-msgstr "Дністер"
-
-msgid "Pripyat"
-msgstr "Прип’ять"
+#: mydjango/lib/python3.4/site-packages/django/contrib/messages/apps.py:7
+msgid "Messages"
+msgstr "Wiadomości"
