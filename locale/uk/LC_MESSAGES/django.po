@@ -280,3 +280,33 @@ msgstr "Дністер"
 
 msgid "Pripyat"
 msgstr "Прип’ять"
+
+msgid "Undefined"
+msgstr "Не визначено"
+
+msgid "Unknown"
+msgstr "Невідомо"
+
+msgid "Retry"
+msgstr "Повторити"
+
+msgid "Drop files here to upload"
+msgstr "Перетягніть сюди файли для завантаження"
+
+msgid "Upload a file"
+msgstr "Завантажити файл"
+
+msgid "Processing dropped files..."
+msgstr "Обробка файлів..."
+
+msgid "General"
+msgstr "Профіль"
+
+msgid "Plane"
+msgstr "План"
+
+msgid "Photo"
+msgstr "Фото"
+
+msgid "Found"
+msgstr "Знахідки"

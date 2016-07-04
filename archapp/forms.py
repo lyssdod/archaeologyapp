@@ -93,9 +93,9 @@ class NewSiteForm(FileFormMixin, FilterForm):
 
             # limit site profile picture to one
             if i == ImageType.general:
-                field = UploadedFileField(required = False)
+                field = UploadedFileField(required = False, label = _(choice))
             else:
-                field = MultipleUploadedFileField(required = False)
+                field = MultipleUploadedFileField(required = False, label = _(choice))
             self.fields[choice.lower()] = field
 
 class EditForm(forms.ModelForm): #FileFormMixin, FilterForm):
