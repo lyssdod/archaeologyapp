@@ -299,3 +299,6 @@ msgstr "Zdjęczia"
 
 msgid "Found"
 msgstr "Znalezienia"
+
+msgid "Toggle map"
+msgstr "Pokaż mapę"

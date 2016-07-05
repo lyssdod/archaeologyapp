@@ -144,4 +144,7 @@ obj.getSubset = function(address, subset)
 function initmap()
 {
   archapp.map.init();
+  // execute callbacks
+  for (var i = 0; i < archapp.map.callbacks.length; i ++)
+    archapp.map.callbacks[i]();
 }

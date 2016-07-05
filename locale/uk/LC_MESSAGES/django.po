@@ -300,3 +300,6 @@ msgstr "Фото"
 
 msgid "Found"
 msgstr "Знахідки"
+
+msgid "Toggle map"
+msgstr "Перегляд карти"
