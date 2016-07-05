@@ -99,7 +99,7 @@ class NewSite(LoginRequiredMixin, FormView):
                             geocoded = geo.reverse(form.cleaned_data['latitude'], form.cleaned_data['longtitude'], lang, name)
                             geocoded = geocoded or translation.ugettext('Unknown') # maybe try another provider here?
 
-                        #let's search for it
+                        # let's search for it
                         try:
                             prop = Property.objects.language(lang).get(instance = instance, string = geocoded)
                         except Property.DoesNotExist:
@@ -117,7 +117,12 @@ class NewSite(LoginRequiredMixin, FormView):
                 for lang, translated in missing:
                     prop.translate(lang)
                     prop.string = translated
-                    prop.save()
+
+                    try:
+                        prop.save()
+                    except:
+                        # translation already exist
+                        pass
 
             # create other property types
             else:
