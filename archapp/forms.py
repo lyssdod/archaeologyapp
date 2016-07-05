@@ -94,7 +94,7 @@ class NewSiteForm(FileFormMixin, FilterForm):
 
         self.fields['name'] = forms.CharField(max_length = 128)
         self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
-        self.fields['literature'] = forms.CharField(required = False, widget=forms.Textarea, max_length = 2048)
+        self.fields['literature'] = forms.CharField(required = False, widget=forms.Textarea, max_length = 2048, label = _('Literature'))
         self.create_filter_fields()
 
         # create image fields
