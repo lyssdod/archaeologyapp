@@ -109,10 +109,12 @@ class NewSiteForm(FileFormMixin, FilterForm):
                 field = MultipleUploadedFileField(required = False, label = _(choice))
             self.fields[choice.lower()] = field
 
-class EditForm(forms.ModelForm): #FileFormMixin, FilterForm):
-    class Meta:
-        model = Site
-        fields = ['name']
+#class EditForm(#forms.ModelForm): #FileFormMixin, FilterForm):
+
+class EditForm(NewSiteForm):
+    #class Meta:
+    #    model = Site
+    #    fields = ['name']
     def __init__(self, *args, **kwargs):
         super(EditForm, self).__init__(*args, **kwargs)
         self.fields['site_id'] = forms.IntegerField()

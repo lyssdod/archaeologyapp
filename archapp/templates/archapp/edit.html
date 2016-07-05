@@ -3,6 +3,7 @@
 {% load widget_tweaks %}
 {% load pick %}
 {% load lookup %}
+{% load choices %}
 {% with site.image_set.all as imgs %}
 {% with site.props.all as prop %}
 {% block content %}
@@ -139,7 +140,7 @@ $(function() {
 // There are some issues with escaping in lit 
 $(document).ready(function(){
     //populate textarea with data
-    var lit_data = '{{lit}}';
+    var lit_data = "{{lit|linebreaks}}";
     $("#id_literature").val(lit_data);
     //on click add to list value of elements to delete images
     var img_list = ["0"];
