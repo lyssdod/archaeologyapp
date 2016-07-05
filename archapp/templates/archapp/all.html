@@ -171,12 +171,20 @@
 <script>
 
 $(function() {
-  var center = 0;
 
-  $("#menu-toggle").click(function(e) {
+  function redrawMap()
+  {
+      var center = archapp.map.handle.getCenter();
+      google.maps.event.trigger(map, 'resize');
+      archapp.map.handle.setCenter(center);
+  }
+
+  $("#menu-toggle").click(function(e)
+  {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
-    });
+      $("#wrapper").one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) { redrawMap(); });
+  });
 
   var createMarkers = function()
   {
@@ -203,9 +211,7 @@ $(function() {
     {
       $('.listed').hide();
       $('.mapped').show();
-      center = archapp.map.handle.getCenter();
-      google.maps.event.trigger(map, 'resize');
-      archapp.map.handle.setCenter(center);
+      redrawMap();
     }
     else
     {
