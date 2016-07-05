@@ -12,7 +12,6 @@ urlpatterns = [
         url(r'^edit/form/$', views.SiteEditForm.as_view(), name='edit_form'),
         url(r'^(?P<pk>[0-9]+)/delete/$', views.SiteDelete.as_view(), name='delete'),
         url(r'^all/$', views.AllSites.as_view(), name='all'),
-#        url(r'^sites/p/$', views.PublicQueries.as_view(), name='publq'),
         url(r'^search/$', views.Search.as_view(), name='sresults'),
         url(r'^signup/$', views.SignUp.as_view(), name='signup'),
         url(r'^accounts/login/$', auth_views.login, {'template_name': 'archapp/login.html'} , name='login'),

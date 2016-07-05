@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django_file_form.forms import FileFormMixin, UploadedFileField, MultipleUploadedFileField
 
 
+
 class FilterForm(betterforms.BetterForm):
     def __init__(self, *args, **kwargs):
         #self.selected = kwargs['selected'] if 'selected' in kwargs else None
@@ -62,12 +63,21 @@ class SignUpForm(UserCreationForm):
             user.save()
         return user
 
+class ListSearchForm(FilterForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ListSearchForm, self).__init__(*args, **kwargs)
+
+        self.create_filter_fields()
+
 class SearchForm(FilterForm):
 
     def __init__(self, *args, **kwargs):
         super(SearchForm, self).__init__(*args, **kwargs)
 
         self.create_filter_fields()
+
+
 
 class NewSiteForm(FileFormMixin, FilterForm):
 

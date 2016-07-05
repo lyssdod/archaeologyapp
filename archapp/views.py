@@ -1,6 +1,6 @@
 from .models import Site, Filter, Image, Property, ValueType, ImageType
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
-from .forms import NewSiteForm, SignUpForm, SearchForm, EditForm
+from .forms import NewSiteForm, SignUpForm, ListSearchForm, EditForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
@@ -301,15 +301,22 @@ class SiteDelete(LoginRequiredMixin, DeleteView):
 
 class AllSites(LoginRequiredMixin, ListView):
     model = Site
-    form_class = SearchForm
+    form_class = ListSearchForm
     template_name = 'archapp/all.html'
     success_url='/archapp/'
     login_url = '/archapp/accounts/login/'
 
     def form_valid(self, form):
-        return super(SearchForm, self).form_valid(form)
-#class PublicQueries(TemplateView):
-#    template_name = 'archapp/all.html'
+        queryset = super(AllSites, self).form_valid(form)
+
+        # Handle specific fields of the custom ListForm
+        # Others are automatically handled by FilteredListView.
+
+        #if form.cleaned_data['is_active'] == 'yes':
+        #    queryset = queryset.filter(is_active=True)
+
+        return queryset
+
 
 
 class Search(LoginRequiredMixin, ListView):
