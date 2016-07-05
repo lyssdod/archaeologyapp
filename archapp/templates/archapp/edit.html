@@ -84,8 +84,7 @@
                     {% elif field.name = "literature" %}
                     {{ field|attr:"class:form-control form-custom"}}
                     {% elif field.name in cho.split %}
-                    {{ field.initial = 40 }}
-                    {% endfor %}
+                    {% render_field field|default_choice:val class+="form-control form-custom"%}
                     {% else %}
                     {% render_field field class+="form-control form-custom" value=val %}
                     {% endif %}

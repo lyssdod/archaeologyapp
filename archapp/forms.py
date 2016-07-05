@@ -42,6 +42,7 @@ class FilterForm(betterforms.BetterForm):
                 field = mapping[flt.oftype]
 
             # implicit reconstruction with needed params
+            f = type(field)(**args) 
             self.fields[flt.name.lower()] = type(field)(**args)
 
 

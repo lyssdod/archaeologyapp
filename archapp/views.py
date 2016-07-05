@@ -198,9 +198,9 @@ class SiteEditForm(LoginRequiredMixin, FormView):
                 data = False
 
             if instance.oftype == ValueType.integer:
-               # args['integer'] = int(data)
+                args['integer'] = int(data)
                # return ValueError: invalid literal for int() with base 10: ''
-               pass
+               #pass
             elif instance.oftype == ValueType.boolean:
                 args['boolean'] = bool(data)
             elif instance.oftype == ValueType.double:
@@ -281,7 +281,6 @@ class SiteEditForm(LoginRequiredMixin, FormView):
                 pass
 
         site_to_update.data[0]['Bibliography'] = form.cleaned_data['literature']
-        
         site_to_update.save()
 
         return super(SiteEditForm, self).form_valid(form)

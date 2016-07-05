@@ -39,8 +39,23 @@
             d.hide();
             d.after(l);
             l.after(z);
+            var def_val1 = 3;
+            var def_val2 = 6;
+            if (typeof $('#id_datingfrom').val() !== 'undefined') {
+            var df = $('#id_datingfrom').val(); 
+            var dt = $('#id_datingto').val();
+            var count = 0;
+            $.each($('#id_dating option'), function(i, opt){
+              if ($(opt).attr('value') == df) {
+               def_val1 = i+1; 
+              };
+              if ($(opt).attr('value') == dt) {
+               def_val2 = i+1; 
+              };
 
-            z.slider('values', [3, 6]);
+            }); 
+            }; 
+            z.slider('values', [def_val1, def_val2]);
             x(null, z.slider("instance").options);
         }
 
