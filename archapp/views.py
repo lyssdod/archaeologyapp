@@ -1,6 +1,6 @@
 from .models import Site, Filter, Image, Property, ValueType, ImageType
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
-from .forms import NewSiteForm, SignUpForm, SearchForm, EditForm
+from .forms import NewSiteForm, SignUpForm, ListSearchForm, EditForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
@@ -10,7 +10,6 @@ from django.utils import translation
 from django.conf import settings
 from .geo import GeoCoder
 import pickle
-from .populatedb import Populate_from_xlsx, sheet  
 
 # error handlers
 def error404(request):
@@ -33,8 +32,6 @@ def error500(request):
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
     model = Site
-    ### Uncomment to populate database with sites from excel
-    #print(Populate_from_xlsx(sheet))
 
 class SignUp(CreateView):
     form_class = SignUpForm
@@ -102,7 +99,7 @@ class NewSite(LoginRequiredMixin, FormView):
                             geocoded = geo.reverse(form.cleaned_data['latitude'], form.cleaned_data['longtitude'], lang, name)
                             geocoded = geocoded or translation.ugettext('Unknown') # maybe try another provider here?
 
-                        #let's search for it
+                        # let's search for it
                         try:
                             prop = Property.objects.language(lang).get(instance = instance, string = geocoded)
                         except Property.DoesNotExist:
@@ -120,7 +117,12 @@ class NewSite(LoginRequiredMixin, FormView):
                 for lang, translated in missing:
                     prop.translate(lang)
                     prop.string = translated
-                    prop.save()
+
+                    try:
+                        prop.save()
+                    except:
+                        # translation already exist
+                        pass
 
             # create other property types
             else:
@@ -171,6 +173,13 @@ class SiteEdit(LoginRequiredMixin, DetailView):
         context= super(SiteEdit, self).get_context_data(**kwargs)
         context['form'] = EditForm 
         return context
+
+class NewEdit(LoginRequiredMixin, UpdateView):
+    model = Site
+    manager = get_translation_aware_manager(Site)
+    queryset = manager.language()
+    form_class = EditForm
+    template_name = 'archapp/edit.html'
 
 class SiteEditForm(LoginRequiredMixin, FormView):
     form_class = EditForm
@@ -293,15 +302,22 @@ class SiteDelete(LoginRequiredMixin, DeleteView):
 
 class AllSites(LoginRequiredMixin, ListView):
     model = Site
-    form_class = SearchForm
+    form_class = ListSearchForm
     template_name = 'archapp/all.html'
     success_url='/archapp/'
     login_url = '/archapp/accounts/login/'
 
     def form_valid(self, form):
-        return super(SearchForm, self).form_valid(form)
-#class PublicQueries(TemplateView):
-#    template_name = 'archapp/all.html'
+        queryset = super(AllSites, self).form_valid(form)
+
+        # Handle specific fields of the custom ListForm
+        # Others are automatically handled by FilteredListView.
+
+        #if form.cleaned_data['is_active'] == 'yes':
+        #    queryset = queryset.filter(is_active=True)
+
+        return queryset
+
 
 
 class Search(LoginRequiredMixin, ListView):

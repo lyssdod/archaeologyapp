@@ -8,8 +8,10 @@ from django.utils.translation import ugettext_lazy as _
 from django_file_form.forms import FileFormMixin, UploadedFileField, MultipleUploadedFileField
 
 
+
 class FilterForm(betterforms.BetterForm):
     def __init__(self, *args, **kwargs):
+        #self.selected = kwargs['selected'] if 'selected' in kwargs else None
         super(FilterForm, self).__init__(*args, **kwargs)
 
     # creates fields for basic filters
@@ -30,7 +32,7 @@ class FilterForm(betterforms.BetterForm):
             if subs.count():
                 args['widget']  = forms.Select()
                 args['choices'] = [(s.id, _(s.name)) for s in subs]
-                args['initial'] = subs[0].id 
+                #args['initial'] = self.selected[flt] if self.selected is not None else subs[0].id
 
                 field = forms.ChoiceField()
 
@@ -62,12 +64,21 @@ class SignUpForm(UserCreationForm):
             user.save()
         return user
 
+class ListSearchForm(FilterForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ListSearchForm, self).__init__(*args, **kwargs)
+
+        self.create_filter_fields()
+
 class SearchForm(FilterForm):
 
     def __init__(self, *args, **kwargs):
         super(SearchForm, self).__init__(*args, **kwargs)
 
         self.create_filter_fields()
+
+
 
 class NewSiteForm(FileFormMixin, FilterForm):
 
@@ -84,7 +95,7 @@ class NewSiteForm(FileFormMixin, FilterForm):
 
         self.fields['name'] = forms.CharField(max_length = 128)
         self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
-        self.fields['literature'] = forms.CharField(required = False, widget=forms.Textarea, max_length = 2048)
+        self.fields['literature'] = forms.CharField(required = False, widget=forms.Textarea, max_length = 2048, label = _('Literature'))
         self.create_filter_fields()
 
         # create image fields
@@ -93,13 +104,17 @@ class NewSiteForm(FileFormMixin, FilterForm):
 
             # limit site profile picture to one
             if i == ImageType.general:
-                field = UploadedFileField(required = False)
+                field = UploadedFileField(required = False, label = _(choice))
             else:
-                field = MultipleUploadedFileField(required = False)
+                field = MultipleUploadedFileField(required = False, label = _(choice))
             self.fields[choice.lower()] = field
 
-class EditForm(NewSiteForm):
+class EditForm(forms.ModelForm): #FileFormMixin, FilterForm):
+    class Meta:
+        model = Site
+        fields = ['name']
     def __init__(self, *args, **kwargs):
         super(EditForm, self).__init__(*args, **kwargs)
         self.fields['site_id'] = forms.IntegerField()
         self.fields['imgs_to_del'] = forms.CharField()
+        #self.create_filter_fields()

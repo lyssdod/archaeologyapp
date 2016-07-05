@@ -140,6 +140,15 @@ body > .container {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.mapped
+{
+  display: none;
+}
+
+.checkbox {
+  margin-top: 0px;
+}
 .margin-top {
   margin-top: 10px;
 }

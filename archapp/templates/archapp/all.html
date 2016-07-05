@@ -10,104 +10,19 @@
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand">
-      <a href="#">{% trans "Filters" %}</a>
+        <a href="#">{% trans "Filters" %}</a>
       </li>
       <form method="post">
         <li>
-        <input type="checkbox" name="by_alphabet">{% trans "Sort by alphabet" %}
+          <input type="checkbox" name="by_alphabet">{% trans "Sort by alphabet" %}
         </li>
+        {% csrf_token %}
+        {% for f in form.fielasds %}
+          {{ f }}
+        {% endfor %}
         <!-- here goes the search form -->
-        {{ form.as_p}}
-        <!--div>
+        {{ form.as_ul }}
 
-        <li>
-        <select name="by_type" size="1">
-          <option value="" selected>Тип пам'ятки</option>   
-          <option value=""></option>
-          <option value="Городище">Городище</option>
-          <option value="Поселення">Поселення</option>
-          <option value="Могильник">Могильник</option>
-        </select>
-        </li>
-        <li>
-        <select name="oblast" id="ddl" onchange="configureDropDownLists(this,document.getElementById('ddl2'))"> 
-          <option value="" selected>Область</option> 
-          <option value="Брянська">Брянська</option> 
-          <option value="Курська">Курська</option> 
-          <option value="Орловська">Орловська</option> 
-          <option value="Полтавська">Полтавська</option> 
-          <option value="Сумська">Сумська</option> 
-          <option value="Чернiгiвська">Чернiгiвська</option> 
-        </select>
-        </li>
-        <li>
-        <select id="ddl2" name="rajon">
-          <option value="" selected>Район</option>
-        </select>
-        </li>
-        <li>
-        <select name="kultnal" size="1">
-              <option value="" selected>Культурна належнiсть</option>
-              <option value="Скiфська">Скiфська</option>
-              <option value="Юхнiвська">Юхнiвська</option>
-              <option value="Пiзньоюхнiвська">Пiзньоюхнiвська</option>
-              <option value="Верхньоокська">Верхньоокська</option>
-              <option value="Двошарова">Двошарова</option>
-              <option value="Невстановлена">Невстановлена</option>
-            </select>
-        </li>
-        <li>
-          <select name="basejn" size="1">
-            <option value="" selected>Рiчковий басейн</option>
-            <option value="Сейм">Сейм</option>
-            <option value="Десна">Десна</option>
-            <option value="Дон">Дон</option>
-            <option value="Псел">Псел</option>
-            <option value="Ока">Ока</option>
-            <option value="Сула">Сула</option>
-            <option value="Ворскла">Ворскла</option>
-          </select>
-          </li>
-          <li>
-              <select name="toppotype" size="1">
-                <option value="" selected>Топографiчне положення</option>
-                <option value="Дюна">Пойменне</option>
-                <option value="Тераса">1-а тераса</option>
-                <option value="2-га тераса">2-га тераса</option>
-                <option value="Висока тераса">Висока тераса</option>
-                <option value="Корiнний берег">Плато</option>
-              </select>
-          </li>
-          <li> 
-          <input type="checkbox" name="rozkop" value="Так"> Розкопки
-          </li>
-          <li>
-          <input type="checkbox" name="dodatky"> Додатки
-          </li>
-          <li>
-          <input type="checkbox" name="kistka" value="Є">Вироби з кiстки
-          </li>
-          <li>
-          <input type="checkbox" name="zalizo" value="Є">Вироби iз залiза
-          </li>
-          <li>
-          <input type="checkbox" name="kamin" value="Є">Вироби з каменю
-          </li>
-          <li> 
-          <input type="checkbox" name="glyna" value="Є">Керамiка
-          </li>
-          <li >
-          <input type='text' id="slider_v" name='vysota' value="">
-          </li>
-          <li>За висотою над водою: <b> 1 м</b> <input id="slider" type="number"  class="span2" value="" data-slider-min="1" data-slider-max="100" data-slider-step="5" data-slider-value="[10,70]"/> <b> 100 м</b></li>
-          <li>
-          <input type='text' id="slider_v2" name='ploshcha' value="">
-          </li>
-          <li>За площею: <b> 1</b> <input id="slider2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b> 1000</b></li>
-          <li>
-          <input type="submit">
-          </li>
-          </div -->
       </form>
     </ul>
   </div>
@@ -117,8 +32,16 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-9">
           <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">{% trans "Filters" %}</a>
+        </div>
+        <div class="col-md-3">
+          <div class="checkbox">
+            <label>
+              <input id="toggle" type="checkbox" data-toggle="toggle">
+                {% trans "Toggle map" %}
+            </label>
+          </div>
         </div>
       </div>
       <div class = "row">
@@ -126,8 +49,11 @@
           <h2 class="site_name">{% trans "All sites" %}</h2>
         </div>
       </div>
-      <hr class="hrr"> 
-      <div class="row">
+      <hr class="hrr">
+      <div class = "mapped">
+          <div class="geo-map" id="map"></div>
+      </div>
+      <div class = "row listed">
         {% for site in object_list %}
         {% if site.user = user %}
         {% with site.image_set.all as imgs %}
@@ -140,10 +66,12 @@
               </div>
             </a>
             <div class="col-md-7">
-              <p class="text-left">{{site.name}}</p>
+              <p class="text-left sitename">{{site.name}}</p>
               <p class="text-left">{{prop|lookup:"Area"}}</p>
               <p>{{prop|lookup:"DatingFrom, Dating"}} - {{prop|lookup:"DatingTo, Dating"}}</p>
             </div>
+            <input type = "hidden" class = "lat" value = '{{prop|lookup:"Latitude"}}' />
+            <input type = "hidden" class = "lng" value = '{{prop|lookup:"Longtitude"}}' />
           </div>
         </div>
         {% endwith %}
@@ -156,9 +84,59 @@
 </div>
 
 <script>
-$("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
+
+$(function() {
+
+  function redrawMap()
+  {
+      var center = archapp.map.handle.getCenter();
+      google.maps.event.trigger(map, 'resize');
+      archapp.map.handle.setCenter(center);
+  }
+
+  $("#menu-toggle").click(function(e)
+  {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+      $("#wrapper").one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) { redrawMap(); });
+  });
+
+  var createMarkers = function()
+  {
+    // delete old global marker
+    archapp.map.marker.setMap(null);
+
+    // create bunch of new ones
+    $.each($('.listed .site-preview'), function(i, preview)
+    {
+        // quickly fix css
+        $(preview).find('.row').removeClass('row');
+
+        var info = new google.maps.InfoWindow({ content: $(preview).html() });
+        var mark = new google.maps.Marker({ position: { lat: parseFloat($(preview).find('.lat').val()), lng: parseFloat($(preview).find('.lng').val()) },
+                                         map: archapp.map.handle, title: $(preview).find('.sitename').text() });
+        mark.addListener('click', function() { info.open(archapp.map.handle, mark); });
+        mark.setMap(archapp.map.handle);
     });
+  }
+
+
+  $('#toggle').change(function() {
+    if( $(this).prop('checked') )
+    {
+      $('.listed').hide();
+      $('.mapped').show();
+      redrawMap();
+    }
+    else
+    {
+      $('.listed').show();
+      $('.mapped').hide();
+    }
+  });
+
+  archapp.map.callbacks.push(createMarkers);
+
+});
 </script>
 {% endblock %}

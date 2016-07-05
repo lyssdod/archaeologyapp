@@ -73,6 +73,7 @@ if( !obj.siteview )
 // save marker data back to the input fields
 obj.storeData = function()
 {
+  if(document.getElementById('id_latitude')) {
   document.getElementById('id_latitude').value = obj.pos.lat();
   document.getElementById('id_longtitude').value = obj.pos.lng();
 
@@ -108,7 +109,7 @@ obj.storeData = function()
     alert('Elevation service failed due to: ' + status);
       });
 
-
+ }
 }
 
 // handle location picking and dragging
@@ -143,4 +144,7 @@ obj.getSubset = function(address, subset)
 function initmap()
 {
   archapp.map.init();
+  // execute callbacks
+  for (var i = 0; i < archapp.map.callbacks.length; i ++)
+    archapp.map.callbacks[i]();
 }

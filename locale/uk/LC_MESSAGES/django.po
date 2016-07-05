@@ -188,16 +188,6 @@ msgstr "Ви дійсно хочете видалити"
 msgid "Welcome to the archaeology database!"
 msgstr "Вітаємо вас у базі даних археологічних пам’яток!"
 
-#: archapp/templatetags/lookup.py:23
-msgid "Undefined"
-msgstr ""
-
-#: archapp/views.py:99
-msgid "Unknown"
-msgstr ""
-
-
-
 # filters next
 
 msgid "User-defined filter"
@@ -280,3 +270,39 @@ msgstr "Дністер"
 
 msgid "Pripyat"
 msgstr "Прип’ять"
+
+msgid "Undefined"
+msgstr "Не визначено"
+
+msgid "Unknown"
+msgstr "Невідомо"
+
+msgid "Retry"
+msgstr "Повторити"
+
+msgid "Drop files here to upload"
+msgstr "Перетягніть сюди файли для завантаження"
+
+msgid "Upload a file"
+msgstr "Завантажити файл"
+
+msgid "Processing dropped files..."
+msgstr "Обробка файлів..."
+
+msgid "General"
+msgstr "Профіль"
+
+msgid "Plane"
+msgstr "План"
+
+msgid "Photo"
+msgstr "Фото"
+
+msgid "Found"
+msgstr "Знахідки"
+
+msgid "Toggle map"
+msgstr "Перегляд карти"
+
+msgid "Literature"
+msgstr "Література"
