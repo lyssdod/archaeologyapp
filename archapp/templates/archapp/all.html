@@ -117,8 +117,16 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-9">
           <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">{% trans "Filters" %}</a>
+        </div>
+        <div class="col-md-3">
+          <div class="checkbox">
+            <label>
+              <input id="toggle" type="checkbox" data-toggle="toggle">
+                {% trans "Toggle map" %}
+            </label>
+          </div>
         </div>
       </div>
       <div class = "row">
@@ -126,8 +134,11 @@
           <h2 class="site_name">{% trans "All sites" %}</h2>
         </div>
       </div>
-      <hr class="hrr"> 
-      <div class="row">
+      <hr class="hrr">
+      <div class = "mapped">
+          <div class="geo-map" id="map"></div>
+      </div>
+      <div class = "row listed">
         {% for site in object_list %}
         {% if site.user = user %}
         {% with site.image_set.all as imgs %}
@@ -156,9 +167,29 @@
 </div>
 
 <script>
+var center = 0;
+
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
     });
+
+$(function() {
+    $('#toggle').change(function() {
+      if( $(this).prop('checked') )
+      {
+        $('.listed').hide();
+        $('.mapped').show();
+        center = archapp.map.handle.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        archapp.map.handle.setCenter(center);
+      }
+      else
+      {
+        $('.listed').show();
+        $('.mapped').hide();
+      }
+    })
+  })
 </script>
 {% endblock %}
