@@ -9,10 +9,12 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         # Positional arguments
-        parser.add_argument('filename', nargs = '+', type = str) 
+        parser.add_argument('filename', nargs = '+', type = str)
+        parser.add_argument('--latlon', dest = 'latlon', action = 'store_true')
+        parser.set_defaults(latlon = False)
 
     def handle(self, *args, **options):
         if options['filename']:
-            populate_from_excel(options['filename'][0])
+            populate_from_excel(options['filename'][0], options['latlon'])
         else:
             self.stdout.write('Please provide a filename to import from')

@@ -4,7 +4,8 @@ import openpyxl
 from django.conf import settings
 from archapp.geo import GeoCoder
 from django.utils import translation
-from archapp.models import Site, Filter, ValueType, Property, User
+from django.contrib.auth.models import User
+from archapp.models import Site, Filter, ValueType, Property
 
 # Convert DMS latlon format to DD
 def dms2dd(degrees, minutes, seconds, direction):
@@ -21,16 +22,25 @@ def formatted(coord):
 
     return dms2dd(degrees, minutes, seconds, direction)
 
-def populate_from_excel(path, user = 'admin'):
+def populate_from_excel(path, who = 'admin', latlon = True):
     wb = openpyxl.load_workbook(path)
     geo = GeoCoder(GeoCoder.Type.google)
-    user = User.objects.all().get(username = user)
+    user = User.objects.all().filter(username = who).get()
     sheet = wb.active
     filters = Filter.objects.filter(basic = True)
 
     for row in sheet.rows:
-        lat = formatted(row[0].value)
-        lng = formatted(row[1].value)
+        lng = 0.0
+        lat = 0.0
+
+        # pick suitable format
+        if latlon:
+            lat = formatted(row[0].value)
+            lng = formatted(row[1].value)
+        else:
+            lng = formatted(row[0].value)
+            lat = formatted(row[1].value)
+
         name = row[2].value
         newsite = Site(name = name, user = user)
         newsite.save()
