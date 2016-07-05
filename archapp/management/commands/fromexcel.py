@@ -15,6 +15,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options['filename']:
-            populate_from_excel(options['filename'][0], options['latlon'])
+            populate_from_excel(path = options['filename'][0], latlon = options['latlon'])
         else:
             self.stdout.write('Please provide a filename to import from')
