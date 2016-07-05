@@ -303,3 +303,6 @@ msgstr "Знахідки"
 
 msgid "Toggle map"
 msgstr "Перегляд карти"
+
+msgid "Literature"
+msgstr "Література"
