@@ -169,22 +169,36 @@ body > .container {
   }
 
   #wrapper.toggled {
-    padding-left: 250px;
+    padding-left: 300px;
   }
 
   #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 250px;
+    left: 300px;
     width: 0;
     height: 100%;
-    margin-left: -250px;
+    margin-left: -290px;
     overflow-y: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
   }
+
+#sidebar-wrapper fieldset
+{
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 4px 10px;
+}
+
+#sidebar-wrapper legend
+{
+  border: none;
+  padding: 0px 5px;
+  width: auto;
+}
 
   #wrapper.toggled #sidebar-wrapper {
     width: 250px;

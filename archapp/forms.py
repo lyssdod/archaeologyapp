@@ -65,6 +65,9 @@ class SignUpForm(UserCreationForm):
         return user
 
 class ListSearchForm(FilterForm):
+    class Meta:
+        fieldsets = [('1', {'description': _('Location'), 'fields': ['country', 'region', 'district']}),
+                     ('2', {'description': _('Basic data'), 'fields': ['areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'datingfrom', 'datingto']})]
 
     def __init__(self, *args, **kwargs):
         super(ListSearchForm, self).__init__(*args, **kwargs)

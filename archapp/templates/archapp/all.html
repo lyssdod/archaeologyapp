@@ -1,7 +1,7 @@
 {% extends "archapp/base.html" %}
 
 {% block content %}
-
+{% load widget_tweaks %}
 {% load i18n %}
 {% load pick %}
 {% load lookup %}
@@ -12,9 +12,16 @@
       <li class="sidebar-brand">
         <a href="#">{% trans "Filters" %}</a>
       </li>
-      <form method="post">
+      <form method="post" class="form-inline">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for fset in form.fieldsets %}
+        <fieldset>
+          <legend>{{fset.description}}</legend>
+          {% for field in fset %}
+          {{ field.label_tag }} {% render_field field class+="form-control" %}
+          {% endfor %}
+        </fieldset>
+        {% endfor %}
       </form>
     </ul>
   </div>
