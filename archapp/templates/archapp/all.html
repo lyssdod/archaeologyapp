@@ -13,16 +13,8 @@
         <a href="#">{% trans "Filters" %}</a>
       </li>
       <form method="post">
-        <li>
-          <input type="checkbox" name="by_alphabet">{% trans "Sort by alphabet" %}
-        </li>
         {% csrf_token %}
-        {% for f in form.fielasds %}
-          {{ f }}
-        {% endfor %}
-        <!-- here goes the search form -->
-        {{ form.as_ul }}
-
+        {{ form.as_p }}
       </form>
     </ul>
   </div>

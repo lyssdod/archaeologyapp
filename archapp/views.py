@@ -302,7 +302,6 @@ class SiteDelete(LoginRequiredMixin, DeleteView):
 
 class AllSites(LoginRequiredMixin, ListView):
     model = Site
-    form_class = ListSearchForm
     template_name = 'archapp/all.html'
     success_url='/archapp/'
     login_url = '/archapp/accounts/login/'
@@ -317,6 +316,12 @@ class AllSites(LoginRequiredMixin, ListView):
         #    queryset = queryset.filter(is_active=True)
 
         return queryset
+
+    # render form explicitly
+    def get_context_data(self, **kwargs):
+        context= super(AllSites, self).get_context_data(**kwargs)
+        context['form'] = ListSearchForm
+        return context
 
 
 
