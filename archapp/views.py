@@ -246,9 +246,13 @@ class SiteEditForm(LoginRequiredMixin, FormView):
 
                 # finally fill missing translations
                 for lang, translated in missing:
-                    prop.translate(lang)
-                    prop.string = translated
-                    prop.save()
+                    try:
+                        prop.translate(lang)
+                        prop.string = translated
+                        prop.save()
+                    except:
+                        # ignore already existing translations
+                        pass
 
             # create other property types
             else:
