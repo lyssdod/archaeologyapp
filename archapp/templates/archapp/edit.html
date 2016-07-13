@@ -82,7 +82,10 @@
                     {% if field.name = "name" %}
                     {% render_field field class+="form-control form-custom" value=site.name %}
                     {% elif field.name = "literature" %}
-                    {{ field|attr:"class:form-control form-custom"}}
+
+                    {% with site.data.0.Bibliography as lit %}
+                    {% render_field field|default_textarea:lit class+="form-control form-custom" %}
+                    {% endwith %}
                     {% elif field.name in cho.split %}
                     {% render_field field|default_choice:val class+="form-control form-custom"%}
                     {% else %}
@@ -136,12 +139,8 @@ $(function() {
     });
 </script>
 <script type="text/javascript">
-{% with site.data.0.Bibliography as lit %}
 // There are some issues with escaping in lit 
 $(document).ready(function(){
-    //populate textarea with data
-    var lit_data = "{{lit}}";
-    $("#id_literature").val(lit_data);
     //on click add to list value of elements to delete images
     var img_list = ["0"];
     // with empty list there is a wierd error on validation "TemplateResponseMixin requires either a definition of 'template_name' or an implementation of 'get_template_names()'"
@@ -157,7 +156,6 @@ $(document).ready(function(){
       $("#id_imgs_to_del").val(img_list);
       });
     });
-{% endwith %}
 </script>
 
 {% include 'django_file_form/upload_template.html' %}

@@ -259,7 +259,6 @@ class SiteEditForm(LoginRequiredMixin, FormView):
                 prop = Property.objects.create(**args)
 
             # add this property to the site
-            print(prop)
             old_prop = site_to_update.props.all().get(instance=instance)
             site_to_update.props.remove(old_prop)
             site_to_update.props.add(prop)
@@ -283,7 +282,6 @@ class SiteEditForm(LoginRequiredMixin, FormView):
 
         # delete unnecessary images
         imgs_del_data = form.cleaned_data['imgs_to_del']
-        print(imgs_del_data)
         trash_images = imgs_del_data.split(',')
         for img_id in trash_images:
             img_id = int(img_id)

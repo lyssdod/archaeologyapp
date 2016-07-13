@@ -13,3 +13,9 @@ def default_choice(field, choice):
 
         field.field.initial = choice_id
     return field
+
+@register.filter
+def default_textarea(field, value):
+    if value:
+        field.field.initial= value
+    return field
