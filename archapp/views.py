@@ -108,16 +108,19 @@ class SiteProcessingView(object):
         # delete data from temp_uploads
         form.delete_temporary_files()
 
+        # delete images
         if editing:
-            imgs_del_data = form.cleaned_data['imgs_to_del']
-            trash_images = imgs_del_data.split(',')
-            for img_id in trash_images:
-                img_id = int(img_id)
-                try:
-                    img_to_delete = site_to_update.image_set.all().get(id=img_id)
-                    img_to_delete.delete()
-                except:
-                    pass
+            trash = form.cleaned_data['delete_pics'].split(',')
+            pics  = [int(x) if x.isdigit() else None for x in trash]
+
+            # process only integers
+            for img in pics:
+                if img is not None:
+                    try:
+                        # operate directly on queryset, don't need to fetch the data
+                        pic = site.image_set.filter(id = img).delete()
+                    except:
+                        pass
 
 class SiteCreate(LoginRequiredMixin, FormView, SiteProcessingView):
     template_name = 'archapp/newsite.html'
@@ -160,7 +163,7 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
     redirect_field_name= 'redirect_to'
 
     def get_success_url(self):
-        return reverse('allsites')
+        return reverse('archapp:allsites')
 
     def get_context_data(self, **kwargs):
         context = super(SiteEdit, self).get_context_data(**kwargs)

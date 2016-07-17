@@ -114,5 +114,5 @@ class EditSiteForm(NewSiteForm):
     def __init__(self, *args, **kwargs):
         super(EditSiteForm, self).__init__(*args, **kwargs)
         self.fields['site_id'] = forms.IntegerField()
-        self.fields['imgs_to_del'] = forms.CharField(required = False)
+        self.fields['delete_pics'] = forms.CharField(required = False)
 
