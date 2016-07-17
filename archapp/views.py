@@ -11,66 +11,19 @@ from django.conf import settings
 from .geo import GeoCoder
 import pickle
 
-# error handlers
-def error404(request):
-    print ('handler 404!')
-    template = loader.get_template('archapp/error.html')
-    context = Context({
-        'message': 'All: %s' % request,
-        })
 
-    return HttpResponse(content = template.render(context), content_type = 'text/html; charset=utf-8', status = 404)
-
-def error500(request):
-    template = loader.get_template('archapp/error.html')
-    context = Context({
-        'message': 'All: %s' % request,
-        })
-
-    return HttpResponse(content = template.render(context), content_type = 'text/html; charset=utf-8', status = 500)
-
-class WelcomePage(TemplateView):
-    template_name = 'archapp/welcome.html'
-    model = Site
-
-class SignUp(CreateView):
-    form_class = SignUpForm
-    template_name = 'archapp/signup.html'
-    success_url='/archapp/accounts/login'
-    def form_valid(self, form):
-        return super(SignUp, self).form_valid(form)
-
-class UserUpdate(LoginRequiredMixin, UpdateView):
-    template_name = 'archapp/userupdate.html'
-    model = User
-    slug_field = "username"
-    fields = ['username']
-
-class UserDelete(LoginRequiredMixin, DeleteView):
-    model = User
-    slug_field = "username"
-    success_url = '/signup/'
-
-class NewSite(LoginRequiredMixin, FormView):
-    template_name = 'archapp/newsite.html'
-    form_class = NewSiteForm
-    success_url='/archapp/all'
-    login_url = '/archapp/accounts/login/'
-    redirect_field_name= 'redirect_to'
-
-    def form_valid(self, form):
+class FiltersAwareView(FormView):
+    # update or create new filter values
+    def process_filters_and_pics(self, site, form, update = False):
         geo = GeoCoder(GeoCoder.Type.google)
-        siteuser = self.request.user
-        sitename = form.cleaned_data['name']
-        newsite = Site(name = sitename, user = siteuser)
+        values = form.cleaned_data
         filters = Filter.objects.filter(basic = True)
-        newsite.save()
 
         for instance in filters:
             prop = None
             args = {'instance': instance}
             name = instance.name.lower()
-            data = form.cleaned_data[name]
+            data = values[name]
 
             # usually this means validation fail, but
             # let's override this for missing fields
@@ -87,7 +40,7 @@ class NewSite(LoginRequiredMixin, FormView):
                 args['string'] = data
 
             # search for string values first
-            if instance.oftype == ValueType.string:
+            if instance.oftype is ValueType.string:
                 # let's remember missing translations...
                 missing = []
 
@@ -96,7 +49,7 @@ class NewSite(LoginRequiredMixin, FormView):
                     for lang, etc in settings.LANGUAGES:
                         # try to get geo data in specified language
                         with translation.override(lang):
-                            geocoded = geo.reverse(form.cleaned_data['latitude'], form.cleaned_data['longtitude'], lang, name)
+                            geocoded = geo.reverse(values['latitude'], values['longtitude'], lang, name)
                             geocoded = geocoded or translation.ugettext('Unknown') # maybe try another provider here?
 
                         # let's search for it
@@ -120,21 +73,26 @@ class NewSite(LoginRequiredMixin, FormView):
 
                     try:
                         prop.save()
-                    except:
-                        # translation already exist
+                    except: # translation already exists
                         pass
 
-            # create other property types
+            # process other property types
             else:
-                prop = Property.objects.create(**args)
+                if update:
+                    prop = site.props.filter(instance = instance)
+                else:
+                    prop = Property.objects.create(**args)
 
-            # add this property to the site
-            newsite.props.add(prop)
+            # save to database
+            if update:
+                prop.update(**args)
+            else:
+                site.props.add(prop)
 
         # attach images
         for i, choice in ImageType.choices:
             img = choice.lower()
-            pic = form.cleaned_data[img]
+            pic = values[img]
 
             if pic is not None:
                 if i == ImageType.general:
@@ -142,11 +100,61 @@ class NewSite(LoginRequiredMixin, FormView):
                     pic = [pic]
 
                 for each in pic:
-                    tmp = Image.objects.create(site = newsite, oftype = i, image = each)
+                    tmp = Image.objects.create(site = site, oftype = i, image = each)
                     tmp.save()
 
         # delete data from temp_uploads
         form.delete_temporary_files()
+
+        if update:
+            imgs_del_data = form.cleaned_data['imgs_to_del']
+            trash_images = imgs_del_data.split(',')
+            for img_id in trash_images:
+                img_id = int(img_id)
+                try:
+                    img_to_delete = site_to_update.image_set.all().get(id=img_id)
+                    img_to_delete.delete()
+                except:
+                    pass
+
+
+class WelcomePage(TemplateView):
+    template_name = 'archapp/welcome.html'
+    model = Site
+
+class SignUp(CreateView):
+    form_class = SignUpForm
+    template_name = 'archapp/signup.html'
+    success_url='/archapp/accounts/login'
+    def form_valid(self, form):
+        return super(SignUp, self).form_valid(form)
+
+class UserUpdate(LoginRequiredMixin, UpdateView):
+    template_name = 'archapp/userupdate.html'
+    model = User
+    slug_field = "username"
+    fields = ['username']
+
+class UserDelete(LoginRequiredMixin, DeleteView):
+    model = User
+    slug_field = "username"
+    success_url = '/signup/'
+
+class NewSite(LoginRequiredMixin, FiltersAwareView):
+    template_name = 'archapp/newsite.html'
+    form_class = NewSiteForm
+    success_url='/archapp/all'
+    login_url = '/archapp/accounts/login/'
+    redirect_field_name= 'redirect_to'
+
+    def form_valid(self, form):
+        siteuser = self.request.user
+        sitename = form.cleaned_data['name']
+        newsite = Site(name = sitename, user = siteuser)
+        newsite.save()
+
+        # process all filters and images
+        self.process_filters_and_pics(site = newsite, form = form, update = False)
 
         newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
         newsite.save()
@@ -188,111 +196,21 @@ class SiteEditForm(LoginRequiredMixin, FormView):
     redirect_field_name= 'redirect_to'
     
     def form_valid(self, form):
-        geo = GeoCoder(GeoCoder.Type.google)
-        siteuser = self.request.user
-        site_id = form.cleaned_data['site_id']
-        site_to_update = Site.objects.get(pk=site_id, user=siteuser)
-        filters = Filter.objects.filter(basic = True)
-        site_to_update.name = form.cleaned_data['name']
-        site_to_update.save()
-        for instance in filters:
-            prop = None
-            args = {'instance': instance}
-            name = instance.name.lower()
-            data = form.cleaned_data[name]
+        # obtain current site
+        site = Site.objects.get(pk = form.cleaned_data['site_id'], user = self.request.user)
 
-            # usually this means validation fail, but
-            # let's override this for missing fields
-            if data is None:
-                data = False
+        # update its name
+        site.name = form.cleaned_data['name']
 
-            if instance.oftype == ValueType.integer:
-                args['integer'] = int(data)
-               # return ValueError: invalid literal for int() with base 10: ''
-               #pass
-            elif instance.oftype == ValueType.boolean:
-                args['boolean'] = bool(data)
-            elif instance.oftype == ValueType.double:
-                args['double'] = float(data)
-            elif instance.oftype == ValueType.string:
-                args['string'] = data
+        # save
+        site.save()
 
-            # search for string values first
-            if instance.oftype == ValueType.string:
-                # let's remember missing translations...
-                missing = []
+        # update all filters and images
+        self.process_filters_and_pics(site = site, form = form, update = True)
 
-                # we want these values to be explicitly translated
-                if name in geo.filters():
-                    for lang, etc in settings.LANGUAGES:
-                        # try to get geo data in specified language
-                        with translation.override(lang):
-                            geocoded = geo.reverse(form.cleaned_data['latitude'], form.cleaned_data['longtitude'], lang, name)
-                            geocoded = geocoded or translation.ugettext('Unknown') # maybe try another provider here?
 
-                        #let's search for it
-                        try:
-                            prop = Property.objects.language(lang).get(instance = instance, string = geocoded)
-                        except Property.DoesNotExist:
-                            missing.append( (lang, geocoded) )
-                else:
-                    # for plain string properties just copy provided text to all translations
-                    missing = [(code, args['string']) for code, full in settings.LANGUAGES]
-
-                # if no translations available, create property without translation
-                if prop is None:
-                    prop = Property.objects.create(instance = instance)
-                    prop.save(update_fields = ['instance'])
-
-                # finally fill missing translations
-                for lang, translated in missing:
-                    try:
-                        prop.translate(lang)
-                        prop.string = translated
-                        prop.save()
-                    except:
-                        # ignore already existing translations
-                        pass
-
-            # create other property types
-            else:
-                prop = Property.objects.create(**args)
-
-            # add this property to the site
-            old_prop = site_to_update.props.all().get(instance=instance)
-            site_to_update.props.remove(old_prop)
-            site_to_update.props.add(prop)
-
-        # attach images
-        for i, choice in ImageType.choices:
-            img = choice.lower()
-            pic = form.cleaned_data[img]
-
-            if pic is not None:
-                if i == ImageType.general:
-                    # make array from single picture
-                    pic = [pic]
-
-                for each in pic:
-                    tmp = Image.objects.create(site = site_to_update, oftype = i, image = each)
-                    tmp.save()
-
-        # delete data from temp_uploads
-        form.delete_temporary_files()
-
-        # delete unnecessary images
-        imgs_del_data = form.cleaned_data['imgs_to_del']
-        trash_images = imgs_del_data.split(',')
-        for img_id in trash_images:
-            img_id = int(img_id)
-            try:
-                img_to_delete = site_to_update.image_set.all().get(id=img_id)
-                img_to_delete.delete()
-            except:
-                pass
-
-        site_to_update.data[0]['Bibliography'] = form.cleaned_data['literature']
-        site_to_update.save()
+        site.data[0]['Bibliography'] = form.cleaned_data['literature']
+        site.save()
 
         return super(SiteEditForm, self).form_valid(form)
 
