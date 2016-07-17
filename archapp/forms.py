@@ -10,9 +10,14 @@ from django_file_form.forms import FileFormMixin, UploadedFileField, MultipleUpl
 
 
 class FilterForm(betterforms.BetterForm):
-    def __init__(self, *args, **kwargs):
-        #self.selected = kwargs['selected'] if 'selected' in kwargs else None
-        super(FilterForm, self).__init__(*args, **kwargs)
+    # define fieldsets
+    def create_fieldsets():
+        return [('1', {'description': _('Basic data'), 'legend': 'maintab', 'fields':
+               ['name', 'country', 'region', 'district', 'settlement', 'latitude', 'longtitude','placeid']}),
+               ('2', {'description': _('Description'), 'legend': 'desctab', 'fields':
+               ['riversystem', 'area', 'areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
+               ('3', {'description': _('Attachments'), 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found'] + ['form_id', 'upload_url', 'delete_url']}),
+               ('4', {'description': _('References'), 'legend': 'refstab', 'fields': ['literature']})]
 
     # creates fields for basic filters
     def create_filter_fields(self, query = {'basic': True}):
@@ -32,7 +37,6 @@ class FilterForm(betterforms.BetterForm):
             if subs.count():
                 args['widget']  = forms.Select()
                 args['choices'] = [(s.id, _(s.name)) for s in subs]
-                #args['initial'] = self.selected[flt] if self.selected is not None else subs[0].id
 
                 field = forms.ChoiceField()
 
@@ -44,7 +48,6 @@ class FilterForm(betterforms.BetterForm):
                 field = mapping[flt.oftype]
 
             # implicit reconstruction with needed params
-            f = type(field)(**args) 
             self.fields[flt.name.lower()] = type(field)(**args)
 
 
@@ -84,14 +87,8 @@ class SearchForm(FilterForm):
 
 
 class NewSiteForm(FileFormMixin, FilterForm):
-
     class Meta:
-        fieldsets = [('1', {'description': _('Basic data'), 'legend': 'maintab', 'fields':
-                    ['name', 'country', 'region', 'district', 'settlement', 'latitude', 'longtitude','placeid']}),
-                     ('2', {'description': _('Description'), 'legend': 'desctab', 'fields':
-                    ['riversystem', 'area', 'areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'valleyaltitude', 'datingfrom', 'datingto', 'dating', 'undefined']}),
-                     ('3', {'description': _('Attachments'), 'legend': 'mediatab', 'fields': ['general', 'plane', 'photo', 'found'] + ['form_id', 'upload_url', 'delete_url']}),
-                     ('4', {'description': _('References'), 'legend': 'refstab', 'fields': ['literature']})]
+        fieldsets = FilterForm.create_fieldsets()
 
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)
@@ -112,14 +109,10 @@ class NewSiteForm(FileFormMixin, FilterForm):
                 field = MultipleUploadedFileField(required = False, label = _(choice))
             self.fields[choice.lower()] = field
 
-#class EditForm(#forms.ModelForm): #FileFormMixin, FilterForm):
+class EditSiteForm(NewSiteForm):
 
-class EditForm(NewSiteForm):
-    #class Meta:
-    #    model = Site
-    #    fields = ['name']
     def __init__(self, *args, **kwargs):
-        super(EditForm, self).__init__(*args, **kwargs)
+        super(EditSiteForm, self).__init__(*args, **kwargs)
         self.fields['site_id'] = forms.IntegerField()
-        self.fields['imgs_to_del'] = forms.CharField()
-        #self.create_filter_fields()
+        self.fields['imgs_to_del'] = forms.CharField(required = False)
+

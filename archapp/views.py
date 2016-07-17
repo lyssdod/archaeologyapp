@@ -1,20 +1,22 @@
-from .models import Site, Filter, Image, Property, ValueType, ImageType
+from archapp.models import Site, Filter, Image, Property, ValueType, ImageType
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
-from .forms import NewSiteForm, SignUpForm, ListSearchForm, EditForm
+from archapp.forms import NewSiteForm, SignUpForm, ListSearchForm, EditSiteForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import FormMixin
 from hvad.utils import get_translation_aware_manager
+from django.core.urlresolvers import reverse
 from django.utils import translation
 from django.conf import settings
-from .geo import GeoCoder
+from archapp.geo import GeoCoder
 import pickle
 
 
-class FiltersAwareView(FormView):
+class SiteProcessingView(object):
     # update or create new filter values
-    def process_filters_and_pics(self, site, form, update = False):
+    def process_filters_and_pics(self, site, form, editing = False):
         geo = GeoCoder(GeoCoder.Type.google)
         values = form.cleaned_data
         filters = Filter.objects.filter(basic = True)
@@ -40,7 +42,7 @@ class FiltersAwareView(FormView):
                 args['string'] = data
 
             # search for string values first
-            if instance.oftype is ValueType.string:
+            if instance.oftype == ValueType.string:
                 # let's remember missing translations...
                 missing = []
 
@@ -78,16 +80,16 @@ class FiltersAwareView(FormView):
 
             # process other property types
             else:
-                if update:
-                    prop = site.props.filter(instance = instance)
+                if editing:
+                    pass
                 else:
                     prop = Property.objects.create(**args)
 
-            # save to database
-            if update:
-                prop.update(**args)
-            else:
-                site.props.add(prop)
+                # save to database
+                if editing:
+                    site.props.filter(instance = instance).update(**args)
+                else:
+                    site.props.add(prop)
 
         # attach images
         for i, choice in ImageType.choices:
@@ -106,7 +108,7 @@ class FiltersAwareView(FormView):
         # delete data from temp_uploads
         form.delete_temporary_files()
 
-        if update:
+        if editing:
             imgs_del_data = form.cleaned_data['imgs_to_del']
             trash_images = imgs_del_data.split(',')
             for img_id in trash_images:
@@ -117,30 +119,7 @@ class FiltersAwareView(FormView):
                 except:
                     pass
 
-
-class WelcomePage(TemplateView):
-    template_name = 'archapp/welcome.html'
-    model = Site
-
-class SignUp(CreateView):
-    form_class = SignUpForm
-    template_name = 'archapp/signup.html'
-    success_url='/archapp/accounts/login'
-    def form_valid(self, form):
-        return super(SignUp, self).form_valid(form)
-
-class UserUpdate(LoginRequiredMixin, UpdateView):
-    template_name = 'archapp/userupdate.html'
-    model = User
-    slug_field = "username"
-    fields = ['username']
-
-class UserDelete(LoginRequiredMixin, DeleteView):
-    model = User
-    slug_field = "username"
-    success_url = '/signup/'
-
-class NewSite(LoginRequiredMixin, FiltersAwareView):
+class SiteCreate(LoginRequiredMixin, FormView, SiteProcessingView):
     template_name = 'archapp/newsite.html'
     form_class = NewSiteForm
     success_url='/archapp/all'
@@ -154,14 +133,13 @@ class NewSite(LoginRequiredMixin, FiltersAwareView):
         newsite.save()
 
         # process all filters and images
-        self.process_filters_and_pics(site = newsite, form = form, update = False)
+        self.process_filters_and_pics(site = newsite, form = form, editing = False)
 
         newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
         newsite.save()
 
         return super(NewSite, self).form_valid(form)
     
-
 class SitePage(LoginRequiredMixin, DetailView):
     manager = get_translation_aware_manager(Site)
     queryset = manager.language()
@@ -172,29 +150,32 @@ class SitePage(LoginRequiredMixin, DetailView):
           context['sview'] = True
           return context
 
-class SiteEdit(LoginRequiredMixin, DetailView):
+class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
     manager = get_translation_aware_manager(Site)
     queryset = manager.language()
-    template_name = 'archapp/edit.html'
-
-    def get_context_data(self, **kwargs):
-        context= super(SiteEdit, self).get_context_data(**kwargs)
-        context['form'] = EditForm 
-        return context
-
-class NewEdit(LoginRequiredMixin, UpdateView):
+    form_class = EditSiteForm
     model = Site
-    manager = get_translation_aware_manager(Site)
-    queryset = manager.language()
-    form_class = EditForm
     template_name = 'archapp/edit.html'
-
-class SiteEditForm(LoginRequiredMixin, FormView):
-    form_class = EditForm
-    success_url='/archapp/all'
     login_url = '/archapp/accounts/login/'
     redirect_field_name= 'redirect_to'
-    
+
+    def get_success_url(self):
+        return reverse('allsites')
+
+    def get_context_data(self, **kwargs):
+        context = super(SiteEdit, self).get_context_data(**kwargs)
+        context['form'] = self.get_form()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
     def form_valid(self, form):
         # obtain current site
         site = Site.objects.get(pk = form.cleaned_data['site_id'], user = self.request.user)
@@ -206,13 +187,13 @@ class SiteEditForm(LoginRequiredMixin, FormView):
         site.save()
 
         # update all filters and images
-        self.process_filters_and_pics(site = site, form = form, update = True)
+        self.process_filters_and_pics(site = site, form = form, editing = True)
 
 
         site.data[0]['Bibliography'] = form.cleaned_data['literature']
         site.save()
 
-        return super(SiteEditForm, self).form_valid(form)
+        return super(SiteEdit, self).form_valid(form)
 
 class SiteDelete(LoginRequiredMixin, DeleteView):
     model = Site
@@ -243,11 +224,29 @@ class AllSites(LoginRequiredMixin, ListView):
         context['form'] = ListSearchForm
         return context
 
-
-
 class Search(LoginRequiredMixin, ListView):
     model = Site
     template_name = 'archapp/search.html'
 
 
 
+class WelcomePage(TemplateView):
+    template_name = 'archapp/welcome.html'
+
+class SignUp(CreateView):
+    form_class = SignUpForm
+    template_name = 'archapp/signup.html'
+    success_url='/archapp/accounts/login'
+    def form_valid(self, form):
+        return super(SignUp, self).form_valid(form)
+
+class UserUpdate(LoginRequiredMixin, UpdateView):
+    template_name = 'archapp/userupdate.html'
+    model = User
+    slug_field = "username"
+    fields = ['username']
+
+class UserDelete(LoginRequiredMixin, DeleteView):
+    model = User
+    slug_field = "username"
+    success_url = '/signup/'

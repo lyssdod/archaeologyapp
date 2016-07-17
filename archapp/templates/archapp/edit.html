@@ -10,7 +10,7 @@
 <div class="row text-center">
   <h2 class="site_name">Редагувати {{site.name}}</h2>
 </div>
-<form id="newsiteform" action="{% url 'archapp:edit_form' %}" method="post" enctype="multipart/form-data">
+<form id="newsiteform" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {% render_field form.site_id type="hidden" value=site.id %}
   {% if messages %}
