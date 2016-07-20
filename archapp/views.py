@@ -120,9 +120,9 @@ class SiteProcessingView(object):
 class SiteCreate(LoginRequiredMixin, FormView, SiteProcessingView):
     template_name = 'archapp/newsite.html'
     form_class = NewSiteForm
-    success_url='/archapp/all'
+    success_url = '/archapp/all'
     login_url = '/archapp/accounts/login/'
-    redirect_field_name= 'redirect_to'
+    redirect_field_name = 'redirect_to'
 
     def form_valid(self, form):
         siteuser = self.request.user
@@ -155,7 +155,7 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
     model = Site
     template_name = 'archapp/edit.html'
     login_url = '/archapp/accounts/login/'
-    redirect_field_name= 'redirect_to'
+    redirect_field_name = 'redirect_to'
 
     def get_success_url(self):
         return reverse('archapp:allsites')
@@ -181,14 +181,13 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
         # update its name
         site.name = form.cleaned_data['name']
 
-        # save
-        site.save()
-
         # update all filters and images
         self.process_filters_and_pics(site = site, form = form, editing = True)
 
-
+        # TODO: refactor this
         site.data[0]['Bibliography'] = form.cleaned_data['literature']
+
+        # save site
         site.save()
 
         return super(SiteEdit, self).form_valid(form)
@@ -202,7 +201,7 @@ class SiteDelete(LoginRequiredMixin, DeleteView):
 class AllSites(LoginRequiredMixin, ListView):
     model = Site
     template_name = 'archapp/all.html'
-    success_url='/archapp/'
+    success_url = '/archapp/'
     login_url = '/archapp/accounts/login/'
 
     def form_valid(self, form):
@@ -226,15 +225,14 @@ class Search(LoginRequiredMixin, ListView):
     model = Site
     template_name = 'archapp/search.html'
 
-
-
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
 
 class SignUp(CreateView):
     form_class = SignUpForm
     template_name = 'archapp/signup.html'
-    success_url='/archapp/accounts/login'
+    success_url = '/archapp/accounts/login'
+
     def form_valid(self, form):
         return super(SignUp, self).form_valid(form)
 
