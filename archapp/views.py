@@ -81,14 +81,9 @@ class SiteProcessingView(object):
             # process other property types
             else:
                 if editing:
-                    pass
-                else:
-                    prop = Property.objects.create(**args)
-
-                # save to database
-                if editing:
                     site.props.filter(instance = instance).update(**args)
                 else:
+                    prop = Property.objects.create(**args)
                     site.props.add(prop)
 
         # attach images
