@@ -136,7 +136,7 @@ class SiteCreate(LoginRequiredMixin, FormView, SiteProcessingView):
         newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
         newsite.save()
 
-        return super(NewSite, self).form_valid(form)
+        return super(SiteCreate, self).form_valid(form)
     
 class SitePage(LoginRequiredMixin, DetailView):
     manager = get_translation_aware_manager(Site)
