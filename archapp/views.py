@@ -84,7 +84,10 @@ class SiteProcessingView(object):
                     site.props.filter(instance = instance).update(**args)
                 else:
                     prop = Property.objects.create(**args)
-                    site.props.add(prop)
+
+            # add property to site
+            if not editing:
+                site.props.add(prop)
 
         # attach images
         for i, choice in ImageType.choices:
