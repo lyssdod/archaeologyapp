@@ -42,10 +42,8 @@
     </div>
     <div class="gallery">
       <div class="row">
-        <div class="col-md-12">
           {% with imgs|pick_mult_types:'photo,plane,found' as gallery %}
           {% if gallery|length %}
-          <h3>{% trans "Gallery" %} </h3>
           <div class="carousel slide multi-item-carousel margin-top gallery-box" id="theCarousel">
             <div class="carousel-inner">
               {% for img in gallery %}
@@ -64,9 +62,8 @@
           {% endif %}
           {% endwith %}
         </div>
-      </div>
     </div>
-    <div class="row">
+    <div class="row box">
       <div class="col-md-6">
         <div class="row">
           <div class="col-md-3">
@@ -156,11 +153,11 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-2">
+    <div class="row box">
+      <div class="col-md-12 text-center">
         <p class="text-muted"> {% trans "Bibliography" %} </p>
       </div>
-      <div class="col-md-10 bibliography">
+      <div class="col-md-12 bibliography">
         <p>{{site.data.0.Bibliography}}</p>
       </div>
     </div>
