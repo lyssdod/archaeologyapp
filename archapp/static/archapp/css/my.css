@@ -43,11 +43,28 @@ body > .container {
     margin-bottom: 5px;
     border: 0px;
 }
-.signature {
-    color: #6991AC;
-}
 .padding {
   padding-top: 15px;
+}
+
+@media (max-width: 1200px) { 
+  .logo {
+    font-size: 25px;
+  }
+  .padding {
+    padding-top: 10px;
+  }
+}
+@media (max-width: 992px) { 
+  .logo {
+    font-size: 20px;
+  }
+  .padding {
+    padding-top: 5px;
+  }
+}
+.signature {
+    color: #6991AC;
 }
 .background {
   background-color: #F5F5F5;
@@ -124,7 +141,11 @@ body > .container {
 .carousel-control.right {
   border-radius: 4px;
 }
-
+@media (min-width:768px) {
+  .form-inline .form-control {
+    width: 100%;
+  }
+}
 .form-custom {
   height: 28px;
   font-size: 12px;

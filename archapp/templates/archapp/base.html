@@ -63,12 +63,12 @@
     <body class="background">
         <header class="header">
             <div class="container-fluid container-config textcol">
-                <div class="col-md-4">
+                <div class="col-sm-4">
                     <a href = "{% url 'archapp:welcome' %}" class="btn btn-sm">
                         <h2 class="logo">{% trans "Archaeology database" %}</h2>
                     </a>
                 </div>
-                <div class="col-md-2 text-center padding">
+                <div class="col-sm-2 text-center padding">
                     <form action="{% url "set_language" %}" method="post">
                         {% csrf_token %}
                         <select name="language" class="form-control form-custom" onchange="this.form.submit()">
@@ -83,28 +83,28 @@
                     </form>
                 </div>
                 {% if user.is_authenticated %}
-                <div class="col-md-2 padding">
+                <div class="col-sm-2 padding">
                     <form action="" class="form-inline box-shadow" method="post">
                         <input class="form-control form-custom" type="text" name="name_of_site" placeholder="{% trans 'Search sites' %}" />
                     </form>
                 </div>
-                <div class="col-md-1 text-center padding">
+                <div class="col-sm-1 text-center padding">
                     <a href ="{% url 'archapp:newsite'%}" class="btn btn-color btn-sm">{% trans "New site" %}</a>
                 </div>
-                <div class="col-md-1 text-center padding">
+                <div class="col-sm-1 text-center padding">
                     <a href = "{% url 'archapp:allsites' %}" class="btn btn-color btn-sm">{% trans "All sites" %}</a>
                 </div>
-                <div class="col-md-1 text-center padding">
+                <div class="col-sm-1 text-center padding">
                     <a href = "" class="btn btn-color btn-sm">{{user}}</a>
                 </div>
-                <div class="col-md-1 text-center padding">
+                <div class="col-sm-1 text-center padding">
                     <a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">{% trans "Log out" %}</a>
                 </div>
                 {% else %}
-                <div class="col-md-2 col-md-offset-3 text-center padding">
+                <div class="col-sm-2 col-sm-offset-3 text-center padding">
                     <a href = "{% url 'archapp:signup' %}" class="btn btn-color btn-sm">{% trans "Register" %}</a>
                 </div>
-                <div class="col-md-1 text-center padding">
+                <div class="col-sm-1 text-center padding">
                     <a href = "{% url 'archapp:login' %}" class="btn btn-color btn-sm">{% trans "Log in" %}</a>
                 </div>
                 {% endif %}
@@ -116,7 +116,7 @@
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-11 text-right">
+                    <div class="col-sm-11 text-right">
                         <strong class="signature">Written by BB &amp; lyssdod</strong>
                     </div>
                 </div>
