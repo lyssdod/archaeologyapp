@@ -116,6 +116,12 @@ body > .container {
     margin-top: 15px;
     margin-bottom: 15px;
   }
+  
+}
+@media (min-width : 1200px) {
+  .location {
+    margin-right: 15px;
+  }
 }
 .bibliography {
   white-space: pre-line;
