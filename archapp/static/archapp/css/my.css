@@ -5,7 +5,6 @@ body > .container {
   height: auto;
   min-height: 100%;
 }
-
 .container-config {
   margin-bottom: 10px;
 }
@@ -205,36 +204,25 @@ body > .container {
   }
 
   #wrapper.toggled {
-    padding-left: 300px;
+    padding-left: 250px;
   }
 
   #sidebar-wrapper {
-    z-index: 1000;
-    position: fixed;
-    left: 300px;
+    z-index: -1;
+    position: absolute;
+    left: 250px;
     width: 0;
     height: 100%;
-    margin-left: -290px;
+    margin-left: -250px;
+    margin-top: -10px;
+    margin-bottom: -10px;
     overflow-y: auto;
+    background-color: #9FBDD1;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
   }
-
-#sidebar-wrapper fieldset
-{
-    border: 1px solid #c0c0c0;
-    margin: 0 2px;
-    padding: 4px 10px;
-}
-
-#sidebar-wrapper legend
-{
-  border: none;
-  padding: 0px 5px;
-  width: auto;
-}
 
   #wrapper.toggled #sidebar-wrapper {
     width: 250px;
@@ -255,10 +243,11 @@ body > .container {
 
   .sidebar-nav {
     position: absolute;
-    right: 0;
+    top: 0;
     width: 250px;
     margin: 0;
-    padding: 0;
+    padding-left: 10px;
+    padding-right: 10px;
     list-style: none;
   }
 
@@ -325,7 +314,7 @@ body > .container {
       position: relative;
       margin-right: 0;
     }
-  }
+  } 
 
 .nopadding {
   padding-right:0;
