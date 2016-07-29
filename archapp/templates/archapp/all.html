@@ -31,10 +31,10 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-lg-9 col-md-9 col-sm-9">
           <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">{% trans "Filters" %}</a>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-3 col-sm-3">
           <div class="checkbox">
             <label>
               <input id="toggle" type="checkbox" data-toggle="toggle">
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class = "row">
-        <div class="col-md-4 col-md-offset-4 text-center">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
           <h2 class="site_name">{% trans "All sites" %}</h2>
         </div>
       </div>
@@ -57,14 +57,14 @@
         {% if site.user = user %}
         {% with site.image_set.all as imgs %}
         {% with site.props.all as prop %}
-        <div class="col-md-4 site-preview">
+        <div class="col-lg-4 col-md-4 col-sm-4 site-preview">
           <div class="row">
             <a href = "{% url 'archapp:sitepage' site.id %}">
-              <div class="col-md-5">
+              <div class="col-lg-5 col-md-5 col-sm-5">
                 <img src = "{{imgs|pick:'general,avatar'}}" />
               </div>
             </a>
-            <div class="col-md-7">
+            <div class="col-lg-7 col-md-7 col-sm-7">
               <p class="text-left sitename">{{site.name}}</p>
               <p class="text-left">{{prop|lookup:"Area"}}</p>
               <p>{{prop|lookup:"DatingFrom, Dating"}} - {{prop|lookup:"DatingTo, Dating"}}</p>
