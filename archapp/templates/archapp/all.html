@@ -5,36 +5,49 @@
 {% load i18n %}
 {% load pick %}
 {% load lookup %}
-<div id="wrapper">
+<div class="wrapper">
   <!-- Sidebar -->
-  <div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-      <li class="sidebar-brand">
+  <div class="sidebar">
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <li class="logo">
         <a href="#">{% trans "Filters" %}</a>
-      </li>
+        </li>
+      </ul>
       <form method="post" class="form-inline">
         {% csrf_token %}
         {% for fset in form.fieldsets %}
         <fieldset>
-          <legend>{{fset.description}}</legend>
-          {% for field in fset %}
-          {{ field.label_tag }} {% render_field field class+="form-control" %}
-          {% endfor %}
+          <ul class="nav">
+            <li>
+            <legend>{{fset.description}}</legend>
+            </li>
+            {% for field in fset %}
+            <li>
+            {{ field.label_tag }} 
+            </li>
+            <li>
+            {% render_field field class+="form-control form-custom" %}
+            </li>
+            {% endfor %}
+          </ul>
         </fieldset>
         {% endfor %}
+        <ul class="nav">
+          <li>
+          <input type="submit" class="btn btn-primary" value="{% trans 'Filter' %}"/>
+          </li>
+        </ul>
       </form>
-    </ul>
+    </div>
   </div>
   <!-- /#sidebar-wrapper -->
 
   <!-- Page Content -->
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
+  <div class="main-panel">
+    <div class="container-fluid content">
       <div class="row">
-        <div class="col-lg-9 col-md-9 col-sm-9">
-          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">{% trans "Filters" %}</a>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-lg-offset-9 col-md-offset-8 col-sm-offset-8">
           <div class="checkbox">
             <label>
               <input id="toggle" type="checkbox" data-toggle="toggle">
@@ -57,7 +70,7 @@
         {% if site.user = user %}
         {% with site.image_set.all as imgs %}
         {% with site.props.all as prop %}
-        <div class="col-lg-4 col-md-4 col-sm-4 site-preview">
+        <div class="col-lg-4 col-md-6 col-sm-6 site-preview">
           <div class="row">
             <a href = "{% url 'archapp:sitepage' site.id %}">
               <div class="col-lg-5 col-md-5 col-sm-5">

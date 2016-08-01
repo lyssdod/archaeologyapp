@@ -48,140 +48,140 @@
         </div>
       </div>
     </div>
-      <div class="col-lg-9 col-md-12">
-        <div class="gallery">
-          <div class="row">
-            {% with imgs|pick_mult_types:'photo,plane,found' as gallery %}
-            {% if gallery|length %}
-            <div class="carousel slide multi-item-carousel gallery-box" id="theCarousel">
-              <div class="carousel-inner">
-                {% for img in gallery %}
-                <div class="item {% if forloop.first %} active{% endif %}">
-                  <div class="col-xs-4">
-                    <a href="{{ img|pick_size:'large' }}" data-toggle="lightbox" data-gallery="photos">
-                      <img src = "{{ img|pick_size:'thumb' }}" class="img-thumbnail"/>
-                    </a>
-                  </div>
+    <div class="col-lg-9 col-md-12">
+      <div class="gallery">
+        <div class="row">
+          {% with imgs|pick_mult_types:'photo,plane,found' as gallery %}
+          {% if gallery|length %}
+          <div class="carousel slide multi-item-carousel gallery-box" id="theCarousel">
+            <div class="carousel-inner">
+              {% for img in gallery %}
+              <div class="item {% if forloop.first %} active{% endif %}">
+                <div class="col-xs-4">
+                  <a href="{{ img|pick_size:'large' }}" data-toggle="lightbox" data-gallery="photos">
+                    <img src = "{{ img|pick_size:'thumb' }}" class="img-thumbnail"/>
+                  </a>
                 </div>
-                {% endfor %}
               </div>
-              <a class="left carousel-control control-left-radius" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-              <a class="right carousel-control control-right-radius" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+              {% endfor %}
             </div>
-            {% endif %}
-            {% endwith %}
+            <a class="left carousel-control control-left-radius" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <a class="right carousel-control control-right-radius" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
           </div>
+          {% endif %}
+          {% endwith %}
         </div>
-        <div class="row box">
-          <div class="col-md-6 col-sm-6">
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <p class="text-muted">{% trans "Area" %} </p>
-              </div>
-              <div class="col-lg-9 col-md-8 col-sm-8">
-                <p>{{prop|lookup:"Area"}}</p>
-              </div>
+      </div>
+      <div class="row box">
+        <div class="col-md-6 col-sm-6">
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+              <p class="text-muted">{% trans "Area" %} </p>
             </div>
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <p class="text-muted">{% trans "AreaWidth" %} </p>
-              </div>
-              <div class="col-lg-3 col-md-4 col-sm-8">
-                <p>{{prop|lookup:"AreaWidth"}}</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <p class="text-muted">{% trans "AreaHeight" %} </p>
-              </div>
-              <div class="col-lg-9 col-md-8 col-sm-8">
-                <p>{{prop|lookup:"AreaHeight"}}</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <p class="text-muted">{% trans "Calculated Area" %} </p>
-              </div>
-              <div class="col-lg-9 col-md-8 col-sm-8">
-                {% with prop|lookup:"AreaWidth" as aw %}
-                {% with prop|lookup:"AreaHeight" as ah %} 
-                <p>{{ aw|mul:ah }}</p>
-                {%endwith%}
-                {%endwith%}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <p class="text-muted">{% trans "RiverSystem" %} </p>
-              </div>
-              <div class="col-lg-9 col-md-8 col-sm-8">
-                <p>{{prop|lookup:"RiverSystem"}}</p>
-              </div>
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <p>{{prop|lookup:"Area"}}</p>
             </div>
           </div>
-          <div class="col-md-6 col-sm-6">
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <p class="text-muted"> {% trans "Topography" %} </p>
-              </div>
-              <div class="col-lg-9 col-md-8 col-sm-8">
-                <p>{{prop|lookup:"Topography"}}</p>
-              </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+              <p class="text-muted">{% trans "AreaWidth" %} </p>
             </div>
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4 col-sm-4">
-                <p class="text-muted"> {% trans "Geomorphology" %} </p>
-              </div>
-              <div class="col-lg-9 col-md-8 col-sm-8">
-                <p>{{prop|lookup:"Geomorphology"}}</p>
-              </div>
+            <div class="col-lg-3 col-md-4 col-sm-8">
+              <p>{{prop|lookup:"AreaWidth"}}</p>
             </div>
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <p class="text-muted"> {% trans "Altitude" %} </p>
-              </div>
-              <div class="col-lg-9 col-md-8 col-sm-8">
-                <p>{{prop|lookup:"Altitude"}}</p>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+              <p class="text-muted">{% trans "AreaHeight" %} </p>
             </div>
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <p class="text-muted"> {% trans "ValleyAltitude" %} </p>
-              </div>
-              <div class="col-lg-9 col-md-8 col-sm-8">
-                <p>{{prop|lookup:"ValleyAltitude"}}</p>
-              </div>
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <p>{{prop|lookup:"AreaHeight"}}</p>
             </div>
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-4">
-                <p class="text-muted"> {% trans "Dating" %}</p>
-              </div>
-              <div class="col-lg-9 col-md-8 col-sm-8">
-                <p>{{prop|lookup:"DatingFrom, Dating"}} - {{prop|lookup:"DatingTo, Dating"}}</p>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+              <p class="text-muted">{% trans "Calculated Area" %} </p>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              {% with prop|lookup:"AreaWidth" as aw %}
+              {% with prop|lookup:"AreaHeight" as ah %} 
+              <p>{{ aw|mul:ah }}</p>
+              {%endwith%}
+              {%endwith%}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+              <p class="text-muted">{% trans "RiverSystem" %} </p>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <p>{{prop|lookup:"RiverSystem"}}</p>
             </div>
           </div>
         </div>
-        <div class="row box">
-          <div class="col-md-12 text-center">
-            <p class="text-muted"> {% trans "Bibliography" %} </p>
+        <div class="col-md-6 col-sm-6">
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+              <p class="text-muted"> {% trans "Topography" %} </p>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <p>{{prop|lookup:"Topography"}}</p>
+            </div>
           </div>
-          <div class="col-md-12 bibliography">
-            <p>{{site.data.0.Bibliography}}</p>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-sm-4">
+              <p class="text-muted"> {% trans "Geomorphology" %} </p>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <p>{{prop|lookup:"Geomorphology"}}</p>
+            </div>
           </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+              <p class="text-muted"> {% trans "Altitude" %} </p>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <p>{{prop|lookup:"Altitude"}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+              <p class="text-muted"> {% trans "ValleyAltitude" %} </p>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <p>{{prop|lookup:"ValleyAltitude"}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+              <p class="text-muted"> {% trans "Dating" %}</p>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <p>{{prop|lookup:"DatingFrom, Dating"}} - {{prop|lookup:"DatingTo, Dating"}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row box">
+        <div class="col-md-12 text-center">
+          <p class="text-muted"> {% trans "Bibliography" %} </p>
+        </div>
+        <div class="col-md-12 bibliography">
+          <p>{{site.data.0.Bibliography}}</p>
         </div>
       </div>
     </div>
   </div>
-  <script>
+</div>
+<script>
 $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
     event.preventDefault();
     $(this).ekkoLightbox();
     });
-  </script>
-  <script>
+</script>
+<script>
 // Instantiate the Bootstrap carousel
-  $('.multi-item-carousel').carousel({
+$('.multi-item-carousel').carousel({
 interval: false
 });
 
@@ -200,7 +200,7 @@ $('.multi-item-carousel .item').each(function(){
     $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
     }
     });
-  </script>
-  {% endwith %}
-  {% endwith %}
-  {% endblock %}
+</script>
+{% endwith %}
+{% endwith %}
+{% endblock %}
