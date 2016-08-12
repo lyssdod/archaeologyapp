@@ -22,6 +22,8 @@ class ImageType(DjangoChoices):
 
 # generic Filter for Property referencing
 class Filter(models.Model):
+    class Meta:
+        ordering = ['pk']
     name = models.CharField(max_length = 128)
     basic = models.BooleanField(default = False)
     hidden = models.BooleanField(default = False)
