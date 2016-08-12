@@ -93,7 +93,7 @@ class NewSiteForm(FileFormMixin, FilterForm):
     def __init__(self, *args, **kwargs):
         super(NewSiteForm, self).__init__(*args, **kwargs)
 
-        self.fields['name'] = forms.CharField(max_length = 128)
+        self.fields['name'] = forms.CharField(max_length = 128, label = _('Name'))
         self.fields['undefined'] = forms.BooleanField(required = False, label = _('Dating is undefined'))
         self.fields['literature'] = forms.CharField(required = False, widget=forms.Textarea, max_length = 2048, label = _('Literature'))
         self.create_filter_fields()

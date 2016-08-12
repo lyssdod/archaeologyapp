@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-07 23:04+0000\n"
+"POT-Creation-Date: 2016-08-12 15:10+0300\n"
 "PO-Revision-Date: 2016-05-23 00:51+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,79 +19,129 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.8.5\n"
 
-#: archapp/forms.py:70
+#: archapp/forms.py:15 archapp/forms.py:73
 msgid "Basic data"
 msgstr "Основні дані"
 
-#: archapp/forms.py:72
+#: archapp/forms.py:17
 msgid "Description"
 msgstr "Опис"
 
-#: archapp/forms.py:74
+#: archapp/forms.py:19
 msgid "Attachments"
 msgstr "Додаткові файли"
 
-#: archapp/forms.py:75
+#: archapp/forms.py:20
 msgid "References"
 msgstr "Посилання"
 
-#: archapp/forms.py:81
+#: archapp/forms.py:72
+msgid "Location"
+msgstr ""
+
+#: archapp/forms.py:96
+msgid "Name"
+msgstr "Ім’я"
+
+#: archapp/forms.py:97
 msgid "Dating is undefined"
 msgstr "Датування не визначено"
 
-#: archapp/models.py:66
+#: archapp/forms.py:98
+msgid "Literature"
+msgstr "Література"
+
+#: archapp/models.py:70
 msgid "No translation available"
 msgstr ""
 
-#: archapp/templates/404.html:12 archapp/templates/archapp/error.html.py:12
-msgid "Page not found"
-msgstr ""
+#: archapp/populatedb.py:80 archapp/views.py:55
+#: venv/lib/python3.4/site-packages/django/forms/widgets.py:570
+msgid "Unknown"
+msgstr "Невідомо"
 
-#: archapp/templates/404.html:13 archapp/templates/archapp/error.html.py:13
-msgid "The content you requested can not be found"
-msgstr ""
-
-#: archapp/templates/archapp/all.html:12 archapp/templates/archapp/all.html:120
+#: archapp/templates/archapp/all.html:14
 msgid "Filters"
 msgstr "Фільтри"
 
-#: archapp/templates/archapp/all.html:16
-msgid "Sort by alphabet"
-msgstr "Сортувати за абеткою"
+#: archapp/templates/archapp/all.html:38
+#, fuzzy
+#| msgid "Filters"
+msgid "Filter"
+msgstr "Фільтри"
 
-#: archapp/templates/archapp/all.html:125
-#: archapp/templates/archapp/base.html:78
+#: archapp/templates/archapp/all.html:51
+#: archapp/templates/archapp/base.html:95
 msgid "All sites"
 msgstr "Всі пам’ятки"
 
+#: archapp/templates/archapp/all.html:57
+msgid "Toggle map"
+msgstr "Перегляд карти"
+
 #: archapp/templates/archapp/base.html:12
-#: archapp/templates/archapp/base.html:51
+#: archapp/templates/archapp/base.html:68
 msgid "Archaeology database"
 msgstr "Археологічна база даних"
 
-#: archapp/templates/archapp/base.html:71
+#: archapp/templates/archapp/base.html:88
 msgid "Search sites"
 msgstr "Шукати"
 
-#: archapp/templates/archapp/base.html:75
+#: archapp/templates/archapp/base.html:92
 msgid "New site"
 msgstr "Нова пам’ятка"
 
-#: archapp/templates/archapp/base.html:84
+#: archapp/templates/archapp/base.html:101
 msgid "Log out"
 msgstr "Вийти"
 
-#: archapp/templates/archapp/base.html:88
-#: archapp/templates/archapp/signup.html:4
+#: archapp/templates/archapp/base.html:105
+#: archapp/templates/archapp/signup.html:8
 msgid "Register"
 msgstr "Зареєструватись"
 
-#: archapp/templates/archapp/base.html:91
-#: archapp/templates/archapp/login.html:5
+#: archapp/templates/archapp/base.html:108
+#: archapp/templates/archapp/login.html:9
 msgid "Log in"
 msgstr "Увійти"
 
-#: archapp/templates/archapp/login.html:19
+#: archapp/templates/archapp/delete.html:7
+#: archapp/templates/archapp/user_confirm_delete.html:8
+msgid "Do you really want to delete"
+msgstr "Ви дійсно хочете видалити"
+
+#: archapp/templates/archapp/delete.html:15
+#: archapp/templates/archapp/site.html:18
+#: archapp/templates/upload_template.html:26
+#: venv/lib/python3.4/site-packages/django/forms/formsets.py:384
+msgid "Delete"
+msgstr "Видалити"
+
+#: archapp/templates/archapp/delete.html:19
+#: archapp/templates/archapp/edit.html:131
+#: archapp/templates/archapp/newsite.html:81
+#: archapp/templates/archapp/user_confirm_delete.html:20
+#: archapp/templates/upload_template.html:24
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: archapp/templates/archapp/edit.html:41
+#, fuzzy
+#| msgid "Delete"
+msgid "Delete Images"
+msgstr "Видалити"
+
+#: archapp/templates/archapp/edit.html:114
+#: archapp/templates/archapp/newsite.html:64
+msgid "Click on the map to pick location"
+msgstr "Клацніть по мапі для вибору локації"
+
+#: archapp/templates/archapp/edit.html:130
+msgid "Update"
+msgstr ""
+
+#: archapp/templates/archapp/login.html:34
 msgid "Your username and password didn't match. Please try again."
 msgstr "Логін або пароль невірний. Будь ласка, спробуйте ще."
 
@@ -99,22 +149,13 @@ msgstr "Логін або пароль невірний. Будь ласка, с
 msgid "Logged out!"
 msgstr "Ви успішно вийшли з системи!"
 
-#: archapp/templates/archapp/newsite.html:8
+#: archapp/templates/archapp/newsite.html:7
 msgid "Create new site"
 msgstr "Створити нову пам’ятку"
 
-#: archapp/templates/archapp/newsite.html:44
-msgid "Click on the map to pick location"
-msgstr "Клацніть по мапі для вибору локації"
-
-#: archapp/templates/archapp/newsite.html:56
+#: archapp/templates/archapp/newsite.html:80
 msgid "Create"
 msgstr "Створити"
-
-#: archapp/templates/archapp/newsite.html:57
-#: archapp/templates/archapp/user_confirm_delete.html:20
-msgid "Cancel"
-msgstr "Скасувати"
 
 #: archapp/templates/archapp/search.html:8
 msgid "Search results"
@@ -124,185 +165,1961 @@ msgstr "Результати пошуку"
 msgid "Nothing found"
 msgstr "Нічого не знайдено"
 
-#: archapp/templates/archapp/site.html:18
-msgid "Settlement"
-msgstr "Населений пункт"
-
-#: archapp/templates/archapp/site.html:32
-#: mydjango/lib/python3.4/site-packages/django/forms/formsets.py:384
-msgid "Delete"
-msgstr "Видалити"
-
-#: archapp/templates/archapp/site.html:35
+#: archapp/templates/archapp/site.html:21
 msgid "Edit"
 msgstr "Редагувати"
 
-#: archapp/templates/archapp/site.html:48
+#: archapp/templates/archapp/site.html:82
 msgid "Area"
 msgstr "Площа"
 
-#: archapp/templates/archapp/site.html:56
+#: archapp/templates/archapp/site.html:90
 msgid "AreaWidth"
 msgstr "Ширина"
 
-#: archapp/templates/archapp/site.html:64
+#: archapp/templates/archapp/site.html:98
 msgid "AreaHeight"
 msgstr "Довжина"
 
-#: archapp/templates/archapp/site.html:72
+#: archapp/templates/archapp/site.html:106
 #, fuzzy
 #| msgid "Calculated area"
 msgid "Calculated Area"
 msgstr "Порахована площа"
 
-#: archapp/templates/archapp/site.html:85
+#: archapp/templates/archapp/site.html:118
+msgid "RiverSystem"
+msgstr "Річкова система"
+
+#: archapp/templates/archapp/site.html:128
 msgid "Topography"
 msgstr "Топографія"
 
-#: archapp/templates/archapp/site.html:93
+#: archapp/templates/archapp/site.html:136
 msgid "Geomorphology"
 msgstr "Геоморфологія"
 
-#: archapp/templates/archapp/site.html:101
+#: archapp/templates/archapp/site.html:144
 msgid "Altitude"
 msgstr "Висота"
 
-#: archapp/templates/archapp/site.html:109
+#: archapp/templates/archapp/site.html:152
 msgid "ValleyAltitude"
 msgstr "Висота над долиною"
 
-#: archapp/templates/archapp/site.html:117
+#: archapp/templates/archapp/site.html:160
 msgid "Dating"
 msgstr "Датування"
 
-#: archapp/templates/archapp/site.html:125
+#: archapp/templates/archapp/site.html:170
 #, fuzzy
 msgid "Bibliography"
 msgstr "Література"
-
-#: archapp/templates/archapp/user_confirm_delete.html:8
-msgid "Do you really want to delete"
-msgstr "Ви дійсно хочете видалити"
 
 #: archapp/templates/archapp/welcome.html:8
 msgid "Welcome to the archaeology database!"
 msgstr "Вітаємо вас у базі даних археологічних пам’яток!"
 
-# filters next
-
-msgid "User-defined filter"
-msgstr "Користувацький фільтр"
-
-msgid "Type"
-msgstr "Тип"
-
-msgid "Country"
-msgstr "Країна"
-
-msgid "Region"
-msgstr "Область"
-
-msgid "District"
-msgstr "Район"
-
-msgid "Valley"
-msgstr "Долина"
-
-msgid "1st Terrace"
-msgstr "Перша тераса"
-
-msgid "2nd Terrace"
-msgstr "Друга тераса"
-
-msgid "High Terrace"
-msgstr "Висока тераса"
-
-msgid "Riverbank"
-msgstr "Берег"
-
-msgid "Dune"
-msgstr "Дюна"
-
-msgid "Cape"
-msgstr "Мис"
-
-msgid "Plateau"
-msgstr "Плато"
-
-msgid "DatingFrom"
-msgstr "Датування від"
-
-msgid "DatingTo"
-msgstr "Датування до"
-
-msgid "RiverSystem"
-msgstr "Річкова система"
-
-msgid "Dnieper"
-msgstr "Дніпро"
-
-msgid "Desna"
-msgstr "Десна"
-
-msgid "Sejm"
-msgstr "Сейм"
-
-msgid "Sula"
-msgstr "Сула"
-
-msgid "Psel"
-msgstr "Псел"
-
-msgid "Vorskla"
-msgstr "Ворскла"
-
-msgid "Oril"
-msgstr "Оріль"
-
-msgid "Samara"
-msgstr "Самара"
-
-msgid "Southern Bug"
-msgstr "Південний Буг"
-
-msgid "Dniester"
-msgstr "Дністер"
-
-msgid "Pripyat"
-msgstr "Прип’ять"
-
-msgid "Undefined"
-msgstr "Не визначено"
-
-msgid "Unknown"
-msgstr "Невідомо"
-
-msgid "Retry"
-msgstr "Повторити"
-
+#: archapp/templates/upload_template.html:5
 msgid "Drop files here to upload"
 msgstr "Перетягніть сюди файли для завантаження"
 
+#: archapp/templates/upload_template.html:8
 msgid "Upload a file"
 msgstr "Завантажити файл"
 
+#: archapp/templates/upload_template.html:11
 msgid "Processing dropped files..."
 msgstr "Обробка файлів..."
 
-msgid "General"
-msgstr "Профіль"
+#: archapp/templates/upload_template.html:25
+msgid "Retry"
+msgstr "Повторити"
 
-msgid "Plane"
-msgstr "План"
+#: archapp/templatetags/lookup.py:23
+msgid "Undefined"
+msgstr "Не визначено"
 
-msgid "Photo"
-msgstr "Фото"
+#: venv/lib/python3.4/site-packages/django/contrib/messages/apps.py:7
+msgid "Messages"
+msgstr ""
 
-msgid "Found"
-msgstr "Знахідки"
+#: venv/lib/python3.4/site-packages/django/contrib/sitemaps/apps.py:7
+msgid "Site Maps"
+msgstr ""
 
-msgid "Toggle map"
-msgstr "Перегляд карти"
+#: venv/lib/python3.4/site-packages/django/contrib/staticfiles/apps.py:7
+msgid "Static Files"
+msgstr ""
 
-msgid "Literature"
-msgstr "Література"
+#: venv/lib/python3.4/site-packages/django/contrib/syndication/apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/contrib/webdesign/apps.py:7
+msgid "Web Design"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:33
+msgid "Enter a valid value."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:105
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:678
+msgid "Enter a valid URL."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:148
+msgid "Enter a valid integer."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:159
+msgid "Enter a valid email address."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:232
+msgid ""
+"Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:239
+msgid ""
+"Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:244
+#: venv/lib/python3.4/site-packages/django/core/validators.py:263
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:249
+#: venv/lib/python3.4/site-packages/django/core/validators.py:264
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:259
+#: venv/lib/python3.4/site-packages/django/core/validators.py:262
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:291
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1130
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:299
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:325
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:332
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:341
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:352
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:366
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:371
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/core/validators.py:376
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/base.py:1103
+#: venv/lib/python3.4/site-packages/django/forms/models.py:727
+msgid "and"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/base.py:1105
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:110
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:111
+msgid "This field cannot be null."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:112
+msgid "This field cannot be blank."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:113
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or 'month'.
+#. Eg: "Title must be unique for pub_date year"
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:117
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:134
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:913
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1818
+msgid "Integer"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:917
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1816
+#, python-format
+msgid "'%(value)s' value must be an integer."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:992
+#, python-format
+msgid "'%(value)s' value must be either True or False."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:994
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1069
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1125
+msgid "Comma-separated integers"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1174
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1176
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1319
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1179
+msgid "Date (without time)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1317
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1321
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1325
+msgid "Date (with time)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1477
+#, python-format
+msgid "'%(value)s' value must be a decimal number."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1479
+msgid "Decimal number"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1636
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in [DD] [HH:[MM:]]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1639
+#, fuzzy
+#| msgid "Description"
+msgid "Duration"
+msgstr "Опис"
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1691
+msgid "Email address"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1715
+msgid "File path"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1782
+#, python-format
+msgid "'%(value)s' value must be a float."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1784
+msgid "Floating point number"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1885
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1900
+msgid "IPv4 address"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1931
+msgid "IP address"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2015
+#, python-format
+msgid "'%(value)s' value must be either None, True or False."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2017
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2077
+msgid "Positive integer"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2089
+msgid "Positive small integer"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2102
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2136
+msgid "Small integer"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2143
+msgid "Text"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2169
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2171
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2174
+msgid "Time"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2302
+msgid "URL"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2325
+msgid "Raw binary data"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2369
+#, python-format
+msgid "'%(value)s' is not a valid UUID."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/files.py:237
+msgid "File"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/files.py:392
+msgid "Image"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/related.py:740
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/related.py:742
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/related.py:1001
+msgid "One-to-one relationship"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/db/models/fields/related.py:1119
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: venv/lib/python3.4/site-packages/django/forms/boundfield.py:167
+msgid ":?.!"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:65
+msgid "This field is required."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:255
+msgid "Enter a whole number."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:300
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:337
+msgid "Enter a number."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:415
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:1159
+msgid "Enter a valid date."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:439
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:1160
+msgid "Enter a valid time."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:461
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:490
+msgid "Enter a valid duration."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:557
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:558
+msgid "No file was submitted."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:559
+msgid "The submitted file is empty."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:561
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:564
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:626
+#: venv/lib/python3.4/site-packages/sorl/thumbnail/fields.py:52
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:793
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:887
+#: venv/lib/python3.4/site-packages/django/forms/models.py:1232
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:888
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:1003
+#: venv/lib/python3.4/site-packages/django/forms/models.py:1231
+msgid "Enter a list of values."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:1004
+msgid "Enter a complete value."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/fields.py:1218
+msgid "Enter a valid UUID."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: venv/lib/python3.4/site-packages/django/forms/forms.py:84
+msgid ":"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/forms.py:191
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/formsets.py:97
+msgid "ManagementForm data is missing or has been tampered with"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/formsets.py:345
+#, python-format
+msgid "Please submit %d or fewer forms."
+msgid_plural "Please submit %d or fewer forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/forms/formsets.py:352
+#, python-format
+msgid "Please submit %d or more forms."
+msgid_plural "Please submit %d or more forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/forms/formsets.py:380
+#: venv/lib/python3.4/site-packages/django/forms/formsets.py:382
+msgid "Order"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/models.py:721
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/models.py:725
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/models.py:731
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/models.py:739
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/models.py:1063
+msgid "The inline foreign key did not match the parent instance primary key."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/models.py:1125
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/models.py:1234
+#, python-format
+msgid "\"%(pk)s\" is not a valid value for a primary key."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/utils.py:172
+#, python-format
+msgid ""
+"%(datetime)s couldn't be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/widgets.py:353
+msgid "Currently"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/widgets.py:354
+msgid "Change"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/widgets.py:355
+msgid "Clear"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/widgets.py:571
+msgid "Yes"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/forms/widgets.py:572
+msgid "No"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/template/defaultfilters.py:867
+msgid "yes,no,maybe"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/template/defaultfilters.py:896
+#: venv/lib/python3.4/site-packages/django/template/defaultfilters.py:908
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/template/defaultfilters.py:910
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/template/defaultfilters.py:912
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/template/defaultfilters.py:914
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/template/defaultfilters.py:916
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/template/defaultfilters.py:918
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dateformat.py:61
+msgid "p.m."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dateformat.py:62
+msgid "a.m."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dateformat.py:67
+msgid "PM"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dateformat.py:68
+msgid "AM"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Monday"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Tuesday"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Wednesday"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Thursday"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Friday"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:7
+msgid "Saturday"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:7
+msgid "Sunday"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Mon"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Tue"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Wed"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Thu"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Fri"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:11
+msgid "Sat"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:11
+msgid "Sun"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "January"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "February"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "August"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "September"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "October"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "November"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:20
+msgid "December"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "jan"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "feb"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:23
+#, fuzzy
+#| msgid "Samara"
+msgid "mar"
+msgstr "Самара"
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "apr"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "may"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "jun"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "jul"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "aug"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "sep"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "oct"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "nov"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "dec"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:31
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:32
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:33
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:34
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:35
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:36
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:37
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:38
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:39
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:40
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:41
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:42
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:45
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:46
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:47
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:48
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:49
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:50
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:51
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:52
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:53
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:54
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:55
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/dates.py:56
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/ipv6.py:10
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/text.py:77
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s..."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/text.py:246
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: venv/lib/python3.4/site-packages/django/utils/text.py:265
+#: venv/lib/python3.4/site-packages/django/utils/timesince.py:63
+msgid ", "
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%d year"
+msgid_plural "%d years"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/utils/timesince.py:14
+#, python-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/utils/timesince.py:15
+#, python-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/utils/timesince.py:16
+#, python-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: venv/lib/python3.4/site-packages/django/utils/timesince.py:52
+msgid "0 minutes"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/csrf.py:107
+msgid "Forbidden"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/csrf.py:108
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/csrf.py:112
+msgid ""
+"You are seeing this message because this HTTPS site requires a 'Referer "
+"header' to be sent by your Web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/csrf.py:117
+msgid ""
+"If you have configured your browser to disable 'Referer' headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for 'same-"
+"origin' requests."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/csrf.py:122
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/csrf.py:127
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for 'same-origin' requests."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/csrf.py:132
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/debug.py:508
+msgid "Welcome to Django"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/debug.py:509
+msgid "It worked!"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/debug.py:510
+msgid "Congratulations on your first Django-powered page."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/debug.py:511
+msgid ""
+"Of course, you haven't actually done any work yet. Next, start your first "
+"app by running <code>python manage.py startapp [app_label]</code>."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/debug.py:513
+msgid ""
+"You're seeing this message because you have <code>DEBUG = True</code> in "
+"your Django settings file and you haven't configured any URLs. Get to work!"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/dates.py:48
+msgid "No year specified"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/dates.py:104
+msgid "No month specified"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/dates.py:163
+msgid "No day specified"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/dates.py:219
+msgid "No week specified"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/dates.py:378
+#: venv/lib/python3.4/site-packages/django/views/generic/dates.py:406
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/dates.py:660
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/dates.py:694
+#, python-format
+msgid "Invalid date string '%(datestr)s' given format '%(format)s'"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/detail.py:55
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/list.py:76
+msgid "Page is not 'last', nor can it be converted to an int."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/list.py:81
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/generic/list.py:172
+#, python-format
+msgid "Empty list and '%(class_name)s.allow_empty' is False."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/static.py:58
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/static.py:60
+#, python-format
+msgid "\"%(path)s\" does not exist"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/django/views/static.py:100
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:11
+msgid "Null character in input stream, replaced with U+FFFD."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:13
+msgid "Invalid codepoint in stream."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:15
+msgid "Solidus (/) incorrectly placed in tag."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:17
+msgid "Incorrect CR newline entity, replaced with LF."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:19
+msgid "Entity used with illegal number (windows-1252 reference)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:21
+#, python-format
+msgid ""
+"Numeric entity couldn't be converted to character (codepoint U+"
+"%(charAsInt)08x)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:24
+#, python-format
+msgid "Numeric entity represents an illegal codepoint: U+%(charAsInt)08x."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:27
+msgid "Numeric entity didn't end with ';'."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:29
+msgid "Numeric entity expected. Got end of file instead."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:31
+msgid "Numeric entity expected but none found."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:33
+msgid "Named entity didn't end with ';'."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:35
+msgid "Named entity expected. Got none."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:37
+msgid "End tag contains unexpected attributes."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:39
+msgid "End tag contains unexpected self-closing flag."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:41
+msgid "Expected tag name. Got '>' instead."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:43
+msgid ""
+"Expected tag name. Got '?' instead. (HTML doesn't support processing "
+"instructions.)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:46
+msgid "Expected tag name. Got something else instead"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:48
+msgid "Expected closing tag. Got '>' instead. Ignoring '</>'."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:50
+msgid "Expected closing tag. Unexpected end of file."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:52
+#, python-format
+msgid "Expected closing tag. Unexpected character '%(data)s' found."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:54
+msgid "Unexpected end of file in the tag name."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:56
+msgid "Unexpected end of file. Expected attribute name instead."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:58
+msgid "Unexpected end of file in attribute name."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:60
+msgid "Invalid character in attribute name"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:62
+msgid "Dropped duplicate attribute on tag."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:64
+msgid "Unexpected end of file. Expected = or end of tag."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:66
+msgid "Unexpected end of file. Expected attribute value."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:68
+msgid "Expected attribute value. Got '>' instead."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:70
+msgid "Unexpected = in unquoted attribute"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:72
+msgid "Unexpected character in unquoted attribute"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:74
+msgid "Unexpected character after attribute name."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:76
+msgid "Unexpected character after attribute value."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:78
+msgid "Unexpected end of file in attribute value (\")."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:80
+msgid "Unexpected end of file in attribute value (')."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:82
+msgid "Unexpected end of file in attribute value."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:84
+msgid "Unexpected end of file in tag. Expected >"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:86
+msgid "Unexpected character after / in tag. Expected >"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:88
+msgid "Expected '--' or 'DOCTYPE'. Not found."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:90
+msgid "Unexpected ! after -- in comment"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:92
+msgid "Unexpected space after -- in comment"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:94
+msgid "Incorrect comment."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:96
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:104
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:106
+msgid "Unexpected end of file in comment."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:98
+msgid "Unexpected end of file in comment (-)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:100
+msgid "Unexpected '-' after '--' found in comment."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:102
+msgid "Unexpected end of file in comment (--)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:108
+msgid "Unexpected character in comment found."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:110
+msgid "No space after literal string 'DOCTYPE'."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:112
+msgid "Unexpected > character. Expected DOCTYPE name."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:114
+msgid "Unexpected end of file. Expected DOCTYPE name."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:116
+msgid "Unexpected end of file in DOCTYPE name."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:118
+msgid "Unexpected end of file in DOCTYPE."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:120
+#, python-format
+msgid "Expected space or '>'. Got '%(data)s'"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:122
+msgid "Unexpected end of DOCTYPE."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:124
+msgid "Unexpected character in DOCTYPE."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:126
+msgid "XXX innerHTML EOF"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:128
+msgid "Unexpected DOCTYPE. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:130
+msgid "html needs to be the first start tag."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:132
+msgid "Unexpected End of file. Expected DOCTYPE."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:134
+msgid "Erroneous DOCTYPE."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:136
+msgid "Unexpected non-space characters. Expected DOCTYPE."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:138
+#, python-format
+msgid "Unexpected start tag (%(name)s). Expected DOCTYPE."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:140
+#, python-format
+msgid "Unexpected end tag (%(name)s). Expected DOCTYPE."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:142
+#, python-format
+msgid "Unexpected end tag (%(name)s) after the (implied) root element."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:144
+#, python-format
+msgid "Unexpected end of file. Expected end tag (%(name)s)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:146
+msgid "Unexpected start tag head in existing head. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:148
+#, python-format
+msgid "Unexpected end tag (%(name)s). Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:150
+#, python-format
+msgid "Unexpected start tag (%(name)s) that can be in head. Moved."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:152
+#, python-format
+msgid "Unexpected start tag (%(name)s)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:154
+#, python-format
+msgid "Missing end tag (%(name)s)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:156
+#, python-format
+msgid "Missing end tags (%(name)s)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:158
+#, python-format
+msgid "Unexpected start tag (%(startName)s) implies end tag (%(endName)s)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:161
+#, python-format
+msgid "Unexpected start tag (%(originalName)s). Treated as %(newName)s."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:163
+#, python-format
+msgid "Unexpected start tag %(name)s. Don't use it!"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:165
+#, python-format
+msgid "Unexpected start tag %(name)s. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:167
+#, python-format
+msgid "Unexpected end tag (%(gotName)s). Missing end tag (%(expectedName)s)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:170
+#, python-format
+msgid "End tag (%(name)s) seen too early. Expected other end tag."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:172
+#, python-format
+msgid "Unexpected end tag (%(gotName)s). Expected end tag (%(expectedName)s)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:174
+#, python-format
+msgid "End tag (%(name)s) seen too early. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:176
+#, python-format
+msgid ""
+"End tag (%(name)s) violates step 1, paragraph 1 of the adoption agency "
+"algorithm."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:179
+#, python-format
+msgid ""
+"End tag (%(name)s) violates step 1, paragraph 2 of the adoption agency "
+"algorithm."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:182
+#, python-format
+msgid ""
+"End tag (%(name)s) violates step 1, paragraph 3 of the adoption agency "
+"algorithm."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:185
+#, python-format
+msgid ""
+"End tag (%(name)s) violates step 4, paragraph 4 of the adoption agency "
+"algorithm."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:188
+#, python-format
+msgid "Unexpected end tag (%(originalName)s). Treated as %(newName)s."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:190
+#, python-format
+msgid "This element (%(name)s) has no end tag."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:192
+#, python-format
+msgid "Unexpected implied end tag (%(name)s) in the table phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:194
+#, python-format
+msgid "Unexpected implied end tag (%(name)s) in the table body phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:196
+msgid "Unexpected non-space characters in table context caused voodoo mode."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:199
+msgid "Unexpected input with type hidden in table context."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:201
+msgid "Unexpected form in table context."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:203
+#, python-format
+msgid "Unexpected start tag (%(name)s) in table context caused voodoo mode."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:206
+#, python-format
+msgid "Unexpected end tag (%(name)s) in table context caused voodoo mode."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:209
+#, python-format
+msgid "Unexpected table cell start tag (%(name)s) in the table body phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:212
+#, python-format
+msgid "Got table cell end tag (%(name)s) while required end tags are missing."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:215
+#, python-format
+msgid "Unexpected end tag (%(name)s) in the table body phase. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:217
+#, python-format
+msgid "Unexpected implied end tag (%(name)s) in the table row phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:219
+#, python-format
+msgid "Unexpected end tag (%(name)s) in the table row phase. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:221
+msgid ""
+"Unexpected select start tag in the select phase treated as select end tag."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:224
+msgid "Unexpected input start tag in the select phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:226
+#, python-format
+msgid "Unexpected start tag token (%(name)s in the select phase. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:229
+#, python-format
+msgid "Unexpected end tag (%(name)s) in the select phase. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:231
+#, python-format
+msgid ""
+"Unexpected table element start tag (%(name)s) in the select in table phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:233
+#, python-format
+msgid ""
+"Unexpected table element end tag (%(name)s) in the select in table phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:235
+msgid "Unexpected non-space characters in the after body phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:237
+#, python-format
+msgid "Unexpected start tag token (%(name)s) in the after body phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:240
+#, python-format
+msgid "Unexpected end tag token (%(name)s) in the after body phase."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:243
+msgid "Unexpected characters in the frameset phase. Characters ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:245
+#, python-format
+msgid "Unexpected start tag token (%(name)s) in the frameset phase. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:248
+msgid "Unexpected end tag token (frameset) in the frameset phase (innerHTML)."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:251
+#, python-format
+msgid "Unexpected end tag token (%(name)s) in the frameset phase. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:254
+msgid "Unexpected non-space characters in the after frameset phase. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:257
+#, python-format
+msgid "Unexpected start tag (%(name)s) in the after frameset phase. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:260
+#, python-format
+msgid "Unexpected end tag (%(name)s) in the after frameset phase. Ignored."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:263
+msgid "Unexpected end tag after body(innerHtml)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:265
+msgid "Unexpected non-space characters. Expected end of file."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:267
+#, python-format
+msgid "Unexpected start tag (%(name)s). Expected end of file."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:270
+#, python-format
+msgid "Unexpected end tag (%(name)s). Expected end of file."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:273
+msgid "Unexpected end of file. Expected table content."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:275
+msgid "Unexpected end of file. Expected select content."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:277
+msgid "Unexpected end of file. Expected frameset content."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:279
+msgid "Unexpected end of file. Expected script content."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:281
+msgid "Unexpected end of file. Expected foreign content"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:283
+#, python-format
+msgid "Trailing solidus not allowed on element %(name)s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:285
+#, python-format
+msgid "Element %(name)s not allowed in a non-html context"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:287
+#, python-format
+msgid "Unexpected end tag (%(name)s) before html."
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/constants.py:289
+msgid "Undefined error (this sucks and should be fixed)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:26
+#, python-format
+msgid "StartTag not in PCDATA content model flag: %s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:28
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:54
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:84
+#, python-format
+msgid "Tag name is not a string: %r"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:30
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:56
+msgid "Empty tag name"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:32
+#, python-format
+msgid "Void element reported as StartTag token: %s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:34
+#, python-format
+msgid "Non-void element reported as EmptyTag token: %s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:39
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:71
+#, python-format
+msgid "Attribute name is not a string: %r"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:41
+msgid "Empty attribute name"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:43
+#, python-format
+msgid "Attribute value is not a string: %r"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:58
+#, python-format
+msgid "Void element reported as EndTag token: %s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:61
+#, python-format
+msgid "EndTag (%s) does not match StartTag (%s)"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:66
+msgid "Comment not in PCDATA content model flag"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:73
+#, python-format
+msgid "%s token with empty data"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:77
+msgid "Non-space character(s) found in SpaceCharacters token: "
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:82
+#, python-format
+msgid "Doctype not in PCDATA content model flag: %s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/filters/lint.py:91
+#, python-format
+msgid "Unknown token type: %s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/serializer/htmlserializer.py:200
+msgid "System identifer contains both single and double quote characters"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/serializer/htmlserializer.py:212
+msgid "Unexpected </ in CDATA"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/serializer/htmlserializer.py:223
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/serializer/htmlserializer.py:271
+msgid "Unexpected child element of a CDATA element"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/serializer/htmlserializer.py:277
+msgid "Comment contains --"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/serializer/htmlserializer.py:284
+#, python-format
+msgid "Entity %s not recognized"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/treewalkers/_base.py:33
+msgid "Void element has children"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/treewalkers/_base.py:95
+msgid "Unknown node type: "
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/treewalkers/lxmletree.py:137
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/treewalkers/lxmletree.py:187
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/treewalkers/lxmletree.py:203
+#, python-format
+msgid "Text nodes are text or tail, found %s"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/pip/_vendor/html5lib/treewalkers/lxmletree.py:176
+msgid "Text nodes have no children"
+msgstr ""
+
+#: venv/lib/python3.4/site-packages/sorl/thumbnail/admin/compat.py:61
+msgid "Clear image"
+msgstr ""
+
+#~ msgid "Sort by alphabet"
+#~ msgstr "Сортувати за абеткою"
+
+#~ msgid "Settlement"
+#~ msgstr "Населений пункт"
+
+# filters next
+#~ msgid "User-defined filter"
+#~ msgstr "Користувацький фільтр"
+
+#~ msgid "Type"
+#~ msgstr "Тип"
+
+#~ msgid "Country"
+#~ msgstr "Країна"
+
+#~ msgid "Region"
+#~ msgstr "Область"
+
+#~ msgid "District"
+#~ msgstr "Район"
+
+#~ msgid "Valley"
+#~ msgstr "Долина"
+
+#~ msgid "1st Terrace"
+#~ msgstr "Перша тераса"
+
+#~ msgid "2nd Terrace"
+#~ msgstr "Друга тераса"
+
+#~ msgid "High Terrace"
+#~ msgstr "Висока тераса"
+
+#~ msgid "Riverbank"
+#~ msgstr "Берег"
+
+#~ msgid "Dune"
+#~ msgstr "Дюна"
+
+#~ msgid "Cape"
+#~ msgstr "Мис"
+
+#~ msgid "Plateau"
+#~ msgstr "Плато"
+
+#~ msgid "DatingFrom"
+#~ msgstr "Датування від"
+
+#~ msgid "DatingTo"
+#~ msgstr "Датування до"
+
+#~ msgid "Dnieper"
+#~ msgstr "Дніпро"
+
+#~ msgid "Desna"
+#~ msgstr "Десна"
+
+#~ msgid "Sejm"
+#~ msgstr "Сейм"
+
+#~ msgid "Sula"
+#~ msgstr "Сула"
+
+#~ msgid "Psel"
+#~ msgstr "Псел"
+
+#~ msgid "Vorskla"
+#~ msgstr "Ворскла"
+
+#~ msgid "Oril"
+#~ msgstr "Оріль"
+
+#~ msgid "Southern Bug"
+#~ msgstr "Південний Буг"
+
+#~ msgid "Dniester"
+#~ msgstr "Дністер"
+
+#~ msgid "Pripyat"
+#~ msgstr "Прип’ять"
+
+#~ msgid "General"
+#~ msgstr "Профіль"
+
+#~ msgid "Plane"
+#~ msgstr "План"
+
+#~ msgid "Photo"
+#~ msgstr "Фото"
+
+#~ msgid "Found"
+#~ msgstr "Знахідки"
