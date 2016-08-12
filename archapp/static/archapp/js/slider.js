@@ -16,7 +16,7 @@
                 l.html(r1.text() + ' - ' + r2.text()); }
             var s = z.slider({
                 min: 1,
-                max: 8,
+                max: 16,
                 range: true,
                 values: [d[0].selectedIndex, d[0].selectedIndex ],
                 slide: x });
