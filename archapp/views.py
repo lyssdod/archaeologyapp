@@ -244,14 +244,11 @@ class SignUp(FormView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return super(SignUp, self).form_valid(form)
+
 class UserProfile(LoginRequiredMixin, DetailView):
     template_name = 'archapp/userprofile.html'
     model = User
     slug_field = "username"
-
-class UserProfile(LoginRequiredMixin, DetailView):
-    model = UserProfile
-    template_name = 'archapp/userprofile.html'
 
 class UserUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'archapp/userupdate.html'
