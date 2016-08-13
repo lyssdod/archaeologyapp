@@ -1,4 +1,4 @@
-from .models import Filter, Image, UserFilter, Property, Site, ValueType, ImageType
+from .models import Filter, Image, UserFilter, Property, Site, ValueType, ImageType, UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -58,8 +58,9 @@ class FilterForm(betterforms.BetterForm):
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
     class Meta:
-        model = User
+        model = UserProfile
         fields = ['username', 'email', 'first_name', 'last_name'] 
+
     def save(self, commit=True):
         user = super(SignUpForm, self).save(commit=False)
         user.email = self.cleaned_data["email"]

@@ -1,6 +1,8 @@
-from archapp.models import Site, Filter, Image, Property, ValueType, ImageType
+from archapp.models import Site, Filter, Image, Property, ValueType, ImageType, UserProfile
 from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from archapp.forms import NewSiteForm, SignUpForm, ListSearchForm, EditSiteForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
@@ -231,13 +233,21 @@ class Search(LoginRequiredMixin, ListView):
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
 
-class SignUp(CreateView):
+class SignUp(FormView):
     form_class = SignUpForm
     template_name = 'archapp/signup.html'
-    success_url = '/archapp/accounts/login'
-
+    success_url='/archapp/'
     def form_valid(self, form):
+        form.save()
+        username = self.request.POST['username']
+        password = self.request.POST['password1']
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
         return super(SignUp, self).form_valid(form)
+
+class UserProfile(LoginRequiredMixin, DetailView):
+    model = UserProfile
+    template_name = 'archapp/userprofile.html'
 
 class UserUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'archapp/userupdate.html'
