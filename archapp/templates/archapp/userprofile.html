@@ -1,0 +1,37 @@
+{% extends "archapp/base.html" %}
+
+{% block content %}
+
+{% load i18n %}
+{% with user.props.all as prop %}
+<div class="container margin-top">
+  <div class ="row">
+    <div class="col-lg-3 col-md-3 col-sm-3 text-left">
+      <div class="row">
+        <div class="col-lg-12">
+          <img src = "" alt="avatar"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          {{user}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          {{user.first_name}} {{user.last_name}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          {{user.email}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endwith %}
+{% endblock %}

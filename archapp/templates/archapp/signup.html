@@ -8,7 +8,7 @@
     <h2>{% trans "Register" %}</h2>
   </div>
 </div>
-<form action="" method="post">
+<form id="signupform" action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="row form-group-custom">
     <div class="col-lg-3 col-md-3 col-sm-4 col-lg-offset-5 col-md-offset-5 col-sm-offset-4 box">
@@ -35,4 +35,11 @@
     </div>
   </div>
 </form>
+<script type="text/javascript">
+$(function() {
+        initUploadFields($('#signupform'));
+            });
+</script>
+{% include 'upload_template.html' %}
+
 {% endblock %}
