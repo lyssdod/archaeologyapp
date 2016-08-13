@@ -111,6 +111,9 @@ msgstr "Клацніть по мапі для вибору локації"
 msgid "Create"
 msgstr "Створити"
 
+msgid "Name"
+msgstr "Назва"
+
 #: archapp/templates/archapp/newsite.html:57
 #: archapp/templates/archapp/user_confirm_delete.html:20
 msgid "Cancel"
