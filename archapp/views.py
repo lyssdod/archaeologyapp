@@ -238,6 +238,10 @@ class SignUp(CreateView):
 
     def form_valid(self, form):
         return super(SignUp, self).form_valid(form)
+class UserProfile(LoginRequiredMixin, DetailView):
+    template_name = 'archapp/userprofile.html'
+    model = User
+    slug_field = "username"
 
 class UserUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'archapp/userupdate.html'

@@ -24,6 +24,7 @@ urlpatterns = [
         url(r'^accounts/logout/$', auth_views.logout, {'template_name': 'archapp/logout.html'} , name = 'logout'),
 
         # user accounting
-        url(r'user/(?P<slug>[\w.@+-]+)/$', views.UserUpdate.as_view(), name = 'user-update'),
+        url(r'user/(?P<slug>[\w.@+-]+)/profile/$', views.UserProfile.as_view(), name='userprofile'),
+        url(r'user/(?P<slug>[\w.@+-]+)/update/$', views.UserUpdate.as_view(), name = 'user-update'),
         url(r'user/(?P<slug>[\w.@+-]+)/delete/$', views.UserDelete.as_view(), name = 'user-delete'),
         ]
