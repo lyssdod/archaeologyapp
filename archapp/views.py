@@ -213,7 +213,23 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
         queryset = manager.language()
 
         if self.request.method == 'POST':
-            filtered = queryset.filter(name__contains='1')
+            data = self.request.POST.copy()
+            filt = {}
+
+            # we don't need this anymore
+            data.pop('csrfmiddlewaretoken')
+
+            # filter name
+            name = data.get('name')
+
+            if name:
+                filt.update({'name__contains': name})
+
+            # now we're ready to safely iterate data
+            # ...
+            print(data)
+            print(filt)
+            filtered = queryset.filter(**filt)
         else:
             filtered = queryset
 

@@ -69,12 +69,14 @@ class SignUpForm(UserCreationForm):
 
 class ListSearchForm(FilterForm):
     class Meta:
-        fieldsets = [('1', {'description': _('Location'), 'fields': ['country', 'region', 'district']}),
+        fieldsets = [('0', {'description': _('Filters'), 'fields': ['name']}),
+                     ('1', {'description': _('Location'), 'fields': ['country', 'region', 'district']}),
                      ('2', {'description': _('Basic data'), 'fields': ['areawidth', 'areaheight', 'topography', 'geomorphology', 'altitude', 'datingfrom', 'datingto']})]
 
     def __init__(self, *args, **kwargs):
         super(ListSearchForm, self).__init__(*args, **kwargs)
 
+        self.fields['name'] = forms.CharField(max_length = 128, label = _('Name'))
         self.create_filter_fields()
 
 class SearchForm(FilterForm):

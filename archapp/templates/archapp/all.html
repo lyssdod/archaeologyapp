@@ -9,11 +9,6 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-wrapper">
-      <ul class="nav">
-        <li class="logo">
-        <a href="#">{% trans "Filters" %}</a>
-        </li>
-      </ul>
       <form method="post" class="form-inline">
         {% csrf_token %}
         {% for fset in form.fieldsets %}
@@ -66,7 +61,7 @@
       </div>
       <div class = "row listed">
         {% for site in object_list %}
-        {% if site.user = user %}
+        {% if site.user == user %}
         {% with site.image_set.all as imgs %}
         {% with site.props.all as prop %}
         <div class="col-lg-4 col-md-6 col-sm-6 site-preview">
