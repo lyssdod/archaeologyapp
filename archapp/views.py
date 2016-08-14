@@ -211,27 +211,28 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
     def get_success_url(self):
         return reverse('archapp:allsites')
 
-    def extract_request(self, request):
-        if request.method == 'POST':
-            return request.POST
-        elif request.method == 'GET':
-            return request.GET
-        else:
-            return None
-
-    def get(self, request, *args, **kwargs):
-        return self.forward(request)
-
     def post(self, request, *args, **kwargs):
-        return self.forward(request)
-
-    def forward(self, request):
         form = self.get_form()
-        data = self.extract_request(request)
 
-        self.object_list = self.get_queryset()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        qset = self.get_queryset()
+        data = form.cleaned_data
 
         print(data)
+
+        self.object_list = qset.filter()
+
+        return super(AllSites, self).form_valid(form)
+
+
+    """
+        self.object_list = self.get_queryset()
+
 
         if form.is_valid():
             # actual filtering
@@ -239,7 +240,7 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
 
         context = self.get_context_data(form = form, object_list = self.object_list)
         return self.render_to_response(context)
-
+    """
 
 class Search(LoginRequiredMixin, ListView):
     model = Site
