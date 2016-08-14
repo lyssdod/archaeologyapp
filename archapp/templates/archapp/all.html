@@ -89,6 +89,8 @@
         {% endwith %}
         {% endwith %}
         {% endif %}
+        {% empty %}
+        <h4>{% trans "No results. Try another filter" %}</h4>
         {% endfor %}
       </div>
     </div>

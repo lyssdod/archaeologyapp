@@ -147,9 +147,9 @@ class SitePage(LoginRequiredMixin, DetailView):
     template_name = 'archapp/site.html'
     
     def get_context_data(self, **kwargs):
-          context = super(SitePage, self).get_context_data(**kwargs)
-          context['sview'] = True
-          return context
+        context = super(SitePage, self).get_context_data(**kwargs)
+        context['sview'] = True
+        return context
 
 class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
     manager = get_translation_aware_manager(Site)
@@ -208,39 +208,22 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
     success_url = '/archapp/'
     login_url = '/archapp/accounts/login/'
 
+    def get_queryset(self):
+        manager = get_translation_aware_manager(Site)
+        queryset = manager.language()
+
+        if self.request.method == 'POST':
+            filtered = queryset.filter(name__contains='1')
+        else:
+            filtered = queryset
+
+        return filtered
+
     def get_success_url(self):
         return reverse('archapp:allsites')
 
     def post(self, request, *args, **kwargs):
-        form = self.get_form()
-
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
-    def form_valid(self, form):
-        qset = self.get_queryset()
-        data = form.cleaned_data
-
-        print(data)
-
-        self.object_list = qset.filter()
-
-        return super(AllSites, self).form_valid(form)
-
-
-    """
-        self.object_list = self.get_queryset()
-
-
-        if form.is_valid():
-            # actual filtering
-            self.object_list = self.object_list.filter()
-
-        context = self.get_context_data(form = form, object_list = self.object_list)
-        return self.render_to_response(context)
-    """
+        return super(AllSites, self).get(request, args, kwargs)
 
 class Search(LoginRequiredMixin, ListView):
     model = Site
