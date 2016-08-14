@@ -201,28 +201,45 @@ class SiteDelete(LoginRequiredMixin, DeleteView):
     template_name = 'archapp/delete.html'
 
 
-class AllSites(LoginRequiredMixin, ListView):
+class AllSites(LoginRequiredMixin, FormMixin, ListView):
     model = Site
+    form_class = ListSearchForm
     template_name = 'archapp/all.html'
     success_url = '/archapp/'
     login_url = '/archapp/accounts/login/'
 
-    def form_valid(self, form):
-        queryset = super(AllSites, self).form_valid(form)
+    def get_success_url(self):
+        return reverse('archapp:allsites')
 
-        # Handle specific fields of the custom ListForm
-        # Others are automatically handled by FilteredListView.
+    def extract_request(self, request):
+        if request.method == 'POST':
+            return request.POST
+        elif request.method == 'GET':
+            return request.GET
+        else:
+            return None
 
-        #if form.cleaned_data['is_active'] == 'yes':
-        #    queryset = queryset.filter(is_active=True)
+    def get(self, request, *args, **kwargs):
+        return self.forward(request)
 
-        return queryset
+    def post(self, request, *args, **kwargs):
+        return self.forward(request)
 
-    # render form explicitly
-    def get_context_data(self, **kwargs):
-        context= super(AllSites, self).get_context_data(**kwargs)
-        context['form'] = ListSearchForm
-        return context
+    def forward(self, request):
+        form = self.get_form()
+        data = self.extract_request(request)
+
+        self.object_list = self.get_queryset()
+
+        print(data)
+
+        if form.is_valid():
+            # actual filtering
+            self.object_list = self.object_list.filter()
+
+        context = self.get_context_data(form = form, object_list = self.object_list)
+        return self.render_to_response(context)
+
 
 class Search(LoginRequiredMixin, ListView):
     model = Site
