@@ -214,7 +214,7 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
 
         if self.request.method == 'POST':
             data = self.request.POST.copy()
-            filt = {}
+            filt = {'user': self.request.user}
 
             # we don't need this anymore
             data.pop('csrfmiddlewaretoken')

@@ -61,7 +61,6 @@
       </div>
       <div class = "row listed">
         {% for site in object_list %}
-        {% if site.user == user %}
         {% with site.image_set.all as imgs %}
         {% with site.props.all as prop %}
         <div class="col-lg-4 col-md-6 col-sm-6 site-preview">
@@ -83,7 +82,6 @@
         </div>
         {% endwith %}
         {% endwith %}
-        {% endif %}
         {% empty %}
         <h4>{% trans "No results. Try another filter" %}</h4>
         {% endfor %}
