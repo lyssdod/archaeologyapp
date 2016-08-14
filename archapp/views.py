@@ -211,11 +211,11 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
     def get_queryset(self):
         manager = get_translation_aware_manager(Site)
         queryset = manager.language()
+        filtered = {} if self.request.user.is_superuser else {'user': self.request.user}
 
         if self.request.method == 'POST':
             data = self.request.POST.copy()
-            filt = {'user': self.request.user}
-
+            
             # we don't need this anymore
             data.pop('csrfmiddlewaretoken')
 
@@ -223,17 +223,14 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
             name = data.get('name')
 
             if name:
-                filt.update({'name__contains': name})
+                filtered.update({'name__contains': name})
 
             # now we're ready to safely iterate data
             # ...
             print(data)
-            print(filt)
-            filtered = queryset.filter(**filt)
-        else:
-            filtered = queryset
-
-        return filtered
+            
+        print(filtered)
+        return queryset.filter(**filtered)
 
     def get_success_url(self):
         return reverse('archapp:allsites')
