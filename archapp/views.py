@@ -255,10 +255,12 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
                     if instance.oftype != ValueType.string:
                         # we need exact type here
                         value = FixValueType(instance, value)
-                        # construct another SQL AND clause
-                        variable = ValueTypeToString(instance)
-                        fltquery = { 'props__instance': instance.id, 'props__' + variable: value }
-                        filtered = filtered.filter(**fltquery)
+                        # if not default value
+                        if value >= 0:
+                            # construct another SQL AND clause
+                            variable = ValueTypeToString(instance)
+                            fltquery = { 'props__instance': instance.id, 'props__' + variable: value }
+                            filtered = filtered.filter(**fltquery)
                     else:
                         pass
                         # get_translation_aware_manager() and friends
@@ -266,8 +268,8 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
                         #queryset = manager.language()
 
             
-            print(filtered.query)
-            print(filtered)
+            #print(filtered.query)
+            #print(filtered)
 
         return filtered.filter(**defaults)
 

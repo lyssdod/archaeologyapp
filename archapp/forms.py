@@ -36,7 +36,7 @@ class FilterForm(betterforms.BetterForm):
             # if this filter have children, use select for them
             if subs.count():
                 args['widget']  = forms.Select()
-                args['choices'] = [(s.id, _(s.name)) for s in subs]
+                args['choices'] = [(-1, _('Select value'))] + [(s.id, _(s.name)) for s in subs]
 
                 field = forms.ChoiceField()
 
