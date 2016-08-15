@@ -11,8 +11,6 @@ from django.core.urlresolvers import reverse
 from django.utils import translation
 from django.conf import settings
 from archapp.geo import GeoCoder
-import pickle
-
 
 class SiteProcessingView(object):
     # update or create new filter values
@@ -136,7 +134,7 @@ class SiteCreate(LoginRequiredMixin, FormView, SiteProcessingView):
         # process all filters and images
         self.process_filters_and_pics(site = newsite, form = form, editing = False)
 
-        newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
+        newsite.data = {'Bibliography': form.cleaned_data['literature']}
         newsite.save()
 
         return super(SiteCreate, self).form_valid(form)
@@ -187,8 +185,14 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
         # update all filters and images
         self.process_filters_and_pics(site = site, form = form, editing = True)
 
-        # TODO: refactor this
-        site.data[0]['Bibliography'] = form.cleaned_data['literature']
+        # get 'bibliography'
+        lit = form.cleaned_data['literature']
+
+        # create new dict or update existing
+        if type(site.data) is dict:
+            site.data['Bibliography'] = lit
+        else:
+            site.data = {'Bibliography': lit}
 
         # save site
         site.save()
@@ -211,7 +215,8 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
     def get_queryset(self):
         manager = get_translation_aware_manager(Site)
         queryset = manager.language()
-        filtered = {} if self.request.user.is_superuser else {'user': self.request.user}
+        defaults = {} if self.request.user.is_superuser else {'user': self.request.user}
+        filtered = queryset.filter()
 
         if self.request.method == 'POST':
             data = self.request.POST.copy()
@@ -223,14 +228,18 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
             name = data.get('name')
 
             if name:
-                filtered.update({'name__contains': name})
+                defaults.update({'name__contains': name})
 
             # now we're ready to safely iterate data
             # ...
             print(data)
+            # clause = queryset.filter
+            # for ....
+            #     clause = clause.filter(Q(props__smth = xxx, props__instance = yyy))
+            #     
             
         print(filtered)
-        return queryset.filter(**filtered)
+        return filtered.filter(**defaults)
 
     def get_success_url(self):
         return reverse('archapp:allsites')

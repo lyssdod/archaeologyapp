@@ -15,10 +15,10 @@
     </div>
 
     <div class="col-lg-1 col-md-1 col-sm-1">
-      <a href = "{% url 'archapp:deletesite' site.id %}" class="btn textcol btn-primary btn-sm">{% trans "Delete" %}</a>
+      <a href = "{% url 'archapp:editsite' site.id %}" class="btn btn-primary btn-sm btn-postion">{% trans "Edit" %}</a>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-1">
-      <a href = "{% url 'archapp:editsite' site.id %}" class="btn btn-primary btn-sm btn-postion">{% trans "Edit" %}</a>
+      <a href = "{% url 'archapp:deletesite' site.id %}" class="btn textcol btn-primary btn-sm">{% trans "Delete" %}</a>
     </div>
   </div>
   <div class="row margin-top">
@@ -170,7 +170,7 @@
           <p class="text-muted"> {% trans "Bibliography" %} </p>
         </div>
         <div class="col-md-12 bibliography">
-          <p>{{site.data.0.Bibliography}}</p>
+          <p>{{site.data.Bibliography}}</p>
         </div>
       </div>
     </div>
