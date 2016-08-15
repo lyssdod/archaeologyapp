@@ -11,6 +11,29 @@ from django.core.urlresolvers import reverse
 from django.utils import translation
 from django.conf import settings
 from archapp.geo import GeoCoder
+from django.db.models import Q
+
+# TODO: look for proper django choices implementation
+def ValueTypeToString(value):
+    return [b.lower() for a, b in ValueType.choices if a == value.oftype][0]
+
+# type conversion
+def FixValueType(vt, data, value = None, dicted = False):
+    tmp = None
+
+    if vt.oftype == ValueType.integer:
+        tmp = int(data)
+    elif vt.oftype == ValueType.boolean:
+        tmp = bool(data)
+    elif vt.oftype == ValueType.double:
+        tmp = float(data)
+    elif vt.oftype == ValueType.string:
+        tmp = data
+
+    if dicted:
+        value[ValueTypeToString(vt)] = tmp
+    else:
+        return tmp
 
 class SiteProcessingView(object):
     # update or create new filter values
@@ -30,14 +53,8 @@ class SiteProcessingView(object):
             if data is None:
                 data = False
 
-            if instance.oftype == ValueType.integer:
-                args['integer'] = int(data)
-            elif instance.oftype == ValueType.boolean:
-                args['boolean'] = bool(data)
-            elif instance.oftype == ValueType.double:
-                args['double'] = float(data)
-            elif instance.oftype == ValueType.string:
-                args['string'] = data
+            # explicit type conversion here
+            FixValueType(instance, data, args, True)
 
             # search for string values first
             if instance.oftype == ValueType.string:
@@ -213,16 +230,13 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
     login_url = '/archapp/accounts/login/'
 
     def get_queryset(self):
-        manager = get_translation_aware_manager(Site)
-        queryset = manager.language()
+        queryset = Site.objects
         defaults = {} if self.request.user.is_superuser else {'user': self.request.user}
-        filtered = queryset.filter()
+        filtered = queryset#.filter()
 
         if self.request.method == 'POST':
+            flts = Filter.objects.filter(basic = True)
             data = self.request.POST.copy()
-            
-            # we don't need this anymore
-            data.pop('csrfmiddlewaretoken')
 
             # filter name
             name = data.get('name')
@@ -230,15 +244,31 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
             if name:
                 defaults.update({'name__contains': name})
 
-            # now we're ready to safely iterate data
-            # ...
-            print(data)
-            # clause = queryset.filter
-            # for ....
-            #     clause = clause.filter(Q(props__smth = xxx, props__instance = yyy))
-            #     
+            # look for possible filter-data matches
+            for instance in flts:
+
+                value = data.get(instance.name.lower())
+
+                if value and len(value):
+
+                    # lets fuck with translations later
+                    if instance.oftype != ValueType.string:
+                        # we need exact type here
+                        value = FixValueType(instance, value)
+                        # construct another SQL AND clause
+                        variable = ValueTypeToString(instance)
+                        fltquery = { 'props__instance': instance.id, 'props__' + variable: value }
+                        filtered = filtered.filter(**fltquery)
+                    else:
+                        pass
+                        # get_translation_aware_manager() and friends
+                        #manager = get_translation_aware_manager(Site)
+                        #queryset = manager.language()
+
             
-        print(filtered)
+            print(filtered.query)
+            print(filtered)
+
         return filtered.filter(**defaults)
 
     def get_success_url(self):
