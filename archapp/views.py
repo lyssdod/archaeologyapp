@@ -193,28 +193,38 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        # obtain current site
-        site = Site.objects.get(pk = form.cleaned_data['site_id'], user = self.request.user)
+        # obtain current site, root can edit all of them
+        params = { pk : form.cleaned_data['site_id'] }
 
-        # update its name
-        site.name = form.cleaned_data['name']
+        if not self.request.user.is_superuser:
+            params['user'] = self.request.user
 
-        # update all filters and images
-        self.process_filters_and_pics(site = site, form = form, editing = True)
+        try:
+            site = Site.objects.get(**params)
 
-        # get 'bibliography'
-        lit = form.cleaned_data['literature']
+            # update its name
+            site.name = form.cleaned_data['name']
 
-        # create new dict or update existing
-        if type(site.data) is dict:
-            site.data['Bibliography'] = lit
-        else:
-            site.data = {'Bibliography': lit}
+            # update all filters and images
+            self.process_filters_and_pics(site = site, form = form, editing = True)
 
-        # save site
-        site.save()
+            # get 'bibliography'
+            lit = form.cleaned_data['literature']
 
-        return super(SiteEdit, self).form_valid(form)
+            # create new dict or update existing
+            if type(site.data) is dict:
+                site.data['Bibliography'] = lit
+            else:
+                site.data = {'Bibliography': lit}
+
+            # save site
+            site.save()
+
+        finally:
+            # no need to handle other case here. if user is
+            # not root he or she shouldn't be able to edit
+            # other's precious data.
+            return super(SiteEdit, self).form_valid(form)
 
 class SiteDelete(LoginRequiredMixin, DeleteView):
     model = Site
