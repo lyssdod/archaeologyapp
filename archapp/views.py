@@ -194,7 +194,7 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
 
     def form_valid(self, form):
         # obtain current site, root can edit all of them
-        params = { pk : form.cleaned_data['site_id'] }
+        params = { 'pk' : form.cleaned_data['site_id'] }
 
         if not self.request.user.is_superuser:
             params['user'] = self.request.user
