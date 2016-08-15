@@ -55,6 +55,15 @@ msgstr ""
 msgid "Filters"
 msgstr "Фільтри"
 
+msgid "Reset"
+msgstr "Очистити"
+
+msgid "Select value"
+msgstr "Оберіть значення"
+
+msgid "No results. Try another filter"
+msgstr "Нічого не знайдено, спробуйте інший фільтр"
+
 #: archapp/templates/archapp/all.html:16
 msgid "Sort by alphabet"
 msgstr "Сортувати за абеткою"

@@ -51,6 +51,15 @@ msgstr "Nie znaleziono treści"
 msgid "Filters"
 msgstr "Filtry"
 
+msgid "Reset"
+msgstr "Anuluj"
+
+msgid "Select value"
+msgstr "Wybierz elementem"
+
+msgid "No results. Try another filter"
+msgstr "Brak wyników. Spróbuj użyć innego filtru"
+
 #: archapp/templates/archapp/all.html:16
 msgid "Sort by alphabet"
 msgstr "Porządkuj alfabetycznie "
