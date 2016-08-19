@@ -61,69 +61,71 @@
     </head>
 
     <body class="background">
-        <header class="header">
-            <div class="container-fluid container-config textcol">
-                <div class="col-lg-4 col-md-4 col-sm-4">
-                    <a href = "{% url 'archapp:welcome' %}" class="btn btn-sm">
-                        <h2 class="logo">{% trans "Archaeology database" %}</h2>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 text-center padding">
-                    <form action="{% url "set_language" %}" method="post">
-                        {% csrf_token %}
-                        <select name="language" class="form-control form-custom" onchange="this.form.submit()">
-                        {% get_language_info_list for LANGUAGES as langs %}
-                        {% for lang in langs %}
-                            <option value="{{ lang.code }}"
-                                {% if lang.code == LANGUAGE_CODE %}selected="selected"{% endif %}>
-                                {{ lang.name_local }}
-                            </option>
-                        {% endfor %}
-                        </select>
-                    </form>
-                </div>
-                {% if user.is_authenticated %}
-                <div class="col-lg-2 col-md-2 col-sm-2 padding">
-                    <form action="" class="form-inline box-shadow" method="post">
-                        <input class="form-control form-custom" type="text" name="name_of_site" placeholder="{% trans 'Search sites' %}" />
-                    </form>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 text-center padding">
-                    <a href ="{% url 'archapp:newsite'%}" class="btn btn-color btn-sm">{% trans "New site" %}</a>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 text-center padding">
-                    <a href = "{% url 'archapp:allsites' %}" class="btn btn-color btn-sm">{% trans "All sites" %}</a>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 text-left padding">
-                <div class="dropdown btn btn-color btn-sm">
-                  <button id="dLabel" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="Profile">
-                    Profile
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu pull-right text-left" aria-labelledby="dLabel">
-                    <li>
-                    <a href = "{% url 'archapp:userprofile' user %}" class="btn btn-color btn-sm">{% trans "My Profile" %}</a>
-                    </li>
-                    <li>
-                    <a href = "{% url 'archapp:user-update' user %}" class="btn btn-color btn-sm">{% trans "Update Profile" %}</a>
-                    </li>
+    <header class="header">
+      <div class="container textcol">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+          </button>
+          <a href = "{% url 'archapp:welcome' %}" class= "navbar-brand">
+            {% trans "Archaeology database" %}
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav-top navbar-right list-inline">
+            <li>
+            <form action="{% url "set_language" %}" method="post">
+              {% csrf_token %}
+              <select name="language" class="form-control form-custom" onchange="this.form.submit()">
+                {% get_language_info_list for LANGUAGES as langs %}
+                {% for lang in langs %}
+                <option value="{{ lang.code }}"
+                {% if lang.code == LANGUAGE_CODE %}selected="selected"{% endif %}>
+                {{ lang.name_local }}
+                </option>
+                {% endfor %}
+              </select>
+            </form>
+            </li>
+            {% if user.is_authenticated %}
+            <li>
+            <a href ="{% url 'archapp:newsite'%}" class="">{% trans "New site" %}</a>
+            </li>
+            <li>
+            <a href = "{% url 'archapp:allsites' %}" class="">{% trans "All sites" %}</a>
+            </li>
+            <li>
+            <div class="dropdown">
+              <button id="dLabel" class="dropdown-toggle btn-color" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="Profile">
+                Profile
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu pull-right text-left" aria-labelledby="dLabel">
+                <li>
+                <a href = "{% url 'archapp:userprofile' user %}" class="btn btn-color btn-sm">{% trans "My Profile" %}</a>
+                </li>
+                <li>
+                <a href = "{% url 'archapp:user-update' user %}" class="btn btn-color btn-sm">{% trans "Update Profile" %}</a>
+                </li>
 
-                    <li>
-                    <a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">{% trans "Log out" %}</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-                {% else %}
-                <div class="col-lg-1 col-md-1 col-sm-1 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center padding">
-                    <a href = "{% url 'archapp:signup' %}" class="btn btn-color btn-sm">{% trans "Register" %}</a>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 text-center padding">
-                    <a href = "{% url 'archapp:login' %}" class="btn btn-color btn-sm">{% trans "Log in" %}</a>
-                </div>
-                {% endif %}
+                <li>
+                <a href = "{% url 'archapp:logout' %}" class="btn btn-color btn-sm">{% trans "Log out" %}</a>
+                </li>
+              </ul>
             </div>
-          </header>
+          </div>
+          </li>
+          {% else %}
+          <li>
+          <a href = "{% url 'archapp:signup' %}" class="">{% trans "Register" %}</a>
+          <li>
+          <a href = "{% url 'archapp:login' %}" class="">{% trans "Log in" %}</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </header>
 
           <div class="container-fluid content nopadding">
             {% block content %}{% endblock %}
