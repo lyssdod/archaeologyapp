@@ -1,6 +1,6 @@
 from archapp.models import Site, Filter, Image, Property, ValueType, ImageType, UserProfile
-from django.views.generic import DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
-from archapp.forms import NewSiteForm, SignUpForm, ListSearchForm, EditSiteForm
+from django.views.generic import View, DetailView, TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
+from archapp.forms import NewSiteForm, SignUpForm, UserUpdateForm, ListSearchForm, EditSiteForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormMixin
+from django.views.generic.detail import SingleObjectMixin
 from hvad.utils import get_translation_aware_manager
 from django.core.urlresolvers import reverse
 from django.utils import translation
@@ -250,11 +251,54 @@ class UserProfile(LoginRequiredMixin, DetailView):
     model = User
     slug_field = "username"
 
-class UserUpdate(LoginRequiredMixin, UpdateView):
-    template_name = 'archapp/userupdate.html'
+class UserDisplay(DetailView):
     model = User
+    template_name = 'archapp/userupdate.html'
     slug_field = "username"
-    fields = ['username']
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDisplay, self).get_context_data(**kwargs)
+        context['form'] = UserUpdateForm() 
+        return context
+ 
+class UserUpdateFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
+    form_class = UserUpdateForm
+    success_url = '/archapp/'
+    model = User 
+    slug_field = "username"
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(UserUpdateFormView, self).post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        user = self.request.user
+        user.username = form.cleaned_data['username']
+        user.email =  form.cleaned_data['email']
+        user.first_name = form.cleaned_data['first_name']
+        user.last_name = form.cleaned_data['last_name']
+       # password1 = form.cleaned_data["password1"]
+       # password2 = form.cleaned_data["password2"]
+       # if password1 and password2 and password1 != password2:
+       #     msg = "Passwords don't match"
+       #     raise form.ValidationError("Password mismatch")
+
+        user.save()
+        return super(UserUpdateFormView, self).form_valid(form)
+
+    def get_success_url(self):
+        user = self.request.user
+        return reverse("archapp:userprofile", kwargs = {'slug': user.username})
+
+class UserUpdate(View):
+
+    def get(self, request, *args, **kwargs):
+        view = UserDisplay.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = UserUpdateFormView.as_view()
+        return view(request, *args, **kwargs)
 
 class UserDelete(LoginRequiredMixin, DeleteView):
     model = User

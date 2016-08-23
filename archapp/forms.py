@@ -58,7 +58,7 @@ class FilterForm(betterforms.BetterForm):
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
     class Meta:
-        model = UserProfile
+        model = User
         fields = ['username', 'email', 'first_name', 'last_name'] 
 
     def save(self, commit=True):
@@ -67,6 +67,20 @@ class SignUpForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class UserUpdateForm(betterforms.BetterForm):
+    username = forms.CharField(required=False) 
+    email = forms.EmailField(required=False)
+    first_name = forms.CharField(required=False) 
+    last_name = forms.CharField(required=False) 
+    old_password = forms.CharField(required=False, label="Old Password", widget=forms.PasswordInput()) 
+    password1 = forms.CharField(required=False, label="New Password", widget=forms.PasswordInput()) 
+    password2 = forms.CharField(required=False, label="Confirm New Password", widget=forms.PasswordInput()) 
+
+    class Meta:
+        fieldsets = [('1', {'description': _('User profile'), 'legend': 'main_info', 'fields': ['username', 'email', 'first_name', 'last_name'], }),
+                ('2', {'description': _('Password management'), 'legend': 'update_password', 'fields': ['old_password', 'password1', 'password2'], })]
+
 
 class ListSearchForm(FilterForm):
     class Meta:

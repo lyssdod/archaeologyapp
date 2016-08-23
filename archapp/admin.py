@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db.models import Sum, Count, Case, When, IntegerField
-from .models import Site, Filter, Property
+from .models import Site, Filter, Property, UserProfile
 
 class PropertyAdmin(admin.ModelAdmin):
     list_display = ('ofsite', '__str__', 'instance')
@@ -42,3 +42,4 @@ class FilterAdmin(admin.ModelAdmin):
 admin.site.register(Site)
 admin.site.register(Property, PropertyAdmin)
 admin.site.register(Filter, FilterAdmin)
+admin.site.register(UserProfile)
