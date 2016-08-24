@@ -14,8 +14,29 @@ from django.core.urlresolvers import reverse
 from django.utils import translation
 from django.conf import settings
 from archapp.geo import GeoCoder
-import pickle
+from django.db.models import Q
 
+# TODO: look for proper django choices implementation
+def ValueTypeToString(value):
+    return [b.lower() for a, b in ValueType.choices if a == value.oftype][0]
+
+# type conversion
+def FixValueType(vt, data, value = None, dicted = False):
+    tmp = None
+
+    if vt.oftype == ValueType.integer:
+        tmp = int(data)
+    elif vt.oftype == ValueType.boolean:
+        tmp = bool(data)
+    elif vt.oftype == ValueType.double:
+        tmp = float(data)
+    elif vt.oftype == ValueType.string:
+        tmp = data
+
+    if dicted:
+        value[ValueTypeToString(vt)] = tmp
+    else:
+        return tmp
 
 class SiteProcessingView(object):
     # update or create new filter values
@@ -35,14 +56,8 @@ class SiteProcessingView(object):
             if data is None:
                 data = False
 
-            if instance.oftype == ValueType.integer:
-                args['integer'] = int(data)
-            elif instance.oftype == ValueType.boolean:
-                args['boolean'] = bool(data)
-            elif instance.oftype == ValueType.double:
-                args['double'] = float(data)
-            elif instance.oftype == ValueType.string:
-                args['string'] = data
+            # explicit type conversion here
+            FixValueType(instance, data, args, True)
 
             # search for string values first
             if instance.oftype == ValueType.string:
@@ -139,7 +154,7 @@ class SiteCreate(LoginRequiredMixin, FormView, SiteProcessingView):
         # process all filters and images
         self.process_filters_and_pics(site = newsite, form = form, editing = False)
 
-        newsite.data = [{'Bibliography': form.cleaned_data['literature']}]
+        newsite.data = {'Bibliography': form.cleaned_data['literature']}
         newsite.save()
 
         return super(SiteCreate, self).form_valid(form)
@@ -150,9 +165,9 @@ class SitePage(LoginRequiredMixin, DetailView):
     template_name = 'archapp/site.html'
     
     def get_context_data(self, **kwargs):
-          context = super(SitePage, self).get_context_data(**kwargs)
-          context['sview'] = True
-          return context
+        context = super(SitePage, self).get_context_data(**kwargs)
+        context['sview'] = True
+        return context
 
 class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
     manager = get_translation_aware_manager(Site)
@@ -181,22 +196,38 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        # obtain current site
-        site = Site.objects.get(pk = form.cleaned_data['site_id'], user = self.request.user)
+        # obtain current site, root can edit all of them
+        params = { 'pk' : form.cleaned_data['site_id'] }
 
-        # update its name
-        site.name = form.cleaned_data['name']
+        if not self.request.user.is_superuser:
+            params['user'] = self.request.user
 
-        # update all filters and images
-        self.process_filters_and_pics(site = site, form = form, editing = True)
+        try:
+            site = Site.objects.get(**params)
 
-        # TODO: refactor this
-        site.data[0]['Bibliography'] = form.cleaned_data['literature']
+            # update its name
+            site.name = form.cleaned_data['name']
 
-        # save site
-        site.save()
+            # update all filters and images
+            self.process_filters_and_pics(site = site, form = form, editing = True)
 
-        return super(SiteEdit, self).form_valid(form)
+            # get 'bibliography'
+            lit = form.cleaned_data['literature']
+
+            # create new dict or update existing
+            if type(site.data) is dict:
+                site.data['Bibliography'] = lit
+            else:
+                site.data = {'Bibliography': lit}
+
+            # save site
+            site.save()
+
+        finally:
+            # no need to handle other case here. if user is
+            # not root he or she shouldn't be able to edit
+            # other's precious data.
+            return super(SiteEdit, self).form_valid(form)
 
 class SiteDelete(LoginRequiredMixin, DeleteView):
     model = Site
@@ -204,28 +235,62 @@ class SiteDelete(LoginRequiredMixin, DeleteView):
     template_name = 'archapp/delete.html'
 
 
-class AllSites(LoginRequiredMixin, ListView):
+class AllSites(LoginRequiredMixin, FormMixin, ListView):
     model = Site
+    form_class = ListSearchForm
     template_name = 'archapp/all.html'
     success_url = '/archapp/'
     login_url = '/archapp/accounts/login/'
 
-    def form_valid(self, form):
-        queryset = super(AllSites, self).form_valid(form)
+    def get_queryset(self):
+        queryset = Site.objects
+        defaults = {} if self.request.user.is_superuser else {'user': self.request.user}
+        filtered = queryset#.filter()
 
-        # Handle specific fields of the custom ListForm
-        # Others are automatically handled by FilteredListView.
+        if self.request.method == 'POST':
+            flts = Filter.objects.filter(basic = True)
+            data = self.request.POST.copy()
 
-        #if form.cleaned_data['is_active'] == 'yes':
-        #    queryset = queryset.filter(is_active=True)
+            # filter name
+            name = data.get('name')
 
-        return queryset
+            if name:
+                defaults.update({'name__contains': name})
 
-    # render form explicitly
-    def get_context_data(self, **kwargs):
-        context= super(AllSites, self).get_context_data(**kwargs)
-        context['form'] = ListSearchForm
-        return context
+            # look for possible filter-data matches
+            for instance in flts:
+
+                value = data.get(instance.name.lower())
+
+                if value and len(value):
+
+                    # lets fuck with translations later
+                    if instance.oftype != ValueType.string:
+                        # we need exact type here
+                        value = FixValueType(instance, value)
+                        # if not default value
+                        if value >= 0:
+                            # construct another SQL AND clause
+                            variable = ValueTypeToString(instance)
+                            fltquery = { 'props__instance': instance.id, 'props__' + variable: value }
+                            filtered = filtered.filter(**fltquery)
+                    else:
+                        pass
+                        # get_translation_aware_manager() and friends
+                        #manager = get_translation_aware_manager(Site)
+                        #queryset = manager.language()
+
+            
+            #print(filtered.query)
+            #print(filtered)
+
+        return filtered.filter(**defaults)
+
+    def get_success_url(self):
+        return reverse('archapp:allsites')
+
+    def post(self, request, *args, **kwargs):
+        return super(AllSites, self).get(request, args, kwargs)
 
 class Search(LoginRequiredMixin, ListView):
     model = Site

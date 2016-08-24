@@ -87,7 +87,7 @@
                       {% render_field field class+="form-control form-custom" value=site.name %}
                       {% elif field.name = "literature" %}
 
-                      {% with site.data.0.Bibliography as lit %}
+                      {% with site.data.Bibliography as lit %}
                       {% render_field field|default_textarea:lit class+="form-control form-custom" %}
                       {% endwith %}
                       {% elif field.name in cho.split %}
