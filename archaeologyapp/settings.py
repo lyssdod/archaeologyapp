@@ -26,7 +26,7 @@ conf.read(os.path.join(BASE_DIR, 'settings.ini'))
 SECRET_KEY = conf.get('archapp', 'secret', fallback = 'mldcn%7k0&#5fesf6wwensamw5*h^)_)_lhvj3*3&3rne!m79d')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = conf.getboolean('archapp', 'debug', fallback = False)
+DEBUG = conf.getboolean('archapp', 'debug', fallback = True)
 
 ALLOWED_HOSTS = ['*']
 
