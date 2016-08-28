@@ -6,6 +6,7 @@ from hvad.models import TranslatableModel, TranslatedFields
 from django.utils.translation import ugettext as _
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.conf import settings
+from django.contrib.auth.models import User
 
 # all possible Property value types
 class ValueType(DjangoChoices):
@@ -87,3 +88,14 @@ class Image(models.Model):
 
     def __str__(self):
         return "type '{}', file '{}'".format(ImageType.values[self.oftype], self.image)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    avatar = models.ImageField(upload_to='profile_images', blank=True)
+    country = models.CharField(max_length = 128)
+    city = models.CharField(max_length = 128)
+
+    def __unicode__(self):
+        return self.user.username
+
