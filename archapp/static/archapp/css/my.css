@@ -2,12 +2,13 @@
 body {
   overflow-x: hidden;
 }
-html, body, .container {
+html, body, {
   height: 100%;
 }
-body > .container-fluid {
-  height: auto;
-  min-height: calc(100% - 75px);
+
+.wrapper > .section {
+  min-height: calc(100vh - 208px);
+  height: auto !important;
 }
 a:hover, a:focus {
   text-decoration: none; 
@@ -44,6 +45,9 @@ a:hover, a:focus {
 .nopadding {
   padding-right:0;
   padding-left:0;
+}
+.nopadding-section {
+  padding: 0px;
 }
 .mbottom {
   margin-bottom: 15px;
@@ -82,7 +86,7 @@ a:hover, a:focus {
 }
 
 /* Header */
-.nav-top {
+/*.nav-top {
   margin-bottom: 10px;
   margin-top: 10px;
 }
@@ -104,26 +108,10 @@ a:hover, a:focus {
   -moz-transition: all 0.3s;
   transition: all 0.3s;
 }
+*/
 
 .padding {
   padding-top: 15px;
-}
-.navbar-right li a {
-  font-weight: 400;
-  letter-spacing: 1px;
-  color: #6991AC;
-  text-transform: uppercase;
-}
-
-/* Footer */
-.footer {
-    bottom: 0px;
-    width: auto;
-    height: 20px;
-    background-color: #C3D7DF;
-}
-.signature {
-    color: #6991AC;
 }
 
 /* Forms */ 
@@ -203,6 +191,11 @@ a:hover, a:focus {
 }
 .preview-box > a:hover {
   color: black;
+}
+.landing-page .preview-box p {
+  margin-top: 0px;
+  font-size: 16px;
+  line-height: 18px;
 }
 /* ---Site page--- */
 .bibliography {
@@ -301,7 +294,7 @@ a:hover, a:focus {
 }
 
 /* Sidebar */
-.wrapper {
+.wrapper-left {
   position: relative;
   top: 0;
   /*the problem is here*/
@@ -341,11 +334,11 @@ a:hover, a:focus {
   background-size: cover;
   background-position: center center;
 }
-.sidebar .logo {
+.sidebar .logo-c {
   padding: 10px 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
-.sidebar .logo p {
+.sidebar .logo-c p {
   float: left;
   font-size: 20px;
   margin: 10px 10px;
@@ -353,7 +346,7 @@ a:hover, a:focus {
   line-height: 20px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.sidebar .logo .simple-text {
+.sidebar .logo-c .simple-text {
   text-transform: uppercase;
   padding: 5px 0px;
   display: block;

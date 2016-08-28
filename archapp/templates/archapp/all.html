@@ -5,89 +5,92 @@
 {% load i18n %}
 {% load pick %}
 {% load lookup %}
-<div class="wrapper">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="sidebar-wrapper">
-      <form method="post" class="form-inline">
-        {% csrf_token %}
-        {% for fset in form.fieldsets %}
-        <fieldset>
+
+<div class="section section-gray nopadding-section">
+  <div class="wrapper-left">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-wrapper">
+        <form method="post" class="form-inline">
+          {% csrf_token %}
+          {% for fset in form.fieldsets %}
+          <fieldset>
+            <ul class="nav">
+              <li>
+              <legend>{{fset.description}}</legend>
+              </li>
+              {% for field in fset %}
+              <li>
+              {{ field.label_tag }} 
+              </li>
+              <li>
+              {% render_field field class+="form-control form-custom" %}
+              </li>
+              {% endfor %}
+            </ul>
+          </fieldset>
+          {% endfor %}
           <ul class="nav">
             <li>
-            <legend>{{fset.description}}</legend>
-            </li>
-            {% for field in fset %}
-            <li>
-            {{ field.label_tag }} 
-            </li>
-            <li>
-            {% render_field field class+="form-control form-custom" %}
-            </li>
-            {% endfor %}
-          </ul>
-        </fieldset>
-        {% endfor %}
-        <ul class="nav">
-          <li>
             <input type="submit" class="btn btn-primary" value="{% trans 'Filter' %}"/>
-          </li>
-          <li>
+            </li>
+            <li>
             <input type="reset" class="btn btn-primary" value="{% trans 'Reset' %}"/>
-          </li>
-        </ul>
-      </form>
+            </li>
+          </ul>
+        </form>
+      </div>
     </div>
-  </div>
-  <!-- /#sidebar-wrapper -->
+    <!-- /#sidebar-wrapper -->
 
-  <!-- Page Content -->
-  <div class="main-panel">
-    <div class="container-fluid content">
-      <div class = "row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
-          <h2 class="site_name">{% trans "All sites" %}</h2>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
-          <div class="checkbox">
-            <label>
-              <input id="toggle" type="checkbox" data-toggle="toggle">
-              {% trans "Toggle map" %}
-            </label>
+    <!-- Page Content -->
+    <div class="main-panel">
+      <div class="container-fluid content">
+        <div class = "row">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
+            <h2 class="site_name">{% trans "All sites" %}</h2>
           </div>
-        </div>
+          <div class="col-lg-3 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+            <div class="checkbox">
+              <label>
+                <input id="toggle" type="checkbox" data-toggle="toggle">
+                {% trans "Toggle map" %}
+              </label>
+            </div>
+          </div>
 
-      </div>
-      <hr class="hrr">
-      <div class = "mapped">
+        </div>
+        <hr class="hrr">
+        <div class = "mapped">
           <div class="geo-map" id="map"></div>
-      </div>
-      <div class = "row listed">
-        {% for site in object_list %}
-        {% with site.image_set.all as imgs %}
-        {% with site.props.all as prop %}
-        <div class="col-lg-4 col-md-6 col-sm-6 site-preview">
-          <div class="preview-box box">
-            <a href = "{% url 'archapp:sitepage' site.id %}">
-              <div class="col-lg-5 col-md-5 col-sm-5">
-                <img src = "{{imgs|pick:'general,avatar'}}" />
-              </div>
-              <div class="col-lg-7 col-md-7 col-sm-7">
-                <p class="text-left sitename">{{site.name}}</p>
-                <p class="text-left">{{prop|lookup:"Area"}}</p>
-                <p>{{prop|lookup:"DatingFrom, Dating"}} - {{prop|lookup:"DatingTo, Dating"}}</p>
-              </div>
-              <input type = "hidden" class = "lat" value = '{{prop|lookup:"Latitude"}}' />
-              <input type = "hidden" class = "lng" value = '{{prop|lookup:"Longtitude"}}' />
-
-            </a>
-          </div>
         </div>
-        {% endwith %}
-        {% endwith %}
-        {% empty %}
-        <h4>{% trans "No results. Try another filter" %}</h4>
-        {% endfor %}
+        <div class = "row listed">
+          {% for site in object_list %}
+          {% with site.image_set.all as imgs %}
+          {% with site.props.all as prop %}
+          <div class="col-lg-4 col-md-6 col-sm-6 site-preview">
+            <div class="preview-box box">
+              <a href = "{% url 'archapp:sitepage' site.id %}">
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                  <img src = "{{imgs|pick:'general,avatar'}}" />
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7">
+                  <p class="text-left sitename">{{site.name}}</p>
+                  <p class="text-left">{{prop|lookup:"Area"}}</p>
+                  <p>{{prop|lookup:"DatingFrom, Dating"}} - {{prop|lookup:"DatingTo, Dating"}}</p>
+                </div>
+                <input type = "hidden" class = "lat" value = '{{prop|lookup:"Latitude"}}' />
+                <input type = "hidden" class = "lng" value = '{{prop|lookup:"Longtitude"}}' />
+
+              </a>
+            </div>
+          </div>
+          {% endwith %}
+          {% endwith %}
+          {% empty %}
+          <h4>{% trans "No results. Try another filter" %}</h4>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>

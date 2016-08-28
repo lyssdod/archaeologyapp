@@ -298,6 +298,11 @@ class Search(LoginRequiredMixin, ListView):
 
 class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
+    def get_context_data(self, **kwargs):
+        context = super(WelcomePage, self).get_context_data(**kwargs)
+        context['title'] = "landing page"
+        return context
+
 
 class SignUp(FormView):
     form_class = SignUpForm
