@@ -85,9 +85,8 @@ a:focus, a:active {
 
 .btn {
   border-width: 2px;
-  background-color: transparent;
+  background-color: #0C526C;
   font-weight: 400;
-  opacity: 0.8;
   filter: alpha(opacity=80);
   padding: 8px 16px;
   border-color: #888888;
@@ -95,8 +94,8 @@ a:focus, a:active {
 }
 .btn:hover, .btn:focus, .btn:active, .btn.active, .open > .btn.dropdown-toggle {
   background-color: transparent;
-  color: #777777;
-  border-color: #777777;
+  color: #0C526C;
+  border-color: #0C526C;
 }
 .btn:disabled, .btn[disabled], .btn.disabled {
   background-color: transparent;
@@ -133,13 +132,13 @@ a:focus, a:active {
 }
 
 .btn-primary {
-  border-color: #3472f7;
-  color: #3472f7;
+  border-color: #0C526C;
+  color: #fff;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
   background-color: transparent;
-  color: #1d62f0;
-  border-color: #1d62f0;
+  color: #0C526C;
+  border-color: #0C526C;
 }
 .btn-primary:disabled, .btn-primary[disabled], .btn-primary.disabled {
   background-color: transparent;
@@ -426,11 +425,17 @@ a:focus, a:active {
   padding: 20px 15px;
   font-size: 20px;
 }
-.navbar .navbar-nav > li > a, .navbar .navbar-nav > li > div > a > i, .navbar .navbar-nav > li > form > select {
+.navbar .navbar-nav > li > a, .navbar .navbar-nav > li > form > select {
   padding: 10px 15px;
   margin: 15px 3px;
   margin-top: 30px;
 }
+.navbar .navbar-nav > li > div > a > i {
+  padding: 5px 15px;
+  margin: 15px 3px;
+  margin-top: 30px;
+}
+
 .navbar .navbar-nav > li > form > select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -463,16 +468,24 @@ a:focus, a:active {
 }
 
 .nav .dropdown-menu {
- background-color: rgba(0, 0, 0, 0.25);
- border-color: rgba(0, 0, 0, 0.35);
+ background-color: rgba(12, 81, 108, 0.55);
+ background-color: rgba(12, 81, 108, 0.65);
  }
-
 .nav .dropdown-menu > li > a {
   color: white;
   border: none;
+  background-color: transparent;
 }
 .nav .dropdown-menu > li > a:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(52, 119, 144, 0.55);
+  color: white;
+}
+.work-page .nav .dropdown-menu {
+  margin-top: 5px;
+  background-color: rgba(12, 81, 108, 0.9);
+}
+.work-page .nav .dropdown-menu > li > a:hover {
+  background-color: rgba(52, 119, 144, 0.9);
   color: white;
 }
 .navbar .navbar-nav > li > a.btn {

@@ -7,7 +7,7 @@ html, body, {
 }
 
 .wrapper > .section {
-  min-height: calc(100vh - 208px);
+  min-height: calc(100vh - 171px);
   height: auto !important;
 }
 a:hover, a:focus {
