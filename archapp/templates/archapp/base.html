@@ -68,10 +68,10 @@ archapp.upload.handles = [];
 <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/4.0.1/ekko-lightbox.min.css" type="text/css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/4.0.1/ekko-lightbox.min.js"></script>
 </head>
-<body class="landing-page landing-page1">
-<nav class="navbar navbar-transparent 
-  {% if not title = 'landing page' %} navbar-colored {% endif %}
-  navbar-top" role="navigation">
+<body class="landing-page landing-page1 
+{% if not title = 'landing page' %} work-page {% endif %}
+">
+<nav class="navbar navbar-transparent navbar-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button id="menu-toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example">
