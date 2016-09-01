@@ -158,6 +158,12 @@ class SiteCreate(LoginRequiredMixin, FormView, SiteProcessingView):
         newsite.save()
 
         return super(SiteCreate, self).form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super(SiteCreate, self).get_context_data(**kwargs)
+        context['title'] = "New Site"
+        return context
+
+
     
 class SitePage(LoginRequiredMixin, DetailView):
     manager = get_translation_aware_manager(Site)
@@ -167,6 +173,7 @@ class SitePage(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(SitePage, self).get_context_data(**kwargs)
         context['sview'] = True
+        context['title'] = "Site Page"
         return context
 
 class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
@@ -184,6 +191,7 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
     def get_context_data(self, **kwargs):
         context = super(SiteEdit, self).get_context_data(**kwargs)
         context['form'] = self.get_form()
+        context['title'] = "Edit Site"
         return context
 
     def post(self, request, *args, **kwargs):
@@ -233,6 +241,11 @@ class SiteDelete(LoginRequiredMixin, DeleteView):
     model = Site
     success_url = '/archapp/all/' 
     template_name = 'archapp/delete.html'
+    def get_context_data(self, **kwargs):
+        context = super(SiteDelete, self).get_context_data(**kwargs)
+        context['title'] = "Delete Site"
+        return context
+
 
 
 class AllSites(LoginRequiredMixin, FormMixin, ListView):
@@ -285,6 +298,10 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
             #print(filtered)
 
         return filtered.filter(**defaults)
+    def get_context_data(self, **kwargs):
+        context = super(AllSites, self).get_context_data(**kwargs)
+        context['title'] = "All Sites"
+        return context
 
     def get_success_url(self):
         return reverse('archapp:allsites')
@@ -300,7 +317,7 @@ class WelcomePage(TemplateView):
     template_name = 'archapp/welcome.html'
     def get_context_data(self, **kwargs):
         context = super(WelcomePage, self).get_context_data(**kwargs)
-        context['title'] = "landing page"
+        context['title'] = "Welcome page"
         return context
 
 
@@ -315,11 +332,20 @@ class SignUp(FormView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return super(SignUp, self).form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super(SignUp, self).get_context_data(**kwargs)
+        context['title'] = "Register"
+        return context
+
 
 class UserProfile(LoginRequiredMixin, DetailView):
     template_name = 'archapp/userprofile.html'
     model = User
     slug_field = "username"
+    def get_context_data(self, **kwargs):
+        context = super(UserProfile, self).get_context_data(**kwargs)
+        context['title'] = "User Profile"
+        return context
 
 class UserDisplay(DetailView):
     model = User
@@ -329,6 +355,7 @@ class UserDisplay(DetailView):
     def get_context_data(self, **kwargs):
         context = super(UserDisplay, self).get_context_data(**kwargs)
         context['form'] = UserUpdateForm() 
+        context['title'] = "Edit Profile"
         return context
  
 class UserUpdateFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
