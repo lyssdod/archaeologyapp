@@ -195,7 +195,7 @@ USE_TZ = True
 
 
 
-LOGIN_REDIRECT_URL = '/archapp/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/archapp/accounts/login/'
 
 LANGUAGES = (

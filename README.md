@@ -3,7 +3,7 @@
 This repository holds the source for a website that implements a handy database of archaeological sites across the world. 
 
 ### Demo
-You can reach the site at http://archdb.tk/en/archapp and log in using the following credentials:
+You can reach the site at http://archdb.tk/ and log in using the following credentials:
 username: `demo`, password: `demopass`
 
 ### Running

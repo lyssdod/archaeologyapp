@@ -24,7 +24,7 @@ urlpatterns = [
 	url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^upload/', include('django_file_form.urls')),
 ] + i18n_patterns(
-    url(r'^archapp/', include('archapp.urls')),
+    url(r'^', include('archapp.urls')),
     url(r'^admin/', admin.site.urls),
 )
 
