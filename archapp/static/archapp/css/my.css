@@ -6,6 +6,13 @@ html, body, {
   height: 100%;
 }
 
+::-moz-selection { 
+  background: #A8CEDC; 
+}
+::selection { 
+  background: #A8CEDC; 
+}
+
 .wrapper > .section {
   min-height: calc(100vh - 171px);
   height: auto !important;
@@ -170,7 +177,7 @@ a:hover, a:focus {
 
 /* ---All sites page--- */
 .site_name {
-    margin: auto;
+    margin-bottom: 10px;
     font-weight: bold;
     color: #67727A;
 }
@@ -184,7 +191,7 @@ a:hover, a:focus {
   margin: 0px;
 }
 .preview-box:hover {
-  background-color: #CECECE;
+  background-color: #71A7BC;
 }
 .preview-box > a {
   color: #5E5E5E;
@@ -198,6 +205,10 @@ a:hover, a:focus {
   line-height: 18px;
 }
 /* ---Site page--- */
+.site-page .row {
+  margin-left: 5px;
+  margin-right: 5px;
+}
 .bibliography {
   white-space: pre-line;
 }
@@ -206,7 +217,7 @@ a:hover, a:focus {
   margin-bottom: 10px;
 }
 .gallery-box {
-  background-color: #447391;
+  background-color: #347790;
   border-radius: 4px;
 }
 .carousel-inner > .item > div {
@@ -313,7 +324,7 @@ a:hover, a:focus {
   font-weight: 200;
   background-size: cover;
   background-position: center center;
-  background-color: #6991AC;
+  background-color: #347790;
 }
 .sidebar .sidebar-wrapper {
   position: relative;
@@ -407,7 +418,9 @@ a:hover, a:focus {
   width: 30px;
   text-align: center;
 }
-
+.sidebar .nav li {
+  margin-top: 5px;
+}
 .sidebar .logo,
 body > .navbar-collapse .logo {
   padding: 10px 15px;
@@ -542,8 +555,13 @@ body > .navbar-collapse[data-color="purple"]:after {
   min-height: 100%;
 }
 .main-panel > .content {
-  padding: 30px 15px;
+  padding: 10px 15px;
   min-height: calc(100% - 123px);
+}
+
+hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .main-panel > .footer {
   border-top: 1px solid #e7e7e7;

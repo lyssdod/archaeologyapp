@@ -51,10 +51,10 @@ body {
 }
 
 a {
-  color: #2ca8ff;
+  color: #518EA5;
 }
 a:hover, a:focus {
-  color: #109cff;
+  color: #347790;
   text-decoration: none;
 }
 
@@ -136,7 +136,7 @@ a:focus, a:active {
   color: #fff;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
-  background-color: transparent;
+  background-color: #EEEEEE;
   color: #0C526C;
   border-color: #0C526C;
 }
@@ -400,8 +400,12 @@ a:focus, a:active {
   right: 8px;
 }
 
+.btn .toggle-off {
+  color: #fff;
+}
+
 .section {
-  padding: 30px 0;
+  padding: 15px 0;
   position: relative;
   background-color: #FFFFFF;
   margin-top: 97px;
@@ -450,14 +454,16 @@ a:focus, a:active {
 
 .navbar .navbar-nav > li > form > select option:checked,
 .navbar .navbar-nav > li > form > select option:hover {
-  box-shadow: 0 0 10px 100px #FED20F inset;
-  background-color: #386065;
+  box-shadow: 0 0 10px 100px #24627b inset;
+  background-color: #24627b;
   border-radius: 10px;
 }
 
 
 .navbar .navbar-nav > li > form > select option {
-  background-color: #386065;
+  margin-top: 15px;
+  background-color: #24627b;
+  border-color: #24627b;
   font-size: 16px;
   padding: 5px 10px 15px;
   color: black;
@@ -1761,7 +1767,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#de8e0009', e
 .work-page .section {
   margin-top: 57px;
 }
-
+.work-page .section p {
+  margin-top: 10px;
+}
 @media (min-width: 768px){
     .work-page .navbar-top{
         padding-top: 0px;

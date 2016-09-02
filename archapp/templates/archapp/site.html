@@ -8,11 +8,10 @@
 {% with site.image_set.all as imgs %}
 {% with site.props.all as prop %}
 
-<div class="section section-gray">
-<div class="container-fluid margin-top">
+<div class="section section-gray site-page">
   <div class = "row">
     <div class="col-lg-10 col-md-10 col-sm-10 text-center">
-      <h2 class="site_name">{{site.name}} </h2>
+      <h3 class="site_name">{{site.name}} </h3>
     </div>
 
     <div class="col-lg-1 col-md-1 col-sm-1">
@@ -79,34 +78,34 @@
       <div class="row box">
         <div class="col-md-6 col-sm-6">
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted">{% trans "Area" %} </p>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-8">
+            <div class="col-lg-7 col-md-8 col-sm-7">
               <p>{{prop|lookup:"Area"}}</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted">{% trans "AreaWidth" %} </p>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-8">
+            <div class="col-lg-5 col-md-4 col-sm-7">
               <p>{{prop|lookup:"AreaWidth"}}</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted">{% trans "AreaHeight" %} </p>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-8">
+            <div class="col-lg-7 col-md-8 col-sm-7">
               <p>{{prop|lookup:"AreaHeight"}}</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted">{% trans "Calculated Area" %} </p>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-8">
+            <div class="col-lg-7 col-md-8 col-sm-7">
               {% with prop|lookup:"AreaWidth" as aw %}
               {% with prop|lookup:"AreaHeight" as ah %} 
               <p>{{ aw|mul:ah }}</p>
@@ -115,52 +114,52 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted">{% trans "RiverSystem" %} </p>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-8">
+            <div class="col-lg-7 col-md-8 col-sm-7">
               <p>{{prop|lookup:"RiverSystem"}}</p>
             </div>
           </div>
         </div>
         <div class="col-md-6 col-sm-6">
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted"> {% trans "Topography" %} </p>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-8">
+            <div class="col-lg-7 col-md-8 col-sm-7">
               <p>{{prop|lookup:"Topography"}}</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted"> {% trans "Geomorphology" %} </p>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-8">
+            <div class="col-lg-7 col-md-8 col-sm-7">
               <p>{{prop|lookup:"Geomorphology"}}</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted"> {% trans "Altitude" %} </p>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-8">
+            <div class="col-lg-7 col-md-8 col-sm-7">
               <p>{{prop|lookup:"Altitude"}}</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted"> {% trans "ValleyAltitude" %} </p>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-8">
+            <div class="col-lg-7 col-md-8 col-sm-7">
               <p>{{prop|lookup:"ValleyAltitude"}}</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-5 col-md-4 col-sm-5">
               <p class="text-muted"> {% trans "Dating" %}</p>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-8">
+            <div class="col-lg-7 col-md-8 col-sm-7">
               <p>{{prop|lookup:"DatingFrom, Dating"}} - {{prop|lookup:"DatingTo, Dating"}}</p>
             </div>
           </div>
@@ -176,7 +175,6 @@
       </div>
     </div>
   </div>
-</div>
 </div>
 <script>
 $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
