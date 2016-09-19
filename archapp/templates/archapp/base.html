@@ -61,6 +61,22 @@ archapp.upload.handles = [];
 <link href="{% static 'archapp/jquery-ui/jquery-ui.min.css' %}" media="all" rel="stylesheet" type="text/css" />
 <script src="{% static 'archapp/jquery-ui/jquery-ui.min.js' %}"></script>
 
+<!-- select menu -->
+<script>
+$( function() {
+  $( "#language" )
+    .selectmenu({
+    position: { my : "left-30 top", at: "left bottom+15" } 
+  }
+  )
+    .selectmenu({
+      change: function( event, data ) {
+        $("#language").change();
+      }
+    });
+});
+</script>
+
 <!-- slider -->
 <script src="{% static 'archapp/js/slider.js' %}"></script>
 
@@ -97,7 +113,7 @@ archapp.upload.handles = [];
         <li>
         <form action="{% url "set_language" %}" method="post">
           {% csrf_token %}
-          <select name="language" class="" onchange="this.form.submit()">
+          <select name="language" id="language" class="" onchange="this.form.submit()">
             {% get_language_info_list for LANGUAGES as langs %}
             {% for lang in langs %}
             <option value="{{ lang.code }}"
