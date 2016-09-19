@@ -141,8 +141,8 @@ class SiteProcessingView(object):
 class SiteCreate(LoginRequiredMixin, FormView, SiteProcessingView):
     template_name = 'archapp/newsite.html'
     form_class = NewSiteForm
-    success_url = '/archapp/all'
-    login_url = '/archapp/accounts/login/'
+    success_url = '/all'
+    login_url = '/accounts/login/'
     redirect_field_name = 'redirect_to'
 
     def form_valid(self, form):
@@ -182,7 +182,7 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
     form_class = EditSiteForm
     model = Site
     template_name = 'archapp/edit.html'
-    login_url = '/archapp/accounts/login/'
+    login_url = '/accounts/login/'
     redirect_field_name = 'redirect_to'
 
     def get_success_url(self):
@@ -239,7 +239,7 @@ class SiteEdit(LoginRequiredMixin, FormMixin, DetailView, SiteProcessingView):
 
 class SiteDelete(LoginRequiredMixin, DeleteView):
     model = Site
-    success_url = '/archapp/all/' 
+    success_url = '/all/' 
     template_name = 'archapp/delete.html'
     def get_context_data(self, **kwargs):
         context = super(SiteDelete, self).get_context_data(**kwargs)
@@ -252,8 +252,8 @@ class AllSites(LoginRequiredMixin, FormMixin, ListView):
     model = Site
     form_class = ListSearchForm
     template_name = 'archapp/all.html'
-    success_url = '/archapp/'
-    login_url = '/archapp/accounts/login/'
+    success_url = '/'
+    login_url = '/accounts/login/'
 
     def get_queryset(self):
         queryset = Site.objects
@@ -324,7 +324,7 @@ class WelcomePage(TemplateView):
 class SignUp(FormView):
     form_class = SignUpForm
     template_name = 'archapp/signup.html'
-    success_url='/archapp/'
+    success_url='/'
     def form_valid(self, form):
         form.save()
         username = self.request.POST['username']
@@ -360,7 +360,7 @@ class UserDisplay(DetailView):
  
 class UserUpdateFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
     form_class = UserUpdateForm
-    success_url = '/archapp/'
+    success_url = '/'
     model = User 
     slug_field = "username"
 
