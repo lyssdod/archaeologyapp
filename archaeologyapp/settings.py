@@ -28,7 +28,7 @@ SECRET_KEY = conf.get('archapp', 'secret', fallback = 'mldcn%7k0&#5fesf6wwensamw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = conf.getboolean('archapp', 'debug', fallback = True)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['archdb.tk']
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
