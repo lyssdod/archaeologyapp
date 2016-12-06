@@ -10,3 +10,4 @@ geopy
 django-file-form
 easy-thumbnails
 openpyxl
+configparser
