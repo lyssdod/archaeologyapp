@@ -1,1 +1,1 @@
-web: gunicorn archaeologyapp.wsgi:application --log-file -
+web: gunicorn archaeologyapp.wsgi --log-file -
