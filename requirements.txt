@@ -1,13 +1,16 @@
-Django==1.9.5
-django-choices==1.4.2
-django-picklefield==0.3.2
-six==1.10.0
-django-widget-tweaks==1.4.1
+Django>=1.9.5
+django-choices>=1.4.2
+django-picklefield>=0.3.2
+django-widget-tweaks>=1.4.1
 django-form-utils
-django-mathfilters == 0.4.0
-django-hvad
-geopy
+django-mathfilters>=0.4.0
 django-file-form
 easy-thumbnails
-openpyxl
+dj-database-url
 configparser
+django-hvad
+openpyxl
+gunicorn
+psycopg2
+geopy
+six
