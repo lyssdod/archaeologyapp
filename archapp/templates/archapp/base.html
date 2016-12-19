@@ -84,9 +84,7 @@ $( function() {
 <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/4.0.1/ekko-lightbox.min.css" type="text/css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/4.0.1/ekko-lightbox.min.js"></script>
 </head>
-<body class="landing-page landing-page1 
-{% if not title = 'Welcome page' %} work-page {% endif %}
-">
+<body class="landing-page landing-page1 {% if not index %} work-page {% endif %}">
 <nav class="navbar navbar-transparent navbar-top" role="navigation">
   <div class="container">
     <div class="navbar-header">

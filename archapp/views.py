@@ -318,6 +318,7 @@ class WelcomePage(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(WelcomePage, self).get_context_data(**kwargs)
         context['title'] = "Welcome page"
+        context['index'] = True
         return context
 
 
