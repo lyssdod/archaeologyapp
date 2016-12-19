@@ -13,12 +13,13 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 import configparser
 
+# App name
+WSGI_APPLICATION = 'archaeologyapp.wsgi.application'
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
-
+# Config parsing
 conf = configparser.ConfigParser()
 conf.read(os.path.join(BASE_DIR, 'settings.ini'))
 
@@ -28,12 +29,15 @@ SECRET_KEY = conf.get('archapp', 'secret', fallback = 'mldcn%7k0&#5fesf6wwensamw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = conf.getboolean('archapp', 'debug', fallback = True)
 
-ALLOWED_HOSTS = ['*'] # this should be handled by webserver
+# Allowed hosts
+ALLOWED_HOSTS = [conf.get('archapp', 'allowed', fallback = '*')]
 
+# Static files
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+# Uploads
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 THUMBNAIL_DEFAULT = STATIC_URL + 'archapp' + '/' + 'noimage.png'
@@ -48,7 +52,6 @@ THUMBNAIL_ALIASES = {
 }
 
 # Application definition
-
 INSTALLED_APPS = [
     'archapp.apps.ArchappConfig',
     'django.contrib.admin',
@@ -76,8 +79,10 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Urls
 ROOT_URLCONF = 'archaeologyapp.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -95,6 +100,7 @@ TEMPLATES = [
     },
 ]
 
+# Logs
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -110,7 +116,7 @@ LOGGING = {
         # Log to a text file that can be rotated by logrotate
         'logfile': {
             'class': 'logging.handlers.WatchedFileHandler',
-            'filename': os.path.join(BASE_DIR, 'archapp.log')
+            'filename': conf.get('archapp', 'logfile', fallback = 'archapp.log')
         },
     },
     'loggers': {
@@ -136,12 +142,7 @@ LOGGING = {
 }
 
 
-WSGI_APPLICATION = 'archaeologyapp.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
+# Database settings
 CURRDB = {'ENGINE': 'django.db.backends.sqlite3',
          'NAME': os.path.join(BASE_DIR, 'db.sqlite3')}
 
@@ -158,8 +159,10 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
+
+# Login stuff
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/archapp/accounts/login/'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -177,27 +180,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.9/topics/i18n/
 
+# Language & timezone
 LANGUAGE_CODE = 'uk-ua'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-
-
-
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/archapp/accounts/login/'
 
 LANGUAGES = (
     ('en', 'English'),
@@ -208,4 +198,3 @@ LANGUAGES = (
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
-
