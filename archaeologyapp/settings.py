@@ -113,7 +113,7 @@ LOGGING = {
         # Log to a text file that can be rotated by logrotate
         'logfile': {
             'class': 'logging.handlers.WatchedFileHandler',
-            'filename': os.environ.get('LOGFILE', 'archapp.log')
+            'filename': os.environ.get('LOGFILE', os.path.join(BASE_DIR, 'archapp.log'))
         },
     },
     'loggers': {
@@ -140,6 +140,7 @@ LOGGING = {
 
 
 # Database settings
+SQLITE = os.environ.get('SQLITE', True) in [True, 'TRUE', 'true', 'Y', 'y', '1']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -148,7 +149,7 @@ DATABASES = {
 }
 
 # If running on production, get settings from $DATABASE_URL env variable
-if not DEBUG:
+if not SQLITE:
     DATABASES['default'].update(dj_database_url.config(conn_max_age = 500))
 
 

@@ -17,11 +17,11 @@ By default app uses Django's `DEBUG` set to `True` and uses sqlite database
 backend. If you need to change this behaviour, you need to set few environment
 variables:
 
-* `DEBUG` to anything except `1`, `TRUE` or `Y`
-* `DATABASE_URL` to full database URI (see https://github.com/kennethreitz/dj-database-url for more details)
+* set `DEBUG` to anything except `1`, `TRUE` or `Y`;
+* do the same for `SQLITE`;
+* set `DATABASE_URL` to full database URI (see https://github.com/kennethreitz/dj-database-url for more details).
 
-Keep in mind that `DATABASE_URL` will be used only with disabled `DEBUG`. You can also set logfile
-name and allowed hosts with `LOGFILE` and `ALLOWED` env vars.
+You can also set logfile name and allowed hosts with `LOGFILE` and `ALLOWED` env vars.
 
 #### Steps
 0. Setup a virtual environment: `virtualenv venv && source venv/bin/activate`
