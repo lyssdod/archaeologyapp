@@ -7,20 +7,25 @@ You can reach the site at http://archdb.tk/ and log in using the following crede
 username: `demo`, password: `demopass`
 
 ### Running
+
+#### NOTE
+Code has been updated to run on Heroku, so if you have account there you can
+skip following lines and just deploy app there.
+
+#### Configuration
+By default app uses Django's `DEBUG` set to `True` and uses sqlite database
+backend. If you need to change this behaviour, you need to set few environment
+variables:
+
+* `DEBUG` to anything except `1`, `TRUE` or `Y`
+* `DATABASE_URL` to full database URI (see https://github.com/kennethreitz/dj-database-url for more details)
+
+Keep in mind that `DATABASE_URL` will be used only with disabled `DEBUG`. You can also set logfile
+name and allowed hosts with `LOGFILE` and `ALLOWED` env vars.
+
+#### Steps
 0. Setup a virtual environment: `virtualenv venv && source venv/bin/activate`
 1. Install everything you need: `pip install -r requirements.txt`
-2. (not necessary) Create config file named `settings.ini` in the root repository folder:
-```
-[archapp]
-# Defaults, app will use sqlite backend. Also enables Django debug.
-debug = true 
-
-# if you feel production ready, you can set up a Postgresql database 
-# and fill the lines below. they will be ignored if debug == true.
-dbname = ...
-dbuser = ...
-dbpass = ...
-```
 3. Make migrations and migrate: `python manage.py makemigrations archapp && python manage.py migrate`
 4. Create default filters: `python manage.py loaddata archapp/fixtures/filters.json`
 5. Create administrator: `python manage.py createsuperuser`
