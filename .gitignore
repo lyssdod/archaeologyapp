@@ -3,6 +3,7 @@ venv
 *.swp
 *.crt
 *.key
+*.log
 *.sqlite3
 settings.ini
 
