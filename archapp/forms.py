@@ -11,6 +11,7 @@ from django_file_form.forms import FileFormMixin, UploadedFileField, MultipleUpl
 
 class FilterForm(betterforms.BetterForm):
     # define fieldsets
+    @staticmethod
     def create_fieldsets():
         return [('1', {'description': _('Basic data'), 'legend': 'maintab', 'fields':
                ['name', 'country', 'region', 'district', 'settlement', 'latitude', 'longtitude','placeid']}),
