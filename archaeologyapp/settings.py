@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import configparser
+import dj_database_url
 
 # App name
 WSGI_APPLICATION = 'archaeologyapp.wsgi.application'
@@ -19,18 +19,14 @@ WSGI_APPLICATION = 'archaeologyapp.wsgi.application'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Config parsing
-conf = configparser.ConfigParser()
-conf.read(os.path.join(BASE_DIR, 'settings.ini'))
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = conf.get('archapp', 'secret', fallback = 'mldcn%7k0&#5fesf6wwensamw5*h^)_)_lhvj3*3&3rne!m79d')
+SECRET_KEY = os.environ.get('SECRET', 'mldcn%7k0&#5fesf6wwensamw5*h^)_)_lhvj3*3&3rne!m79d')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = conf.getboolean('archapp', 'debug', fallback = True)
+DEBUG = os.environ.get('DEBUG', True)
 
 # Allowed hosts
-ALLOWED_HOSTS = [conf.get('archapp', 'allowed', fallback = '*')]
+ALLOWED_HOSTS = os.environ.get('ALLOWED', '*')
 
 # Static files
 STATIC_URL = '/static/'
@@ -38,8 +34,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Uploads
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 THUMBNAIL_DEFAULT = STATIC_URL + 'archapp' + '/' + 'noimage.png'
 THUMBNAIL_ALIASES = {
     '': {
@@ -59,8 +55,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'widget_tweaks', 
+    'widget_tweaks',
     'mathfilters',
     'django_file_form',
     'django_file_form.ajaxuploader',
@@ -116,7 +113,7 @@ LOGGING = {
         # Log to a text file that can be rotated by logrotate
         'logfile': {
             'class': 'logging.handlers.WatchedFileHandler',
-            'filename': conf.get('archapp', 'logfile', fallback = 'archapp.log')
+            'filename': os.environ.get('LOGFILE', 'archapp.log')
         },
     },
     'loggers': {
@@ -143,20 +140,16 @@ LOGGING = {
 
 
 # Database settings
-CURRDB = {'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': os.path.join(BASE_DIR, 'db.sqlite3')}
-
-if DEBUG is False:
-    CURRDB = {  'ENGINE': 'django.db.backends.postgresql',
-                'NAME': conf.get('archapp', 'dbname', fallback = 'archapp'),
-                'USER': conf.get('archapp', 'dbuser', fallback = 'postgres'),
-                'PASSWORD': conf.get('archapp', 'dbpass', fallback = 'postgres'),
-                'HOST': 'localhost',
-                'PORT': '5432' }
-
 DATABASES = {
-    'default': CURRDB
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
+
+# If running on production, get settings from $DATABASE_URL env variable
+if not DEBUG:
+    DATABASES['default'].update(dj_database_url.config(conn_max_age = 500))
 
 
 
@@ -178,7 +171,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 
 # Language & timezone
